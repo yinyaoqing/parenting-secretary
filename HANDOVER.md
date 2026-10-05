@@ -4,7 +4,7 @@
 交接人：Claude Fable 5.1（Claude Code 工作階段）
 接手對象：任何 AI agent 或工程師
 專案擁有者：@outdoorsy（Git 作者：Joseph <josephyinyaoqing@gmail.com>）
-程式庫：https://github.com/yinyaoqing/parenting-secretary（main 分支，最新提交 aafce96）
+程式庫：https://github.com/yinyaoqing/parenting-secretary（main 分支）
 
 讀完本文件就能接手。細節都在程式庫內，本文只給地圖、現況、下一步與禁區。
 
@@ -67,19 +67,20 @@ src/style/questionnaire.ts  六向度 12 題、三預設、計分、衍生預設
 src/content/            types（內容卡結構）、loader（載入打包 JSON）、cards.generated.json（產生物，勿手改）
 src/ui/                 theme（日/夜調色）、useTheme
 src/util/               age（實際與矯正月齡）、format
-content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10）
+content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12）
 content/whitelist.json  相似度檢查白名單
 scripts/
   check-content.mjs     產線十項檢查（必跑）
   build-content.mjs     打包內容卡到 src/content（prestart 自動跑）
   export-bilingual.mjs  對照稿輸出給譯者
-  publish-preview.mjs   一鍵 EAS Update 到 preview 頻道並產 QR code（未提交，見第 4 節）
+  publish-preview.mjs   一鍵 EAS Update 到 preview 頻道並產 QR code 到 docs/dev/release/
 docs/plan/              規劃文件 v0.3–v0.9
 docs/week1/             授權申請信、訂閱流程、授權聲明清單、未獲授權處理
 docs/validation/        家長規格驗證頁原始檔與說明
 docs/translation/       對照稿輸出
 docs/dev/run.md         如何啟動驗證
 docs/dev/deploy-test.md 如何部署測試版（已含 EAS 專案資訊）
+docs/dev/release/       最新一次發布的 QR code、latest.json、history.md（publish-preview 產生）
 ```
 
 **指令**
@@ -99,7 +100,7 @@ npm run publish:preview    # 發布測試版（需 eas login）
 
 ## 4. 目前狀態（2026-10-05）
 
-### 4.1 已提交（9 筆提交，對應時程第 1–5 週）
+### 4.1 已提交（對應時程第 1–5 週，加上第 6 週起的工作）
 
 | 週 | 完成 |
 |---|---|
@@ -108,22 +109,13 @@ npm run publish:preview    # 發布測試版（需 eas login）
 | 3 | 事件資料層（supersedes 修正、墓碑刪除、單一計時器）、快速紀錄輔助、安全層 11 條補入原文摘錄與確切網址、家長驗證頁 |
 | 4 | 首頁一鍵紀錄、瓶餵、體溫、紀錄列表、日夜主題、CDC 月齡卡 10 張 |
 | 5 | 副食品紀錄、修正時間、內容卡列表與詳情、內容打包、對照稿輸出、啟動與部署文件、eas.json |
+| 6 | EAS Update 設定（組織 yinyaoqings-team、sdkVersion runtime）、一鍵發布腳本、eslint；0–3 個月週卡 12 張（content/cards/weeks，底本國健署孕產兒關懷網站寶寶篇第 1–12 週，A1） |
 
-檢查狀態：typecheck 通過、content:check 24 張全過、Android JS 打包成功。
+檢查狀態：typecheck 通過、content:check 36 張全過、Android JS 打包成功。
 
-### 4.2 工作目錄有未提交變更（前一個工作階段留下，看起來已完成，接手者請先確認再提交）
+### 4.2 工作目錄
 
-| 檔案 | 內容 |
-|---|---|
-| app.json | 加入 EAS projectId `e71c550f-b0ed-4bfd-b807-04d248ee70a1`、owner `yinyaoqings-team`、`runtimeVersion: sdkVersion`、`platforms: [ios, android]`、`updates.url` |
-| eas.json | 只是格式化 |
-| package.json / lock | 新增 expo-updates、eslint、eslint-config-expo、qrcode；新增 `lint` 與 `publish:preview` 指令 |
-| scripts/publish-preview.mjs | 新檔：一鍵 content:build → eas update → 產 QR code 到 docs/dev/release/ |
-| eslint.config.js | 新檔：Expo 預設 lint 設定 |
-| docs/dev/deploy-test.md | 已更新為實際的 EAS 專案資訊與 2026 年 5 月起 Expo Go 需登入受邀帳號的限制 |
-| src/content/cards.generated.json | 重新產生 |
-
-建議第一個動作：`npm install` 後跑 `npm run typecheck && npm run content:check`，通過就以「chore: EAS update setup, publish script, eslint」提交。
+乾淨，全部已提交並推送。第一個動作：`npm install` 後跑 `npm run typecheck && npm run content:check` 確認環境。
 
 ### 4.3 外部資源與帳號
 
@@ -142,7 +134,7 @@ npm run publish:preview    # 發布測試版（需 eas login）
 2. 存 11 張授權聲明截圖到 docs/licenses/（清單在 docs/week1/subscriptions-and-evidence.md）。目錄尚不存在。
 3. 訂閱法規異動與機關新聞 RSS（流程在 docs/week1/subscription-howto.md）。
 4. 把家長驗證頁分享給 3–5 位家長；把 docs/translation/ 的對照稿交給譯者（擁有者已有譯者資源）。
-5. 第一次 `npm run publish:preview` 發布測試版（需 `eas login`）。
+5. 邀請家長測試者的 Expo 帳號進組織 yinyaoqings-team（角色 Viewer），再把 docs/dev/release/expo-go-preview.png 傳給他們；測試版已發布到 preview 頻道。
 
 ---
 
@@ -150,15 +142,14 @@ npm run publish:preview    # 發布測試版（需 eas login）
 
 | 優先 | 工作 | 驗收 |
 |---|---|---|
-| 1 | 提交第 4.2 節的未提交變更 | typecheck 與 content:check 通過後提交推送 |
-| 2 | 0–3 個月週卡 12 張，底本為國健署孕產兒關懷網站（A1），CDC 無週級內容 | 每張有來源 URL、查核日期、通過 content:check |
-| 3 | 月齡卡 48 張補齊：目前 10 張（CDC 月齡），週卡 12 張後還差 26 張；可拆為每月齡 2–3 張主題卡（遊戲、睡眠樣貌、飲食樣貌），底本 CDC/NHS/國健署 | 同上；A2 翻譯卡 translationReviewed=false 直到譯審匯回 |
-| 4 | 本地通知（第 7–8 週）：expo-notifications、滾動排程（iOS 64 筆上限）、Android `SCHEDULE_EXACT_ALARM` 授權引導、通知健康檢查頁、安全網提醒實作（用 `recentIntervalsMinutes` 與 `safetyNetUpperBound`）、用藥倒數、暫停模式 | 需 EAS development build 真機測；驗收標準見 plan-v0.4 7.2：50 筆提醒誤差中位數 < 1 分鐘 |
-| 5 | 公費資源時程（第 9–11 週）：`resource_timeline` 表、時程 JSON（9 次預防保健、6 次發展篩檢、疫苗、塗氟）、政策 JSON（津貼、補助、假別、扣除額）、行政待辦；遠端 JSON 放靜態空間 | 數值全部對應 plan-v0.5 數值來源表，附查核日期 |
-| 6 | 飲食 24、睡眠 10、健康照護 14、家庭權益 20、居家安全 8、行為 2 張卡（上架 140 張目標） | 同內容卡驗收 |
-| 7 | 譯審匯入腳本 `scripts/import-translation.mjs`（讀 CSV 的「修訂譯文」欄寫回卡片並設 translationReviewed=true） | 匯入後 content:check 通過 |
-| 8 | 照顧者支持、暫停模式、行程骨架、匯出與備份（第 14 週） | 匯出 JSON 可再匯入還原 |
-| 9 | 無障礙、長輩字級、隱私權政策、商店素材、紅線自檢（第 15–16 週） | — |
+| 1 | 週卡 12 張的人工複核：已依原文改寫並通過 content:check，但未經第二人核對原文；草稿狀態（draft）待複核後改 review | 逐張對照 readMore 的原文連結 |
+| 2 | 月齡卡 48 張補齊：目前 10 張（CDC 月齡），週卡 12 張後還差 26 張；可拆為每月齡 2–3 張主題卡（遊戲、睡眠樣貌、飲食樣貌），底本 CDC/NHS/國健署 | 同上；A2 翻譯卡 translationReviewed=false 直到譯審匯回 |
+| 3 | 本地通知（第 7–8 週）：expo-notifications、滾動排程（iOS 64 筆上限）、Android `SCHEDULE_EXACT_ALARM` 授權引導、通知健康檢查頁、安全網提醒實作（用 `recentIntervalsMinutes` 與 `safetyNetUpperBound`）、用藥倒數、暫停模式 | 需 EAS development build 真機測；驗收標準見 plan-v0.4 7.2：50 筆提醒誤差中位數 < 1 分鐘 |
+| 4 | 公費資源時程（第 9–11 週）：`resource_timeline` 表、時程 JSON（9 次預防保健、6 次發展篩檢、疫苗、塗氟）、政策 JSON（津貼、補助、假別、扣除額）、行政待辦；遠端 JSON 放靜態空間 | 數值全部對應 plan-v0.5 數值來源表，附查核日期 |
+| 5 | 飲食 24、睡眠 10、健康照護 14、家庭權益 20、居家安全 8、行為 2 張卡（上架 140 張目標） | 同內容卡驗收 |
+| 6 | 譯審匯入腳本 `scripts/import-translation.mjs`（讀 CSV 的「修訂譯文」欄寫回卡片並設 translationReviewed=true） | 匯入後 content:check 通過 |
+| 7 | 照顧者支持、暫停模式、行程骨架、匯出與備份（第 14 週） | 匯出 JSON 可再匯入還原 |
+| 8 | 無障礙、長輩字級、隱私權政策、商店素材、紅線自檢（第 15–16 週） | — |
 
 檢查點（plan-v0.8 D6-4）：第 8 週 TestFlight 或 APK 可用；第 14 週內容 ≥ 100 張。未達則依序砍行為與情緒、在地資源、特殊情境擴充，不砍安全層與公費資源。
 
@@ -200,6 +191,8 @@ npm run publish:preview    # 發布測試版（需 eas login）
 - Expo Go 自 2026 年 5 月起只能開啟本人或所屬組織的專案，測試者需 Expo 帳號並受邀；Android Expo Go 57.0.9 登入後仍可能 403（expo/expo#50253），改走 APK。
 - 本地通知在 Expo Go 的 Android 不完整，第 7 週起必須用 development build。
 - 問卷題目與內容卡文字未經任何真實家長測試；家長驗證頁回饋尚未收到。
+- `content:check --net` 在 Windows 的 Node 下對所有 hpa.gov.tw 與 mammy.hpa.gov.tw 網址回報「無法存取」，原因是 Node 無法驗證該站的憑證鏈（UNABLE_TO_VERIFY_LEAF_SIGNATURE），curl 可正常存取。屬誤報，不要為此關閉憑證驗證；可改用 NODE_EXTRA_CA_CERTS 加入台灣 GCA 中繼憑證。
+- 週卡（content/cards/weeks）改寫時刻意略去原文的生長數字範圍（R1）、Wessel 333 腸絞痛準則（R1）、輪狀病毒疫苗廠牌與時程、血管瘤段落；就醫情境一律以「國健署原文「…」」引用。
 - 10 字相似度規則只對中文來源有效；英文來源靠段落順序規則與譯審。
 - 段落順序檢查目前只在段落數相同時警告，不擋下。
 - 月齡卡 CDC 語意（75% 以上已會）與國健署連續圖語意不同，已在卡片「閱讀更多」說明，仍是家長困惑的風險點。
