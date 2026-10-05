@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-05T18:33:27.261Z",
+  "publishedAt": "2026-10-05T18:37:37.549Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "content: 11 feeding cards",
-  "updateGroupId": "6b250419-0dea-4f72-be02-92cf677b54c2",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/6b250419-0dea-4f72-be02-92cf677b54c2",
+  "message": "content: 10 health-care cards",
+  "updateGroupId": "63bcf91a-06f2-47f8-81ac-eb84ad7ba5bc",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/63bcf91a-06f2-47f8-81ac-eb84ad7ba5bc",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"
