@@ -1,0 +1,34 @@
+{
+  "id": "home_safety.poisoning",
+  "topicGroup": "home_safety",
+  "title": "中毒：清潔劑、藥品、有毒盆栽",
+  "ageMinDays": 150,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署列出的做法：\n\n清潔用品、鹼水等清楚標示，收在孩子拿不到的抽屜或櫥櫃；不用飲料罐裝清潔劑、農藥等。\n藥品不放在幼兒伸手可拿取的地方。\n熱水器安裝在通風良好處。\n避免在家中種植有毒盆栽，要種就放高，不讓孩子觸碰。常見的有毒植物：黃金葛、聖誕紅、水仙、長春花（又名日日春）。\n\n國健署建議運用「兒童居家安全環境檢視手冊」檢視住家，及時改善潛在的危險環境。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：嬰幼兒意外事故防制與居家安全 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1830&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：嬰幼兒意外事故防制與居家安全（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1830&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "五、中毒事故 1.將清潔用品、鹼水等清楚標示，妥善收納在孩子拿不到的抽屜或櫥櫃。2.熱水器應安裝在通風良好處。3.避免在家中種植有毒盆栽，如要種植可將盆栽放高，避免讓孩子觸碰。常見的有毒植物：黃金葛、聖誕紅、水仙、長春花（又名日日春）。4.藥品或清潔劑等危險物品不要放在幼兒伸手可拿取的地方；勿用飲料罐裝清潔劑、農藥等。",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

@@ -21,16 +21,16 @@
     },
     {
       "name": "WHO：Thermal protection of the newborn, a practical guide (WHO/RHT/MSM/97.2)",
-      "url": "https://www.who.int/publications/i/item/WHO-RHT-MSM-97.2",
+      "url": "https://www.who.int/publications/i/item/WHO_RHT_MSM_97.2",
       "lang": "en",
       "trust": "T1",
       "license": "C",
-      "checkedAt": "2026-10-05"
+      "checkedAt": "2026-10-06"
     }
   ],
   "translated": true,
   "foreignOnly": false,
   "policyNumbers": false,
-  "updatedAt": "2026-10-05",
+  "updatedAt": "2026-10-06",
   "status": "draft"
 }

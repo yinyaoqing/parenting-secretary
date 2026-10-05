@@ -1,0 +1,52 @@
+{
+  "_comment": "公費健檢、發展篩檢、疫苗、塗氟的時間窗。只放時程，不放金額；政策金額另走遠端 JSON（紅線 R11）。年齡以實際月齡的天數計（1 個月 = 30.4375 天）。每一項都附來源與查核日期。",
+  "version": "2026-10-06",
+  "checkedAt": "2026-10-06",
+  "sources": {
+    "hpa-7plus2": { "name": "國民健康署新聞稿：兒童預防保健增至 9 次 7 月 1 日正式上路（2026-04-01）", "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=5020&pid=19967", "license": "A1" },
+    "mohw-dev-screen": { "name": "衛生福利部：兒童發展篩檢服務（2024-06-25）", "url": "https://www.mohw.gov.tw/cp-16-79140-1.html", "license": "A1" },
+    "cdc-schedule": { "name": "疾病管制署：我國現行兒童預防接種時程（115.09 版，預計自 115 年 10 月 1 日起實施）", "url": "https://www.cdc.gov.tw/Category/Page/TxRW-x3WzvPhvEtxM628GA", "license": "A1" },
+    "mohw-fluoride": { "name": "衛生福利部：兒童牙齒塗氟補助（2014-04-03）", "url": "https://www.mohw.gov.tw/cp-16-22191-1.html", "license": "A1" }
+  },
+  "items": [
+    { "id": "checkup-1", "category": "checkup", "title": "第 1 次兒童預防保健", "ageMinDays": 0, "ageMaxDays": 61, "window": "出生至未滿 2 個月", "note": "帶兒童健康手冊與健保卡。健檢可與疫苗同日完成。", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+    { "id": "checkup-2", "category": "checkup", "title": "第 2 次兒童預防保健", "ageMinDays": 61, "ageMaxDays": 122, "window": "2 至未滿 4 個月", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+    { "id": "checkup-3", "category": "checkup", "title": "第 3 次兒童預防保健", "ageMinDays": 122, "ageMaxDays": 183, "window": "4 至未滿 6 個月", "note": "2026-07-01 起由原本 4 至 10 個月一次拆成兩次。", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+    { "id": "checkup-4", "category": "checkup", "title": "第 4 次兒童預防保健", "ageMinDays": 183, "ageMaxDays": 365, "window": "6 個月至未滿 1 歲", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+    { "id": "checkup-5", "category": "checkup", "title": "第 5 次兒童預防保健", "ageMinDays": 365, "ageMaxDays": 548, "window": "1 歲至未滿 1 歲 6 個月", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+    { "id": "checkup-6", "category": "checkup", "title": "第 6 次兒童預防保健", "ageMinDays": 548, "ageMaxDays": 730, "window": "1 歲 6 個月至未滿 2 歲", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+    { "id": "checkup-7", "category": "checkup", "title": "第 7 次兒童預防保健", "ageMinDays": 730, "ageMaxDays": 1096, "window": "2 至未滿 3 歲", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+    { "id": "checkup-8", "category": "checkup", "title": "第 8 次兒童預防保健", "ageMinDays": 1096, "ageMaxDays": 1826, "window": "3 至未滿 5 歲", "note": "2026-07-01 起由原本 3 至 7 歲一次拆成兩次。", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+    { "id": "checkup-9", "category": "checkup", "title": "第 9 次兒童預防保健", "ageMinDays": 1826, "ageMaxDays": 2557, "window": "5 至未滿 7 歲", "source": "hpa-7plus2", "effectiveFrom": "2026-07-01" },
+
+    { "id": "dev-1", "category": "development", "title": "第 1 次兒童發展篩檢", "ageMinDays": 183, "ageMaxDays": 304, "window": "6 至 10 個月", "note": "帶健保卡與兒童健康手冊。篩檢涵蓋精細動作、粗大動作、語言認知、社會發展。", "source": "mohw-dev-screen", "effectiveFrom": "2024-07-01" },
+    { "id": "dev-2", "category": "development", "title": "第 2 次兒童發展篩檢", "ageMinDays": 304, "ageMaxDays": 548, "window": "10 個月至 1 歲 6 個月", "source": "mohw-dev-screen", "effectiveFrom": "2024-07-01" },
+    { "id": "dev-3", "category": "development", "title": "第 3 次兒童發展篩檢", "ageMinDays": 548, "ageMaxDays": 730, "window": "1 歲 6 個月至 2 歲", "source": "mohw-dev-screen", "effectiveFrom": "2024-07-01" },
+    { "id": "dev-4", "category": "development", "title": "第 4 次兒童發展篩檢", "ageMinDays": 730, "ageMaxDays": 1096, "window": "2 至 3 歲", "source": "mohw-dev-screen", "effectiveFrom": "2024-07-01" },
+    { "id": "dev-5", "category": "development", "title": "第 5 次兒童發展篩檢", "ageMinDays": 1096, "ageMaxDays": 1826, "window": "3 至 5 歲", "source": "mohw-dev-screen", "effectiveFrom": "2024-07-01" },
+    { "id": "dev-6", "category": "development", "title": "第 6 次兒童發展篩檢", "ageMinDays": 1826, "ageMaxDays": 2557, "window": "5 至未滿 7 歲", "source": "mohw-dev-screen", "effectiveFrom": "2024-07-01" },
+
+    { "id": "vac-hepb-1", "category": "vaccine", "title": "B 型肝炎疫苗 第 1 劑", "ageMinDays": 0, "ageMaxDays": 1, "window": "出生 24 小時內儘速", "source": "cdc-schedule" },
+    { "id": "vac-hepb-2", "category": "vaccine", "title": "B 型肝炎疫苗 第 2 劑", "ageMinDays": 30, "ageMaxDays": 61, "window": "滿 1 個月", "source": "cdc-schedule" },
+    { "id": "vac-5in1-1", "category": "vaccine", "title": "五合一疫苗 第 1 劑", "ageMinDays": 61, "ageMaxDays": 122, "window": "滿 2 個月", "note": "白喉破傷風非細胞性百日咳、b 型嗜血桿菌及不活化小兒麻痺。", "source": "cdc-schedule" },
+    { "id": "vac-pcv-1", "category": "vaccine", "title": "13 價結合型肺炎鏈球菌疫苗 第 1 劑", "ageMinDays": 61, "ageMaxDays": 122, "window": "滿 2 個月", "source": "cdc-schedule" },
+    { "id": "vac-5in1-2", "category": "vaccine", "title": "五合一疫苗 第 2 劑", "ageMinDays": 122, "ageMaxDays": 152, "window": "滿 4 個月", "source": "cdc-schedule" },
+    { "id": "vac-pcv-2", "category": "vaccine", "title": "13 價結合型肺炎鏈球菌疫苗 第 2 劑", "ageMinDays": 122, "ageMaxDays": 152, "window": "滿 4 個月", "source": "cdc-schedule" },
+    { "id": "vac-bcg", "category": "vaccine", "title": "卡介苗", "ageMinDays": 152, "ageMaxDays": 244, "window": "滿 5 個月（建議 5 到 8 個月）", "source": "cdc-schedule" },
+    { "id": "vac-hepb-3", "category": "vaccine", "title": "B 型肝炎疫苗 第 3 劑", "ageMinDays": 183, "ageMaxDays": 213, "window": "滿 6 個月", "source": "cdc-schedule" },
+    { "id": "vac-5in1-3", "category": "vaccine", "title": "五合一疫苗 第 3 劑", "ageMinDays": 183, "ageMaxDays": 213, "window": "滿 6 個月", "source": "cdc-schedule" },
+    { "id": "vac-flu", "category": "vaccine", "title": "流感疫苗", "ageMinDays": 183, "ageMaxDays": 2557, "window": "滿 6 個月起，每年流感季", "note": "9 歲以下初次接種，或 3 歲以下累計只打過 1 劑者，接種 2 劑、間隔 4 週以上；其餘每年 1 劑。", "source": "cdc-schedule" },
+    { "id": "vac-mmr-1", "category": "vaccine", "title": "麻疹腮腺炎德國麻疹混合疫苗 第 1 劑", "ageMinDays": 365, "ageMaxDays": 456, "window": "滿 12 個月", "source": "cdc-schedule" },
+    { "id": "vac-varicella", "category": "vaccine", "title": "水痘疫苗", "ageMinDays": 365, "ageMaxDays": 456, "window": "滿 12 個月", "source": "cdc-schedule" },
+    { "id": "vac-pcv-3", "category": "vaccine", "title": "13 價結合型肺炎鏈球菌疫苗 第 3 劑", "ageMinDays": 365, "ageMaxDays": 456, "window": "滿 12 至 15 個月", "source": "cdc-schedule" },
+    { "id": "vac-je-1", "category": "vaccine", "title": "日本腦炎疫苗 第 1 劑", "ageMinDays": 456, "ageMaxDays": 548, "window": "滿 15 個月", "note": "活性減毒嵌合型，第 2 劑間隔 12 個月。", "source": "cdc-schedule" },
+    { "id": "vac-5in1-4", "category": "vaccine", "title": "五合一疫苗 第 4 劑", "ageMinDays": 548, "ageMaxDays": 639, "window": "滿 18 個月", "source": "cdc-schedule" },
+    { "id": "vac-hepa-1", "category": "vaccine", "title": "A 型肝炎疫苗 第 1 劑", "ageMinDays": 548, "ageMaxDays": 639, "window": "滿 18 個月", "note": "2025 年起第 1、2 劑時程調整為滿 18 個月、27 個月。", "source": "cdc-schedule" },
+    { "id": "vac-je-2", "category": "vaccine", "title": "日本腦炎疫苗 第 2 劑", "ageMinDays": 822, "ageMaxDays": 913, "window": "滿 27 個月", "source": "cdc-schedule" },
+    { "id": "vac-hepa-2", "category": "vaccine", "title": "A 型肝炎疫苗 第 2 劑", "ageMinDays": 822, "ageMaxDays": 913, "window": "滿 27 個月", "source": "cdc-schedule" },
+    { "id": "vac-mmr-2", "category": "vaccine", "title": "麻疹腮腺炎德國麻疹混合疫苗 第 2 劑", "ageMinDays": 1826, "ageMaxDays": 2557, "window": "滿 5 歲至入國小前", "source": "cdc-schedule" },
+    { "id": "vac-dtap-ipv", "category": "vaccine", "title": "四合一疫苗（DTaP-IPV）", "ageMinDays": 1826, "ageMaxDays": 2557, "window": "滿 5 歲至入國小前", "note": "白喉破傷風非細胞性百日咳及不活化小兒麻痺。", "source": "cdc-schedule" },
+
+    { "id": "fluoride", "category": "dental", "title": "牙齒塗氟", "ageMinDays": 0, "ageMaxDays": 2190, "window": "未滿 6 歲，每半年一次", "note": "低收入戶、身心障礙、原住民族地區、偏遠及離島地區的未滿 12 歲兒童每 3 個月一次。長第一顆牙後開始。", "source": "mohw-fluoride" }
+  ]
+}

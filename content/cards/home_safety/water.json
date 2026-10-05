@@ -1,0 +1,47 @@
+{
+  "id": "home_safety.water",
+  "topicGroup": "home_safety",
+  "title": "水的危險：浴缸、水桶、洗澡不離開",
+  "ageMinDays": 0,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "只要有水的地方，不論深淺都有風險：浴缸、澡盆、馬桶、水桶、充氣泳池都算。國健署列出的做法：\n\n洗衣機、浴缸、臉盆、洗臉槽、水桶、湯鍋等大容器不蓄水；若必須蓄水，浴室的門保持關閉，或設置阻擋幼兒進入的門或安全防護欄。洗衣機旁不放可以攀爬的椅子或傢俱。\n幫嬰幼兒洗澡時全程陪同，洗澡前先準備好毛巾、衣物與用品，不中途離開浴室，不去接電話或回應門鈴。即使水很淺，也不可以獨自留寶寶在澡盆裡。\n洗澡水先放冷水再放熱水，水溫保持在 37 到 38 度之間，門窗留通風口。\n戲水時視線不離開孩子，不把看顧交給年長的孩子；與孩子保持一隻手臂的距離。\n\n溺水風險最高的年齡是 1 到 4 歲，但洗澡的規則從出生就適用。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：嬰幼兒意外事故防制與居家安全 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1830&type=01"
+    },
+    {
+      "label": "國健署：預防夏日溺水，守護幼兒五部曲",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1351&type=00"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：嬰幼兒意外事故防制與居家安全（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1830&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "3.洗衣機、浴缸、臉盆、洗臉槽、水桶、湯鍋等大容器，不應蓄水，以避免孩子不慎摔入溺斃，如有必要蓄水，浴室的門應保持關閉或設有阻擋幼兒進入的門或安全防護欄。而洗衣機旁不可放置可攀爬的椅子或傢俱。",
+      "checkedAt": "2026-10-06"
+    },
+    {
+      "name": "國民健康署孕產兒關懷網站：如何幫寶寶洗澡?（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1859&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "洗澡前，先放冷水再放熱水，並確認門窗留有通風口，水溫保持在37-38℃間……※切記，即便水很淺也不可獨自留寶寶在澡盆裡。",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

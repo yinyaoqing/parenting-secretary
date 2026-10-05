@@ -60,12 +60,21 @@ function daysBetween(isoDate, now = new Date()) {
   return Math.floor((now - new Date(isoDate)) / 86400000);
 }
 
+// Node 在 Windows 上無法驗證部分台灣政府網站的憑證鏈（UNABLE_TO_VERIFY_LEAF_SIGNATURE），
+// fetch 失敗時改用系統的 curl 再試一次，不關閉憑證驗證。
 async function urlAlive(url) {
   try {
     const res = await fetch(url, { method: 'HEAD', redirect: 'follow' });
     if (res.ok) return true;
     const res2 = await fetch(url, { method: 'GET', redirect: 'follow' });
-    return res2.ok;
+    if (res2.ok) return true;
+  } catch {
+    /* 交給 curl */
+  }
+  try {
+    const { execFileSync } = await import('node:child_process');
+    const code = execFileSync('curl', ['-sS', '-L', '-A', 'Mozilla/5.0', '-o', process.platform === 'win32' ? 'NUL' : '/dev/null', '-w', '%{http_code}', '--max-time', '30', url], { encoding: 'utf8' }).trim();
+    return code.startsWith('2') || code.startsWith('3');
   } catch {
     return false;
   }

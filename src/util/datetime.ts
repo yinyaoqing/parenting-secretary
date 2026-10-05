@@ -77,3 +77,12 @@ export function applyDate(base: Date, picked: Date): Date {
 export function minutesBefore(mins: number, now = new Date()): Date {
   return new Date(now.getTime() - mins * 60000);
 }
+
+// 事件「記錄當時所在時區」的日期鍵（YYYY-MM-DD）。出國記的紀錄回國後仍歸在當地的那一天。
+// 沒有時區偏移的舊事件以裝置目前時區計算。
+export function dayKeyOf(iso: string, tzOffsetMin?: number): string {
+  const d = new Date(iso);
+  const offset = tzOffsetMin ?? -d.getTimezoneOffset();
+  const shifted = new Date(d.getTime() + offset * 60000);
+  return `${shifted.getUTCFullYear()}-${String(shifted.getUTCMonth() + 1).padStart(2, '0')}-${String(shifted.getUTCDate()).padStart(2, '0')}`;
+}

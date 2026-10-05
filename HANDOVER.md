@@ -72,7 +72,9 @@ src/content/            types（內容卡結構）、loader（載入打包 JSON�
 src/ui/art.tsx          插畫（assets/art，8 張水彩 JPEG）與手繪 SVG 裝飾（天空、盾牌、奶瓶、體溫計、小芽、小熊、月亮雲朵）
 src/ui/                 theme（設計系統色票、字級三段、樣式表）、ThemeContext（日夜模式與字級的全域狀態）、useTheme、components（Tile、Big、Chip、Seg、Opt、PickRow、ListRow、Badge、Banner、SafetyBox、Toast…）、DatePick（原生日期時間選擇）、TimeRow（表單補登時間列）
 src/util/               age（實際與矯正月齡）、format、datetime（中文日期、相對時間、補登換算）
-content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12）
+content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12、home_safety 8）
+content/schedule/       公費時程 timeline.json（健檢 9 次、發展篩檢 6 次、疫苗、塗氟；只有時間窗，沒有金額）
+src/schedule/           loader：依出生日算時間窗與狀態，之後遠端 JSON 用同格式覆蓋
 content/whitelist.json  相似度檢查白名單
 scripts/
   check-content.mjs     產線十項檢查（必跑）
@@ -120,10 +122,11 @@ npm run publish:preview    # 發布測試版（需 eas login）
 | 3 | 事件資料層（supersedes 修正、墓碑刪除、單一計時器）、快速紀錄輔助、安全層 11 條補入原文摘錄與確切網址、家長驗證頁 |
 | 4 | 首頁一鍵紀錄、瓶餵、體溫、紀錄列表、日夜主題、CDC 月齡卡 10 張 |
 | 5 | 副食品紀錄、修正時間、內容卡列表與詳情、內容打包、對照稿輸出、啟動與部署文件、eas.json |
+| 8 | 居家安全 8 張（國健署事故傷害預防，A1）；安全卡 8 處原文摘錄補齊；時程分頁改為真資料（國健署 7+2、發展篩檢、疾管署 115.09 版疫苗表、塗氟）；時區切日；紀錄列表「可能重複」標示；check-content --net 改用 curl 後備 |
 | 7 | 多裝置同步（不經伺服器）：QR code 面對面交接、AirDrop／Quick Share／LINE 傳加密交接檔並合併匯入；schema v2；區域網路與藍牙直連已決定不做；路 B（中繼伺服器）保留於 docs/legal 的法規備忘錄 |
 | 6 | EAS Update 設定（組織 yinyaoqings-team、sdkVersion runtime）、一鍵發布腳本、eslint；0–3 個月週卡 12 張（content/cards/weeks，底本國健署孕產兒關懷網站寶寶篇第 1–12 週，A1） |
 
-檢查狀態：typecheck 通過、content:check 36 張全過、Android JS 打包成功。
+檢查狀態：typecheck 通過、content:check 44 張全過（安全層 14 條的原文摘錄已補齊）、Android JS 打包成功。
 
 ### 4.2 工作目錄
 
@@ -202,7 +205,8 @@ npm run publish:preview    # 發布測試版（需 eas login）
 - Expo Go 自 2026 年 5 月起只能開啟本人或所屬組織的專案，測試者需 Expo 帳號並受邀；Android Expo Go 57.0.9 登入後仍可能 403（expo/expo#50253），改走 APK。
 - 本地通知在 Expo Go 的 Android 不完整，第 7 週起必須用 development build。
 - 問卷題目與內容卡文字未經任何真實家長測試；家長驗證頁回饋尚未收到。
-- `content:check --net` 在 Windows 的 Node 下對所有 hpa.gov.tw 與 mammy.hpa.gov.tw 網址回報「無法存取」，原因是 Node 無法驗證該站的憑證鏈（UNABLE_TO_VERIFY_LEAF_SIGNATURE），curl 可正常存取。屬誤報，不要為此關閉憑證驗證；可改用 NODE_EXTRA_CA_CERTS 加入台灣 GCA 中繼憑證。
+- `content:check --net`：Node 無法驗證部分台灣政府網站的憑證鏈時改用系統 curl 再試，不關閉憑證驗證。publications.aap.org 對自動抓取回 403，屬 C 級來源，可忽略。
+- 時程資料（content/schedule/timeline.json）：兒童預防保健 9 次依 2026-07-01 新制；疫苗依疾管署 115.09 版（預計 2026-10-01 實施）；塗氟補助年齡 2026 年 9 月起放寬到「進入國小當年度 8 月 31 日」但只在新聞見到，官方頁面尚未查到，JSON 仍寫未滿 6 歲；政策金額（津貼、補助）刻意不放，待遠端 JSON。
 - 同步設計：事件取聯集、刪除與結束單向補上、同筆雙邊修正以較晚者為準、合併後只留一筆進行中的睡眠、一分鐘內同類重複只標示。孩子檔案以出生日判同一人，雙方收斂到字串較小的 id。交接差量靠每裝置 seq 與 updated_at；對方掃完要按「對方已掃描完成」才會前進 last_sent。交接檔副檔名 .psync，內容 PS1. 加 base64；配對 QR 含家庭金鑰，不加密。「用其他 APP 開啟 .psync」的檔案關聯尚未登記（需 development build）。
 - 週卡（content/cards/weeks）改寫時刻意略去原文的生長數字範圍（R1）、Wessel 333 腸絞痛準則（R1）、輪狀病毒疫苗廠牌與時程、血管瘤段落；就醫情境一律以「國健署原文「…」」引用。
 - 10 字相似度規則只對中文來源有效；英文來源靠段落順序規則與譯審。

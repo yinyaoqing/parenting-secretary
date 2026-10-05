@@ -1,0 +1,34 @@
+{
+  "id": "home_safety.small-objects",
+  "topicGroup": "home_safety",
+  "title": "小東西與食物：錢幣、彈珠、果凍",
+  "ageMinDays": 150,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "會抓、會放進嘴裡之後，小東西就是風險。國健署列出的做法：\n\n錢幣、玩具零件、彈珠等小物品收在孩子拿不到的抽屜或櫥櫃。\n不給年幼的孩子吃容易梗塞的食物，例如果凍、糖果、小蛋糕、貢丸、口香糖；要吃就切小塊，方便咀嚼。\n避免讓幼兒吞下果核、圓形顆粒或有韌性的食物，以免嗆入或堵塞呼吸道。\n養成在餐桌前進食的習慣，不口銜餐具追逐、奔跑。\n\n噎到時的處理見安全內容「噎食預防」。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：嬰幼兒意外事故防制與居家安全 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1830&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：嬰幼兒意外事故防制與居家安全（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1830&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "4.家長應避免給年幼的小孩食用容易導致梗塞的食物如：如果凍、糖果、小蛋糕、貢丸、口香糖，如要食用，則是將食物切小塊一點，方便幼兒咀嚼。5.將小東西如：錢幣、玩具或彈珠等小物品妥善收納在孩子拿不到的抽屜或櫥櫃。6.避免果核或圓形顆粒、有韌性物質食物給幼兒吞下，以免嗆入或堵塞呼吸道。",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

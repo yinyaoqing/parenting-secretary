@@ -4,7 +4,7 @@ import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { deleteEvent, listEvents } from '../../src/db/events';
 import type { Event } from '../../src/db/types';
 import { eventSummary, hhmm, typeLabel, durationLabel } from '../../src/util/format';
-import { addDays, dayLabel, isSameDay } from '../../src/util/datetime';
+import { addDays, dayLabel, dayKeyOf, toIsoDate } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Chip, ListCard, ListRow, Badge, GhostButton, Card } from '../../src/ui/components';
 
@@ -24,12 +24,23 @@ export default function Timeline() {
 
   const now = new Date();
   const days = Array.from({ length: DAYS_SHOWN }, (_, i) => addDays(now, -i));
-  const cutoff = addDays(now, -(DAYS_SHOWN - 1));
-  cutoff.setHours(0, 0, 0, 0);
+  // 依「記錄當時的時區」切日：出國記的紀錄回國後仍歸在當地那一天。
+  const cutoffKey = toIsoDate(addDays(now, -(DAYS_SHOWN - 1)));
   const shown = events.filter((e) => {
-    const d = new Date(e.startAt);
-    return day === 'earlier' ? d.getTime() < cutoff.getTime() : isSameDay(d, days[day]);
+    const key = dayKeyOf(e.startAt, e.tzOffsetMin);
+    return day === 'earlier' ? key < cutoffKey : key === toIsoDate(days[day]);
   });
+
+  // 可能重複：不同裝置在一分鐘內記的同類事件（交接合併後最常見），只標示不刪。
+  const dupIds = new Set<string>();
+  const sorted = [...shown].sort((a, b) => a.startAt.localeCompare(b.startAt));
+  for (let i = 0; i < sorted.length; i++) {
+    for (let j = i + 1; j < sorted.length; j++) {
+      const gap = new Date(sorted[j].startAt).getTime() - new Date(sorted[i].startAt).getTime();
+      if (gap > 60000) break;
+      if (sorted[i].type === sorted[j].type && sorted[i].recordedBy !== sorted[j].recordedBy) { dupIds.add(sorted[i].id); dupIds.add(sorted[j].id); }
+    }
+  }
 
   // 當日摘要：親餵次數、瓶餵總量、尿布片數、睡眠總時長（進行中的算到現在）
   const breast = shown.filter((e) => e.type === 'feed.breast').length;
@@ -76,7 +87,7 @@ export default function Timeline() {
                 time={hhmm(e.startAt)}
                 main={main}
                 sub={subOf(e)}
-                right={e.type === 'sleep' && !e.endAt ? <Badge label="進行中" tone="warm" /> : undefined}
+                right={e.type === 'sleep' && !e.endAt ? <Badge label="進行中" tone="warm" /> : dupIds.has(e.id) ? <Badge label="可能重複" tone="warm" /> : undefined}
                 chevron={!isSel}
                 selected={isSel}
                 onPress={() => { setSelected(isSel ? null : e.id); setConfirmId(null); }}

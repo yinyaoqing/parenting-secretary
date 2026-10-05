@@ -16,22 +16,22 @@
       "lang": "zh-TW",
       "trust": "T1",
       "license": "B",
-      "excerpt": "TODO：自動抓取時 DNS 失敗，需人工開啟後填入第 1 至 5 天與第 5 天後濕尿片數的原文",
-      "checkedAt": "2026-10-05"
+      "excerpt": "寶寶吃得足夠（11/2025 修訂）。寶寶的年齡／每日的濕片數量／每日的大便變化：第1-2天：最少1-2片；最少1次，墨綠色黏狀胎糞。第3-4天：最少3-4片；最少2次，胎糞轉為深啡色，然後黃色。第5天至滿月：最少5-6片，相當重量（約等同3湯匙或45毫升水）；最少2次，顏色可介乎於黃、綠或啡色；質地可呈稀爛、糊狀、柔軟及帶有小顆粒。",
+      "checkedAt": "2026-10-06"
     },
     {
       "name": "NHS：Breastfeeding: is my baby getting enough milk?",
-      "url": "https://www.nhs.uk/conditions/baby/breastfeeding-and-bottle-feeding/breastfeeding/enough-milk/",
+      "url": "https://www.nhs.uk/conditions/baby/breastfeeding-and-bottle-feeding/breastfeeding-problems/enough-milk/",
       "lang": "en",
       "trust": "T1",
       "license": "A2",
-      "excerpt": "TODO：上線前開啟頁面填入濕尿布數原文；網址未經本次查核確認",
-      "checkedAt": "2026-10-05"
+      "excerpt": "From day 5 onwards, wet nappies should start to become more frequent, with at least 6 heavy, wet nappies every 24 hours. In the first 48 hours, your baby is likely to have only 2 or 3 wet nappies. From the fourth day, they should do at least 2 soft, yellow poos the size of a £2 coin every day for the first few weeks. Feed your baby as often as they want and for as long as they want.",
+      "checkedAt": "2026-10-06"
     }
   ],
   "translated": true,
   "foreignOnly": false,
   "policyNumbers": false,
-  "updatedAt": "2026-10-05",
+  "updatedAt": "2026-10-06",
   "status": "draft"
 }

@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-05T16:28:29.271Z",
+  "publishedAt": "2026-10-05T16:56:01.603Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "sync: QR handoff and file import",
-  "updateGroupId": "4fde0658-2606-4e61-9b2e-efd24c0d0a52",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/4fde0658-2606-4e61-9b2e-efd24c0d0a52",
+  "message": "ui: design v1 art pass",
+  "updateGroupId": "89fe5080-3d80-4627-a9aa-6131f83cd783",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/89fe5080-3d80-4627-a9aa-6131f83cd783",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"
