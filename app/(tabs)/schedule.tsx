@@ -6,6 +6,7 @@ import type { Child } from '../../src/db/types';
 import { ageLabel, daysSince } from '../../src/util/age';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Badge, Card, Section, ListCard, ListRow } from '../../src/ui/components';
+import { Thumb } from '../../src/ui/art';
 
 // 時程分頁：規劃第 9–11 週實作。這裡不放任何數字或日期，政策數字必須標年度與查核日期並走遠端 JSON（紅線 R11）。
 export default function Schedule() {
@@ -14,10 +15,18 @@ export default function Schedule() {
   useFocusEffect(useCallback(() => { listChildren().then((cs) => setChild(cs[0] ?? null)); }, []));
 
   const d = child ? daysSince(child.birthDate) : null;
+  const { palette } = useTheme();
   return (
     <View style={styles.page}>
       <TopBar title="時程" subtitle={child && d !== null ? `${child.nickname} · 第 ${d + 1} 天 · 實際 ${ageLabel(d)}` : undefined} right={<Badge label="規劃中" tone="gray" />} />
       <Screen>
+        <View style={[styles.row, { backgroundColor: palette.accentSoft, borderRadius: 20, overflow: 'hidden', gap: 14, paddingRight: 16 }]}>
+          <Thumb art="bag" size={120} radius={0} style={{ borderWidth: 0 }} />
+          <View style={[styles.sp, { gap: 2 }]}>
+            <Text style={[styles.p, { fontWeight: '700' }]}>出門前看一眼</Text>
+            <Text style={[styles.muted, { color: palette.ink2 }]}>依出生日自動排好的公費健檢、疫苗與行政待辦。</Text>
+          </View>
+        </View>
         <Card>
           <Text style={[styles.p, { fontWeight: '700' }]}>這一頁還沒有內容</Text>
           <Text style={styles.muted}>之後會依出生日計算公費健檢、發展篩檢與疫苗的時間窗，並列出津貼、補助與假別的行政待辦。每個數字都會標年度與查核日期，來源為政府開放資料。</Text>

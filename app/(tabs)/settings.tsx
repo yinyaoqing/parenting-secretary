@@ -6,7 +6,8 @@ import type { Child, StyleProfile } from '../../src/db/types';
 import { PRESETS } from '../../src/style/questionnaire';
 import { SCALE_LABEL, type TextScale } from '../../src/ui/theme';
 import { useTheme, type ThemeMode } from '../../src/ui/useTheme';
-import { Screen, TopBar, Card, Badge, ListCard, ListRow, Seg, Icon } from '../../src/ui/components';
+import { Screen, TopBar, Card, Badge, ListCard, ListRow, Seg } from '../../src/ui/components';
+import { SpotMoonCloud, Thumb } from '../../src/ui/art';
 import appConfig from '../../app.json';
 
 const PAUSE_FOREVER = '9999-12-31T00:00:00.000Z';
@@ -46,7 +47,7 @@ export default function Settings() {
       <Screen>
         <Card warm>
           <View style={styles.row}>
-            <Icon name="pause-circle" size={24} color={palette.warm} />
+            <SpotMoonCloud size={40} />
             <View style={styles.sp}>
               <Text style={[styles.p, { fontWeight: '700' }]}>暫停模式</Text>
               <Text style={[styles.muted, { color: palette.ink2 }]}>一鍵暫停全部提醒與內容推送。不問原因，隨時恢復。</Text>
@@ -58,7 +59,7 @@ export default function Settings() {
         <Label t="孩子" />
         <ListCard>
           {children.map((c, i) => (
-            <ListRow key={c.id} first={i === 0} main={c.nickname} sub={`${c.birthDate}${c.dueDate ? ` · 早產兒，預產期 ${c.dueDate}` : ''}`} />
+            <ListRow key={c.id} first={i === 0} left={<Thumb art="rattle" size={48} radius={12} />} main={c.nickname} sub={`${c.birthDate}${c.dueDate ? ` · 早產兒，預產期 ${c.dueDate}` : ''}`} />
           ))}
           <ListRow first={children.length === 0} main="新增孩子" mainColor={palette.accent} onPress={() => router.push('/onboarding/child')} />
         </ListCard>

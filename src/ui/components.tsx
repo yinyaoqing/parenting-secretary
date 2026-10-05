@@ -5,6 +5,7 @@ import { Feather } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from './useTheme';
+import { Sky, SpotShield } from './art';
 
 export type IconName = keyof typeof Feather.glyphMap;
 
@@ -31,11 +32,16 @@ export function Screen({ children, footer, scroll = true, style }: { children: R
   );
 }
 
-export function TopBar({ title, subtitle, back, right, children }: { title?: ReactNode; subtitle?: string; back?: boolean | (() => void); right?: ReactNode; children?: ReactNode }) {
+export function TopBar({ title, subtitle, back, right, children, sky, skyRight = 64 }: { title?: ReactNode; subtitle?: string; back?: boolean | (() => void); right?: ReactNode; children?: ReactNode; sky?: boolean; skyRight?: number }) {
   const { styles } = useTheme();
   const insets = useSafeAreaInsets();
   return (
     <View style={[styles.topbar, { paddingTop: insets.top + 8 }]}>
+      {sky ? (
+        <View pointerEvents="none" style={{ position: 'absolute', right: skyRight, top: insets.top - 4, width: 150, height: 70 }}>
+          <Sky />
+        </View>
+      ) : null}
       {back ? (
         <Pressable style={[styles.iconBtn, styles.iconBtnPlain]} onPress={() => (typeof back === 'function' ? back() : router.back())} accessibilityRole="button" accessibilityLabel="返回">
           <Icon name="chevron-left" size={26} />
@@ -52,13 +58,14 @@ export function TopBar({ title, subtitle, back, right, children }: { title?: Rea
 }
 
 // 表單用的「抽屜」標頭：把手、標題、關閉。
-export function SheetHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+export function SheetHeader({ title, subtitle, art }: { title: string; subtitle?: string; art?: ReactNode }) {
   const { styles } = useTheme();
   const insets = useSafeAreaInsets();
   return (
     <View style={{ paddingTop: Platform.OS === 'ios' ? 0 : insets.top }}>
       <View style={styles.handle} />
       <View style={[styles.topbar, { paddingTop: 6 }]}>
+        {art}
         <View style={styles.sp}>
           <Text style={styles.topTitle}>{title}</Text>
           {subtitle ? <Text style={styles.muted}>{subtitle}</Text> : null}
@@ -270,13 +277,14 @@ export function ListCard({ children }: { children: ReactNode }) {
   return <View style={styles.listCard}>{children}</View>;
 }
 
-export function ListRow({ time, main, sub, right, onPress, first, chevron, selected, icon, children, mainColor }: {
-  time?: string; main: string; sub?: string; right?: ReactNode; onPress?: () => void; first?: boolean; chevron?: boolean; selected?: boolean; icon?: IconName; children?: ReactNode; mainColor?: string;
+export function ListRow({ time, main, sub, right, onPress, first, chevron, selected, icon, left, children, mainColor }: {
+  time?: string; main: string; sub?: string; right?: ReactNode; onPress?: () => void; first?: boolean; chevron?: boolean; selected?: boolean; icon?: IconName; left?: ReactNode; children?: ReactNode; mainColor?: string;
 }) {
   const { styles, palette } = useTheme();
   const inner = (
     <>
       <View style={[styles.row, { width: '100%' }]}>
+        {left}
         {icon ? <Icon name={icon} size={20} color={palette.accent} /> : null}
         {time ? <Text style={styles.lrowTime}>{time}</Text> : null}
         <View style={styles.sp}>
@@ -322,7 +330,7 @@ export function SafetyBox({ title, sub, onPress, children }: { title?: string; s
   const { styles, palette } = useTheme();
   const inner = (
     <>
-      <Icon name="shield" size={24} color={palette.accent} />
+      <SpotShield size={40} />
       <View style={styles.sp}>
         {title ? <Text style={[styles.p, { fontWeight: '700' }]}>{title}</Text> : null}
         {sub ? <Text style={[styles.muted, { color: palette.ink }]}>{sub}</Text> : null}

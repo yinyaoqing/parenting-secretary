@@ -7,6 +7,7 @@ import type { ContentCard } from '../../src/content/types';
 import { ageLabel, daysSince, correctedDays } from '../../src/util/age';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Chip, Card, Badge, Section, ListCard, ListRow, Icon } from '../../src/ui/components';
+import { Hero, artForCard } from '../../src/ui/art';
 
 type Filter = 'all' | 'safety' | 'dev';
 
@@ -61,7 +62,8 @@ export default function Cards() {
         </View>
 
         {filter !== 'safety' && featured ? (
-          <Card accent onPress={() => router.push({ pathname: '/cards/[id]', params: { id: featured.id } })} style={{ gap: 8 }}>
+          <Card accent onPress={() => router.push({ pathname: '/cards/[id]', params: { id: featured.id } })} style={{ gap: 8, paddingTop: 0, overflow: 'hidden' }}>
+            <Hero art={artForCard(featured.id, featured.topicGroup) ?? 'rattle'} height={140} radius={0} style={{ marginHorizontal: -16, marginBottom: 6, borderWidth: 0 }} />
             <Badge label="這個時期的孩子" />
             <Text style={[styles.h2, { fontSize: 20, lineHeight: 26, marginTop: 0 }]}>{featured.title}</Text>
             <Text style={styles.muted}>{describe(featured)}</Text>

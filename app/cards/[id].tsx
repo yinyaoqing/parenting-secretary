@@ -4,6 +4,7 @@ import { cardById, GROUP_LABEL } from '../../src/content/loader';
 import type { ContentCard, LicenseLevel } from '../../src/content/types';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Badge, Card, SafetyBox, Icon } from '../../src/ui/components';
+import { Hero, artForCard } from '../../src/ui/art';
 import type { TextScale } from '../../src/ui/theme';
 
 const LICENSE_LABEL: Record<LicenseLevel, string> = { A1: '原文可引用', A2: '公眾領域，翻譯改寫', B: '重述並引用', C: '一句話結論加連結' };
@@ -41,6 +42,7 @@ export default function CardDetail() {
         </Pressable>
       } />
       <Screen style={{ paddingBottom: 40 }}>
+        {artForCard(c.id, c.topicGroup) ? <Hero art={artForCard(c.id, c.topicGroup)!} height={200} /> : null}
         <View style={[styles.row, { gap: 8, flexWrap: 'wrap' }]}>
           <Badge label={isSafety ? '安全內容' : GROUP_LABEL[c.topicGroup]} icon={isSafety ? 'shield' : undefined} />
           <Badge label={ageRangeLabel(c)} tone="gray" />

@@ -6,6 +6,7 @@ import { saveStyleProfile } from '../../src/db/repo';
 import type { StyleAxis, StyleProfile } from '../../src/db/types';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Progress, Opt, Badge, SafetyBox, PrimaryButton, GhostButton } from '../../src/ui/components';
+import { Hero, SpotBear } from '../../src/ui/art';
 
 const AXIS_NAME: Record<StyleAxis, string> = {
   routine: '作息結構',
@@ -35,7 +36,8 @@ export default function StyleQuestionnaire() {
       <View style={styles.page}>
         <TopBar title="照顧風格" back />
         <Screen footer={<PrimaryButton label="逐題回答" onPress={() => setPhase(0)} />}>
-          <Text style={[styles.body, { color: palette.ink2 }]}>12 題，約 90 秒。決定提醒的預設方式與內容排序，隨時可以改。</Text>
+          <Hero art="reading" height={170} />
+          <Text style={[styles.body, { color: palette.ink2, fontSize: 16 }]}>12 題，約 90 秒。決定提醒的預設方式與內容排序，隨時可以改。</Text>
           <SafetyBox sub="安全睡眠、發燒、噎食等安全內容在任何風格下都會顯示，無法關閉。" />
           <Text style={[styles.label, { marginTop: 4 }]}>趕時間？直接選一個</Text>
           <View style={{ gap: 8 }}>
@@ -75,7 +77,7 @@ export default function StyleQuestionnaire() {
         </View>
       }>
         <Progress pct={((i + 1) / QUESTIONS.length) * 100} />
-        <Badge label={AXIS_NAME[q.axis]} tone="gray" />
+        <View style={[styles.row, { gap: 10 }]}><SpotBear size={40} /><Badge label={AXIS_NAME[q.axis]} tone="gray" /></View>
         <Text style={[styles.h1, { fontSize: 24, lineHeight: 32 }]}>{q.text}</Text>
         <View style={{ gap: 8 }} accessibilityRole="radiogroup">
           {q.options.map((o) => (

@@ -8,6 +8,7 @@ import { toIsoDate } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Progress, Field, Input, Chip, Opt, Card, SwitchRow, PrimaryButton, GhostButton } from '../../src/ui/components';
 import { DatePick } from '../../src/ui/DatePick';
+import { Thumb } from '../../src/ui/art';
 
 const FEEDING: { key: FeedingMethod; label: string }[] = [
   { key: 'breast', label: '親餵母乳' },
@@ -101,7 +102,7 @@ export default function ChildForm() {
       {step === 1 ? (
         <Screen footer={<><PrimaryButton label="下一步" onPress={next1} /><Text style={[styles.muted, { textAlign: 'center' }]}>資料只存在這支手機，之後可在設定匯出備份。</Text></>}>
           <Progress pct={33} />
-          <Text style={styles.h1}>孩子的基本資料</Text>
+          <View style={[styles.row, { gap: 14 }]}><Text style={[styles.h1, styles.sp]}>孩子的基本資料</Text><Thumb art="sprout" size={88} radius={20} /></View>
           <Field label="暱稱">
             <Input value={nickname} onChangeText={setNickname} placeholder="例如：小米" accessibilityLabel="暱稱" autoFocus />
           </Field>
@@ -126,7 +127,7 @@ export default function ChildForm() {
       {step === 2 ? (
         <Screen footer={<PrimaryButton label="下一步" onPress={() => setStep(3)} />}>
           <Progress pct={66} />
-          <Text style={styles.h1}>餵養與地點</Text>
+          <View style={[styles.row, { gap: 14 }]}><Text style={[styles.h1, styles.sp]}>餵養與地點</Text><Thumb art="bowl" size={88} radius={20} /></View>
           <Field label="目前餵養方式">
             <View style={styles.chips}>
               {FEEDING.map((f) => <Chip key={f.key} label={f.label} on={feeding === f.key} onPress={() => setFeeding(f.key)} />)}
@@ -151,7 +152,7 @@ export default function ChildForm() {
       {step === 3 ? (
         <Screen footer={<><PrimaryButton label="下一步：照顧風格" onPress={toStyle} disabled={busy} /><GhostButton label="先跳過，用混合型預設" onPress={skipStyle} /></>}>
           <Progress pct={100} />
-          <Text style={styles.h1}>你想多看哪些資源？</Text>
+          <View style={[styles.row, { gap: 14 }]}><Text style={[styles.h1, styles.sp]}>你想多看哪些資源？</Text><Thumb art="rattle" size={88} radius={20} /></View>
           <Text style={styles.muted}>可以不選。只影響內容排序，之後在設定可以改。</Text>
           <View style={styles.chips}>
             {CONTEXTS.filter((c) => !c.soon).map((c) => (

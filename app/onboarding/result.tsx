@@ -6,6 +6,7 @@ import { getStyleProfile } from '../../src/db/repo';
 import type { StyleAxis, StyleProfile } from '../../src/db/types';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Card, Badge, ListCard, ListRow, PrimaryButton, GhostButton } from '../../src/ui/components';
+import { SpotSprout } from '../../src/ui/art';
 
 export default function StyleResult() {
   const { childId } = useLocalSearchParams<{ childId: string }>();
@@ -22,7 +23,8 @@ export default function StyleResult() {
     <View style={styles.page}>
       <TopBar title="你的偏好" />
       <Screen footer={<><PrimaryButton label="完成" onPress={() => router.replace('/')} /><GhostButton label="重新作答" onPress={() => router.replace({ pathname: '/onboarding/style', params: { childId } })} /></>}>
-        <View style={[styles.row, { gap: 10 }]}>
+        <View style={[styles.row, { gap: 12 }]}>
+          <SpotSprout size={56} star />
           <Text style={styles.h1}>{name}</Text>
           <Badge label={profile.preset === 'custom' ? '自訂組合' : '接近預設'} />
         </View>

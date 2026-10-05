@@ -7,6 +7,7 @@ import { useTheme } from '../../src/ui/useTheme';
 import type { FeedStartReason } from '../../src/db/types';
 import { Screen, SheetHeader, Field, Chip, Seg, NumInput, PrimaryButton } from '../../src/ui/components';
 import { TimeRow } from '../../src/ui/TimeRow';
+import { SpotBottle } from '../../src/ui/art';
 
 type Kind = 'breastmilk' | 'formula' | 'cow_milk';
 const KINDS: { key: Kind; label: string }[] = [{ key: 'breastmilk', label: '母乳' }, { key: 'formula', label: '配方奶' }, { key: 'cow_milk', label: '鮮奶' }];
@@ -31,7 +32,7 @@ export default function Bottle() {
 
   return (
     <View style={styles.page}>
-      <SheetHeader title="瓶餵" />
+      <SheetHeader title="瓶餵" art={<SpotBottle size={40} />} />
       <Screen footer={<PrimaryButton label="儲存" onPress={save} />}>
         <TimeRow value={at} onChange={setAt} />
         <Field label="奶量">

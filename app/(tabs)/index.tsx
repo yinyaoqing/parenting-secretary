@@ -11,7 +11,8 @@ import { eventSummary, hhmm, durationLabel, startOfToday, typeLabel } from '../.
 import { minutesAgo, sinceShort } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
 import { safetyCards } from '../../src/content/loader';
-import { Screen, TopBar, IconButton, Tile, Big, SafetyBox, Section, ListCard, ListRow, Toast, Banner, PrimaryButton, GhostButton, Icon, Badge } from '../../src/ui/components';
+import { Screen, TopBar, IconButton, Tile, Big, SafetyBox, Section, ListCard, ListRow, Toast, Banner, PrimaryButton, GhostButton, Icon, Badge, Card } from '../../src/ui/components';
+import { Hero, Thumb } from '../../src/ui/art';
 
 const FEED_TYPES = ['feed.breast', 'feed.bottle'];
 const DIAPER_TYPES = ['diaper.wet', 'diaper.dirty', 'diaper.both'];
@@ -108,16 +109,25 @@ export default function Home() {
   };
 
   const subtitle = `${ageLabel(d)}${cd !== null ? ` · 矯正 ${ageLabel(cd)}` : ''} · 第 ${d + 1} 天`;
+  // 第一天空狀態：完全沒有紀錄時，用小熊卡取代狀態格與今天列表。
+  const firstDay = !lastFeed && !lastDiaper && !lastSleep && today.length === 0;
 
   return (
     <View style={styles.page}>
-      <TopBar title={child.nickname} subtitle={subtitle} right={
+      <TopBar title={child.nickname} subtitle={subtitle} sky skyRight={112} right={
         <View style={[styles.row, { gap: 8 }]}>
           <IconButton name="share-2" label="同步與交接" onPress={() => router.push('/sync')} />
           <IconButton name={night ? 'sun' : 'moon'} label={night ? '切換日間模式' : '切換夜間模式'} onPress={() => setMode(night ? 'day' : 'night')} />
         </View>
       } />
       <Screen>
+        {firstDay ? (
+          <Card style={{ alignItems: 'center', paddingTop: 18, paddingBottom: 20, gap: 8 }}>
+            <Thumb art="bear" size={132} radius={28} />
+            <Text style={[styles.p, { fontWeight: '700', fontSize: 18, marginTop: 4 }]}>今天還沒有紀錄</Text>
+            <Text style={[styles.muted, { textAlign: 'center' }]}>按下面任何一顆按鈕就開始。記錯了可以復原，時間也能事後修正。</Text>
+          </Card>
+        ) : (
         <View style={styles.tiles}>
           <Tile k="餵奶" icon="droplet" v={lastFeed ? sinceShort(lastFeed.startAt) : '尚無紀錄'} s={lastFeed ? `${hhmm(lastFeed.startAt)} ${typeLabel(lastFeed.type)} ${eventSummary(lastFeed.type, lastFeed.payload, lastFeed.startAt)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
           <Tile k="尿布" icon="layers" v={lastDiaper ? sinceShort(lastDiaper.startAt) : '尚無紀錄'} s={lastDiaper ? `${hhmm(lastDiaper.startAt)} ${typeLabel(lastDiaper.type)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
@@ -127,10 +137,16 @@ export default function Home() {
             <Tile k="上次睡眠" icon="moon" v={lastSleep?.endAt ? durationLabel(lastSleep.startAt, lastSleep.endAt) : '尚無紀錄'} s={lastSleep?.endAt ? `${hhmm(lastSleep.endAt)} 醒來` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
           )}
         </View>
+        )}
 
         {showNet && lastFeed ? (
-          <Banner title={`距上次餵奶已 ${durationLabel(lastFeed.startAt)}，比平常久`}>
-            <Text style={styles.p}>寶寶醒著嗎？有沒有找奶的樣子？</Text>
+          <Banner title={`距上次餵奶已 ${durationLabel(lastFeed.startAt)}`}>
+            <View style={[styles.row, { gap: 12, alignItems: 'flex-start', marginTop: -34 }]}>
+              <Thumb art="night" size={72} radius={16} />
+              <View style={[styles.sp, { paddingTop: 34 }]}>
+                <Text style={[styles.p, { lineHeight: 25 }]}>比平常久。寶寶醒著嗎？有沒有找奶的樣子？</Text>
+              </View>
+            </View>
             <Text style={styles.muted}>依據最近 {intervals.length} 筆紀錄的間隔。只提醒這一次，不是時刻表。</Text>
             <View style={styles.grid}>
               <View style={{ flex: 1 }}><PrimaryButton label="記一筆餵奶" onPress={netLog} /></View>
@@ -168,6 +184,7 @@ export default function Home() {
           <Big label="用藥" sub="只倒數間隔" icon="plus-circle" onPress={() => router.push({ pathname: '/record/medication', params: { childId: child.id } })} />
         </View>
 
+        {firstDay ? null : <>
         <Section title="今天" action={`全部 ${today.length} 筆`} onAction={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
         <ListCard>
           {today.length === 0 ? <ListRow first main="今天還沒有紀錄。" mainColor={palette.ink3} /> : null}
@@ -182,6 +199,7 @@ export default function Home() {
             />
           ))}
         </ListCard>
+        </>}
       </Screen>
       {toast ? <Toast text={toast.text} onUndo={toast.eventId ? undo : undefined} /> : null}
     </View>
@@ -206,17 +224,15 @@ function Welcome() {
   const { styles, palette } = useTheme();
   return (
     <Screen
-      style={{ paddingTop: 96, paddingHorizontal: 24, gap: 20, flexGrow: 1, justifyContent: 'center' }}
+      style={{ paddingTop: 64, paddingHorizontal: 24, gap: 18, flexGrow: 1, justifyContent: 'center' }}
       footer={
         <>
           <PrimaryButton label="建立孩子的檔案" onPress={() => router.push('/onboarding/child')} />
-          <Text style={[styles.muted, { textAlign: 'center' }]}>備份匯入會在之後的版本提供。</Text>
+          <GhostButton label="已有另一支手機的紀錄？先建檔再到設定交接" plain onPress={() => router.push('/onboarding/child')} small />
         </>
       }
     >
-      <View style={{ width: 72, height: 72, borderRadius: 24, backgroundColor: palette.accentSoft, alignItems: 'center', justifyContent: 'center' }}>
-        <Icon name="shield" size={36} color={palette.accent} />
-      </View>
+      <Hero art="crib" height={230} radius={28} />
       <View style={{ gap: 8 }}>
         <Text style={[styles.h1, { fontSize: 30 }]}>育兒秘書</Text>
         <Text style={[styles.body, { color: palette.ink2 }]}>記下孩子的吃、睡、尿布，在該提醒的時候提醒，衛教內容每一條都附政府或醫學會的原文來源。</Text>

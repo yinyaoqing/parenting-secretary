@@ -69,6 +69,7 @@ src/sync/               不經伺服器的多裝置同步：merge（純函式合
 src/records/quick.ts    一鍵紀錄輔助與安全網上界計算
 src/style/questionnaire.ts  六向度 12 題、三預設、計分、衍生預設
 src/content/            types（內容卡結構）、loader（載入打包 JSON）、cards.generated.json（產生物，勿手改）
+src/ui/art.tsx          插畫（assets/art，8 張水彩 JPEG）與手繪 SVG 裝飾（天空、盾牌、奶瓶、體溫計、小芽、小熊、月亮雲朵）
 src/ui/                 theme（設計系統色票、字級三段、樣式表）、ThemeContext（日夜模式與字級的全域狀態）、useTheme、components（Tile、Big、Chip、Seg、Opt、PickRow、ListRow、Badge、Banner、SafetyBox、Toast…）、DatePick（原生日期時間選擇）、TimeRow（表單補登時間列）
 src/util/               age（實際與矯正月齡）、format、datetime（中文日期、相對時間、補登換算）
 content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12）
@@ -85,6 +86,7 @@ docs/validation/        家長規格驗證頁原始檔與說明
 docs/translation/       對照稿輸出
 docs/dev/run.md         如何啟動驗證
 docs/dev/deploy-test.md 如何部署測試版（已含 EAS 專案資訊）
+docs/dev/device-test.md 真機驗證清單（階段 0，兩支手機）
 docs/dev/roadmap.md     開發順序（2026-10-06 排定，含各階段完成標準與擁有者待辦）
 docs/dev/release/       最新一次發布的 QR code、latest.json、history.md（publish-preview 產生）
 ```

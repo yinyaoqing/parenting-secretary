@@ -7,6 +7,7 @@ import { useTheme } from '../../src/ui/useTheme';
 import { siteLabel } from '../../src/util/format';
 import { Screen, SheetHeader, Field, Chip, NumInput, PrimaryButton, SafetyBox, Icon } from '../../src/ui/components';
 import { TimeRow } from '../../src/ui/TimeRow';
+import { SpotThermometer } from '../../src/ui/art';
 
 const SITES: TempSite[] = ['rectal', 'ear', 'axillary', 'forehead', 'oral'];
 
@@ -37,7 +38,7 @@ export default function Temperature() {
 
   return (
     <View style={styles.page}>
-      <SheetHeader title="體溫" />
+      <SheetHeader title="體溫" art={<SpotThermometer size={40} />} />
       <Screen footer={<PrimaryButton label="儲存" onPress={save} />}>
         <TimeRow value={at} onChange={setAt} />
         <Field label="度數">
