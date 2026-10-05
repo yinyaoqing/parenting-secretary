@@ -10,3 +10,4 @@
 | 2026-10-05 18:29 | preview | exposdk:57.0.0 | content: home safety, schedule tab, safety excerpts | [378026be](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/378026be-58d2-43e0-974f-06751ade2e73) |
 | 2026-10-05 18:33 | preview | exposdk:57.0.0 | content: 11 feeding cards | [6b250419](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/6b250419-0dea-4f72-be02-92cf677b54c2) |
 | 2026-10-05 18:37 | preview | exposdk:57.0.0 | content: 10 health-care cards | [63bcf91a](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/63bcf91a-06f2-47f8-81ac-eb84ad7ba5bc) |
+| 2026-10-05 18:41 | preview | exposdk:57.0.0 | content: 4 sleep cards | [e6ff8d4b](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/e6ff8d4b-4d5d-4303-b085-b16ad22aee68) |
