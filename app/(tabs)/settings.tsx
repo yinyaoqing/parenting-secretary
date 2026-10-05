@@ -74,6 +74,11 @@ export default function Settings() {
           />
         </ListCard>
 
+        <Label t="同步與交接" />
+        <ListCard>
+          <ListRow first icon="share-2" main="與另一支手機交接紀錄" sub="QR code 面對面交接，或用 AirDrop、Quick Share、LINE 傳加密的交接檔。不經伺服器。" chevron onPress={() => router.push('/sync')} />
+        </ListCard>
+
         <Label t="提醒" />
         <ListCard>
           <ListRow first main="餵食與尿布" sub="安全網提醒，比平常久才提醒一次。目前只在首頁顯示，通知功能製作中" right={<Soon />} />

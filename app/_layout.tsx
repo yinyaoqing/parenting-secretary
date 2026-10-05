@@ -21,6 +21,9 @@ function Root() {
         <Stack.Screen name="record/edit" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/timeline" />
         <Stack.Screen name="cards/[id]" />
+        <Stack.Screen name="sync/index" />
+        <Stack.Screen name="sync/qr" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="sync/scan" options={{ presentation: 'modal' }} />
       </Stack>
     </>
   );

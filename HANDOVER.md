@@ -63,7 +63,9 @@ app/                    expo-router 畫面（依設計稿 v1：https://claude.ai
   onboarding/           建檔三步（child，原生日期選擇）、問卷（style：預設或逐題一頁）、結果（result）
   record/               瓶餵、體溫、副食品、清醒趴臥（tummy）、用藥（medication）：都有「時間」列可補登；紀錄列表（timeline）；修正（edit：日期時間選擇器＋微調＋刪除）
   cards/[id].tsx        內容卡詳情：閱讀字級、來源區塊、右上 AA 切換字級
-src/db/                 types（18 歲資料模型）、schema（SQLite v1）、index（開庫與遷移）、repo（孩子、風格、設定）、events（事件 append-only）、device（裝置 id）
+  sync/                 同步與交接：index（配對、交接、分享與匯入交接檔）、qr（配對或交接 QR code，多張輪播）、scan（相機掃描，配對與交接共用）
+src/db/                 types（18 歲資料模型）、schema（SQLite v2：事件加 seq、updated_at、tz_offset_min；peers 表）、index（開庫與遷移）、repo（孩子、風格、設定）、events（事件 append-only）、device（裝置 id）
+src/sync/               不經伺服器的多裝置同步：merge（純函式合併引擎，含測試）、codec（交接包打包、QR 多張切分、配對碼，含測試）、crypto（expo-crypto AES-GCM）、store（配對身分、peers、組差量包、套用交接包）
 src/records/quick.ts    一鍵紀錄輔助與安全網上界計算
 src/style/questionnaire.ts  六向度 12 題、三預設、計分、衍生預設
 src/content/            types（內容卡結構）、loader（載入打包 JSON）、cards.generated.json（產生物，勿手改）
@@ -96,6 +98,7 @@ npm run content:build      # 產生 cards.generated.json
 npm run content:bilingual  # 對照稿
 npm run content:import -- docs/translation/bilingual-<日期>.csv --dry-run   # 譯審匯回（先 dry-run）
 npm run lint               # eslint，目前 0 錯誤
+npm run test:sync          # 合併引擎與交接包的 node 測試（不需 RN 環境）
 npx expo start             # Expo Go 開發
 npx expo export --platform android --output-dir /tmp/x   # 煙霧測試 JS 打包（web 會失敗，正常，未裝 react-native-web）
 npm run publish:preview    # 發布測試版（需 eas login）
@@ -114,6 +117,7 @@ npm run publish:preview    # 發布測試版（需 eas login）
 | 3 | 事件資料層（supersedes 修正、墓碑刪除、單一計時器）、快速紀錄輔助、安全層 11 條補入原文摘錄與確切網址、家長驗證頁 |
 | 4 | 首頁一鍵紀錄、瓶餵、體溫、紀錄列表、日夜主題、CDC 月齡卡 10 張 |
 | 5 | 副食品紀錄、修正時間、內容卡列表與詳情、內容打包、對照稿輸出、啟動與部署文件、eas.json |
+| 7 | 多裝置同步（不經伺服器）：QR code 面對面交接、AirDrop／Quick Share／LINE 傳加密交接檔並合併匯入；schema v2；區域網路與藍牙直連已決定不做；路 B（中繼伺服器）保留於 docs/legal 的法規備忘錄 |
 | 6 | EAS Update 設定（組織 yinyaoqings-team、sdkVersion runtime）、一鍵發布腳本、eslint；0–3 個月週卡 12 張（content/cards/weeks，底本國健署孕產兒關懷網站寶寶篇第 1–12 週，A1） |
 
 檢查狀態：typecheck 通過、content:check 36 張全過、Android JS 打包成功。
@@ -196,6 +200,7 @@ npm run publish:preview    # 發布測試版（需 eas login）
 - 本地通知在 Expo Go 的 Android 不完整，第 7 週起必須用 development build。
 - 問卷題目與內容卡文字未經任何真實家長測試；家長驗證頁回饋尚未收到。
 - `content:check --net` 在 Windows 的 Node 下對所有 hpa.gov.tw 與 mammy.hpa.gov.tw 網址回報「無法存取」，原因是 Node 無法驗證該站的憑證鏈（UNABLE_TO_VERIFY_LEAF_SIGNATURE），curl 可正常存取。屬誤報，不要為此關閉憑證驗證；可改用 NODE_EXTRA_CA_CERTS 加入台灣 GCA 中繼憑證。
+- 同步設計：事件取聯集、刪除與結束單向補上、同筆雙邊修正以較晚者為準、合併後只留一筆進行中的睡眠、一分鐘內同類重複只標示。孩子檔案以出生日判同一人，雙方收斂到字串較小的 id。交接差量靠每裝置 seq 與 updated_at；對方掃完要按「對方已掃描完成」才會前進 last_sent。交接檔副檔名 .psync，內容 PS1. 加 base64；配對 QR 含家庭金鑰，不加密。「用其他 APP 開啟 .psync」的檔案關聯尚未登記（需 development build）。
 - 週卡（content/cards/weeks）改寫時刻意略去原文的生長數字範圍（R1）、Wessel 333 腸絞痛準則（R1）、輪狀病毒疫苗廠牌與時程、血管瘤段落；就醫情境一律以「國健署原文「…」」引用。
 - 10 字相似度規則只對中文來源有效；英文來源靠段落順序規則與譯審。
 - 段落順序檢查目前只在段落數相同時警告，不擋下。

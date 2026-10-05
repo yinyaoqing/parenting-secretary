@@ -1,10 +1,11 @@
 // 事件資料層：append-only。修正以 supersedes 指向舊事件；刪除以 deleted_at 墓碑。
 // 查詢預設排除已被取代與已刪除的事件。
+// v2：每筆事件有記錄裝置自己的 seq 與 updated_at（結束、刪除時更新），供交接差量。
 
 import { getDb, newId, nowIso } from './index';
 import type { Event, EventType } from './types';
 
-type EventRow = {
+export type EventRow = {
   id: string;
   child_id: string;
   type: string;
@@ -16,9 +17,12 @@ type EventRow = {
   supersedes: string | null;
   deleted_at: string | null;
   created_at: string;
+  seq: number | null;
+  updated_at: string | null;
+  tz_offset_min: number | null;
 };
 
-function rowToEvent(r: EventRow): Event {
+export function rowToEvent(r: EventRow): Event {
   return {
     id: r.id,
     childId: r.child_id,
@@ -31,6 +35,9 @@ function rowToEvent(r: EventRow): Event {
     supersedes: r.supersedes ?? undefined,
     deletedAt: r.deleted_at ?? undefined,
     createdAt: r.created_at,
+    seq: r.seq ?? undefined,
+    updatedAt: r.updated_at ?? undefined,
+    tzOffsetMin: r.tz_offset_min ?? undefined,
   };
 }
 
@@ -53,22 +60,27 @@ export interface AddEventInput {
 
 export async function addEvent(input: AddEventInput): Promise<Event> {
   const db = await getDb();
+  const ts = nowIso();
+  const seqRow = await db.getFirstAsync<{ next: number }>('SELECT COALESCE(MAX(seq), 0) + 1 AS next FROM events WHERE recorded_by = ?', input.recordedBy);
   const ev: Event = {
     id: newId(),
     childId: input.childId,
     type: input.type,
-    startAt: input.startAt ?? nowIso(),
+    startAt: input.startAt ?? ts,
     endAt: input.endAt,
     payload: input.payload ?? {},
     recordedBy: input.recordedBy,
     source: input.source ?? 'home',
     supersedes: input.supersedes,
-    createdAt: nowIso(),
+    createdAt: ts,
+    seq: seqRow?.next ?? 1,
+    updatedAt: ts,
+    tzOffsetMin: -new Date().getTimezoneOffset(),
   };
   await db.runAsync(
-    `INSERT INTO events (id, child_id, type, start_at, end_at, payload, recorded_by, source, supersedes, deleted_at, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?)`,
-    ev.id, ev.childId, ev.type, ev.startAt, ev.endAt ?? null, JSON.stringify(ev.payload), ev.recordedBy, ev.source, ev.supersedes ?? null, ev.createdAt,
+    `INSERT INTO events (id, child_id, type, start_at, end_at, payload, recorded_by, source, supersedes, deleted_at, created_at, seq, updated_at, tz_offset_min)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, ?, ?)`,
+    ev.id, ev.childId, ev.type, ev.startAt, ev.endAt ?? null, JSON.stringify(ev.payload), ev.recordedBy, ev.source, ev.supersedes ?? null, ev.createdAt, ev.seq ?? null, ev.updatedAt ?? null, ev.tzOffsetMin ?? null,
   );
   return ev;
 }
@@ -93,7 +105,8 @@ export async function correctEvent(originalId: string, changes: Partial<Pick<Eve
 
 export async function deleteEvent(id: string): Promise<void> {
   const db = await getDb();
-  await db.runAsync('UPDATE events SET deleted_at = ? WHERE id = ? AND deleted_at IS NULL', nowIso(), id);
+  const ts = nowIso();
+  await db.runAsync('UPDATE events SET deleted_at = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL', ts, ts, id);
 }
 
 // 進行中的事件（例如睡眠、親餵計時）：有 start 沒有 end。同一孩子同一型別只允許一個進行中（計時器單一擁有者）。
@@ -108,7 +121,8 @@ export async function openEvent(childId: string, type: EventType): Promise<Event
 
 export async function closeEvent(id: string, endAt?: string): Promise<void> {
   const db = await getDb();
-  await db.runAsync('UPDATE events SET end_at = ? WHERE id = ? AND end_at IS NULL', endAt ?? nowIso(), id);
+  const ts = nowIso();
+  await db.runAsync('UPDATE events SET end_at = ?, updated_at = ? WHERE id = ? AND end_at IS NULL', endAt ?? ts, ts, id);
 }
 
 export interface ListOptions {

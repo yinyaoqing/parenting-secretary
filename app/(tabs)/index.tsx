@@ -111,7 +111,12 @@ export default function Home() {
 
   return (
     <View style={styles.page}>
-      <TopBar title={child.nickname} subtitle={subtitle} right={<IconButton name={night ? 'sun' : 'moon'} label={night ? '切換日間模式' : '切換夜間模式'} onPress={() => setMode(night ? 'day' : 'night')} />} />
+      <TopBar title={child.nickname} subtitle={subtitle} right={
+        <View style={[styles.row, { gap: 8 }]}>
+          <IconButton name="share-2" label="同步與交接" onPress={() => router.push('/sync')} />
+          <IconButton name={night ? 'sun' : 'moon'} label={night ? '切換日間模式' : '切換夜間模式'} onPress={() => setMode(night ? 'day' : 'night')} />
+        </View>
+      } />
       <Screen>
         <View style={styles.tiles}>
           <Tile k="餵奶" icon="droplet" v={lastFeed ? sinceShort(lastFeed.startAt) : '尚無紀錄'} s={lastFeed ? `${hhmm(lastFeed.startAt)} ${typeLabel(lastFeed.type)} ${eventSummary(lastFeed.type, lastFeed.payload, lastFeed.startAt)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />

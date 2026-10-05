@@ -56,6 +56,9 @@ export interface Event {
   supersedes?: EventId; // 補登修正：以新事件取代舊事件
   deletedAt?: string; // 墓碑
   createdAt: string;
+  seq?: number; // 記錄裝置自己的單調序號，交接差量用（recordedBy + seq 唯一）
+  updatedAt?: string; // 結束或刪除時更新，交接差量用
+  tzOffsetMin?: number; // 記錄當下的時區偏移（分鐘），跨時區顯示用
 }
 
 export type ReminderKind = 'safety_net' | 'schedule' | 'medication' | 'public_resource' | 'vaccine' | 'calendar';

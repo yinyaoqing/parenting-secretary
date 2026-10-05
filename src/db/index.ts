@@ -16,6 +16,11 @@ export function getDb(): Promise<SQLite.SQLiteDatabase> {
   return dbPromise;
 }
 
+async function hasColumn(db: SQLite.SQLiteDatabase, table: string, column: string): Promise<boolean> {
+  const cols = await db.getAllAsync<{ name: string }>(`PRAGMA table_info(${table})`);
+  return cols.some((c) => c.name === column);
+}
+
 async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
   const row = await db.getFirstAsync<{ value: string }>(
     'SELECT value FROM meta WHERE key = ?',
@@ -23,7 +28,22 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
   );
   const current = row ? Number(row.value) : 0;
   if (current >= SCHEMA_VERSION) return;
-  // 之後的版本遷移依序寫在這裡：if (current < 2) { ... }
+
+  if (current < 2) {
+    // v2：事件加 seq、updated_at、tz_offset_min。全新安裝時 SCHEMA_SQL 已含這些欄位，舊資料庫才需要 ALTER。
+    for (const [col, type] of [['seq', 'INTEGER'], ['updated_at', 'TEXT'], ['tz_offset_min', 'INTEGER']] as const) {
+      if (!(await hasColumn(db, 'events', col))) await db.execAsync(`ALTER TABLE events ADD COLUMN ${col} ${type}`);
+    }
+    // 既有事件依建立順序補序號（都是本機記的），updated_at 以 created_at 回填。
+    await db.execAsync(`
+      UPDATE events SET seq = (
+        SELECT COUNT(*) FROM events e2
+        WHERE e2.created_at < events.created_at OR (e2.created_at = events.created_at AND e2.id < events.id)
+      ) + 1 WHERE seq IS NULL;
+      UPDATE events SET updated_at = COALESCE(deleted_at, end_at, created_at) WHERE updated_at IS NULL;
+    `);
+  }
+
   await db.runAsync(
     'INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)',
     'schema_version',

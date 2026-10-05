@@ -1,5 +1,6 @@
 // SQLite schema。事件表 append-only：修正以 supersedes 指向舊事件，刪除以 deleted_at 墓碑。
-export const SCHEMA_VERSION = 1;
+// v2：事件加 seq（每個記錄裝置自己的單調序號）、updated_at（結束或刪除時更新，供交接差量）、tz_offset_min；新增 peers（配對過的裝置）。
+export const SCHEMA_VERSION = 2;
 
 export const SCHEMA_SQL = `
 PRAGMA journal_mode = WAL;
@@ -34,9 +35,21 @@ CREATE TABLE IF NOT EXISTS events (
   source TEXT NOT NULL DEFAULT 'home',
   supersedes TEXT,
   deleted_at TEXT,
-  created_at TEXT NOT NULL
+  created_at TEXT NOT NULL,
+  seq INTEGER,
+  updated_at TEXT,
+  tz_offset_min INTEGER
 );
 CREATE INDEX IF NOT EXISTS idx_events_child_type_time ON events(child_id, type, start_at);
+
+CREATE TABLE IF NOT EXISTS peers (
+  device_id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  last_sent_seq INTEGER NOT NULL DEFAULT 0,
+  last_sent_at TEXT,
+  last_received_at TEXT,
+  created_at TEXT NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS reminders (
   id TEXT PRIMARY KEY,

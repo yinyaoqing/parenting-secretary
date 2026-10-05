@@ -1,6 +1,6 @@
 # 進度表
 
-更新日期：2026-10-05。基準：plan-v0.8 第 4.2 節的 20 週時程（兼職者各欄乘以 2）。
+更新日期：2026-10-06。基準：plan-v0.8 第 4.2 節的 20 週時程（兼職者各欄乘以 2）。
 狀態符號：✅ 完成、🔶 部分完成、⬜ 未開始、👤 需專案擁有者本人。
 
 ## 一、依時程表
@@ -23,6 +23,7 @@
 
 | 項目 | 說明 |
 |---|---|
+| 多裝置同步（不經伺服器） | QR code 面對面交接、AirDrop／Quick Share／LINE 傳加密交接檔、合併匯入；合併引擎與打包層各有 node 測試 |
 | UI 設計稿套用 | 設計系統、底部四分頁、建檔三步、逐題問卷、首頁狀態格與復原、表單補登時間、原生日期選擇器、內容與設定頁、時程佔位頁 |
 | 內容產線 | check-content（十項檢查）、build-content、export-bilingual、import-translation 四支腳本 |
 | 部署 | EAS 專案（組織 yinyaoqings-team）、EAS Update preview 頻道、一鍵發布 `npm run publish:preview`、QR code 與發布紀錄在 docs/dev/release/ |

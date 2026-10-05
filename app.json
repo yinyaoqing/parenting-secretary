@@ -27,7 +27,13 @@
       "expo-notifications",
       "expo-router",
       "expo-status-bar",
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "掃描另一支手機上的 QR code，用來配對與交接紀錄。影像不會儲存。"
+        }
+      ]
     ],
     "scheme": "parentingsecretary",
     "extra": {
