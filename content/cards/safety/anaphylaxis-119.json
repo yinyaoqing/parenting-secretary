@@ -1,0 +1,27 @@
+{
+  "id": "safety.anaphylaxis-119",
+  "topicGroup": "safety",
+  "title": "嚴重過敏反應與緊急狀況：打 119",
+  "ageMinDays": 0,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "吃了新食物後出現呼吸困難、嘴唇或舌頭腫、全身蕁麻疹、嘔吐合併嗜睡，立刻打 119。抽搐、呼吸困難、誤食藥品或清潔劑、叫不醒，也立刻打 119。報案時說地址、孩子年齡、現在的意識與呼吸狀況。",
+  "sources": [
+    {
+      "name": "衛生福利部國民健康署",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1865&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

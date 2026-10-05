@@ -1,0 +1,36 @@
+{
+  "id": "safety.fever",
+  "topicGroup": "safety",
+  "title": "發燒：怎麼量、幾度算、何時就醫",
+  "ageMinDays": 0,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "不同部位的發燒定義不同：肛溫與耳溫 38.0°C 以上、口溫與額溫 37.5°C 以上、腋溫 37.2°C 以上。3 個月以下的寶寶以肛溫為準，耳溫不適用，腋溫偏低不能用來排除發燒。3 個月以下寶寶發燒請立即就醫。未經醫師指示不要自行給退燒藥。APP 只記錄你量到的數字與部位，不判斷要不要就醫。",
+  "sources": [
+    {
+      "name": "衛生福利部",
+      "url": "https://www.mohw.gov.tw/fp-16-39575-1.html",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "台灣兒科醫學會（兒童發燒處置建議，台灣兒童感染症醫學會轉載）",
+      "url": "https://www.pids.org.tw/index.php?route=education%2Feducation&path=92",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "B",
+      "excerpt": "TODO：上線前填入原文摘錄",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

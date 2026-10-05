@@ -1,0 +1,37 @@
+{
+  "id": "safety.newborn-intake",
+  "topicGroup": "safety",
+  "title": "新生兒有沒有吃夠：濕尿布與警訊",
+  "ageMinDays": 0,
+  "ageMaxDays": 60,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "出生後第 1 到 5 天，濕尿布大約每天多一片；第 5 天起每天至少 5 到 6 片。叫不太醒、長時間不吃、尿布明顯變少、嘔吐物呈黃綠色，請就醫。APP 顯示你記錄的尿布數，不做判斷。",
+  "sources": [
+    {
+      "name": "香港衛生署家庭健康服務：寶寶吃得足夠",
+      "url": "https://www.fhs.gov.hk/tc_chi/breastfeeding/30173.html",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "B",
+      "excerpt": "TODO：上線前填入原文摘錄",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "NHS 或 USDA WIC 濕尿布參考",
+      "url": "https://www.nhs.uk/",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "TODO",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

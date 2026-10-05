@@ -101,8 +101,8 @@ async function checkCard(path) {
   // 4 連續相同字數（中文 B 級重述；A2 英文來源跳過）
   for (const s of card.sources ?? []) {
     if (s.license === 'B' && s.lang === 'zh-TW') {
-      if (!s.excerpt) {
-        fail.push(`B 級來源 ${s.name} 缺原文摘錄，無法做相似度檢查`);
+      if (!s.excerpt || s.excerpt.startsWith('TODO')) {
+        (card.status === 'draft' ? warn : fail).push(`B 級來源 ${s.name} 缺原文摘錄，草稿可暫缺，進入 review 前必須補上`);
         continue;
       }
       const lcs = longestCommonSubstring(stripWhitelist(card.body ?? ''), stripWhitelist(s.excerpt));
@@ -131,6 +131,11 @@ async function checkCard(path) {
 
   // 8 外國來源主題固定標示
   if (FOREIGN_ONLY_GROUPS.has(card.topicGroup) && card.foreignOnly !== true) fail.push(`主題群 ${card.topicGroup} 須設 foreignOnly=true 以加固定標示`);
+
+  // A2 翻譯卡進入 review 前必須有原文摘錄
+  for (const s of card.sources ?? []) {
+    if (s.license === 'A2' && card.status !== 'draft' && (!s.excerpt || s.excerpt.startsWith('TODO'))) fail.push(`A2 來源 ${s.name} 缺原文摘錄`);
+  }
 
   // 9 譯審
   if (card.translated && card.status === 'published' && card.translationReviewed !== true) fail.push('翻譯卡片未完成譯審，不得發布');

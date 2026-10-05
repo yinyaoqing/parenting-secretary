@@ -1,0 +1,27 @@
+{
+  "id": "safety.enterovirus",
+  "topicGroup": "safety",
+  "title": "腸病毒重症前兆",
+  "ageMinDays": 0,
+  "ageMaxDays": 1825,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "5 歲以下是腸病毒重症的高危險群。孩子確診腸病毒後 7 天內，若出現嗜睡、意識不清、活動力不佳、手腳無力、肌抽躍（無故驚嚇或突然全身肌肉收縮）、持續嘔吐、呼吸急促或心跳加快，請儘速送大醫院。",
+  "sources": [
+    {
+      "name": "衛生福利部疾病管制署",
+      "url": "https://www.cdc.gov.tw/Category/ListContent/xdiZ0NuS67snzX0a7DGUHg?uaid=C_poF073bw0n9RdfjYz73Q",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

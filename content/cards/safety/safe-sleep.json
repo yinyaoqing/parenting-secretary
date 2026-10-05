@@ -4,16 +4,11 @@
   "title": "安全睡眠",
   "ageMinDays": 0,
   "ageMaxDays": 365,
-  "styleTags": ["all"],
-  "evidence": "official",
-  "body": "每次睡覺都讓寶寶仰睡，不趴睡、不側睡。睡在堅硬平坦的床面，床上不放枕頭、棉被、玩偶等鬆軟物品。與大人同房但不同床。保持環境通風、不過熱、不蓋頭。清醒時由大人看著進行趴臥練習，睡著後翻回仰睡。",
-  "readMore": [
-    {
-      "label": "國健署：嬰兒安全睡眠衛教",
-      "url": "https://www.hpa.gov.tw/",
-      "note": "上線前以國健署安全睡眠專頁的確切網址取代"
-    }
+  "styleTags": [
+    "all"
   ],
+  "evidence": "official",
+  "body": "每次睡覺都讓寶寶仰睡，不趴睡、不側睡。睡在堅硬平坦的床面，床上不放枕頭、棉被、玩偶等鬆軟物品。與大人同房但不同床。環境通風、不過熱、不蓋頭。清醒時由大人看著進行趴臥練習，睡著後翻回仰睡。",
   "sources": [
     {
       "name": "衛生福利部國民健康署",
@@ -21,12 +16,20 @@
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
-      "checkedAt": "2026-10-05"
+      "checkedAt": "2026-10-05",
+      "excerpt": "TODO：上線前填入國健署安全睡眠專頁原文摘錄與確切網址"
     }
   ],
   "translated": false,
   "foreignOnly": false,
   "policyNumbers": false,
   "updatedAt": "2026-10-05",
-  "status": "draft"
+  "status": "draft",
+  "readMore": [
+    {
+      "label": "國健署：嬰兒安全睡眠衛教",
+      "url": "https://www.hpa.gov.tw/",
+      "note": "上線前換成安全睡眠專頁網址"
+    }
+  ]
 }

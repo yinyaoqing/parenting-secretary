@@ -1,0 +1,35 @@
+{
+  "id": "safety.abusive-head-trauma",
+  "topicGroup": "safety",
+  "title": "寶寶一直哭：3 不 2 要",
+  "ageMinDays": 0,
+  "ageMaxDays": 365,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "不亂晃、不拋接、不撞擊；要支撐頭頸、要先確認原因。受虐性腦傷以 2 到 4 個月的寶寶最常見。真的受不了時，把寶寶仰躺放在安全的床上，離開幾分鐘讓自己緩一緩，再回來。",
+  "sources": [
+    {
+      "name": "衛生福利部國民健康署",
+      "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=4809&pid=18506",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "衛生福利部國民健康署",
+      "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=4576&pid=15712",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

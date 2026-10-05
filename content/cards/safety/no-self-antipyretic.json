@@ -1,0 +1,35 @@
+{
+  "id": "safety.no-self-antipyretic",
+  "topicGroup": "safety",
+  "title": "不自行買退燒藥",
+  "ageMinDays": 0,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "孩子發燒應就醫，不要自行購買退燒藥。兒童不使用阿斯匹靈等水楊酸類藥物退燒。退燒藥的種類、劑量與間隔以醫師處方與藥袋為準，APP 的用藥提醒只倒數你輸入的間隔。",
+  "sources": [
+    {
+      "name": "衛生福利部",
+      "url": "https://www.mohw.gov.tw/cp-2634-9509-1.html",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "衛生福利部",
+      "url": "https://www.mohw.gov.tw/cp-16-80096-1.html",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

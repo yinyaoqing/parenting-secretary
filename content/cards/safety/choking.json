@@ -1,0 +1,36 @@
+{
+  "id": "safety.choking",
+  "topicGroup": "safety",
+  "title": "噎食預防",
+  "ageMinDays": 0,
+  "ageMaxDays": 1460,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "4 歲以下避免整顆葡萄、小番茄、堅果、爆米花、硬糖、香腸圓片、大塊黏稠或有嚼勁的食物。圓形食物切成四瓣或細條。吃東西時坐著、有大人在旁、不跑跳。開始副食品時一次一種新食物。",
+  "sources": [
+    {
+      "name": "CDC（美國疾病管制與預防中心）兒童噎食預防",
+      "url": "https://www.cdc.gov/",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "TODO：上線前填入確切頁面與原文",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "衛生福利部國民健康署",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1865&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

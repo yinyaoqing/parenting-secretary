@@ -1,0 +1,35 @@
+{
+  "id": "safety.falls-drowning",
+  "topicGroup": "safety",
+  "title": "防墜與防溺",
+  "ageMinDays": 0,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "會翻身起，不把寶寶單獨放在床、沙發或尿布台上。窗戶與陽台加裝防墜設施，窗邊不放可以踩的家具。洗澡時大人的手和視線不離開孩子，水桶、浴缸用完立刻倒空。1 到 4 歲是溺水高風險年齡。",
+  "sources": [
+    {
+      "name": "衛生福利部國民健康署",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1830&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "衛生福利部國民健康署",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1351&type=00",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

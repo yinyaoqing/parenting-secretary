@@ -24,7 +24,10 @@
     "plugins": [
       "expo-sqlite",
       "expo-sharing",
-      "expo-notifications"
-    ]
+      "expo-notifications",
+      "expo-router",
+      "expo-status-bar"
+    ],
+    "scheme": "parentingsecretary"
   }
 }

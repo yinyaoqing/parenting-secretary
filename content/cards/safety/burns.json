@@ -1,0 +1,35 @@
+{
+  "id": "safety.burns",
+  "topicGroup": "safety",
+  "title": "燙傷處理：沖脫泡蓋送",
+  "ageMinDays": 0,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "沖：用乾淨的冷水沖或浸泡 20 到 30 分鐘。脫：在水中小心剪開衣物，沾黏的地方不要硬剝。泡：持續泡冷水 30 分鐘。蓋：用乾淨紗布或保鮮膜覆蓋。送：面積大、起水泡、在臉或關節，或是嬰幼兒，打 119 或送醫。",
+  "sources": [
+    {
+      "name": "臺北市政府消防局防災教育雲",
+      "url": "https://www.disasterlearning.gov.taipei/tw/Knowledge/ugC_Knowledge_Detail.aspx?ID=120&TID=6",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "衛生福利部國民健康署",
+      "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=4878&pid=18813",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

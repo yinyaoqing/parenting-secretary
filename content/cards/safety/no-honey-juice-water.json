@@ -1,0 +1,35 @@
+{
+  "id": "safety.no-honey-juice-water",
+  "topicGroup": "safety",
+  "title": "1 歲前不吃蜂蜜，不喝果汁；6 個月前不另外給水",
+  "ageMinDays": 0,
+  "ageMaxDays": 365,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "1 歲前不吃蜂蜜，也不吃含蜂蜜的食物。1 歲前不喝果汁。純母乳或配方奶的寶寶 6 個月前不需要另外喝水。1 歲前鮮奶不作為主要飲品。",
+  "sources": [
+    {
+      "name": "衛生福利部國民健康署",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1865&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "AAP 2017 果汁政策聲明",
+      "url": "https://publications.aap.org/pediatrics/",
+      "lang": "en",
+      "trust": "T2",
+      "license": "C",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "safety.car-seat",
+  "topicGroup": "safety",
+  "title": "乘車安全",
+  "ageMinDays": 0,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "2 歲以下必須坐在後座的攜帶式嬰兒床或後向式安全座椅，不可裝在前座。建議 4 歲前都優先使用後向式。每次出門都要扣好。",
+  "sources": [
+    {
+      "name": "小型車附載幼童安全乘坐實施及宣導辦法",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=K0040038",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}
