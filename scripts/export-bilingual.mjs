@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // 對照稿輸出（規劃 v0.8 D7-6）：把翻譯卡片的原文、譯文、來源輸出成 Markdown 與 CSV，交給譯者。
-// 譯者在 CSV 的「修訂譯文」欄填寫後，用 scripts/import-translation.mjs（第 15 週）匯回。
+// 譯者在 CSV 的「修訂譯文」欄填寫後，用 npm run content:import -- <csv> 匯回（scripts/import-translation.mjs）。
 import { readdirSync, readFileSync, statSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 

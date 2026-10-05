@@ -73,6 +73,7 @@ scripts/
   check-content.mjs     產線十項檢查（必跑）
   build-content.mjs     打包內容卡到 src/content（prestart 自動跑）
   export-bilingual.mjs  對照稿輸出給譯者
+  import-translation.mjs 譯審匯回：讀 CSV「修訂譯文」欄寫回卡片並設 translationReviewed=true（支援 --dry-run）
   publish-preview.mjs   一鍵 EAS Update 到 preview 頻道並產 QR code 到 docs/dev/release/
 docs/plan/              規劃文件 v0.3–v0.9
 docs/week1/             授權申請信、訂閱流程、授權聲明清單、未獲授權處理
@@ -91,6 +92,8 @@ npm run typecheck          # 必須 0 錯誤
 npm run content:check      # 必須 0 張未通過
 npm run content:build      # 產生 cards.generated.json
 npm run content:bilingual  # 對照稿
+npm run content:import -- docs/translation/bilingual-<日期>.csv --dry-run   # 譯審匯回（先 dry-run）
+npm run lint               # eslint，目前 0 錯誤
 npx expo start             # Expo Go 開發
 npx expo export --platform android --output-dir /tmp/x   # 煙霧測試 JS 打包（web 會失敗，正常，未裝 react-native-web）
 npm run publish:preview    # 發布測試版（需 eas login）
@@ -147,9 +150,8 @@ npm run publish:preview    # 發布測試版（需 eas login）
 | 3 | 本地通知（第 7–8 週）：expo-notifications、滾動排程（iOS 64 筆上限）、Android `SCHEDULE_EXACT_ALARM` 授權引導、通知健康檢查頁、安全網提醒實作（用 `recentIntervalsMinutes` 與 `safetyNetUpperBound`）、用藥倒數、暫停模式 | 需 EAS development build 真機測；驗收標準見 plan-v0.4 7.2：50 筆提醒誤差中位數 < 1 分鐘 |
 | 4 | 公費資源時程（第 9–11 週）：`resource_timeline` 表、時程 JSON（9 次預防保健、6 次發展篩檢、疫苗、塗氟）、政策 JSON（津貼、補助、假別、扣除額）、行政待辦；遠端 JSON 放靜態空間 | 數值全部對應 plan-v0.5 數值來源表，附查核日期 |
 | 5 | 飲食 24、睡眠 10、健康照護 14、家庭權益 20、居家安全 8、行為 2 張卡（上架 140 張目標） | 同內容卡驗收 |
-| 6 | 譯審匯入腳本 `scripts/import-translation.mjs`（讀 CSV 的「修訂譯文」欄寫回卡片並設 translationReviewed=true） | 匯入後 content:check 通過 |
-| 7 | 照顧者支持、暫停模式、行程骨架、匯出與備份（第 14 週） | 匯出 JSON 可再匯入還原 |
-| 8 | 無障礙、長輩字級、隱私權政策、商店素材、紅線自檢（第 15–16 週） | — |
+| 6 | 照顧者支持、暫停模式、行程骨架、匯出與備份（第 14 週） | 匯出 JSON 可再匯入還原 |
+| 7 | 無障礙、長輩字級、隱私權政策、商店素材、紅線自檢（第 15–16 週） | — |
 
 檢查點（plan-v0.8 D6-4）：第 8 週 TestFlight 或 APK 可用；第 14 週內容 ≥ 100 張。未達則依序砍行為與情緒、在地資源、特殊情境擴充，不砍安全層與公費資源。
 
@@ -177,7 +179,7 @@ npm run publish:preview    # 發布測試版（需 eas login）
 
 - 語言：程式註解、文件、提交訊息內容用繁體中文或英文皆可，使用者可見文字一律繁體中文（台灣用語）。
 - Git：作者 Joseph <josephyinyaoqing@gmail.com>（使用者指定）；提交訊息結尾加 `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`（接手的 agent 改成自己的名稱）。分支 main，無 PR 流程。
-- 每次提交前：`npm run typecheck`、`npm run content:check`、Android export 煙霧測試。
+- 每次提交前：`npm run typecheck`、`npm run lint`、`npm run content:check`、Android export 煙霧測試。
 - 不要在程式或內容中出現「建議就醫」「疑似」「診斷」等判斷語氣；安全層用官方原文的固定文字。
 - 不要把 `content/cards/**/*.json` 的 `excerpt` 打包進 APP（build-content 已剝除）。
 - 不要手改 `src/content/cards.generated.json`。

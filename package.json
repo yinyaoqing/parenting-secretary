@@ -39,7 +39,8 @@
     "content:bilingual": "node scripts/export-bilingual.mjs",
     "prestart": "node scripts/build-content.mjs",
     "lint": "expo lint",
-    "publish:preview": "node scripts/publish-preview.mjs"
+    "publish:preview": "node scripts/publish-preview.mjs",
+    "content:import": "node scripts/import-translation.mjs"
   },
   "private": true
 }

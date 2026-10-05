@@ -17,16 +17,15 @@ export default function Timeline() {
 
   const remove = async (id: string) => { await deleteEvent(id); setConfirmId(null); load(); };
 
-  let lastDay = '';
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.pad}>
       <Text style={styles.muted}>最近 200 筆。刪除會保留在資料庫中但不再顯示；</Text>
       <View style={styles.card}>
         {events.length === 0 && <Text style={styles.muted}>還沒有紀錄。</Text>}
-        {events.map((e) => {
+        {events.map((e, i) => {
           const day = e.startAt.slice(0, 10);
-          const showDay = day !== lastDay;
-          lastDay = day;
+          // 與前一筆比對日期，不在 render 中改變外部變數（react-hooks/immutability）
+          const showDay = i === 0 || day !== events[i - 1].startAt.slice(0, 10);
           return (
             <View key={e.id}>
               {showDay && <Text style={[styles.muted, { marginTop: 8 }]}>{day}</Text>}
