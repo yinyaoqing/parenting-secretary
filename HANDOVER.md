@@ -85,6 +85,7 @@ docs/validation/        家長規格驗證頁原始檔與說明
 docs/translation/       對照稿輸出
 docs/dev/run.md         如何啟動驗證
 docs/dev/deploy-test.md 如何部署測試版（已含 EAS 專案資訊）
+docs/dev/roadmap.md     開發順序（2026-10-06 排定，含各階段完成標準與擁有者待辦）
 docs/dev/release/       最新一次發布的 QR code、latest.json、history.md（publish-preview 產生）
 ```
 

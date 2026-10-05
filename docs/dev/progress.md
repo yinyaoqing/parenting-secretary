@@ -53,7 +53,7 @@
 | 3 | 公費資源遠端 JSON 的靜態空間 | GitHub Pages、Cloudflare Pages 或其他 |
 | 4 | Apple Developer Program 是否現在申請 | 影響第 8 週 TestFlight 檢查點 |
 
-### 工程待辦（依優先序）
+### 工程待辦（依優先序；詳細階段與完成標準見 roadmap.md）
 
 1. 依設計稿調整畫面：已完成全部 18 張畫面的對應（未在真機驗證）。
 2. 本地通知與安全網提醒（第 7–8 週），含 EAS development build。
