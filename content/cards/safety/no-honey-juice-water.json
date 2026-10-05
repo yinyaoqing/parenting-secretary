@@ -8,19 +8,20 @@
     "all"
   ],
   "evidence": "official",
-  "body": "1 歲前不吃蜂蜜，也不吃含蜂蜜的食物。1 歲前不喝果汁。純母乳或配方奶的寶寶 6 個月前不需要另外喝水。1 歲前鮮奶不作為主要飲品。",
+  "body": "1 歲以下不可餵食蜂蜜，蜂蜜中容易有肉毒桿菌孢子。未添加副食品前，除非天氣很熱、流很多汗，一般不需要額外給水。1 歲前不喝果汁（美國兒科學會 2017 年建議）。1 歲前鮮奶不作為主要飲品。",
   "sources": [
     {
-      "name": "衛生福利部國民健康署",
+      "name": "衛生福利部國民健康署：嬰兒副食品添加",
       "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1865&type=01",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
+      "excerpt": "1歲以下的寶寶不可餵食蜂蜜，因為蜂蜜中易有肉毒桿菌孢子。未添加副食品前，除非天氣很熱、流很多汗，一般不需要額外再給予水分。",
       "checkedAt": "2026-10-05"
     },
     {
-      "name": "AAP 2017 果汁政策聲明",
-      "url": "https://publications.aap.org/pediatrics/",
+      "name": "AAP 2017：Fruit Juice in Infants, Children, and Adolescents",
+      "url": "https://publications.aap.org/pediatrics/article/139/6/e20170967/38754/",
       "lang": "en",
       "trust": "T2",
       "license": "C",

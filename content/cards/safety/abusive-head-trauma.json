@@ -8,22 +8,24 @@
     "all"
   ],
   "evidence": "official",
-  "body": "不亂晃、不拋接、不撞擊；要支撐頭頸、要先確認原因。受虐性腦傷以 2 到 4 個月的寶寶最常見。真的受不了時，把寶寶仰躺放在安全的床上，離開幾分鐘讓自己緩一緩，再回來。",
+  "body": "寶寶哭先問五件事：肚子餓、尿布濕、好想睡、肚脹氣、想撒嬌。兩個要：要用雙手支撐好寶寶的頭頸；要有耐心、緩和寶寶和自己的情緒，當下無法承受就和其他照顧者換手。不亂晃、不拋接、不撞擊。受虐性腦傷常發生於未滿 3 歲，以 2 到 4 個月最常見。",
   "sources": [
     {
-      "name": "衛生福利部國民健康署",
+      "name": "衛生福利部國民健康署：認識寶寶為什麼哭哭！「5 問 2 要」遠離腦傷危害",
       "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=4809&pid=18506",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
+      "excerpt": "「受虐性腦傷」常發生於未滿3歲兒童，尤其以2至4個月嬰兒最常見。要用雙手支撐好寶寶的頭部和頸部；要有耐心、緩和寶寶和自己的情緒，如果當下無法承受，可以跟其他照顧者換手。",
       "checkedAt": "2026-10-05"
     },
     {
-      "name": "衛生福利部國民健康署",
+      "name": "衛生福利部國民健康署：「3 心」妙招安撫哭鬧寶寶",
       "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=4576&pid=15712",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
+      "excerpt": "TODO：上線前填入「3 不 2 要」原文",
       "checkedAt": "2026-10-05"
     }
   ],
@@ -31,5 +33,5 @@
   "foreignOnly": false,
   "policyNumbers": false,
   "updatedAt": "2026-10-05",
-  "status": "draft"
+  "status": "review"
 }

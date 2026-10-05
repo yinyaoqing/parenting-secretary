@@ -16,16 +16,16 @@
       "lang": "zh-TW",
       "trust": "T1",
       "license": "B",
-      "excerpt": "TODO：上線前填入原文摘錄",
+      "excerpt": "TODO：自動抓取時 DNS 失敗，需人工開啟後填入第 1 至 5 天與第 5 天後濕尿片數的原文",
       "checkedAt": "2026-10-05"
     },
     {
-      "name": "NHS 或 USDA WIC 濕尿布參考",
-      "url": "https://www.nhs.uk/",
+      "name": "NHS：Breastfeeding: is my baby getting enough milk?",
+      "url": "https://www.nhs.uk/conditions/baby/breastfeeding-and-bottle-feeding/breastfeeding/enough-milk/",
       "lang": "en",
       "trust": "T1",
       "license": "A2",
-      "excerpt": "TODO",
+      "excerpt": "TODO：上線前開啟頁面填入濕尿布數原文；網址未經本次查核確認",
       "checkedAt": "2026-10-05"
     }
   ],

@@ -11,11 +11,12 @@
   "body": "5 歲以下是腸病毒重症的高危險群。孩子確診腸病毒後 7 天內，若出現嗜睡、意識不清、活動力不佳、手腳無力、肌抽躍（無故驚嚇或突然全身肌肉收縮）、持續嘔吐、呼吸急促或心跳加快，請儘速送大醫院。",
   "sources": [
     {
-      "name": "衛生福利部疾病管制署",
+      "name": "衛生福利部疾病管制署：腸病毒疫情逐漸升溫，注意重症前兆病徵",
       "url": "https://www.cdc.gov.tw/Category/ListContent/xdiZ0NuS67snzX0a7DGUHg?uaid=C_poF073bw0n9RdfjYz73Q",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
+      "excerpt": "5歲以下嬰幼兒為腸病毒重症高危險群。如有嗜睡、意識不清、活力不佳、手腳無力、肌抽躍（無故驚嚇或突然全身肌肉收縮）、持續嘔吐、呼吸急促或心跳加快等症狀，請儘速送大醫院治療。在幼兒感染腸病毒後的7天內，家長與其他照顧者要特別注意其病情變化。",
       "checkedAt": "2026-10-05"
     }
   ],
@@ -23,5 +24,5 @@
   "foreignOnly": false,
   "policyNumbers": false,
   "updatedAt": "2026-10-05",
-  "status": "draft"
+  "status": "review"
 }

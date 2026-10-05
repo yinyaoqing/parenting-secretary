@@ -11,19 +11,21 @@
   "body": "沖：用乾淨的冷水沖或浸泡 20 到 30 分鐘。脫：在水中小心剪開衣物，沾黏的地方不要硬剝。泡：持續泡冷水 30 分鐘。蓋：用乾淨紗布或保鮮膜覆蓋。送：面積大、起水泡、在臉或關節，或是嬰幼兒，打 119 或送醫。",
   "sources": [
     {
-      "name": "臺北市政府消防局防災教育雲",
+      "name": "臺北市政府消防局防災教育雲：燒燙傷處置沖脫泡蓋送",
       "url": "https://www.disasterlearning.gov.taipei/tw/Knowledge/ugC_Knowledge_Detail.aspx?ID=120&TID=6",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
+      "excerpt": "沖：用乾淨的冷水輕輕沖洗或浸泡20至30分鐘。脫：在冷水中用剪刀剪開患處衣物，若沾黏於患處時，勿強行剝除。泡：持續浸泡冷水30分鐘。蓋：使用乾淨或無菌紗布覆蓋或以乾淨保鮮膜環繞包覆。送：嚴重時打119求救。",
       "checkedAt": "2026-10-05"
     },
     {
-      "name": "衛生福利部國民健康署",
+      "name": "衛生福利部國民健康署：5 招防燒燙傷全攻略",
       "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=4878&pid=18813",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
+      "excerpt": "TODO：上線前填入預防原文",
       "checkedAt": "2026-10-05"
     }
   ],
@@ -31,5 +33,5 @@
   "foreignOnly": false,
   "policyNumbers": false,
   "updatedAt": "2026-10-05",
-  "status": "draft"
+  "status": "review"
 }

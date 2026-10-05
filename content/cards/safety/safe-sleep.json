@@ -8,28 +8,27 @@
     "all"
   ],
   "evidence": "official",
-  "body": "每次睡覺都讓寶寶仰睡，不趴睡、不側睡。睡在堅硬平坦的床面，床上不放枕頭、棉被、玩偶等鬆軟物品。與大人同房但不同床。環境通風、不過熱、不蓋頭。清醒時由大人看著進行趴臥練習，睡著後翻回仰睡。",
+  "body": "1 歲以下每次睡覺都讓寶寶仰睡；側睡容易翻成趴睡，也不建議。不用枕頭。睡眠區域不放枕頭、棉被、毯子、填充玩偶等鬆軟物。遵守同室不同床，不和大人或兄弟姊妹睡同一張床。保持通風，保暖用睡袋型睡衣或包巾，不悶熱。",
   "sources": [
     {
-      "name": "衛生福利部國民健康署",
-      "url": "https://www.hpa.gov.tw/",
+      "name": "衛生福利部國民健康署：嬰兒睡姿及睡眠環境 5 招安心睡",
+      "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=4576&pid=15161",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
-      "checkedAt": "2026-10-05",
-      "excerpt": "TODO：上線前填入國健署安全睡眠專頁原文摘錄與確切網址"
+      "excerpt": "正確姿勢是「仰睡」，側睡因容易翻身成趴睡亦不建議。1歲以下嬰兒不需使用任何枕頭。遵守「同室不同床」原則，勿讓嬰兒與主要照顧者或兄弟姊妹睡在同一張床。保持通風，保暖可使用睡袋型睡衣，或以包巾包裹孩子。睡眠區域不宜有任何鬆軟物，如枕頭、棉被、毯子、填充玩偶。",
+      "checkedAt": "2026-10-05"
     }
   ],
   "translated": false,
   "foreignOnly": false,
   "policyNumbers": false,
   "updatedAt": "2026-10-05",
-  "status": "draft",
+  "status": "review",
   "readMore": [
     {
-      "label": "國健署：嬰兒安全睡眠衛教",
-      "url": "https://www.hpa.gov.tw/",
-      "note": "上線前換成安全睡眠專頁網址"
+      "label": "國健署：嬰兒安全睡眠環境專區",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4150"
     }
   ]
 }

@@ -8,20 +8,20 @@
     "all"
   ],
   "evidence": "official",
-  "body": "新生兒正常體溫約 36.5 到 37.5°C。量到 36.0 到 36.4°C 時先保暖、調整室溫，半小時後再量一次。低於 36.0°C 或保暖後仍未回升、活動力變差、不吃奶，請就醫。",
+  "body": "寶寶一般體溫約 36.4°C，會有些微差異。量到比平常低、手腳冰冷時，先保暖、調整室溫，半小時後再量一次。WHO 將 36.0 到 36.4°C 視為輕度低體溫、低於 36.0°C 為中度；保暖後仍未回升、活動力變差、不吃奶，請就醫。",
   "sources": [
     {
-      "name": "NHS（英國國民保健署）",
-      "url": "https://www.nhs.uk/",
+      "name": "NHS：How to take your baby's temperature",
+      "url": "https://www.nhs.uk/conditions/baby/health/how-to-take-your-babys-temperature/",
       "lang": "en",
       "trust": "T1",
       "license": "A2",
-      "excerpt": "TODO：上線前填入 NHS 新生兒體溫頁面原文與確切網址",
+      "excerpt": "A normal temperature in babies and children is about 36.4C, but this can vary slightly.",
       "checkedAt": "2026-10-05"
     },
     {
-      "name": "WHO Thermal protection of the newborn (WHO/RHT/MSM/97.2)",
-      "url": "https://www.who.int/",
+      "name": "WHO：Thermal protection of the newborn, a practical guide (WHO/RHT/MSM/97.2)",
+      "url": "https://www.who.int/publications/i/item/WHO-RHT-MSM-97.2",
       "lang": "en",
       "trust": "T1",
       "license": "C",

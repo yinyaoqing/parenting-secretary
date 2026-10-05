@@ -8,27 +8,37 @@
     "all"
   ],
   "evidence": "official",
-  "body": "不同部位的發燒定義不同：肛溫與耳溫 38.0°C 以上、口溫與額溫 37.5°C 以上、腋溫 37.2°C 以上。3 個月以下的寶寶以肛溫為準，耳溫不適用，腋溫偏低不能用來排除發燒。3 個月以下寶寶發燒請立即就醫。未經醫師指示不要自行給退燒藥。APP 只記錄你量到的數字與部位，不判斷要不要就醫。",
+  "body": "發燒通常指 38°C 以上。3 個月以下的寶寶量到 38°C 以上，請立即就醫。3 個月以下以肛溫為準，耳溫不適用；腋溫偏低，不能用來排除發燒（台灣兒科醫學會建議，各部位門檻見來源）。不要自行購買退燒藥給孩子。APP 只記錄你量到的數字與部位，不判斷要不要就醫。",
   "sources": [
     {
-      "name": "衛生福利部",
+      "name": "NHS：How to take your baby's temperature",
+      "url": "https://www.nhs.uk/conditions/baby/health/how-to-take-your-babys-temperature/",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "A normal temperature in babies and children is about 36.4C, but this can vary slightly. A high temperature or fever is usually considered to be a temperature of 38C or above. Get urgent help if your baby's temperature is 38C or higher if they're under 3 months old.",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "衛生福利部：寶貝發燒家長莫慌，一起學習正確用退燒藥",
       "url": "https://www.mohw.gov.tw/fp-16-39575-1.html",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
+      "excerpt": "切勿自行購買退燒藥給小朋友使用，以免延誤疾病治療",
       "checkedAt": "2026-10-05"
     },
     {
-      "name": "台灣兒科醫學會（兒童發燒處置建議，台灣兒童感染症醫學會轉載）",
+      "name": "台灣兒科醫學會：兒童發燒處置建議（台灣兒童感染症醫學會轉載）",
       "url": "https://www.pids.org.tw/index.php?route=education%2Feducation&path=92",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "B",
-      "excerpt": "TODO：上線前填入原文摘錄",
+      "excerpt": "TODO：頁面對自動抓取回 403，需人工開啟後填入各部位發燒定義（肛溫、耳溫 38；口溫、額溫 37.5；腋溫 37.2）與 3 個月以下量測建議原文",
       "checkedAt": "2026-10-05"
     }
   ],
-  "translated": false,
+  "translated": true,
   "foreignOnly": false,
   "policyNumbers": false,
   "updatedAt": "2026-10-05",

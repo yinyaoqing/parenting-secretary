@@ -8,22 +8,15 @@
     "all"
   ],
   "evidence": "official",
-  "body": "藥品、清潔劑、化妝品、酒類放在孩子拿不到且上鎖的地方。鈕扣電池、磁鐵、硬幣、小零件收好；一旦懷疑吞入，立刻就醫。窗簾繩綁高，避免繞頸。",
+  "body": "藥品、清潔劑等危險物品放在孩子伸手拿不到的地方，不用飲料罐裝清潔劑或農藥。錢幣、彈珠、鈕扣電池、磁鐵等小物收在孩子拿不到的抽屜或櫥櫃；一旦懷疑吞入，立刻就醫。窗簾繩、電線、延長線收到幼童碰不到的地方。",
   "sources": [
     {
-      "name": "衛生福利部國民健康署",
+      "name": "衛生福利部國民健康署：嬰幼兒意外事故防制與居家安全",
       "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1830&type=01",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
-      "checkedAt": "2026-10-05"
-    },
-    {
-      "name": "衛生福利部食品藥物管理署",
-      "url": "https://www.fda.gov.tw/",
-      "lang": "zh-TW",
-      "trust": "T1",
-      "license": "A1",
+      "excerpt": "藥品或清潔劑等危險物品不要放在幼兒伸手可拿取的地方；勿用飲料罐裝清潔劑、農藥等。將小東西如：錢幣、玩具或彈珠等小物品妥善收納在孩子拿不到的抽屜或櫥櫃。將窗簾繩、電線、延長線及其他繩索類物品，收置於幼童無法碰觸到的地方。",
       "checkedAt": "2026-10-05"
     }
   ],
@@ -31,5 +24,5 @@
   "foreignOnly": false,
   "policyNumbers": false,
   "updatedAt": "2026-10-05",
-  "status": "draft"
+  "status": "review"
 }

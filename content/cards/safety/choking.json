@@ -8,23 +8,32 @@
     "all"
   ],
   "evidence": "official",
-  "body": "4 歲以下避免整顆葡萄、小番茄、堅果、爆米花、硬糖、香腸圓片、大塊黏稠或有嚼勁的食物。圓形食物切成四瓣或細條。吃東西時坐著、有大人在旁、不跑跳。開始副食品時一次一種新食物。",
+  "body": "幼兒期（常見建議 4 歲前）避免：整顆葡萄、莓果、櫻桃；沒切開的小番茄；整顆或切碎的堅果與種子；整匙花生醬；熱狗、香腸；爆米花、洋芋片；硬糖、軟糖、口香糖、棉花糖；大塊硬的生蔬果；大塊肉或起司。把食物切小、壓軟。孩子吃東西時全程有大人看著。開始副食品時每次只加一種新食物，由少量開始，觀察 3 到 5 天。",
   "sources": [
     {
-      "name": "CDC（美國疾病管制與預防中心）兒童噎食預防",
-      "url": "https://www.cdc.gov/",
+      "name": "CDC：Choking Hazards (Infant and Toddler Nutrition)",
+      "url": "https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/choking-hazards.html",
       "lang": "en",
       "trust": "T1",
       "license": "A2",
-      "excerpt": "TODO：上線前填入確切頁面與原文",
+      "excerpt": "Uncut grapes, berries, cherries, or melon balls. Uncut cherry or grape tomatoes. Whole or chopped nuts and seeds. Chunks or spoonful of nut and seed butters, such as peanut butter. Hot dogs, meat sticks, or sausages. Potato or corn chips, pretzels, popcorn, or similar snack foods. Round or hard candy, jelly beans, caramels, gum drops, or gummy candies. Chewing gum. Marshmallows. Pieces of hard raw vegetables or fruit, such as raw carrots or apples. Tough or large chunks of meat. Large chunks of cheese. Cutting food into smaller pieces and mashing foods can help prevent choking. Watch your child at all times while they are eating.",
       "checkedAt": "2026-10-05"
     },
     {
-      "name": "衛生福利部國民健康署",
+      "name": "衛生福利部國民健康署：嬰兒副食品添加",
       "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1865&type=01",
       "lang": "zh-TW",
       "trust": "T1",
       "license": "A1",
+      "excerpt": "每次只添加一種新食物，由少量（1-2湯匙）開始，逐漸增加，觀察3-5天",
+      "checkedAt": "2026-10-05"
+    },
+    {
+      "name": "AAP：Prevention of Choking Among Children（4 歲以下年齡建議）",
+      "url": "https://publications.aap.org/pediatrics/article/125/3/601/72681/",
+      "lang": "en",
+      "trust": "T2",
+      "license": "C",
       "checkedAt": "2026-10-05"
     }
   ],
