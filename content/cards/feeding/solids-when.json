@@ -1,0 +1,43 @@
+{
+  "id": "feeding.solids-when",
+  "topicGroup": "feeding",
+  "title": "副食品什麼時候開始",
+  "ageMinDays": 90,
+  "ageMaxDays": 200,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署的原則：出生 4 個月（矯正年齡）內不添加副食品，以免消化不良或過敏；純母乳哺育滿 6 個月後必須添加副食品。\n\n滿 4 到 6 個月之間，有下列狀況可以考慮提早在滿 4 個月後開始：純母乳哺餵到 6 個月實在有困難；媽媽奶水量明顯降低；寶寶顯得吃不飽；寶寶厭奶但沒有生病或其他原因；寶寶已經可以自己抬頭並保持頭部平穩；可以把食物從湯匙移到自己的喉嚨；看大人吃東西很有興趣，伸手來抓、抓了放嘴巴。\n\n添加副食品是在母乳之外加入其他食物，不是斷奶，也不是用配方奶取代母乳。\n\n這張卡依矯正月齡顯示；早產兒以矯正年齡算 4 個月。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：營養小常識-副食品添加原則 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3628&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：營養小常識-副食品添加原則（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3628&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "寶寶出生4個月(矯正年齡)內不建議添加副食品，以免消化不良或過敏；純母乳哺育滿6個月後必需添加副食品。滿4-6個月寶寶如有以下狀況，可以考慮提早在滿4個月後開始添加副食品：．純母乳哺餵到6個月實在有困難時。．媽媽奶水量明顯降低。．寶寶顯得吃不飽。．寶寶出現厭奶但沒生病或其他原因。．寶寶已經可以自己抬頭並保持頭部平穩。．可以將食物從湯匙移動到自己的喉嚨。",
+      "checkedAt": "2026-10-06"
+    },
+    {
+      "name": "國民健康署孕產兒關懷網站：嬰兒副食品添加（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1865&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "添加副食品，是指添加母乳以外的食物來搭配母乳，而不是指斷奶、停止餵母乳或是用配方奶取代母乳。",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

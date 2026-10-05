@@ -72,7 +72,7 @@ src/content/            types（內容卡結構）、loader（載入打包 JSON�
 src/ui/art.tsx          插畫（assets/art，8 張水彩 JPEG）與手繪 SVG 裝飾（天空、盾牌、奶瓶、體溫計、小芽、小熊、月亮雲朵）
 src/ui/                 theme（設計系統色票、字級三段、樣式表）、ThemeContext（日夜模式與字級的全域狀態）、useTheme、components（Tile、Big、Chip、Seg、Opt、PickRow、ListRow、Badge、Banner、SafetyBox、Toast…）、DatePick（原生日期時間選擇）、TimeRow（表單補登時間列）
 src/util/               age（實際與矯正月齡）、format、datetime（中文日期、相對時間、補登換算）
-content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12、home_safety 8）
+content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12、home_safety 8、feeding 11）
 content/schedule/       公費時程 timeline.json（健檢 9 次、發展篩檢 6 次、疫苗、塗氟；只有時間窗，沒有金額）
 src/schedule/           loader：依出生日算時間窗與狀態，之後遠端 JSON 用同格式覆蓋
 content/whitelist.json  相似度檢查白名單
@@ -122,11 +122,11 @@ npm run publish:preview    # 發布測試版（需 eas login）
 | 3 | 事件資料層（supersedes 修正、墓碑刪除、單一計時器）、快速紀錄輔助、安全層 11 條補入原文摘錄與確切網址、家長驗證頁 |
 | 4 | 首頁一鍵紀錄、瓶餵、體溫、紀錄列表、日夜主題、CDC 月齡卡 10 張 |
 | 5 | 副食品紀錄、修正時間、內容卡列表與詳情、內容打包、對照稿輸出、啟動與部署文件、eas.json |
-| 8 | 居家安全 8 張（國健署事故傷害預防，A1）；安全卡 8 處原文摘錄補齊；時程分頁改為真資料（國健署 7+2、發展篩檢、疾管署 115.09 版疫苗表、塗氟）；時區切日；紀錄列表「可能重複」標示；check-content --net 改用 curl 後備 |
+| 8 | 飲食 11 張（國健署營養、運動，A1）；居家安全 8 張（國健署事故傷害預防，A1）；安全卡 8 處原文摘錄補齊；時程分頁改為真資料（國健署 7+2、發展篩檢、疾管署 115.09 版疫苗表、塗氟）；時區切日；紀錄列表「可能重複」標示；check-content --net 改用 curl 後備 |
 | 7 | 多裝置同步（不經伺服器）：QR code 面對面交接、AirDrop／Quick Share／LINE 傳加密交接檔並合併匯入；schema v2；區域網路與藍牙直連已決定不做；路 B（中繼伺服器）保留於 docs/legal 的法規備忘錄 |
 | 6 | EAS Update 設定（組織 yinyaoqings-team、sdkVersion runtime）、一鍵發布腳本、eslint；0–3 個月週卡 12 張（content/cards/weeks，底本國健署孕產兒關懷網站寶寶篇第 1–12 週，A1） |
 
-檢查狀態：typecheck 通過、content:check 44 張全過（安全層 14 條的原文摘錄已補齊）、Android JS 打包成功。
+檢查狀態：typecheck 通過、content:check 55 張全過（安全層 14 條的原文摘錄已補齊）、Android JS 打包成功。
 
 ### 4.2 工作目錄
 

@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-05T16:56:01.603Z",
+  "publishedAt": "2026-10-05T18:29:00.361Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "ui: design v1 art pass",
-  "updateGroupId": "89fe5080-3d80-4627-a9aa-6131f83cd783",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/89fe5080-3d80-4627-a9aa-6131f83cd783",
+  "message": "content: home safety, schedule tab, safety excerpts",
+  "updateGroupId": "378026be-58d2-43e0-974f-06751ade2e73",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/378026be-58d2-43e0-974f-06751ade2e73",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"

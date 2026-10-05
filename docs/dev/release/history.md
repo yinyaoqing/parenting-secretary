@@ -7,3 +7,4 @@
 | 2026-10-05 14:05 | preview | exposdk:57.0.0 | ui: design v1 | [e9aef4b5](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/e9aef4b5-8578-4cb7-9702-1d61b14c6710) |
 | 2026-10-05 16:28 | preview | exposdk:57.0.0 | sync: QR handoff and file import | [4fde0658](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/4fde0658-2606-4e61-9b2e-efd24c0d0a52) |
 | 2026-10-05 16:56 | preview | exposdk:57.0.0 | ui: design v1 art pass | [89fe5080](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/89fe5080-3d80-4627-a9aa-6131f83cd783) |
+| 2026-10-05 18:29 | preview | exposdk:57.0.0 | content: home safety, schedule tab, safety excerpts | [378026be](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/378026be-58d2-43e0-974f-06751ade2e73) |

@@ -9,7 +9,7 @@ import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Chip, Card, Badge, Section, ListCard, ListRow, Icon } from '../../src/ui/components';
 import { Hero, artForCard } from '../../src/ui/art';
 
-type Filter = 'all' | 'safety' | 'dev';
+type Filter = 'all' | 'safety' | 'dev' | 'feeding';
 
 // 來源機關短名：「國民健康署孕產兒關懷網站：寶寶篇…」→「國民健康署孕產兒關懷網站」
 export function sourceShort(c: ContentCard): string {
@@ -40,7 +40,7 @@ export default function Cards() {
   const dev = age === null ? [] : cardsForAge(age, 'milestones');
   const featured = dev[0];
   const restDev = dev.slice(1);
-  const others = age === null ? [] : cardsForAge(age).filter((c) => c.topicGroup !== 'safety' && c.topicGroup !== 'milestones');
+  const others = age === null ? [] : cardsForAge(age).filter((c) => c.topicGroup !== 'safety' && c.topicGroup !== 'milestones' && (filter !== 'feeding' || c.topicGroup === 'feeding'));
   const safety = safetyCards();
   const safetyShown = allSafety || filter === 'safety' ? safety : safety.slice(0, 6);
 
@@ -56,12 +56,12 @@ export default function Cards() {
           <Chip label="全部" sm on={filter === 'all'} onPress={() => setFilter('all')} />
           <Chip label="安全" sm on={filter === 'safety'} onPress={() => setFilter('safety')} />
           <Chip label="發展" sm on={filter === 'dev'} onPress={() => setFilter('dev')} />
-          <Chip label="飲食" sm off />
+          <Chip label="飲食" sm on={filter === 'feeding'} onPress={() => setFilter('feeding')} />
           <Chip label="睡眠" sm off />
           <Chip label="權益" sm off />
         </View>
 
-        {filter !== 'safety' && featured ? (
+        {filter !== 'safety' && filter !== 'feeding' && featured ? (
           <Card accent onPress={() => router.push({ pathname: '/cards/[id]', params: { id: featured.id } })} style={{ gap: 8, paddingTop: 0, overflow: 'hidden' }}>
             <Hero art={artForCard(featured.id, featured.topicGroup) ?? 'rattle'} height={140} radius={0} style={{ marginHorizontal: -16, marginBottom: 6, borderWidth: 0 }} />
             <Badge label="這個時期的孩子" />
@@ -70,11 +70,11 @@ export default function Cards() {
             <View style={[styles.row, { gap: 4 }]}><Text style={styles.link}>閱讀</Text><Icon name="chevron-right" size={16} color={palette.accent} /></View>
           </Card>
         ) : null}
-        {filter !== 'safety' && !featured ? (
+        {filter !== 'safety' && filter !== 'feeding' && !featured ? (
           <Card><Text style={styles.muted}>{age === null ? '建立孩子的檔案後，這裡會顯示這個時期的內容。' : '這個月齡的發展內容還在撰寫中。'}</Text></Card>
         ) : null}
 
-        {filter !== 'dev' ? (
+        {filter !== 'dev' && filter !== 'feeding' ? (
           <>
             <Section icon="shield" title="安全內容 · 永遠顯示" action={allSafety || filter === 'safety' ? undefined : `全部 ${safety.length} 條`} onAction={() => setAllSafety(true)} />
             <ListCard>
@@ -87,10 +87,10 @@ export default function Cards() {
 
         {filter !== 'safety' ? (
           <>
-            <Section title="適合現在" />
+            <Section title={filter === 'feeding' ? '飲食' : '適合現在'} />
             <ListCard>
-              {[...restDev, ...others].length === 0 ? <ListRow first main={age === null ? '尚無孩子檔案。' : '這個月齡的其他內容還在撰寫中。'} mainColor={palette.ink3} /> : null}
-              {[...restDev, ...others].map((c, i) => (
+              {(filter === 'feeding' ? others : [...restDev, ...others]).length === 0 ? <ListRow first main={age === null ? '尚無孩子檔案。' : '這個月齡的其他內容還在撰寫中。'} mainColor={palette.ink3} /> : null}
+              {(filter === 'feeding' ? others : [...restDev, ...others]).map((c, i) => (
                 <ListRow key={c.id} first={i === 0} main={c.title} sub={sourceShort(c)} chevron onPress={() => router.push({ pathname: '/cards/[id]', params: { id: c.id } })} />
               ))}
             </ListCard>
