@@ -1,0 +1,36 @@
+{
+  "id": "milestones.3-years",
+  "topicGroup": "milestones",
+  "title": "3 歲：大多數孩子已會",
+  "ageMinDays": 1030,
+  "ageMaxDays": 1200,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：你離開後（像送托時）10 分鐘內能平靜下來；會注意到其他孩子並加入一起玩。語言溝通：能和你一來一往對話至少兩輪；會問「誰」「什麼」「哪裡」「為什麼」；被問時能說出圖片或書裡發生的動作，像「在跑」「在吃」；被問時會說自己的名字；說話大多數時候別人聽得懂。認知：你示範後會畫圓；你警告時會避開熱的東西，像爐子。動作：會把大珠子或通心粉串起來；會自己穿一些衣服，像寬鬆的褲子或外套；會用叉子。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。\n\n台灣公費時點：3 到 5 歲：第 5 次兒童發展篩檢。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/3-years.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Calms down within 10 minutes after you leave her, like at a childcare drop off. Notices other children and joins them to play. Language/Communication: Talks with you in conversation using at least two back-and-forth exchanges. Asks \"who,\" \"what,\" \"where,\" or \"why\" questions. Says what action is happening in a picture or book when asked. Says first name, when asked. Talks well enough for others to understand, most of the time. Cognitive: Draws a circle, when you show him how. Avoids touching hot objects, like a stove, when you warn her. Movement/Physical: Strings items together, like large beads or macaroni. Puts on some clothes by himself, like loose pants or a jacket. Uses a fork.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

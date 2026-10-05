@@ -1,0 +1,36 @@
+{
+  "id": "milestones.15-months",
+  "topicGroup": "milestones",
+  "title": "15 個月：大多數孩子已會",
+  "ageMinDays": 440,
+  "ageMaxDays": 530,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：玩的時候會模仿其他孩子；會把喜歡的東西拿給你看；興奮時會拍手；會抱娃娃或玩偶；會對你表達親暱（抱你、依偎、親你）。語言溝通：除了爸爸媽媽，會試著說一兩個詞，像用「球」的一個音指球；你說出熟悉物品的名字時會看向它；能聽從有手勢配合的指令；會用手指指來要東西或求助。認知：會試著正確使用東西，像電話、杯子、書；會疊至少兩個小東西，像積木。動作：能自己走幾步；會用手指拿東西吃。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。\n\n台灣公費時點：10 個月到 1 歲半：第 2 次兒童發展篩檢（若尚未完成）。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/15-months.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Copies other children while playing, like taking toys out of a container when another child does. Shows you an object she likes. Claps when excited. Hugs stuffed doll or other toy. Shows you affection (hugs, cuddles, or kisses you). Language/Communication: Tries to say one or two words besides \"mama\" or \"dada,\" like \"ba\" for ball or \"da\" for dog. Looks at a familiar object when you name it. Follows directions given with both a gesture and words. Points to ask for something or to get help. Cognitive: Tries to use things the right way, like a phone, cup, or book. Stacks at least two small objects, like blocks. Movement/Physical: Takes a few steps on his own. Uses fingers to feed herself some food.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "milestones.4-months",
+  "topicGroup": "milestones",
+  "title": "4 個月：大多數孩子已會",
+  "ageMinDays": 105,
+  "ageMaxDays": 165,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：會主動對你笑來吸引注意；你逗他時會咯咯笑（還不是放聲大笑）；會看你、動一動或發出聲音來引起或留住你的注意。語言溝通：會發出「喔」「啊」這類聲音；你對他說話時會回應聲音；會朝你的聲音轉頭。認知：餓的時候看到乳房或奶瓶會張嘴；會有興趣地看自己的手。動作：你抱著時頭能穩住；把玩具放他手裡會握住；會揮手去碰玩具；會把手放進嘴裡；趴著時能用手肘或前臂撐起。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/4-months.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Smiles on his own to get your attention. Chuckles (not yet a full laugh) when you try to make him laugh. Looks at you, moves, or makes sounds to get or keep your attention. Language/Communication: Makes sounds like \"oooo\", \"aahh\" (cooing). Makes sounds back when you talk to him. Turns head towards the sound of your voice. Cognitive: If hungry, opens mouth when he sees breast or bottle. Looks at her hands with interest. Movement/Physical: Holds head steady without support when you are holding him. Holds a toy when you put it in his hand. Uses his arm to swing at toys. Brings hands to mouth. Pushes up onto elbows/forearms when on tummy.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

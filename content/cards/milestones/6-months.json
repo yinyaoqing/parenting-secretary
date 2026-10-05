@@ -1,0 +1,36 @@
+{
+  "id": "milestones.6-months",
+  "topicGroup": "milestones",
+  "title": "6 個月：大多數孩子已會",
+  "ageMinDays": 165,
+  "ageMaxDays": 255,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：認得熟悉的人；喜歡看鏡子裡的自己；會笑出聲。語言溝通：會和你一來一往地發聲；會吐舌頭發出「噗嚕嚕」的聲音；會發出尖叫般的聲音。認知：會把東西放進嘴裡探索；會伸手去抓想要的玩具；不想再吃時會閉上嘴。動作：會從趴翻成仰；趴著時能用伸直的手臂撐起；坐著時會用手撐住自己。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。\n\n台灣公費時點：6 到 10 個月：第 1 次兒童發展篩檢。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/6-months.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Knows familiar people. Likes to look at self in a mirror. Laughs. Language/Communication: Takes turns making sounds with you. Blows \"raspberries\" (sticks tongue out and blows). Makes squealing noises. Cognitive: Puts things in her mouth to explore them. Reaches to grab a toy she wants. Closes lips to show she doesn't want more food. Movement/Physical: Rolls from tummy to back. Pushes up with straight arms when on tummy. Leans on hands to support herself when sitting.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

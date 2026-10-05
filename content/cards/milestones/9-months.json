@@ -1,0 +1,36 @@
+{
+  "id": "milestones.9-months",
+  "topicGroup": "milestones",
+  "title": "9 個月：大多數孩子已會",
+  "ageMinDays": 255,
+  "ageMaxDays": 345,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：面對陌生人會害羞、黏人或害怕；會有開心、難過、生氣、驚訝等多種表情；叫名字時會看過來；你離開時會有反應（看著你、伸手要你或哭）；玩躲貓貓時會笑。語言溝通：會發出很多不同的聲音，像「媽媽媽媽」「爸爸爸爸」；會舉起手臂要人抱。認知：東西掉出視線時會去找；會把兩樣東西互敲。動作：能自己坐起來；會把東西從一手換到另一手；會用手指把食物耙向自己；不用扶就能坐。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。\n\n台灣公費時點：6 到 10 個月：第 1 次兒童發展篩檢（若尚未完成）。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/9-months.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Is shy, clingy, or fearful around strangers. Shows several facial expressions, like happy, sad, angry, and surprised. Looks when you call her name. Reacts when you leave (looks, reaches for you, or cries). Smiles or laughs when you play peek-a-boo. Language/Communication: Makes a lot of different sounds like \"mamamama\" and \"bababababa\". Lifts arms up to be picked up. Cognitive: Looks for objects when dropped out of sight (like his spoon or toy). Bangs two things together. Movement/Physical: Gets to a sitting position by herself. Moves things from one hand to her other hand. Uses fingers to \"rake\" food towards himself. Sits without support.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "milestones.2-years",
+  "topicGroup": "milestones",
+  "title": "2 歲：大多數孩子已會",
+  "ageMinDays": 670,
+  "ageMaxDays": 850,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：會注意到別人受傷或難過，像有人哭時會停下來或露出難過的表情；遇到新狀況會看你的臉來決定怎麼反應。語言溝通：你問「熊在哪裡」時會指出書上的東西；會把至少兩個詞連在一起說，像「還要奶」；你問的時候會指出至少兩個身體部位；會用揮手和指以外的手勢，像飛吻或點頭。認知：一手拿著東西、另一手做事，像拿著罐子打開蓋子；會試著按玩具上的開關、旋鈕、按鈕；會同時玩一個以上的玩具，像把玩具食物放在玩具盤子上。動作：會踢球；會跑；會走上幾階樓梯；會用湯匙吃。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。\n\n台灣公費時點：2 到 3 歲：第 4 次兒童發展篩檢。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/2-years.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Notices when others are hurt or upset, like pausing or looking sad when someone is crying. Looks at your face to see how to react in a new situation. Language/Communication: Points to things in a book when you ask, like \"Where is the bear?\" Says at least two words together, like \"More milk.\" Points to at least two body parts when you ask him to show you. Uses more gestures than just waving and pointing, like blowing a kiss or nodding yes. Cognitive: Holds something in one hand while using the other hand. Tries to use switches, knobs, or buttons on a toy. Plays with more than one toy at the same time, like putting toy food on a toy plate. Movement/Physical: Kicks a ball. Runs. Walks (not climbs) up a few stairs with or without help. Eats with a spoon.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

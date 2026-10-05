@@ -1,0 +1,36 @@
+{
+  "id": "milestones.1-year",
+  "topicGroup": "milestones",
+  "title": "1 歲：大多數孩子已會",
+  "ageMinDays": 345,
+  "ageMaxDays": 440,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：會和你玩互動遊戲，像拍手歌。語言溝通：會揮手說再見；會叫爸爸、媽媽或其他特別的稱呼；聽得懂「不行」（會停一下或停止）。認知：會把東西放進容器，像把積木放進杯子；會找你當著他的面藏起來的東西。動作：會扶著站起來；會扶著家具走；你扶著杯子時會用沒有蓋的杯子喝；會用拇指和食指捏起小東西，像小塊食物。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。\n\n台灣公費時點：10 個月到 1 歲半：第 2 次兒童發展篩檢。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/1-year.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Plays games with you, like pat-a-cake. Language/Communication: Waves \"bye-bye\". Calls a parent \"mama\" or \"dada\" or another special name. Understands \"no\" (pauses briefly or stops when you say it). Cognitive: Puts something in a container, like a block in a cup. Looks for things he sees you hide, like a toy under a blanket. Movement/Physical: Pulls up to stand. Walks, holding on to furniture. Drinks from a cup without a lid, as you hold it. Picks things up between thumb and pointer finger, like small bits of food.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

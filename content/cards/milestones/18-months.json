@@ -1,0 +1,36 @@
+{
+  "id": "milestones.18-months",
+  "topicGroup": "milestones",
+  "title": "18 個月：大多數孩子已會",
+  "ageMinDays": 530,
+  "ageMaxDays": 670,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：會離開你去探索，但會回頭確認你在附近；會用手指指給你看有趣的東西；會伸出手讓你洗；會和你一起看幾頁書；穿衣服時會配合伸手或抬腳。語言溝通：除了爸爸媽媽，會試著說三個以上的詞；不用手勢也能聽從一步驟的指令。認知：會模仿你做家事，像拿掃把掃地；會用簡單的方式玩玩具，像推玩具車。動作：不用扶就能走；會塗鴉；會用沒有蓋的杯子喝，有時會灑；會用手指自己吃；會試著用湯匙；不用幫忙就能爬上爬下沙發或椅子。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。\n\n台灣公費時點：1 歲半到 2 歲：第 3 次兒童發展篩檢。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/18-months.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Moves away from you, but looks to make sure you are close by. Points to show you something interesting. Puts hands out for you to wash them. Looks at a few pages in a book with you. Helps you dress him by pushing arm through sleeve or lifting up foot. Language/Communication: Tries to say three or more words besides \"mama\" or \"dada\". Follows one-step directions without any gestures. Cognitive: Copies you doing chores, like sweeping with a broom. Plays with toys in a simple way, like pushing a toy car. Movement/Physical: Walks without holding on to anyone or anything. Scribbles. Drinks from a cup without a lid and may spill sometimes. Feeds himself with his fingers. Tries to use a spoon. Climbs on and off a couch or chair without help.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}

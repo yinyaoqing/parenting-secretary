@@ -1,0 +1,36 @@
+{
+  "id": "milestones.30-months",
+  "topicGroup": "milestones",
+  "title": "30 個月：大多數孩子已會",
+  "ageMinDays": 850,
+  "ageMaxDays": 1030,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "大多數孩子（75% 以上）在這個月齡已會：\n\n社會情緒：會在其他孩子旁邊玩，有時會一起玩；會說「你看我」來展示自己會做的事；聽到指示會照簡單的例行事項做，像「收玩具時間」就幫忙收。語言溝通：會說大約 50 個詞；會把兩個以上的詞連起來說，其中有一個動作詞，像「狗狗跑」；你指著書問「這是什麼」時會說出名字；會用「我」「我們」這類詞。認知：會用東西假裝，像拿積木餵娃娃；會簡單解決問題，像站上小凳子拿東西；能聽從兩步驟指令，像「把玩具放下，然後關門」；至少認得一種顏色。動作：會用手轉東西，像轉門把或轉開瓶蓋；會自己脫一些衣服；會雙腳離地跳；你唸書時會一頁一頁翻。\n\n每個孩子的步調不同。這份清單用來幫你準備下次健檢或發展篩檢想問醫師的事，不是評分。\n\n台灣公費時點：2 到 3 歲：第 4 次兒童發展篩檢（若尚未完成）。",
+  "readMore": [
+    {
+      "label": "國健署：兒童發展連續圖（語意不同，見說明）",
+      "url": "https://www.hpa.gov.tw/Pages/List.aspx?nodeid=4856",
+      "note": "CDC 清單寫的是「大多數孩子（75% 以上）已會」；國健署連續圖呈現的是能力出現的年齡區間。兩者語意不同，請以政府 6 次發展篩檢的醫師評估為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：Learn the Signs. Act Early. 里程碑清單（公眾領域，可重製）",
+      "url": "https://www.cdc.gov/act-early/milestones/30-months.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Social/Emotional: Plays next to other children and sometimes plays with them. Shows you what she can do by saying, \"Look at me!\" Follows simple routines when told, like helping to pick up toys when you say, \"It's clean-up time.\" Language/Communication: Says about 50 words. Says two or more words together, with one action word, like \"Doggie run\". Names things in a book when you point and ask, \"What is this?\" Says words like \"I,\" \"me,\" or \"we\". Cognitive: Uses things to pretend, like feeding a block to a doll as if it were food. Shows simple problem-solving skills, like standing on a small stool to reach something. Follows two-step instructions like \"Put the toy down and close the door.\" Shows he knows at least one color. Movement/Physical: Uses hands to twist things, like turning doorknobs or unscrewing lids. Takes some clothes off by himself. Jumps off the ground with both feet. Turns book pages, one at a time, when you read to her.",
+      "checkedAt": "2026-10-05"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-05",
+  "status": "draft"
+}
