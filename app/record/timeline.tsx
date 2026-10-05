@@ -1,55 +1,105 @@
 import { useCallback, useState } from 'react';
-import { View, Text, Pressable, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { deleteEvent, listEvents } from '../../src/db/events';
 import type { Event } from '../../src/db/types';
-import { eventSummary, hhmm, typeLabel } from '../../src/util/format';
+import { eventSummary, hhmm, typeLabel, durationLabel } from '../../src/util/format';
+import { addDays, dayLabel, isSameDay } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
+import { Screen, TopBar, Chip, ListCard, ListRow, Badge, GhostButton, Card } from '../../src/ui/components';
+
+const REASON_LABEL: Record<string, string> = { cue: '看到飢餓訊號', schedule: '到時間了', reminder: 'APP 提醒', other: '其他' };
+const DAYS_SHOWN = 5;
 
 export default function Timeline() {
   const { childId } = useLocalSearchParams<{ childId: string }>();
-  const { styles, palette } = useTheme();
+  const { styles } = useTheme();
   const [events, setEvents] = useState<Event[]>([]);
+  const [day, setDay] = useState<number | 'earlier'>(0); // 0 = 今天，1 = 昨天…
+  const [selected, setSelected] = useState<string | null>(null);
   const [confirmId, setConfirmId] = useState<string | null>(null);
 
-  const load = useCallback(() => { if (childId) listEvents(childId, { limit: 200 }).then(setEvents); }, [childId]);
+  const load = useCallback(() => { if (childId) listEvents(childId, { limit: 500 }).then(setEvents); }, [childId]);
   useFocusEffect(load);
 
-  const remove = async (id: string) => { await deleteEvent(id); setConfirmId(null); load(); };
+  const now = new Date();
+  const days = Array.from({ length: DAYS_SHOWN }, (_, i) => addDays(now, -i));
+  const cutoff = addDays(now, -(DAYS_SHOWN - 1));
+  cutoff.setHours(0, 0, 0, 0);
+  const shown = events.filter((e) => {
+    const d = new Date(e.startAt);
+    return day === 'earlier' ? d.getTime() < cutoff.getTime() : isSameDay(d, days[day]);
+  });
+
+  // 當日摘要：親餵次數、瓶餵總量、尿布片數、睡眠總時長（進行中的算到現在）
+  const breast = shown.filter((e) => e.type === 'feed.breast').length;
+  const bottleMl = shown.filter((e) => e.type === 'feed.bottle').reduce((a, e) => a + (Number(e.payload.ml) || 0), 0);
+  const diapers = shown.filter((e) => e.type.startsWith('diaper.')).length;
+  const sleepMin = shown.filter((e) => e.type === 'sleep').reduce((a, e) => a + Math.max(0, ((e.endAt ? new Date(e.endAt) : now).getTime() - new Date(e.startAt).getTime()) / 60000), 0);
+  const sleepLabel = sleepMin < 60 ? `${Math.round(sleepMin)} 分` : `${Math.floor(sleepMin / 60)} 時 ${Math.round(sleepMin % 60)} 分`;
+
+  const remove = async (id: string) => { await deleteEvent(id); setConfirmId(null); setSelected(null); load(); };
+
+  const subOf = (e: Event) => {
+    if (e.type === 'sleep') return e.endAt ? `${durationLabel(e.startAt, e.endAt)}，到 ${hhmm(e.endAt)}` : `進行中 ${durationLabel(e.startAt)}`;
+    const r = (e.payload as { startReason?: string }).startReason;
+    return r && REASON_LABEL[r] ? REASON_LABEL[r] : undefined;
+  };
 
   return (
-    <ScrollView style={styles.page} contentContainerStyle={styles.pad}>
-      <Text style={styles.muted}>最近 200 筆。刪除會保留在資料庫中但不再顯示；</Text>
-      <View style={styles.card}>
-        {events.length === 0 && <Text style={styles.muted}>還沒有紀錄。</Text>}
-        {events.map((e, i) => {
-          const day = e.startAt.slice(0, 10);
-          // 與前一筆比對日期，不在 render 中改變外部變數（react-hooks/immutability）
-          const showDay = i === 0 || day !== events[i - 1].startAt.slice(0, 10);
-          return (
-            <View key={e.id}>
-              {showDay && <Text style={[styles.muted, { marginTop: 8 }]}>{day}</Text>}
-              <View style={styles.timelineItem}>
-                <Text style={styles.time}>{hhmm(e.startAt)}</Text>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.p}>{typeLabel(e.type)} {eventSummary(e.type, e.payload, e.startAt, e.endAt)}</Text>
-                  {confirmId === e.id ? (
-                    <View style={[styles.row, { justifyContent: 'flex-start' }]}>
-                      <Pressable onPress={() => remove(e.id)} accessibilityRole="button"><Text style={[styles.p, styles.danger]}>確定刪除</Text></Pressable>
-                      <Pressable onPress={() => setConfirmId(null)} accessibilityRole="button"><Text style={styles.muted}>取消</Text></Pressable>
+    <View style={styles.page}>
+      <TopBar title="紀錄" back />
+      <Screen>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
+          {days.map((d, i) => <Chip key={i} label={dayLabel(d, now)} sm on={day === i} onPress={() => { setDay(i); setSelected(null); }} />)}
+          <Chip label="更早" sm on={day === 'earlier'} onPress={() => { setDay('earlier'); setSelected(null); }} />
+        </ScrollView>
+
+        <Card style={[styles.summary, { gap: 0 }]}>
+          {[['親餵', `${breast} 次`], ['瓶餵', `${bottleMl} ml`], ['尿布', `${diapers} 片`], ['睡眠', sleepLabel]].map(([k, v], i) => (
+            <View key={k} style={[styles.summaryCell, i === 0 && styles.summaryCellFirst]}>
+              <Text style={styles.summaryK}>{k}</Text>
+              <Text style={styles.summaryV}>{v}</Text>
+            </View>
+          ))}
+        </Card>
+
+        <ListCard>
+          {shown.length === 0 ? <ListRow first main="這天沒有紀錄。" /> : null}
+          {shown.map((e, i) => {
+            const isSel = selected === e.id;
+            const main = `${typeLabel(e.type)} ${e.type === 'sleep' ? '' : eventSummary(e.type, e.payload, e.startAt, e.endAt)}`.trim();
+            return (
+              <ListRow
+                key={e.id}
+                first={i === 0}
+                time={hhmm(e.startAt)}
+                main={main}
+                sub={subOf(e)}
+                right={e.type === 'sleep' && !e.endAt ? <Badge label="進行中" tone="warm" /> : undefined}
+                chevron={!isSel}
+                selected={isSel}
+                onPress={() => { setSelected(isSel ? null : e.id); setConfirmId(null); }}
+              >
+                {isSel ? (
+                  confirmId === e.id ? (
+                    <View style={styles.grid}>
+                      <View style={{ flex: 1 }}><GhostButton small label="確定刪除" tone="danger" icon="trash-2" onPress={() => remove(e.id)} /></View>
+                      <View style={{ flex: 1 }}><GhostButton small label="取消" onPress={() => setConfirmId(null)} /></View>
                     </View>
                   ) : (
-                    <View style={[styles.row, { justifyContent: 'flex-start', gap: 16 }]}>
-                      <Pressable onPress={() => router.push({ pathname: '/record/edit', params: { childId, eventId: e.id } })} accessibilityRole="button"><Text style={[styles.muted, { color: palette.accent }]}>修正時間</Text></Pressable>
-                      <Pressable onPress={() => setConfirmId(e.id)} accessibilityRole="button"><Text style={[styles.muted, { color: palette.accent }]}>刪除</Text></Pressable>
+                    <View style={styles.grid}>
+                      <View style={{ flex: 1 }}><GhostButton small label="修正時間" tone="accent" icon="edit-2" onPress={() => router.push({ pathname: '/record/edit', params: { childId, eventId: e.id } })} /></View>
+                      <View style={{ flex: 1 }}><GhostButton small label="刪除" tone="danger" icon="trash-2" onPress={() => setConfirmId(e.id)} /></View>
                     </View>
-                  )}
-                </View>
-              </View>
-            </View>
-          );
-        })}
-      </View>
-    </ScrollView>
+                  )
+                ) : null}
+              </ListRow>
+            );
+          })}
+        </ListCard>
+        <Text style={styles.muted}>點一筆可修正時間或刪除。刪除會保留在資料庫但不再顯示；修正以新紀錄取代。</Text>
+      </Screen>
+    </View>
   );
 }

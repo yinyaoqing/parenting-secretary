@@ -1,8 +1,13 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet, ScrollView, Switch } from 'react-native';
+import { View, Text } from 'react-native';
 import { router } from 'expo-router';
-import { createChild } from '../../src/db/repo';
+import { createChild, saveStyleProfile } from '../../src/db/repo';
+import { PRESETS } from '../../src/style/questionnaire';
 import type { FeedingMethod, Location } from '../../src/db/types';
+import { toIsoDate } from '../../src/util/datetime';
+import { useTheme } from '../../src/ui/useTheme';
+import { Screen, TopBar, Progress, Field, Input, Chip, Opt, Card, SwitchRow, PrimaryButton, GhostButton } from '../../src/ui/components';
+import { DatePick } from '../../src/ui/DatePick';
 
 const FEEDING: { key: FeedingMethod; label: string }[] = [
   { key: 'breast', label: '親餵母乳' },
@@ -31,129 +36,135 @@ const CONTEXTS: { key: string; label: string; soon?: boolean }[] = [
   { key: 'adoption', label: '收出養', soon: true },
 ];
 
-const isoDate = /^\d{4}-\d{2}-\d{2}$/;
-
+// 建檔拆三步，每步只問一件事（設計稿第 1 區）。
 export default function ChildForm() {
+  const { styles } = useTheme();
+  const [step, setStep] = useState<1 | 2 | 3>(1);
   const [nickname, setNickname] = useState('');
-  const [birthDate, setBirthDate] = useState('');
+  const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [isPreterm, setIsPreterm] = useState(false);
-  const [dueDate, setDueDate] = useState('');
+  const [dueDate, setDueDate] = useState<Date | null>(null);
   const [feeding, setFeeding] = useState<FeedingMethod>('breast');
   const [location, setLocation] = useState<Location>('home');
-  const [locationUntil, setLocationUntil] = useState('');
+  const [locationUntil, setLocationUntil] = useState<Date | null>(null);
   const [contexts, setContexts] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
 
-  const toggleContext = (k: string) =>
-    setContexts((cur) => (cur.includes(k) ? cur.filter((x) => x !== k) : [...cur, k]));
+  const toggleContext = (k: string) => setContexts((cur) => (cur.includes(k) ? cur.filter((x) => x !== k) : [...cur, k]));
 
-  const submit = async () => {
+  const next1 = () => {
     if (!nickname.trim()) return setError('請輸入孩子的暱稱');
-    if (!isoDate.test(birthDate)) return setError('出生日請用 YYYY-MM-DD');
-    if (isPreterm && !isoDate.test(dueDate)) return setError('預產期請用 YYYY-MM-DD');
-    if (location === 'postnatal_center' && locationUntil && !isoDate.test(locationUntil)) return setError('預定出所日請用 YYYY-MM-DD');
+    if (!birthDate) return setError('請選擇出生日');
+    if (isPreterm && !dueDate) return setError('請選擇預產期');
     setError(null);
+    setStep(2);
+  };
+
+  const create = async () => {
+    if (!birthDate) return;
+    setBusy(true);
     const specialContexts = [...contexts];
     if (isPreterm && !specialContexts.includes('preterm')) specialContexts.push('preterm');
     const child = await createChild({
       nickname: nickname.trim(),
-      birthDate,
-      dueDate: isPreterm ? dueDate : undefined,
+      birthDate: toIsoDate(birthDate),
+      dueDate: isPreterm && dueDate ? toIsoDate(dueDate) : undefined,
       feedingMethod: feeding,
       location,
-      locationUntil: location === 'postnatal_center' && locationUntil ? locationUntil : undefined,
+      locationUntil: location === 'postnatal_center' && locationUntil ? toIsoDate(locationUntil) : undefined,
       specialContexts,
     });
-    router.replace({ pathname: '/onboarding/style', params: { childId: child.id } });
+    return child;
   };
 
+  const toStyle = async () => {
+    const child = await create();
+    if (child) router.replace({ pathname: '/onboarding/style', params: { childId: child.id } });
+  };
+
+  const skipStyle = async () => {
+    const child = await create();
+    if (child) {
+      await saveStyleProfile(child.id, 'mixed', PRESETS.mixed.axes);
+      router.replace('/');
+    }
+  };
+
+  const back = () => (step === 1 ? router.back() : setStep((s) => (s === 3 ? 2 : 1)));
+  const today = new Date();
+
   return (
-    <ScrollView contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled">
-      <Text style={styles.label}>暱稱</Text>
-      <TextInput style={styles.input} value={nickname} onChangeText={setNickname} placeholder="例如：小米" accessibilityLabel="暱稱" />
+    <View style={styles.page}>
+      <TopBar back={back}><Text style={styles.step}>第 {step} 步，共 3 步</Text></TopBar>
 
-      <Text style={styles.label}>出生日</Text>
-      <TextInput style={styles.input} value={birthDate} onChangeText={setBirthDate} placeholder="YYYY-MM-DD" keyboardType="numbers-and-punctuation" accessibilityLabel="出生日" />
+      {step === 1 ? (
+        <Screen footer={<><PrimaryButton label="下一步" onPress={next1} /><Text style={[styles.muted, { textAlign: 'center' }]}>資料只存在這支手機，之後可在設定匯出備份。</Text></>}>
+          <Progress pct={33} />
+          <Text style={styles.h1}>孩子的基本資料</Text>
+          <Field label="暱稱">
+            <Input value={nickname} onChangeText={setNickname} placeholder="例如：小米" accessibilityLabel="暱稱" autoFocus />
+          </Field>
+          <Field label="出生日">
+            <DatePick value={birthDate} onChange={setBirthDate} mode="date" label="出生日" maximumDate={today} />
+          </Field>
+          <Card>
+            <SwitchRow title="早產兒" sub="會同時顯示實際月齡與矯正月齡" value={isPreterm} onChange={(v) => { setIsPreterm(v); if (v && !contexts.includes('preterm')) setContexts((c) => [...c, 'preterm']); }} />
+            {isPreterm ? (
+              <View style={{ marginTop: 10, gap: 6 }}>
+                <Field label="預產期">
+                  <DatePick value={dueDate} onChange={setDueDate} mode="date" label="預產期" />
+                </Field>
+                <Text style={styles.muted}>2 歲前的發展內容以矯正月齡呈現，疫苗依實際月齡。</Text>
+              </View>
+            ) : null}
+          </Card>
+          {error ? <Text style={[styles.p, styles.danger]}>{error}</Text> : null}
+        </Screen>
+      ) : null}
 
-      <View style={styles.row}>
-        <Text style={styles.label}>早產兒（會顯示矯正月齡）</Text>
-        <Switch value={isPreterm} onValueChange={setIsPreterm} />
-      </View>
-      {isPreterm && (
-        <>
-          <Text style={styles.label}>預產期</Text>
-          <TextInput style={styles.input} value={dueDate} onChangeText={setDueDate} placeholder="YYYY-MM-DD" keyboardType="numbers-and-punctuation" accessibilityLabel="預產期" />
-        </>
-      )}
+      {step === 2 ? (
+        <Screen footer={<PrimaryButton label="下一步" onPress={() => setStep(3)} />}>
+          <Progress pct={66} />
+          <Text style={styles.h1}>餵養與地點</Text>
+          <Field label="目前餵養方式">
+            <View style={styles.chips}>
+              {FEEDING.map((f) => <Chip key={f.key} label={f.label} on={feeding === f.key} onPress={() => setFeeding(f.key)} />)}
+            </View>
+          </Field>
+          <Field label="孩子現在主要在哪裡">
+            <View style={{ gap: 8 }}>
+              {LOCATION.map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}
+            </View>
+          </Field>
+          {location === 'postnatal_center' ? (
+            <Card>
+              <Field label="預定出所日">
+                <DatePick value={locationUntil} onChange={setLocationUntil} mode="date" label="預定出所日" />
+              </Field>
+              <Text style={styles.muted}>內容與提醒從這天開始。可留空。</Text>
+            </Card>
+          ) : null}
+        </Screen>
+      ) : null}
 
-      <Text style={styles.label}>目前餵養方式</Text>
-      <View style={styles.chips}>
-        {FEEDING.map((f) => (
-          <Chip key={f.key} label={f.label} active={feeding === f.key} onPress={() => setFeeding(f.key)} />
-        ))}
-      </View>
-
-      <Text style={styles.label}>孩子現在主要在哪裡</Text>
-      <View style={styles.chips}>
-        {LOCATION.map((l) => (
-          <Chip key={l.key} label={l.label} active={location === l.key} onPress={() => setLocation(l.key)} />
-        ))}
-      </View>
-      {location === 'postnatal_center' && (
-        <>
-          <Text style={styles.label}>預定出所日（內容與提醒從這天開始）</Text>
-          <TextInput style={styles.input} value={locationUntil} onChangeText={setLocationUntil} placeholder="YYYY-MM-DD" keyboardType="numbers-and-punctuation" accessibilityLabel="預定出所日" />
-        </>
-      )}
-
-      <Text style={styles.label}>你想多看哪些資源？（可不選）</Text>
-      <View style={styles.chips}>
-        {CONTEXTS.map((c) => (
-          <Chip
-            key={c.key}
-            label={c.soon ? `${c.label}（即將推出）` : c.label}
-            active={contexts.includes(c.key)}
-            disabled={c.soon}
-            onPress={() => toggleContext(c.key)}
-          />
-        ))}
-      </View>
-
-      {error && <Text style={styles.error}>{error}</Text>}
-      <Pressable style={styles.btn} onPress={submit} accessibilityRole="button">
-        <Text style={styles.btnText}>下一步：照顧風格</Text>
-      </Pressable>
-      <Text style={styles.muted}>資料只存在這支手機。你之後可以在設定匯出備份。</Text>
-    </ScrollView>
+      {step === 3 ? (
+        <Screen footer={<><PrimaryButton label="下一步：照顧風格" onPress={toStyle} disabled={busy} /><GhostButton label="先跳過，用混合型預設" onPress={skipStyle} /></>}>
+          <Progress pct={100} />
+          <Text style={styles.h1}>你想多看哪些資源？</Text>
+          <Text style={styles.muted}>可以不選。只影響內容排序，之後在設定可以改。</Text>
+          <View style={styles.chips}>
+            {CONTEXTS.filter((c) => !c.soon).map((c) => (
+              <Chip key={c.key} label={c.label} icon={contexts.includes(c.key) ? 'check' : undefined} on={contexts.includes(c.key)} onPress={() => toggleContext(c.key)} />
+            ))}
+          </View>
+          {isPreterm ? <Text style={styles.muted}>早產兒已依預產期自動勾選。</Text> : null}
+          <Text style={[styles.label, { marginTop: 6 }]}>即將推出</Text>
+          <View style={styles.chips}>
+            {CONTEXTS.filter((c) => c.soon).map((c) => <Chip key={c.key} label={c.label} off />)}
+          </View>
+        </Screen>
+      ) : null}
+    </View>
   );
 }
-
-function Chip({ label, active, disabled, onPress }: { label: string; active: boolean; disabled?: boolean; onPress: () => void }) {
-  return (
-    <Pressable
-      onPress={disabled ? undefined : onPress}
-      style={[styles.chip, active && styles.chipActive, disabled && styles.chipDisabled]}
-      accessibilityRole="button"
-      accessibilityState={{ selected: active, disabled }}
-    >
-      <Text style={[styles.chipText, active && styles.chipTextActive]}>{label}</Text>
-    </Pressable>
-  );
-}
-
-const styles = StyleSheet.create({
-  page: { padding: 20, gap: 8, paddingBottom: 48 },
-  label: { fontSize: 16, fontWeight: '600', marginTop: 12 },
-  input: { borderWidth: 1, borderColor: '#aaa', borderRadius: 10, padding: 12, fontSize: 18 },
-  row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  chip: { paddingVertical: 10, paddingHorizontal: 14, borderRadius: 999, borderWidth: 1, borderColor: '#aaa' },
-  chipActive: { backgroundColor: '#145a63', borderColor: '#145a63' },
-  chipDisabled: { opacity: 0.45 },
-  chipText: { fontSize: 16 },
-  chipTextActive: { color: '#fff' },
-  error: { color: '#a3261c', marginTop: 8 },
-  btn: { marginTop: 20, paddingVertical: 16, borderRadius: 12, backgroundColor: '#145a63', alignItems: 'center' },
-  btnText: { color: '#fff', fontSize: 18, fontWeight: '600' },
-  muted: { fontSize: 13, opacity: 0.6, marginTop: 10 },
-});

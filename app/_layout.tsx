@@ -1,23 +1,35 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { ThemeProvider, useThemeCtx } from '../src/ui/ThemeContext';
+
+// 所有畫面自己畫標題列（設計稿 topbar），系統 header 一律關閉。
+function Root() {
+  const { night, palette } = useThemeCtx();
+  return (
+    <>
+      <StatusBar style={night ? 'light' : 'dark'} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: palette.bg } }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="onboarding/child" />
+        <Stack.Screen name="onboarding/style" />
+        <Stack.Screen name="onboarding/result" />
+        <Stack.Screen name="record/bottle" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/temperature" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/solid" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/tummy" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/medication" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/edit" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/timeline" />
+        <Stack.Screen name="cards/[id]" />
+      </Stack>
+    </>
+  );
+}
 
 export default function RootLayout() {
   return (
-    <>
-      <StatusBar style="auto" />
-      <Stack screenOptions={{ headerTitleStyle: { fontSize: 18 } }}>
-        <Stack.Screen name="index" options={{ title: '育兒秘書' }} />
-        <Stack.Screen name="onboarding/child" options={{ title: '建立孩子檔案' }} />
-        <Stack.Screen name="onboarding/style" options={{ title: '照顧風格' }} />
-        <Stack.Screen name="onboarding/result" options={{ title: '你的偏好' }} />
-        <Stack.Screen name="record/bottle" options={{ title: '瓶餵', presentation: 'modal' }} />
-        <Stack.Screen name="record/temperature" options={{ title: '體溫', presentation: 'modal' }} />
-        <Stack.Screen name="record/timeline" options={{ title: '紀錄' }} />
-        <Stack.Screen name="record/solid" options={{ title: '副食品', presentation: 'modal' }} />
-        <Stack.Screen name="record/edit" options={{ title: '修正紀錄', presentation: 'modal' }} />
-        <Stack.Screen name="cards/index" options={{ title: '內容' }} />
-        <Stack.Screen name="cards/[id]" options={{ title: '' }} />
-      </Stack>
-    </>
+    <ThemeProvider>
+      <Root />
+    </ThemeProvider>
   );
 }

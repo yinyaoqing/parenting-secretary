@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { View, Text, TextInput, Pressable, ScrollView } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { logTemperature, type TempSite } from '../../src/records/quick';
 import { deviceId } from '../../src/db/device';
 import { useTheme } from '../../src/ui/useTheme';
 import { siteLabel } from '../../src/util/format';
+import { Screen, SheetHeader, Field, Chip, NumInput, PrimaryButton, SafetyBox, Icon } from '../../src/ui/components';
+import { TimeRow } from '../../src/ui/TimeRow';
 
 const SITES: TempSite[] = ['rectal', 'ear', 'axillary', 'forehead', 'oral'];
 
@@ -19,7 +21,8 @@ const DEFINITION: Record<TempSite, string> = {
 
 export default function Temperature() {
   const { childId } = useLocalSearchParams<{ childId: string }>();
-  const { styles } = useTheme();
+  const { styles, palette } = useTheme();
+  const [at, setAt] = useState(new Date());
   const [c, setC] = useState('');
   const [site, setSite] = useState<TempSite | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -28,32 +31,33 @@ export default function Temperature() {
     const n = Number(c);
     if (!site) return setErr('請選擇量測部位');
     if (!childId || !Number.isFinite(n) || n < 30 || n > 45) return setErr('請輸入 30 到 45 之間的度數');
-    await logTemperature(childId, n, site, await deviceId());
+    await logTemperature(childId, n, site, await deviceId(), at.toISOString());
     router.back();
   };
 
   return (
-    <ScrollView style={styles.page} contentContainerStyle={styles.pad}>
-      <Text style={styles.h2}>度數</Text>
-      <TextInput style={styles.input} value={c} onChangeText={setC} keyboardType="decimal-pad" placeholder="例如 37.2" accessibilityLabel="體溫度數" />
-
-      <Text style={styles.h2}>量測部位（必填）</Text>
-      <View style={styles.chipRow}>
-        {SITES.map((s) => (
-          <Pressable key={s} style={[styles.chip, site === s && styles.chipActive]} onPress={() => setSite(s)} accessibilityRole="button">
-            <Text style={[styles.chipText, site === s && styles.chipTextActive]}>{siteLabel(s)}</Text>
+    <View style={styles.page}>
+      <SheetHeader title="體溫" />
+      <Screen footer={<PrimaryButton label="儲存" onPress={save} />}>
+        <TimeRow value={at} onChange={setAt} />
+        <Field label="度數">
+          <NumInput value={c} onChangeText={setC} unit="°C" label="體溫度數" decimal placeholder="37.0" />
+        </Field>
+        <Field label="量測部位（必填）" hint={site ? DEFINITION[site] : undefined}>
+          <View style={styles.chips}>
+            {SITES.map((s) => <Chip key={s} label={siteLabel(s)} on={site === s} onPress={() => setSite(s)} />)}
+          </View>
+        </Field>
+        <SafetyBox>
+          <Text style={styles.p}>3 個月以下的寶寶量到 38°C 以上，請立即就醫。</Text>
+          <Text style={styles.muted}>APP 只記錄數字與部位，不判斷要不要就醫。</Text>
+          <Pressable onPress={() => router.push({ pathname: '/cards/[id]', params: { id: 'safety.fever' } })} accessibilityRole="link" style={[styles.row, { gap: 4, marginTop: 4 }]}>
+            <Text style={[styles.link, { fontSize: 14 }]}>來源與完整說明：安全內容「發燒」</Text>
+            <Icon name="chevron-right" size={14} color={palette.accent} />
           </Pressable>
-        ))}
-      </View>
-      {site && <Text style={styles.muted}>{DEFINITION[site]}</Text>}
-
-      <View style={styles.card}>
-        <Text style={styles.p}>3 個月以下的寶寶量到 38°C 以上，請立即就醫。</Text>
-        <Text style={styles.muted}>APP 只記錄數字與部位，不判斷要不要就醫。來源與完整說明見「安全內容：發燒」。</Text>
-      </View>
-
-      {err && <Text style={[styles.p, styles.danger]}>{err}</Text>}
-      <Pressable style={styles.primary} onPress={save} accessibilityRole="button"><Text style={styles.primaryText}>儲存</Text></Pressable>
-    </ScrollView>
+        </SafetyBox>
+        {err ? <Text style={[styles.p, styles.danger]}>{err}</Text> : null}
+      </Screen>
+    </View>
   );
 }

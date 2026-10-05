@@ -56,17 +56,19 @@
 ## 3. 程式庫地圖
 
 ```
-app/                    expo-router 畫面
-  index.tsx             首頁：孩子資訊、上次餵奶/尿布、一鍵紀錄、今日時間軸、日夜切換
-  onboarding/           建檔（child）、風格問卷（style）、結果（result）
-  record/               瓶餵、體溫、副食品、紀錄列表（timeline）、修正時間（edit）
-  cards/                內容卡列表（index）與詳情（[id]）
+app/                    expo-router 畫面（依設計稿 v1：https://claude.ai/artifact/MriThFqEJ4gUim72TujHXr）
+  _layout.tsx           ThemeProvider + Stack（系統 header 全關，畫面自畫 TopBar；record/* 為 modal）
+  (tabs)/               底部四分頁：index（今天）、cards（內容）、schedule（時程，規劃中）、settings（設定）
+  (tabs)/index.tsx      首頁：三格狀態、安全網提醒橫幅（首頁內，非通知）、安全內容入口、一鍵紀錄＋復原提示、清醒趴臥與用藥入口；無孩子時為歡迎頁
+  onboarding/           建檔三步（child，原生日期選擇）、問卷（style：預設或逐題一頁）、結果（result）
+  record/               瓶餵、體溫、副食品、清醒趴臥（tummy）、用藥（medication）：都有「時間」列可補登；紀錄列表（timeline）；修正（edit：日期時間選擇器＋微調＋刪除）
+  cards/[id].tsx        內容卡詳情：閱讀字級、來源區塊、右上 AA 切換字級
 src/db/                 types（18 歲資料模型）、schema（SQLite v1）、index（開庫與遷移）、repo（孩子、風格、設定）、events（事件 append-only）、device（裝置 id）
 src/records/quick.ts    一鍵紀錄輔助與安全網上界計算
 src/style/questionnaire.ts  六向度 12 題、三預設、計分、衍生預設
 src/content/            types（內容卡結構）、loader（載入打包 JSON）、cards.generated.json（產生物，勿手改）
-src/ui/                 theme（日/夜調色）、useTheme
-src/util/               age（實際與矯正月齡）、format
+src/ui/                 theme（設計系統色票、字級三段、樣式表）、ThemeContext（日夜模式與字級的全域狀態）、useTheme、components（Tile、Big、Chip、Seg、Opt、PickRow、ListRow、Badge、Banner、SafetyBox、Toast…）、DatePick（原生日期時間選擇）、TimeRow（表單補登時間列）
+src/util/               age（實際與矯正月齡）、format、datetime（中文日期、相對時間、補登換算）
 content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12）
 content/whitelist.json  相似度檢查白名單
 scripts/
