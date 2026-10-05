@@ -14,6 +14,7 @@
     "expo-sharing": "~57.0.22",
     "expo-sqlite": "~57.0.3",
     "expo-status-bar": "~57.0.1",
+    "expo-updates": "~57.0.24",
     "react": "19.2.3",
     "react-native": "0.86.3",
     "react-native-safe-area-context": "~5.7.0",
@@ -21,6 +22,9 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "eslint": "^9.0.0",
+    "eslint-config-expo": "~57.0.2",
+    "qrcode": "^1.5.4",
     "typescript": "~6.0.3"
   },
   "scripts": {
@@ -33,7 +37,9 @@
     "typecheck": "tsc --noEmit",
     "content:build": "node scripts/build-content.mjs",
     "content:bilingual": "node scripts/export-bilingual.mjs",
-    "prestart": "node scripts/build-content.mjs"
+    "prestart": "node scripts/build-content.mjs",
+    "lint": "expo lint",
+    "publish:preview": "node scripts/publish-preview.mjs"
   },
   "private": true
 }

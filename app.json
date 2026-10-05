@@ -28,6 +28,23 @@
       "expo-router",
       "expo-status-bar"
     ],
-    "scheme": "parentingsecretary"
+    "scheme": "parentingsecretary",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1"
+      }
+    },
+    "owner": "yinyaoqings-team",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "updates": {
+      "url": "https://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1"
+    }
   }
 }

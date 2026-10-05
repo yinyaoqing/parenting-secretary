@@ -2,30 +2,64 @@
 
 兩條路，都走 Expo 的 EAS 雲端服務，免費額度夠用。第一次需要你本人登入 Expo 帳號，之後每次部署一行指令。
 
-## 路 A：EAS Update 加 Expo Go（最快，約 10 分鐘，不需 Apple 或 Google 帳號）
+## 路 A：EAS Update 加 Expo Go（最快，不需 Apple 或 Google 帳號，但測試者要有 Expo 帳號）
 
-測試者只要裝 Expo Go，打開你給的連結或掃 QR code 就能用，不需要你的電腦開著。
+測試者裝 Expo Go，打開你給的連結或掃 QR code 就能用，不需要你的電腦開著。
+
+**2026 年 5 月起的限制**：Expo Go 只能載入「你本人或你所屬組織」擁有的專案，未登入或非成員會得到 HTTP 403「this project requires authentication」。個人帳號不能邀請成員，所以專案由組織 `yinyaoqings-team` 擁有（app.json 的 `owner`）。每位測試者需要：
+
+1. 到 expo.dev 免費註冊一個帳號。
+2. 你在 https://expo.dev/accounts/yinyaoqings-team/settings/members 用他的 email 邀請，角色選 **Viewer**（只能在 Expo Go 看專案，不能改任何東西）。
+3. 他在 Expo Go 內登入同一個帳號，再開連結。
+
+已知問題：Android 版 Expo Go 57.0.9 登入後仍可能 403（expo/expo#50253），iOS 正常。Android 測試者若遇到，改走路 B 的 APK。
 
 一次性設定：
 
 ```bash
 npm install -g eas-cli
 eas login                      # 用你的 Expo 帳號（expo.dev 免費註冊）
-eas init                       # 在 expo.dev 建立專案並寫入 projectId
+eas init                       # 在 expo.dev 建立專案並寫入 projectId（owner 取自 app.json）
 npx expo install expo-updates
 eas update:configure           # 寫入 updates.url 與 runtimeVersion
 ```
 
-每次部署：
+`eas update:configure` 預設寫入 `runtimeVersion: { policy: "appVersion" }`，但 Expo Go 只接受 `exposdk:<SDK 版本>` 這種 runtime，否則顯示「Not compatible with this version of Expo Go」。所以 app.json 要改成：
+
+```json
+"runtimeVersion": { "policy": "sdkVersion" },
+"platforms": ["ios", "android"]
+```
+
+`platforms` 排除 web 是因為專案沒裝 react-native-web，不排除會讓 export 失敗。日後走路 B 正式建置時再改回 `appVersion` 或 `fingerprint`。
+
+每次部署（一鍵）：
+
+```bash
+npm run publish:preview                       # 訊息預設為最近一次 commit 標題
+npm run publish:preview -- --message "week6"  # 自訂訊息
+```
+
+腳本在 `scripts/publish-preview.mjs`，依序做 content:build、eas update、產 QR code。產出在 `docs/dev/release/`：`expo-go-preview.png`（傳給家長的 QR code，連結固定不變）、`latest.json`（本次更新資訊）、`history.md`（發布紀錄）。
+
+等同於手動執行：
 
 ```bash
 npm run content:build
-eas update --channel preview --message "week5"
+eas update --channel preview --environment preview --message "week5"
 ```
 
-指令結束會印出一個網址與 QR code。把網址傳給測試者，他們在 Expo Go 打開。
+`--environment` 指定要帶入哪組 EAS 環境變數；目前沒設任何變數，給 preview 即可。指令結束會印出 Runtime version（應為 `exposdk:57.0.0`）與 EAS Dashboard 連結。
 
-限制：測試者的 Expo Go 版本必須支援 SDK 57；本地通知在 Android 的 Expo Go 不完整；無法測小工具。對目前的紀錄、問卷、內容卡功能足夠。
+給測試者的連結是固定的，之後每次 `eas update` 到 preview 頻道，Expo Go 重新開啟就會拿到最新版：
+
+- Expo Go 直接開啟：`exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview`
+- QR code 圖檔（SVG）：`https://qr.expo.dev/eas-update?projectId=e71c550f-b0ed-4bfd-b807-04d248ee70a1&runtimeVersion=exposdk:57.0.0&channel=preview`
+- 專案儀表板：https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary
+
+iPhone 用相機掃 QR code 會跳到 Expo Go；Android 在 Expo Go 內用「Scan QR code」。
+
+限制：測試者要有 Expo 帳號並被邀請進組織（見上）；Expo Go 版本必須支援 SDK 57；本地通知在 Android 的 Expo Go 不完整；無法測小工具。對目前的紀錄、問卷、內容卡功能足夠。
 
 ## 路 B：EAS Build 內部發布（接近正式體驗）
 
