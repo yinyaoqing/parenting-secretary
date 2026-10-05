@@ -13,6 +13,10 @@ export default function RootLayout() {
         <Stack.Screen name="record/bottle" options={{ title: '瓶餵', presentation: 'modal' }} />
         <Stack.Screen name="record/temperature" options={{ title: '體溫', presentation: 'modal' }} />
         <Stack.Screen name="record/timeline" options={{ title: '紀錄' }} />
+        <Stack.Screen name="record/solid" options={{ title: '副食品', presentation: 'modal' }} />
+        <Stack.Screen name="record/edit" options={{ title: '修正紀錄', presentation: 'modal' }} />
+        <Stack.Screen name="cards/index" options={{ title: '內容' }} />
+        <Stack.Screen name="cards/[id]" options={{ title: '' }} />
       </Stack>
     </>
   );

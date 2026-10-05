@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
-import { useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { deleteEvent, listEvents } from '../../src/db/events';
 import type { Event } from '../../src/db/types';
 import { eventSummary, hhmm, typeLabel } from '../../src/util/format';
@@ -20,7 +20,7 @@ export default function Timeline() {
   let lastDay = '';
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.pad}>
-      <Text style={styles.muted}>最近 200 筆。刪除會保留在資料庫中但不再顯示；補登修正在第 5 週加入。</Text>
+      <Text style={styles.muted}>最近 200 筆。刪除會保留在資料庫中但不再顯示；</Text>
       <View style={styles.card}>
         {events.length === 0 && <Text style={styles.muted}>還沒有紀錄。</Text>}
         {events.map((e) => {
@@ -40,7 +40,10 @@ export default function Timeline() {
                       <Pressable onPress={() => setConfirmId(null)} accessibilityRole="button"><Text style={styles.muted}>取消</Text></Pressable>
                     </View>
                   ) : (
-                    <Pressable onPress={() => setConfirmId(e.id)} accessibilityRole="button"><Text style={[styles.muted, { color: palette.accent }]}>刪除</Text></Pressable>
+                    <View style={[styles.row, { justifyContent: 'flex-start', gap: 16 }]}>
+                      <Pressable onPress={() => router.push({ pathname: '/record/edit', params: { childId, eventId: e.id } })} accessibilityRole="button"><Text style={[styles.muted, { color: palette.accent }]}>修正時間</Text></Pressable>
+                      <Pressable onPress={() => setConfirmId(e.id)} accessibilityRole="button"><Text style={[styles.muted, { color: palette.accent }]}>刪除</Text></Pressable>
+                    </View>
                   )}
                 </View>
               </View>

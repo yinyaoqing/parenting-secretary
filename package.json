@@ -30,7 +30,10 @@
     "web": "expo start --web",
     "content:check": "node scripts/check-content.mjs",
     "content:check:net": "node scripts/check-content.mjs --net",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "content:build": "node scripts/build-content.mjs",
+    "content:bilingual": "node scripts/export-bilingual.mjs",
+    "prestart": "node scripts/build-content.mjs"
   },
   "private": true
 }

@@ -89,12 +89,14 @@ export default function Home() {
         <Text style={styles.muted}>只顯示時間，不做提醒以外的判斷。</Text>
       </View>
 
+      <Pressable style={styles.ghost} onPress={() => router.push('/cards')} accessibilityRole="button"><Text style={styles.ghostText}>安全內容與這個月的孩子</Text></Pressable>
+
       <Text style={styles.h2}>餵食</Text>
       <View style={styles.bigGrid}>
         <Big label="親餵 左" sub="一鍵記錄" onPress={() => act(async () => logBreastFeed(child.id, 'L', undefined, 'cue', await by()))} s={styles} />
         <Big label="親餵 右" sub="一鍵記錄" onPress={() => act(async () => logBreastFeed(child.id, 'R', undefined, 'cue', await by()))} s={styles} />
         <Big label="瓶餵" sub="輸入 ml" onPress={() => router.push({ pathname: '/record/bottle', params: { childId: child.id } })} s={styles} />
-        <Big label="副食品" sub="第 5 週加入" onPress={() => {}} s={styles} disabled />
+        <Big label="副食品" sub="吃了什麼" onPress={() => router.push({ pathname: '/record/solid', params: { childId: child.id } })} s={styles} />
       </View>
 
       <Text style={styles.h2}>尿布</Text>
