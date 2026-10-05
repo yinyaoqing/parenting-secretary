@@ -1,0 +1,261 @@
+<title>育兒秘書 家長驗證</title>
+<meta name="description" content="給家長看的育兒秘書 APP 規格說明與需求驗證問卷，約 10 分鐘。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: single reading column; feature cards in a 2-up grid that stacks on phones; the questionnaire is one long form. */
+:root{
+  --bg:#f6f7f5; --surface:#ffffff; --ink:#1f2a24; --ink-2:#4c5a52; --ink-3:#7c887f;
+  --line:#dfe4df; --accent:#2f6f5e; --accent-soft:#e4efea; --warn:#8a5a0b; --warn-bg:#f7efdf;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#161a18;--surface:#1e2420;--ink:#e7ebe8;--ink-2:#b7c0ba;--ink-3:#8b958f;--line:#303834;--accent:#7cc3ad;--accent-soft:#1f3b33;--warn:#e6b35a;--warn-bg:#352a15}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#161a18;--surface:#1e2420;--ink:#e7ebe8;--ink-2:#b7c0ba;--ink-3:#8b958f;--line:#303834;--accent:#7cc3ad;--accent-soft:#1f3b33;--warn:#e6b35a;--warn-bg:#352a15}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.75;padding-inline:clamp(16px,4vw,32px);padding-block:0 80px}
+.wrap{max-width:760px;margin:0 auto}
+h1,h2,h3{line-height:1.3;text-wrap:balance;margin:0}
+h1{font-size:clamp(26px,5vw,34px);font-weight:700;margin-top:40px}
+h2{font-size:22px;font-weight:700;margin:48px 0 12px;padding-top:20px;border-top:1px solid var(--line)}
+h3{font-size:17px;font-weight:700;margin:16px 0 6px}
+p{margin:0 0 12px}
+.lede{color:var(--ink-2);font-size:17px}
+.pill{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);padding:3px 10px;border-radius:999px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.feat h3{margin-top:0}
+.feat .eg{font-size:15px;color:var(--ink-2);background:var(--bg);border-radius:8px;padding:10px 12px;margin-top:8px}
+.not{background:var(--warn-bg);border-radius:12px;padding:16px 18px}
+.not li{margin-bottom:6px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:12px}
+.card .tag{font-size:12px;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+.card .title{font-size:19px;font-weight:700;margin:4px 0 8px}
+.card .src{font-size:13px;color:var(--ink-3);margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+ul,ol{padding-left:1.3em;margin:0 0 12px}
+li{margin-bottom:4px}
+form{display:grid;gap:22px}
+fieldset{border:0;padding:0;margin:0}
+legend{font-weight:700;font-size:17px;margin-bottom:8px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts label{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer;font-size:16px}
+.opts input{margin-top:5px;accent-color:var(--accent)}
+.scale{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.scale .nums{display:flex;gap:4px}
+.scale .nums label{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-size:15px;font-variant-numeric:tabular-nums}
+.scale .nums input{position:absolute;opacity:0;width:0;height:0}
+.scale .nums input:checked + span{background:var(--accent);color:#fff;border-radius:8px;width:100%;height:100%;display:grid;place-items:center}
+.scale .nums input:focus-visible + span{outline:2px solid var(--accent)}
+textarea,input[type=text]{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+.hint{font-size:14px;color:var(--ink-3)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+button{font:inherit;font-size:17px;font-weight:600;padding:12px 20px;border-radius:12px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+button.secondary{background:transparent;color:var(--accent)}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#status{font-size:15px;color:var(--ink-2);min-height:1.5em}
+#copybox{display:none}
+.small{font-size:14px;color:var(--ink-3)}
+@media (prefers-reduced-motion:no-preference){button{transition:opacity .15s}}
+</style>
+
+<div class="wrap">
+  <span class="pill">家長驗證 · 約 10 分鐘</span>
+  <h1>這個育兒 APP 做得對不對，想聽你說</h1>
+  <p class="lede">我正在一個人開發一款給台灣 0 到 3 歲家庭用的育兒秘書 APP。下面先用白話說它會做什麼、不會做什麼，再請你花幾分鐘回答問卷。沒有標準答案，覺得沒用就直說，那是最有價值的回饋。</p>
+
+  <h2>一句話</h2>
+  <p>幫你記錄寶寶的吃睡尿布、在該提醒的時候提醒、把台灣公費健檢與補助照時間排好，並且每一條衛教內容都附上政府或醫學會的原文來源，讓你可以自己點開查。</p>
+
+  <h2>你會用到的八件事</h2>
+  <div class="grid">
+    <div class="feat"><h3>1. 三秒快速紀錄</h3><p>首頁大按鈕記餵奶、尿布、睡眠、體溫、副食品。單手、夜間暗色、事後可補登。</p><div class="eg">像這樣：按「餵奶」→ 選左邊或右邊 → 完成。沒有要你填表。</div></div>
+    <div class="feat"><h3>2. 安全網提醒，不是時刻表</h3><p>預設不會每三小時叫你餵奶。只有距上次餵奶「比這孩子平常久很多」時才提醒一次，問你寶寶醒著嗎、有沒有找奶。</p><div class="eg">像這樣：「距上次餵奶已 4 小時 10 分，比平常久。寶寶醒著嗎？有沒有找奶的樣子？」</div></div>
+    <div class="feat"><h3>3. 固定的安全內容</h3><p>安全睡眠、發燒怎麼量、噎食、燙傷、寶寶一直哭怎麼辦等 14 條，永遠在首頁可以點，離線也看得到，任何設定都關不掉。</p><div class="eg">下面有三張實際的樣子。</div></div>
+    <div class="feat"><h3>4. 公費資源與行政待辦</h3><p>依出生日自動排：9 次兒童預防保健、6 次發展篩檢、疫苗、塗氟、出生登記期限、育兒津貼與托育補助、育嬰留停。</p><div class="eg">像這樣：「出生第 45 天：出生登記期限剩 15 天。這週可預約第 1 次兒童預防保健。」</div></div>
+    <div class="feat"><h3>5. 照顧風格問卷</h3><p>12 題，告訴 APP 你偏向規律作息還是跟著寶寶、偏向立即回應還是先觀察。之後內容的順序與提醒方式會依你的偏好排。安全內容不受影響。</p><div class="eg">像這樣：「孩子一哭，你通常？馬上抱／先出聲安撫看看／先觀察一兩分鐘」</div></div>
+    <div class="feat"><h3>6. 月齡信與每週一個遊戲</h3><p>0 到 3 個月每週一封、之後每月一封：這個時期的孩子大概什麼樣、這個月有什麼公費項目。每週一個適齡的親子遊戲。</p><div class="eg">內容翻譯改寫自美國 CDC 與英國 NHS 的公開資料，台灣的篩檢時點依國健署。每張都附原文連結。</div></div>
+    <div class="feat"><h3>7. 暫停模式</h3><p>一鍵暫停全部提醒與內容。住院、暫時交給長輩或機構、或任何你不想被打擾的時候。不問原因。</p><div class="eg">在設定第一層，也在每則通知上。</div></div>
+    <div class="feat"><h3>8. 資料在你手上</h3><p>沒有帳號、沒有伺服器。資料只存在手機裡，備份是匯出一個檔案到你自己的 iCloud 或 Google Drive。</p><div class="eg">代價是第一版沒有多人即時同步，分享給家人要用匯出。</div></div>
+  </div>
+
+  <h2>它刻意不做的事</h2>
+  <div class="not">
+    <ul>
+      <li><b>不判斷要不要就醫。</b>體溫只顯示你量的數字和該部位的官方定義，不會跳出「建議就醫」的分級。</li>
+      <li><b>沒有 AI 聊天。</b>只有一個搜尋，回傳政府衛教的原文段落與連結，不會生成新內容。</li>
+      <li><b>沒有發展篩檢量表。</b>發展評估交給政府的 6 次免費篩檢，APP 只幫你準備要問醫師的問題。</li>
+      <li><b>沒有廣告，不接受奶粉與用品品牌的贊助。</b></li>
+      <li><b>第一版沒有多裝置同步、沒有穿戴裝置、沒有 LINE 通知。</b></li>
+    </ul>
+  </div>
+
+  <h2>三張內容卡的實際樣子</h2>
+  <div class="card"><div class="tag">安全內容 · 0 到 12 個月</div><div class="title">安全睡眠</div><p>1 歲以下每次睡覺都讓寶寶仰睡；側睡容易翻成趴睡，也不建議。不用枕頭。睡眠區域不放枕頭、棉被、毯子、填充玩偶等鬆軟物。遵守同室不同床，不和大人或兄弟姊妹睡同一張床。保持通風，保暖用睡袋型睡衣或包巾，不悶熱。</p><div class="src">資料來源：衛生福利部國民健康署「嬰兒睡姿及睡眠環境 5 招安心睡」 · 查核 2026-10-05 · 點開可看原文</div></div>
+  <div class="card"><div class="tag">安全內容 · 0 到 36 個月</div><div class="title">寶寶一直哭：5 問 2 要</div><p>寶寶哭先問五件事：肚子餓、尿布濕、好想睡、肚脹氣、想撒嬌。兩個要：要用雙手支撐好寶寶的頭頸；要有耐心、緩和寶寶和自己的情緒，當下無法承受就和其他照顧者換手。不亂晃、不拋接、不撞擊。</p><div class="src">資料來源：衛生福利部國民健康署「認識寶寶為什麼哭哭！5 問 2 要」 · 查核 2026-10-05</div></div>
+  <div class="card"><div class="tag">安全內容 · 副食品起</div><div class="title">噎食預防</div><p>幼兒期避免：整顆葡萄、沒切開的小番茄、整顆或切碎的堅果、整匙花生醬、熱狗香腸、爆米花、硬糖軟糖口香糖棉花糖、大塊硬的生蔬果。把食物切小、壓軟。孩子吃東西時全程有大人看著。開始副食品時每次只加一種新食物，觀察 3 到 5 天。</p><div class="src">資料來源：美國 CDC「Choking Hazards」（翻譯）；國健署「嬰兒副食品添加」 · 查核 2026-10-05</div></div>
+
+  <h2>問卷</h2>
+  <p class="small">回答後按「送出」。如果送出不成功，按「產生文字」把答案複製給我即可。不會收集你的姓名，署名是選填。</p>
+
+  <form id="f" novalidate>
+    <fieldset><legend>1. 你家孩子目前的狀況</legend>
+      <div class="opts">
+        <label><input type="radio" name="stage" value="pregnant">懷孕中</label>
+        <label><input type="radio" name="stage" value="0-3m">0 到 3 個月</label>
+        <label><input type="radio" name="stage" value="3-12m">3 到 12 個月</label>
+        <label><input type="radio" name="stage" value="1-3y">1 到 3 歲</label>
+        <label><input type="radio" name="stage" value="3y+">3 歲以上</label>
+      </div>
+    </fieldset>
+
+    <fieldset><legend>2. 你現在用什麼記錄寶寶的吃睡？（可複選）</legend>
+      <div class="opts">
+        <label><input type="checkbox" name="current" value="none">沒有在記</label>
+        <label><input type="checkbox" name="current" value="paper">紙本或月子中心給的表</label>
+        <label><input type="checkbox" name="current" value="line">LINE 記事本或對話</label>
+        <label><input type="checkbox" name="current" value="app">育兒 APP（下面寫是哪一個）</label>
+        <label><input type="checkbox" name="current" value="memory">靠記憶</label>
+      </div>
+      <input type="text" id="currentApp" name="currentApp" placeholder="如果有用 APP，是哪一個？">
+    </fieldset>
+
+    <fieldset><legend>3. 八件事裡，你覺得自己會用到的程度（1 完全不會用，5 一定會用）</legend>
+      <div class="opts" id="scales"></div>
+    </fieldset>
+
+    <fieldset><legend>4. 如果只能留一件，你會留哪一件？</legend>
+      <div class="opts" id="keepOne"></div>
+    </fieldset>
+
+    <fieldset><legend>5. 「它刻意不做的事」裡，哪些會讓你不想用？（可複選）</legend>
+      <div class="opts">
+        <label><input type="checkbox" name="dealbreaker" value="no_triage">不判斷要不要就醫</label>
+        <label><input type="checkbox" name="dealbreaker" value="no_ai">沒有 AI 聊天</label>
+        <label><input type="checkbox" name="dealbreaker" value="no_screening">沒有發展篩檢量表</label>
+        <label><input type="checkbox" name="dealbreaker" value="no_sync">沒有多裝置同步</label>
+        <label><input type="checkbox" name="dealbreaker" value="no_line">沒有 LINE 通知</label>
+        <label><input type="checkbox" name="dealbreaker" value="none">都不影響</label>
+      </div>
+    </fieldset>
+
+    <fieldset><legend>6. 安全網提醒（只在比平常久很多時提醒一次）跟你想要的一樣嗎？</legend>
+      <div class="opts">
+        <label><input type="radio" name="reminder" value="safety_net">一樣，我不想被定時叫</label>
+        <label><input type="radio" name="reminder" value="schedule">我比較想要固定時間提醒</label>
+        <label><input type="radio" name="reminder" value="both">兩種都要能選</label>
+        <label><input type="radio" name="reminder" value="none">我不需要餵奶提醒</label>
+      </div>
+    </fieldset>
+
+    <fieldset><legend>7. 看了上面三張內容卡，有沒有哪句話讓你焦慮、有罪惡感，或覺得被說教？</legend>
+      <textarea name="anxiety" placeholder="直接寫哪一句、為什麼。沒有就寫沒有。"></textarea>
+    </fieldset>
+
+    <fieldset><legend>8. 「照顧風格問卷」決定內容順序，你覺得？</legend>
+      <div class="opts">
+        <label><input type="radio" name="style" value="useful">有用，我想要內容符合我的方式</label>
+        <label><input type="radio" name="style" value="skip">會直接跳過，給我預設就好</label>
+        <label><input type="radio" name="style" value="worry">擔心被歸類或被評分</label>
+        <label><input type="radio" name="style" value="unsure">看不懂這會改變什麼</label>
+      </div>
+    </fieldset>
+
+    <fieldset><legend>9. 安全內容與公費時程永遠免費。其餘內容（月齡信、遊戲、風格化內容、報表）你願意付多少？</legend>
+      <div class="opts">
+        <label><input type="radio" name="price" value="0">不會付費</label>
+        <label><input type="radio" name="price" value="once_150">一次買斷 NT$150 以內</label>
+        <label><input type="radio" name="price" value="once_290">一次買斷 NT$290 左右</label>
+        <label><input type="radio" name="price" value="once_490">一次買斷 NT$490 左右</label>
+        <label><input type="radio" name="price" value="yearly_199">年費 NT$199 左右</label>
+      </div>
+    </fieldset>
+
+    <fieldset><legend>10. 第一版資料只在你手機裡、沒有多人同步，用匯出檔案分享給家人。可以接受嗎？</legend>
+      <div class="opts">
+        <label><input type="radio" name="sync" value="ok">可以，我比較在意隱私</label>
+        <label><input type="radio" name="sync" value="need_partner">不行，一定要和伴侶同步</label>
+        <label><input type="radio" name="sync" value="need_elder">不行，一定要讓長輩或保母看到</label>
+        <label><input type="radio" name="sync" value="later">第一版可以，半年內要有</label>
+      </div>
+    </fieldset>
+
+    <fieldset><legend>11. 有沒有你很需要、但上面完全沒提到的功能或內容？</legend>
+      <textarea name="missing" placeholder="想到什麼寫什麼。"></textarea>
+    </fieldset>
+
+    <fieldset><legend>12. 署名（選填）</legend>
+      <input type="text" name="signature" placeholder="暱稱或留空">
+    </fieldset>
+
+    <div class="actions">
+      <button type="submit" id="submitBtn">送出</button>
+      <button type="button" class="secondary" id="textBtn">產生文字（用 LINE 傳給我）</button>
+      <span id="status"></span>
+    </div>
+    <div id="copybox">
+      <textarea id="copyText" rows="12" readonly aria-label="問卷答案文字"></textarea>
+      <div class="actions"><button type="button" class="secondary" id="copyBtn">複製</button><span class="hint">複製後貼到 LINE 給我就好。</span></div>
+    </div>
+  </form>
+  <p class="small" style="margin-top:28px">這份頁面只給受邀的家長看。你填的內容只有我會讀，用來修改規劃，不會公開。</p>
+</div>
+
+<script>
+(function(){
+  var FEATURES=[['record','三秒快速紀錄'],['safety_net','安全網提醒'],['safety','固定的安全內容'],['public','公費資源與行政待辦'],['style','照顧風格問卷'],['letters','月齡信與每週遊戲'],['pause','暫停模式'],['local','資料在你手上']];
+  var scales=document.getElementById('scales'), keep=document.getElementById('keepOne');
+  FEATURES.forEach(function(f){
+    var row=document.createElement('div');row.className='scale';
+    var nums='';for(var i=1;i<=5;i++){nums+='<label><input type="radio" name="use_'+f[0]+'" value="'+i+'"><span>'+i+'</span></label>';}
+    row.innerHTML='<span>'+f[1]+'</span><div class="nums">'+nums+'</div>';scales.appendChild(row);
+    var k=document.createElement('label');k.innerHTML='<input type="radio" name="keep" value="'+f[0]+'">'+f[1];keep.appendChild(k);
+  });
+
+  var form=document.getElementById('f'), status=document.getElementById('status');
+  function collect(){
+    var fd=new FormData(form), out={};
+    fd.forEach(function(v,k){ if(out[k]===undefined) out[k]=v; else if(Array.isArray(out[k])) out[k].push(v); else out[k]=[out[k],v]; });
+    ['current','dealbreaker'].forEach(function(k){ if(out[k]&&!Array.isArray(out[k])) out[k]=[out[k]]; });
+    out.submittedAt=new Date().toISOString(); out.version='spec-v0.9';
+    return out;
+  }
+  function toText(a){
+    var lines=['【育兒秘書 家長驗證】'];
+    var label=function(k){var m={stage:'1 階段',currentApp:'2 使用的 APP',keep:'4 只留一件',reminder:'6 提醒方式',anxiety:'7 焦慮或說教',style:'8 風格問卷',price:'9 價格',sync:'10 同步',missing:'11 缺少的',signature:'12 署名',current:'2 目前記錄方式',dealbreaker:'5 不想用的原因'};return m[k]||k;};
+    Object.keys(a).forEach(function(k){
+      if(k==='submittedAt'||k==='version') return;
+      if(k.indexOf('use_')===0){var f=FEATURES.filter(function(x){return 'use_'+x[0]===k;})[0];lines.push('3 '+(f?f[1]:k)+'：'+a[k]+'/5');return;}
+      var v=Array.isArray(a[k])?a[k].join('、'):a[k]; if(v) lines.push(label(k)+'：'+v);
+    });
+    return lines.join('\n');
+  }
+  document.getElementById('textBtn').addEventListener('click',function(){
+    var box=document.getElementById('copybox'), ta=document.getElementById('copyText');
+    ta.value=toText(collect()); box.style.display='block'; ta.focus(); ta.select();
+  });
+  document.getElementById('copyBtn').addEventListener('click',function(){
+    var ta=document.getElementById('copyText'); ta.focus(); ta.select();
+    var done=false; try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(ta.value).then(function(){status.textContent='已複製，貼到 LINE 即可。';}); done=true; } }catch(e){}
+    if(!done){ try{ document.execCommand('copy'); status.textContent='已複製，貼到 LINE 即可。'; }catch(e){ status.textContent='請長按文字框全選後複製。'; } }
+  });
+
+  var dbRef=null, uid=null, btn=document.getElementById('submitBtn');
+  (async function(){
+    try{
+      var user=await window.claude.use('user'); var db=await window.claude.use('db');
+      if(user) uid=await user.id();
+      if(db&&uid){ dbRef=db.doc('feedback/'+uid); }
+    }catch(e){}
+    if(!dbRef){ btn.textContent='送出（請改用產生文字）'; btn.disabled=true; status.textContent='這個瀏覽器無法直接送出，請按「產生文字」。'; }
+  })();
+
+  form.addEventListener('submit',async function(ev){
+    ev.preventDefault();
+    if(!dbRef) return;
+    var a=collect(); btn.disabled=true; status.textContent='送出中…';
+    try{ await dbRef.set(a); status.textContent='已送出，謝謝你。想補充可以再按一次送出，會覆蓋前一次。'; btn.disabled=false; }
+    catch(e){ btn.disabled=false; status.textContent='送出失敗（'+(e&&e.code||'unknown')+'）。請按「產生文字」改用 LINE 傳給我。'; }
+  });
+})();
+</script>
