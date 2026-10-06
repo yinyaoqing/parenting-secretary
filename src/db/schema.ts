@@ -1,6 +1,7 @@
 // SQLite schema。事件表 append-only：修正以 supersedes 指向舊事件，刪除以 deleted_at 墓碑。
 // v2：事件加 seq（每個記錄裝置自己的單調序號）、updated_at（結束或刪除時更新，供交接差量）、tz_offset_min；新增 peers（配對過的裝置）。
-export const SCHEMA_VERSION = 2;
+// v3：children 加 archived_at（封存孩子，紀錄保留不顯示）。
+export const SCHEMA_VERSION = 3;
 
 export const SCHEMA_SQL = `
 PRAGMA journal_mode = WAL;
@@ -21,7 +22,8 @@ CREATE TABLE IF NOT EXISTS children (
   location_until TEXT,
   special_contexts TEXT NOT NULL DEFAULT '[]',
   created_at TEXT NOT NULL,
-  updated_at TEXT NOT NULL
+  updated_at TEXT NOT NULL,
+  archived_at TEXT
 );
 
 CREATE TABLE IF NOT EXISTS events (

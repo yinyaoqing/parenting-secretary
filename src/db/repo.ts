@@ -29,10 +29,33 @@ function rowToChild(r: ChildRow): Child {
   };
 }
 
+// 只列未封存的孩子。封存的孩子與其紀錄仍在資料庫，不顯示。
 export async function listChildren(): Promise<Child[]> {
   const db = await getDb();
-  const rows = await db.getAllAsync<ChildRow>('SELECT * FROM children ORDER BY created_at ASC');
+  const rows = await db.getAllAsync<ChildRow>('SELECT * FROM children WHERE archived_at IS NULL ORDER BY created_at ASC');
   return rows.map(rowToChild);
+}
+
+export async function getChild(id: string): Promise<Child | null> {
+  const db = await getDb();
+  const row = await db.getFirstAsync<ChildRow>('SELECT * FROM children WHERE id = ?', id);
+  return row ? rowToChild(row) : null;
+}
+
+export async function updateChild(id: string, patch: Partial<Omit<Child, 'id' | 'createdAt' | 'updatedAt'>>): Promise<void> {
+  const db = await getDb();
+  const cur = await getChild(id);
+  if (!cur) throw new Error('child not found');
+  const next = { ...cur, ...patch };
+  await db.runAsync(
+    `UPDATE children SET nickname = ?, birth_date = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, updated_at = ? WHERE id = ?`,
+    next.nickname, next.birthDate, next.dueDate ?? null, next.feedingMethod, next.location, next.locationUntil ?? null, JSON.stringify(next.specialContexts ?? []), nowIso(), id,
+  );
+}
+
+export async function archiveChild(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync('UPDATE children SET archived_at = ?, updated_at = ? WHERE id = ?', nowIso(), nowIso(), id);
 }
 
 export async function createChild(input: Omit<Child, 'id' | 'createdAt' | 'updatedAt'>): Promise<Child> {

@@ -1,6 +1,7 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider, useThemeCtx } from '../src/ui/ThemeContext';
+import { ChildProvider } from '../src/ui/ChildContext';
 
 // 所有畫面自己畫標題列（設計稿 topbar），系統 header 一律關閉。
 function Root() {
@@ -24,6 +25,8 @@ function Root() {
         <Stack.Screen name="sync/index" />
         <Stack.Screen name="sync/qr" options={{ presentation: 'modal' }} />
         <Stack.Screen name="sync/scan" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="child/switch" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="child/[id]" />
       </Stack>
     </>
   );
@@ -32,7 +35,9 @@ function Root() {
 export default function RootLayout() {
   return (
     <ThemeProvider>
-      <Root />
+      <ChildProvider>
+        <Root />
+      </ChildProvider>
     </ThemeProvider>
   );
 }

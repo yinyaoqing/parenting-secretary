@@ -1,8 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { View, Text, Switch } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
-import { getSetting, getStyleProfile, listChildren, setSetting } from '../../src/db/repo';
-import type { Child, StyleProfile } from '../../src/db/types';
+import { getSetting, getStyleProfile, setSetting } from '../../src/db/repo';
+import type { StyleProfile } from '../../src/db/types';
+import { useChildren } from '../../src/ui/ChildContext';
+import { daysSince } from '../../src/util/age';
 import { PRESETS } from '../../src/style/questionnaire';
 import { SCALE_LABEL, type TextScale } from '../../src/ui/theme';
 import { useTheme, type ThemeMode } from '../../src/ui/useTheme';
@@ -22,17 +24,16 @@ function Soon() {
 
 export default function Settings() {
   const { styles, palette, mode, setMode, scale, setScale } = useTheme();
-  const [children, setChildren] = useState<Child[]>([]);
+  const { children, active, reload } = useChildren();
   const [profile, setProfile] = useState<StyleProfile | null>(null);
   const [paused, setPaused] = useState(false);
 
   useFocusEffect(useCallback(() => {
-    listChildren().then(async (cs) => {
-      setChildren(cs);
-      if (cs[0]) setProfile(await getStyleProfile(cs[0].id));
-    });
+    reload();
     getSetting('pausedUntil').then((v) => setPaused(!!v && new Date(v).getTime() > Date.now()));
-  }, []));
+  }, [reload]));
+  const activeId = active?.id;
+  useEffect(() => { Promise.resolve(activeId ? getStyleProfile(activeId) : null).then(setProfile); }, [activeId]);
 
   const togglePause = async (v: boolean) => {
     setPaused(v);
@@ -59,19 +60,19 @@ export default function Settings() {
         <Label t="孩子" />
         <ListCard>
           {children.map((c, i) => (
-            <ListRow key={c.id} first={i === 0} left={<Thumb art="rattle" size={48} radius={12} />} main={c.nickname} sub={`${c.birthDate}${c.dueDate ? ` · 早產兒，預產期 ${c.dueDate}` : ''}`} />
+            <ListRow key={c.id} first={i === 0} left={<Thumb art={daysSince(c.birthDate) >= 3 * 365 ? 'sprout' : 'rattle'} size={48} radius={12} />} main={c.nickname} sub={`${c.birthDate}${c.dueDate ? ` · 早產兒，預產期 ${c.dueDate}` : ''}`} right={active?.id === c.id ? <Badge label="目前" /> : undefined} chevron onPress={() => router.push({ pathname: '/child/[id]', params: { id: c.id } })} />
           ))}
           <ListRow first={children.length === 0} main="新增孩子" mainColor={palette.accent} onPress={() => router.push('/onboarding/child')} />
         </ListCard>
 
-        <Label t="照顧風格" />
+        <Label t={active ? `照顧風格（${active.nickname}）` : '照顧風格'} />
         <ListCard>
           <ListRow
             first
             main={presetName}
             sub="只影響提醒預設與內容排序，安全內容不受影響"
             right={<Badge label="重新作答" tone="gray" />}
-            onPress={() => children[0] && router.push({ pathname: '/onboarding/style', params: { childId: children[0].id } })}
+            onPress={() => active && router.push({ pathname: '/onboarding/style', params: { childId: active.id } })}
           />
         </ListCard>
 

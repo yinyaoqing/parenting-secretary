@@ -72,7 +72,7 @@ export async function buildPackage(peerId?: string): Promise<{ text: string; eve
   const me = await getIdentity();
   if (!me.familyId || !me.key) throw new Error('尚未配對');
   const db = await getDb();
-  const children = (await db.getAllAsync<ChildRow>('SELECT * FROM children')).map(rowToChild);
+  const children = (await db.getAllAsync<ChildRow>('SELECT * FROM children WHERE archived_at IS NULL')).map(rowToChild);
   const peer = peerId ? (await listPeers()).find((p) => p.deviceId === peerId) : undefined;
   let rows: EventRow[];
   if (peer) {

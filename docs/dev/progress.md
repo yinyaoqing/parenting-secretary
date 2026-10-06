@@ -24,6 +24,7 @@
 | 項目 | 說明 |
 |---|---|
 | 多裝置同步（不經伺服器） | QR code 面對面交接、AirDrop／Quick Share／LINE 傳加密交接檔、合併匯入；合併引擎與打包層各有 node 測試 |
+| 多孩子切換 | 目前孩子全域狀態、切換單、編輯與封存、3 歲以上首頁精簡 |
 | UI 設計稿套用 | 設計系統、底部四分頁、建檔三步、逐題問卷、首頁狀態格與復原、表單補登時間、原生日期選擇器、內容與設定頁、時程佔位頁 |
 | 內容產線 | check-content（十項檢查）、build-content、export-bilingual、import-translation 四支腳本 |
 | 部署 | EAS 專案（組織 yinyaoqings-team）、EAS Update preview 頻道、一鍵發布 `npm run publish:preview`、QR code 與發布紀錄在 docs/dev/release/ |

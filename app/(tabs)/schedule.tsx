@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { View, Text, Pressable, Linking } from 'react-native';
 import { useFocusEffect } from 'expo-router';
-import { listChildren } from '../../src/db/repo';
-import type { Child } from '../../src/db/types';
+import { useChildren } from '../../src/ui/ChildContext';
+import { ChildTitle } from '../../src/ui/ChildTitle';
 import { ageLabel, daysSince } from '../../src/util/age';
 import { fmtMonthDay } from '../../src/util/datetime';
 import { scheduleFor, scheduleMeta, CATEGORY_LABEL, type ScheduledEntry } from '../../src/schedule/loader';
@@ -15,9 +15,9 @@ const UPCOMING_DAYS = 120;
 
 export default function Schedule() {
   const { styles, palette } = useTheme();
-  const [child, setChild] = useState<Child | null>(null);
+  const { active: child, reload } = useChildren();
   const [showPast, setShowPast] = useState(false);
-  useFocusEffect(useCallback(() => { listChildren().then((cs) => setChild(cs[0] ?? null)); }, []));
+  useFocusEffect(useCallback(() => { reload(); }, [reload]));
 
   const d = child ? daysSince(child.birthDate) : null;
   const entries = child ? scheduleFor(child.birthDate) : [];
@@ -49,7 +49,7 @@ export default function Schedule() {
 
   return (
     <View style={styles.page}>
-      <TopBar title="時程" subtitle={child && d !== null ? `${child.nickname} · 第 ${d + 1} 天 · 實際 ${ageLabel(d)}` : undefined} />
+      <TopBar title={child ? <ChildTitle subtitle={d !== null ? `第 ${d + 1} 天 · 實際 ${ageLabel(d)}` : undefined} /> : '時程'} />
       <Screen>
         <View style={[styles.row, { backgroundColor: palette.accentSoft, borderRadius: 20, overflow: 'hidden', gap: 14, paddingRight: 16 }]}>
           <Thumb art="bag" size={120} radius={0} style={{ borderWidth: 0 }} />

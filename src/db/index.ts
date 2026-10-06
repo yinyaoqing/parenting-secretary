@@ -44,6 +44,10 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
     `);
   }
 
+  if (current < 3) {
+    if (!(await hasColumn(db, 'children', 'archived_at'))) await db.execAsync('ALTER TABLE children ADD COLUMN archived_at TEXT');
+  }
+
   await db.runAsync(
     'INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)',
     'schema_version',

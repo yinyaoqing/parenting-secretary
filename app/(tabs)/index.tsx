@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
-import { listChildren } from '../../src/db/repo';
 import { deleteEvent, lastEvent, listEvents, openEvent, recentIntervalsMinutes } from '../../src/db/events';
+import { useChildren } from '../../src/ui/ChildContext';
+import { ChildTitle } from '../../src/ui/ChildTitle';
 import { logBreastFeed, logDiaper, startSleep, endSleep, safetyNetUpperBound } from '../../src/records/quick';
 import { deviceId } from '../../src/db/device';
 import type { Child, Event } from '../../src/db/types';
@@ -27,8 +28,7 @@ type ToastState = { text: string; eventId?: string };
 
 export default function Home() {
   const { styles, palette, night, setMode } = useTheme();
-  const [children, setChildren] = useState<Child[] | null>(null);
-  const [child, setChild] = useState<Child | null>(null);
+  const { active: child, loaded, reload } = useChildren();
   const [lastFeed, setLastFeed] = useState<Event | null>(null);
   const [lastDiaper, setLastDiaper] = useState<Event | null>(null);
   const [sleeping, setSleeping] = useState<Event | null>(null);
@@ -53,17 +53,14 @@ export default function Home() {
     setLastFeed(f); setLastDiaper(d); setSleeping(s); setLastSleep(ls); setToday(t); setIntervals(iv);
   }, []);
 
-  useFocusEffect(useCallback(() => {
-    let alive = true;
-    listChildren().then((cs) => {
-      if (!alive) return;
-      setChildren(cs);
-      const c = cs[0] ?? null;
-      setChild(c);
-      refresh(c);
-    }).catch(() => setChildren([]));
-    return () => { alive = false; };
-  }, [refresh]));
+  // 回到首頁時重讀孩子清單（建檔、交接匯入、封存後都可能變），並刷新目前孩子的狀態。
+  useFocusEffect(useCallback(() => { reload(); }, [reload]));
+  const childId = child?.id;
+  useEffect(() => {
+    if (!child) return;
+    const t = setTimeout(() => { refresh(child); }, 0); // 下一個 tick 再抓，避免在 effect 內同步 setState
+    return () => clearTimeout(t);
+  }, [childId, child, refresh]);
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 60000);
@@ -76,7 +73,7 @@ export default function Home() {
     toastTimer.current = setTimeout(() => setToast(null), 6000);
   };
 
-  if (children === null) {
+  if (!loaded) {
     return <View style={[styles.page, styles.center]}><ActivityIndicator color={palette.accent} /></View>;
   }
 
@@ -84,6 +81,9 @@ export default function Home() {
 
   const d = daysSince(child.birthDate);
   const cd = correctedDays(child.birthDate, child.dueDate);
+  // 3 歲以上：第一階段只做 0 到 3 歲，首頁精簡成睡眠、體溫、用藥（擁有者決定）。
+  const older = d >= 3 * 365;
+  const name = child.nickname;
   const by = async () => deviceId();
   const quick = async (fn: () => Promise<Event | null | undefined>, text: string, undoable = true) => {
     const ev = await fn();
@@ -115,7 +115,7 @@ export default function Home() {
 
   return (
     <View style={styles.page}>
-      <TopBar title={child.nickname} subtitle={subtitle} sky skyRight={112} right={
+      <TopBar title={<ChildTitle subtitle={subtitle} />} sky skyRight={112} right={
         <View style={[styles.row, { gap: 8 }]}>
           <IconButton name="share-2" label="同步與交接" onPress={() => router.push('/sync')} />
           <IconButton name={night ? 'sun' : 'moon'} label={night ? '切換日間模式' : '切換夜間模式'} onPress={() => setMode(night ? 'day' : 'night')} />
@@ -130,8 +130,8 @@ export default function Home() {
           </Card>
         ) : (
         <View style={styles.tiles}>
-          <Tile k="餵奶" icon="droplet" v={lastFeed ? sinceShort(lastFeed.startAt) : '尚無紀錄'} s={lastFeed ? `${hhmm(lastFeed.startAt)} ${typeLabel(lastFeed.type)} ${eventSummary(lastFeed.type, lastFeed.payload, lastFeed.startAt)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
-          <Tile k="尿布" icon="layers" v={lastDiaper ? sinceShort(lastDiaper.startAt) : '尚無紀錄'} s={lastDiaper ? `${hhmm(lastDiaper.startAt)} ${typeLabel(lastDiaper.type)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
+          {older ? null : <Tile k="餵奶" icon="droplet" v={lastFeed ? sinceShort(lastFeed.startAt) : '尚無紀錄'} s={lastFeed ? `${hhmm(lastFeed.startAt)} ${typeLabel(lastFeed.type)} ${eventSummary(lastFeed.type, lastFeed.payload, lastFeed.startAt)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />}
+          {older ? null : <Tile k="尿布" icon="layers" v={lastDiaper ? sinceShort(lastDiaper.startAt) : '尚無紀錄'} s={lastDiaper ? `${hhmm(lastDiaper.startAt)} ${typeLabel(lastDiaper.type)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />}
           {sleeping ? (
             <Tile k="睡眠中" icon="moon" on v={durationLabel(sleeping.startAt)} s={`${hhmm(sleeping.startAt)} 睡著`} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
           ) : (
@@ -152,30 +152,39 @@ export default function Home() {
 
         <SafetyBox title={`安全內容 ${safetyCards().length} 條`} sub="安全睡眠、發燒、噎食⋯ 離線可讀，無法關閉" onPress={() => router.push('/cards')} />
 
-        <Text style={styles.h2}>餵食</Text>
-        <View style={styles.grid}>
-          <Big label="親餵 左" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'L', undefined, 'cue', b)), '已記錄 親餵 左')} />
-          <Big label="親餵 右" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'R', undefined, 'cue', b)), '已記錄 親餵 右')} />
-          <Big label="瓶餵" sub="輸入 ml" icon="coffee" onPress={() => router.push({ pathname: '/record/bottle', params: { childId: child.id } })} />
-          <Big label="副食品" sub="吃了什麼" icon="pie-chart" onPress={() => router.push({ pathname: '/record/solid', params: { childId: child.id } })} />
-        </View>
+        {older ? (
+          <Card>
+            <Text style={[styles.p, { fontWeight: '700' }]}>{name} 已經 {ageLabel(d)}</Text>
+            <Text style={styles.muted}>這個版本的內容與時程以 0 到 3 歲為主。{name} 可以記錄睡眠、體溫與用藥；餵食與尿布已隱藏。3 歲以上的功能在之後的版本。</Text>
+          </Card>
+        ) : (
+          <>
+            <Text style={styles.h2}>餵食</Text>
+            <View style={styles.grid}>
+              <Big label="親餵 左" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'L', undefined, 'cue', b)), `已記錄 ${name} 親餵 左`)} />
+              <Big label="親餵 右" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'R', undefined, 'cue', b)), `已記錄 ${name} 親餵 右`)} />
+              <Big label="瓶餵" sub="輸入 ml" icon="coffee" onPress={() => router.push({ pathname: '/record/bottle', params: { childId: child.id } })} />
+              <Big label="副食品" sub="吃了什麼" icon="pie-chart" onPress={() => router.push({ pathname: '/record/solid', params: { childId: child.id } })} />
+            </View>
 
-        <Text style={styles.h2}>尿布</Text>
-        <View style={styles.grid}>
-          <Big third label="濕" sub="一鍵記錄" onPress={() => quick(() => by().then((b) => logDiaper(child.id, 'wet', b)), '已記錄 濕尿布')} />
-          <Big third label="便" sub="一鍵記錄" onPress={() => quick(() => by().then((b) => logDiaper(child.id, 'dirty', b)), '已記錄 便便')} />
-          <Big third label="濕＋便" sub="一鍵記錄" onPress={() => quick(() => by().then((b) => logDiaper(child.id, 'both', b)), '已記錄 濕＋便')} />
-        </View>
+            <Text style={styles.h2}>尿布</Text>
+            <View style={styles.grid}>
+              <Big third label="濕" sub="一鍵記錄" onPress={() => quick(() => by().then((b) => logDiaper(child.id, 'wet', b)), `已記錄 ${name} 濕尿布`)} />
+              <Big third label="便" sub="一鍵記錄" onPress={() => quick(() => by().then((b) => logDiaper(child.id, 'dirty', b)), `已記錄 ${name} 便便`)} />
+              <Big third label="濕＋便" sub="一鍵記錄" onPress={() => quick(() => by().then((b) => logDiaper(child.id, 'both', b)), `已記錄 ${name} 濕＋便`)} />
+            </View>
+          </>
+        )}
 
         <Text style={styles.h2}>睡眠與健康</Text>
         <View style={styles.grid}>
           {sleeping ? (
-            <Big label="醒了" sub={`已睡 ${durationLabel(sleeping.startAt)}`} icon="sun" warm onPress={() => quick(() => endSleep(child.id), '已記錄 醒了', false)} />
+            <Big label="醒了" sub={`已睡 ${durationLabel(sleeping.startAt)}`} icon="sun" warm onPress={() => quick(() => endSleep(child.id), `已記錄 ${name} 醒了`, false)} />
           ) : (
-            <Big label="睡著了" sub="開始計時" icon="moon" onPress={() => quick(() => by().then((b) => startSleep(child.id, b)).then((r) => r.event), '已開始睡眠計時')} />
+            <Big label="睡著了" sub="開始計時" icon="moon" onPress={() => quick(() => by().then((b) => startSleep(child.id, b)).then((r) => r.event), `已開始 ${name} 的睡眠計時`)} />
           )}
           <Big label="體溫" sub="數字與部位" icon="thermometer" onPress={() => router.push({ pathname: '/record/temperature', params: { childId: child.id } })} />
-          <Big label="清醒趴臥" sub="幾分鐘" icon="user" onPress={() => router.push({ pathname: '/record/tummy', params: { childId: child.id } })} />
+          {older ? null : <Big label="清醒趴臥" sub="幾分鐘" icon="user" onPress={() => router.push({ pathname: '/record/tummy', params: { childId: child.id } })} />}
           <Big label="用藥" sub="只倒數間隔" icon="plus-circle" onPress={() => router.push({ pathname: '/record/medication', params: { childId: child.id } })} />
         </View>
 

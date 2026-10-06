@@ -14,6 +14,8 @@ export function ageLabel(days: number): string {
   if (months < 24) return `${months} 個月`;
   const years = Math.floor(months / 12);
   const rem = months % 12;
+  // 6 歲以上只顯示歲
+  if (years >= 6) return `${years} 歲`;
   return rem ? `${years} 歲 ${rem} 個月` : `${years} 歲`;
 }
 

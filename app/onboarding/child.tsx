@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, Text } from 'react-native';
 import { router } from 'expo-router';
 import { createChild, saveStyleProfile } from '../../src/db/repo';
+import { useChildren } from '../../src/ui/ChildContext';
 import { PRESETS } from '../../src/style/questionnaire';
 import type { FeedingMethod, Location } from '../../src/db/types';
 import { toIsoDate } from '../../src/util/datetime';
@@ -40,6 +41,7 @@ const CONTEXTS: { key: string; label: string; soon?: boolean }[] = [
 // 建檔拆三步，每步只問一件事（設計稿第 1 區）。
 export default function ChildForm() {
   const { styles } = useTheme();
+  const { setActive, reload } = useChildren();
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [nickname, setNickname] = useState('');
   const [birthDate, setBirthDate] = useState<Date | null>(null);
@@ -76,6 +78,9 @@ export default function ChildForm() {
       locationUntil: location === 'postnatal_center' && locationUntil ? toIsoDate(locationUntil) : undefined,
       specialContexts,
     });
+    // 新建的孩子成為目前的孩子（第二個孩子建檔完就直接看他）
+    await setActive(child.id);
+    await reload();
     return child;
   };
 

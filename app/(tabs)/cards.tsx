@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
 import { View, Text } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
-import { listChildren } from '../../src/db/repo';
+import { useChildren } from '../../src/ui/ChildContext';
+import { ChildTitle } from '../../src/ui/ChildTitle';
 import { cardsForAge, safetyCards } from '../../src/content/loader';
 import type { ContentCard } from '../../src/content/types';
 import { ageLabel, daysSince, correctedDays } from '../../src/util/age';
@@ -19,23 +20,16 @@ export function sourceShort(c: ContentCard): string {
 
 export default function Cards() {
   const { styles, palette } = useTheme();
-  const [age, setAge] = useState<number | null>(null);
-  const [corrected, setCorrected] = useState(false);
-  const [actualDays, setActualDays] = useState<number | null>(null);
+  const { active, reload } = useChildren();
   const [filter, setFilter] = useState<Filter>('all');
   const [allSafety, setAllSafety] = useState(false);
+  useFocusEffect(useCallback(() => { reload(); }, [reload]));
 
-  useFocusEffect(useCallback(() => {
-    listChildren().then((cs) => {
-      const c = cs[0];
-      if (!c) { setAge(null); return; }
-      const d = daysSince(c.birthDate);
-      const cd = correctedDays(c.birthDate, c.dueDate);
-      setActualDays(d);
-      setCorrected(cd !== null);
-      setAge(cd ?? d); // 2 歲前的發展內容以矯正月齡呈現
-    });
-  }, []));
+  // 2 歲前的發展內容以矯正月齡呈現
+  const actualDays = active ? daysSince(active.birthDate) : null;
+  const correctedD = active ? correctedDays(active.birthDate, active.dueDate) : null;
+  const corrected = correctedD !== null;
+  const age = active ? (correctedD ?? actualDays) : null;
 
   const dev = age === null ? [] : cardsForAge(age, 'milestones');
   const featured = dev[0];
@@ -50,7 +44,7 @@ export default function Cards() {
 
   return (
     <View style={styles.page}>
-      <TopBar title="內容" subtitle={subtitle} />
+      <TopBar title={active ? <ChildTitle subtitle={subtitle} /> : '內容'} subtitle={active ? undefined : subtitle} />
       <Screen>
         <View style={[styles.chips, { flexWrap: 'nowrap' }]}>
           <Chip label="全部" sm on={filter === 'all'} onPress={() => setFilter('all')} />

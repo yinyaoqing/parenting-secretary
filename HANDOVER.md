@@ -63,12 +63,14 @@ app/                    expo-router 畫面（依設計稿 v1：https://claude.ai
   onboarding/           建檔三步（child，原生日期選擇）、問卷（style：預設或逐題一頁）、結果（result）
   record/               瓶餵、體溫、副食品、清醒趴臥（tummy）、用藥（medication）：都有「時間」列可補登；紀錄列表（timeline）；修正（edit：日期時間選擇器＋微調＋刪除）
   cards/[id].tsx        內容卡詳情：閱讀字級、來源區塊、右上 AA 切換字級
+  child/                switch（切換孩子的抽屜）、[id]（編輯、設為目前、封存）
   sync/                 同步與交接：index（配對、交接、分享與匯入交接檔）、qr（配對或交接 QR code，多張輪播）、scan（相機掃描，配對與交接共用）
-src/db/                 types（18 歲資料模型）、schema（SQLite v2：事件加 seq、updated_at、tz_offset_min；peers 表）、index（開庫與遷移）、repo（孩子、風格、設定）、events（事件 append-only）、device（裝置 id）
+src/db/                 types（18 歲資料模型）、schema（SQLite v3：事件加 seq、updated_at、tz_offset_min；peers 表；children.archived_at）、index（開庫與遷移）、repo（孩子、風格、設定）、events（事件 append-only）、device（裝置 id）
 src/sync/               不經伺服器的多裝置同步：merge（純函式合併引擎，含測試）、codec（交接包打包、QR 多張切分、配對碼，含測試）、crypto（expo-crypto AES-GCM）、store（配對身分、peers、組差量包、套用交接包）
 src/records/quick.ts    一鍵紀錄輔助與安全網上界計算
 src/style/questionnaire.ts  六向度 12 題、三預設、計分、衍生預設
 src/content/            types（內容卡結構）、loader（載入打包 JSON）、cards.generated.json（產生物，勿手改）
+src/ui/ChildContext.tsx 目前孩子（activeChildId）的全域狀態；ChildTitle：標題列可點的孩子名字
 src/ui/art.tsx          插畫（assets/art，8 張水彩 JPEG）與手繪 SVG 裝飾（天空、盾牌、奶瓶、體溫計、小芽、小熊、月亮雲朵）
 src/ui/                 theme（設計系統色票、字級三段、樣式表）、ThemeContext（日夜模式與字級的全域狀態）、useTheme、components（Tile、Big、Chip、Seg、Opt、PickRow、ListRow、Badge、Banner、SafetyBox、Toast…）、DatePick（原生日期時間選擇）、TimeRow（表單補登時間列）
 src/util/               age（實際與矯正月齡）、format、datetime（中文日期、相對時間、補登換算）
@@ -122,6 +124,7 @@ npm run publish:preview    # 發布測試版（需 eas login）
 | 3 | 事件資料層（supersedes 修正、墓碑刪除、單一計時器）、快速紀錄輔助、安全層 11 條補入原文摘錄與確切網址、家長驗證頁 |
 | 4 | 首頁一鍵紀錄、瓶餵、體溫、紀錄列表、日夜主題、CDC 月齡卡 10 張 |
 | 5 | 副食品紀錄、修正時間、內容卡列表與詳情、內容打包、對照稿輸出、啟動與部署文件、eas.json |
+| 9 | 多孩子切換：目前孩子存 settings，三個分頁與設定頁共用；切換單、編輯頁、封存；3 歲以上首頁精簡（擁有者決定）；多胞胎不做同時記錄（擁有者決定） |
 | 8 | 睡眠 4 張（國健署 A1，自行入睡類標 structured／mixed 風格）；健康照護 10 張（國健署新生兒篩檢、視力口腔、預防注射，A1）；飲食 11 張（國健署營養、運動，A1）；居家安全 8 張（國健署事故傷害預防，A1）；安全卡 8 處原文摘錄補齊；時程分頁改為真資料（國健署 7+2、發展篩檢、疾管署 115.09 版疫苗表、塗氟）；時區切日；紀錄列表「可能重複」標示；check-content --net 改用 curl 後備 |
 | 7 | 多裝置同步（不經伺服器）：QR code 面對面交接、AirDrop／Quick Share／LINE 傳加密交接檔並合併匯入；schema v2；區域網路與藍牙直連已決定不做；路 B（中繼伺服器）保留於 docs/legal 的法規備忘錄 |
 | 6 | EAS Update 設定（組織 yinyaoqings-team、sdkVersion runtime）、一鍵發布腳本、eslint；0–3 個月週卡 12 張（content/cards/weeks，底本國健署孕產兒關懷網站寶寶篇第 1–12 週，A1） |
