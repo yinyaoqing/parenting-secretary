@@ -1,0 +1,34 @@
+{
+  "id": "feeding.lactation-drinks",
+  "topicGroup": "feeding",
+  "title": "哺乳期喝什麼：每天 2,500 到 3,000 c.c.",
+  "ageMinDays": 0,
+  "ageMaxDays": 730,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "母乳的主要成分是水，哺乳期的水分需求比一般人高。國健署整理：\n\n每天約 2,500 到 3,000 c.c.，白開水最基本；湯品、牛奶、無糖豆漿、新鮮現打不加糖的蔬果汁、無糖氣泡水也都算。\n咖啡可以適量，每天咖啡因以 300 毫克為上限，喝完 60 分鐘後再餵影響較小；寶寶出現躁動、睡不好、哭鬧時就停。\n市售奶茶含咖啡因、糖和奶精，偶爾想喝時選無糖鮮奶茶與低咖啡因茶種。\n咖啡因的細節見「哺乳與咖啡因」。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：一次整理哺乳期飲食疑問！各類營養該如何吃？ 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3646&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：一次整理哺乳期飲食疑問！各類營養該如何吃？（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3646&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "哺乳期間每天建議喝足2,500～3,000c.c.的水分，有助於乳汁分泌，也能預防脫水。白開水、牛奶、果汁等都是不錯的選擇。\r哺乳期補水小原則\r母乳的主要成分是",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

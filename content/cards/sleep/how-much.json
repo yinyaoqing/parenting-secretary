@@ -1,0 +1,34 @@
+{
+  "id": "sleep.how-much",
+  "topicGroup": "sleep",
+  "title": "國健署的睡眠時間參考：個別差異大",
+  "ageMinDays": 120,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署「兒童肥胖防治實證指引」列出的建議睡眠時間（含小睡）：\n\n4 到 12 個月：每天 12 到 16 小時\n1 到 2 歲：每天 11 到 14 小時\n3 到 5 歲：每天 10 到 13 小時\n6 到 12 歲：每天 9 到 12 小時\n\n指引提到睡眠不足與肥胖有關，鼓勵依年齡早睡早起、維持充分睡眠。\n\n這是一般參考範圍，每個孩子差很多。APP 的時間軸只顯示你記錄的時數，不會拿來和這個範圍比較或評分。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：營養小常識-兒童過重和肥胖防治原則 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3631&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：營養小常識-兒童過重和肥胖防治原則（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3631&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "4-12個月：每天睡眠12-16小時，包括非常規睡眠時間的小睡。\r1-2歲：每天睡眠11-14小時，包括非常規睡眠時間的小睡。\r3-5歲：每天睡眠10-13小時，包括非常規睡眠時間",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "sleep.dark-and-screens",
+  "topicGroup": "sleep",
+  "title": "睡前不看螢幕，2 歲前不看",
+  "ageMinDays": 120,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署說明：\n\n未滿 2 歲不看螢幕；2 歲以上每天看螢幕不超過 1 小時，看的時候大人在旁陪同、一起討論。\n4 到 10 個月就可以開始：不讓寶寶看電視和電腦等螢幕，睡前 1 小時改成溫馨的親子時間。\n孩子可能喜歡同一個故事聽一遍又一遍，睡前共讀是很好的睡眠儀式。\n\n有視覺異常的症狀時，國健署原文：「有視覺異常症狀應看眼科醫師」。睡前固定流程見「睡眠儀式」。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：新生兒-十個月至三歲 你會關心的事 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3625&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：新生兒-十個月至三歲 你會關心的事（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3625&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "建議未滿2歲幼兒不看螢幕，2歲以上兒童每天看螢幕不要超過1小時，有視覺異常症狀應看眼科醫師。看電視時需要在旁陪同並一起討",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

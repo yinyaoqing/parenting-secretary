@@ -1,0 +1,34 @@
+{
+  "id": "caregiver.new-parents",
+  "topicGroup": "caregiver",
+  "title": "新手爸媽：互相打氣、分工、不要對自己期望太高",
+  "ageMinDays": 0,
+  "ageMaxDays": 1095,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署給新手爸媽的話：\n\n照顧寶寶開心，也讓人焦慮、勞累。另一半互相打氣、彼此感謝，一起分擔。\n勇於請家人分擔家務或尋求外界協助，直到生活穩定下來。偶爾請家人顧寶寶，出去散步、和朋友喝咖啡、換個髮型，讓自己放鬆。\n依兩人的時間與擅長的事分工，例如洗澡、換尿布。孩子睡不安穩、影響到工作時，和另一半一起討論辦法。\n哺乳期不要刻意減重，每天少於 1,800 大卡的飲食可能影響奶量。\n務實一點：不要對自己或別人期望太高，也不要把彼此的付出當成理所當然。沒有人是完美的父母，記取經驗比互相指責重要。意見不同時說出感受、一起商量，別在孩子面前吵架。問題很難解決時，找親友或專業人士協助。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：給新手爸媽的話&爸媽的心理調適 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3619&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：給新手爸媽的話&爸媽的心理調適（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3619&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "您與另一半需要相互打氣、彼此感謝，共同分擔照顧的工作。也請別忘了善待自己，讓自己可以適時放鬆一下。\r新手媽媽小叮嚀  ．寶寶出生後，您的個人時間會變少。為了專心",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

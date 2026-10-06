@@ -1,0 +1,34 @@
+{
+  "id": "feeding.breastfeeding-start",
+  "topicGroup": "feeding",
+  "title": "開始親餵：肌膚接觸、母嬰同室、餓了就餵",
+  "ageMinDays": 0,
+  "ageMaxDays": 90,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署整理的開始方式：\n\n產後儘快讓媽媽和寶寶皮膚直接接觸，寶寶會感受溫暖、嘗試尋找乳頭，也刺激泌乳激素，讓奶水及早分泌。\n住院期間母嬰同室，方便隨時依寶寶需求哺餵，也和醫護人員一起觀察寶寶。\n寶寶餓了就餵，餵得愈多、奶量愈多。頭六個月可以純餵母乳，不必另外給水；六個月後添加副食品，並可持續哺乳到兩歲或更久。\n\n因醫療或其他原因無法完全哺乳時，1 歲前使用嬰兒配方奶，沖泡方式見「配方奶安全沖調」。哺乳遇到困難可以撥孕產婦關懷專線 0800-870-870。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：迎接誕生篇 新生兒哺育計畫 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3590&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：迎接誕生篇 新生兒哺育計畫（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3590&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "產後儘快讓母子有皮膚直接接觸，讓寶寶感受媽媽的溫暖並嘗試尋找媽媽的乳頭。一方面享受親情，一方面刺激泌乳激素，讓奶水及早開始分泌。\r3.媽媽產後住院期間和寶寶同室有什麼好處？\r讓寶寶與媽媽親子同室，便於隨時應寶寶需求哺餵，同時也減少待在嬰兒室",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

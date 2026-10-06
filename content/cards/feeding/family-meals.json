@@ -1,0 +1,34 @@
+{
+  "id": "feeding.family-meals",
+  "topicGroup": "feeding",
+  "title": "吃飯時不用 3C、家人一起吃",
+  "ageMinDays": 180,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署的建議：\n\n家中用餐時避免讓人分心的東西，不用電視、平板、手機吸引孩子來達到餵食目的。\n營造和諧的家庭氣氛，家長自己也有健康的飲食與活動習慣，孩子會跟著學。\n非用餐時間不要把孩子固定在餐椅上，在安全範圍內讓孩子多活動。\n2 歲以前不看電視或電子螢幕；2 歲以後每天看螢幕不超過 2 小時，幼兒房不放電視，也避免受食品廣告影響。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：營養小常識-兒童過重和肥胖防治原則 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3631&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：營養小常識-兒童過重和肥胖防治原則（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3631&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "家中用餐時應避免可能導致分心的事物，如避免利用電視、平板及手機等3C用品吸引小孩達到餵食目的。\r‧營造和諧家庭氣氛、強化親子關係，以利兒童健康生活型態的養成。\r‧家長自己應有健康飲食與身體活動習慣。\r",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

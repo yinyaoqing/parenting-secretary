@@ -1,0 +1,34 @@
+{
+  "id": "feeding.caffeine-breastfeeding",
+  "topicGroup": "feeding",
+  "title": "哺乳與咖啡因：每天 300 毫克以下，新生兒代謝慢",
+  "ageMinDays": 0,
+  "ageMaxDays": 365,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署整理的咖啡因資訊：\n\n含量差很多：一杯 240 毫升咖啡約 90 毫克，30 毫升濃縮約 60 毫克，240 毫升紅茶約 40 毫克、綠茶約 30 毫克，可樂每公升約 100 到 150 毫克，能量飲料可能高達 300 到 800 毫克。\n咖啡因在攝取後約 1 小時在母乳中達到高峰。媽媽每天 300 毫克以下，對健康足月的寶寶通常沒有明顯影響，喝完咖啡可以繼續哺乳，不需要停餵或把奶擠掉。歐洲部分機構建議控制在 200 毫克以下。\n新生兒與早產兒代謝咖啡因的能力還不成熟，半衰期可能長 10 倍以上，約 3 到 5 個月大才接近成人。早產兒的媽媽更要限制。\n寶寶出現異常哭鬧、難入睡或躁動時，減少咖啡、茶、可樂或能量飲料，看看是否改善。「喝咖啡會退奶」目前沒有足夠證據。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：給哺乳媽咪的咖啡因攝取建議 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3683&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：給哺乳媽咪的咖啡因攝取建議（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3683&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "母親每日攝取300毫克以下咖啡因，對健康足月嬰兒通常不會造成明顯影響，美國兒科學會（American Academy of Pediatrics）亦將咖啡因列為與哺乳相容的物質，也就是說喝咖啡後依然可以安全地繼續哺乳，不需要刻意停餵母乳或排空母乳丟棄。\r咖啡因的每日建議攝取量\r目",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

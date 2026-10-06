@@ -1,0 +1,34 @@
+{
+  "id": "feeding.toddler-exploring",
+  "topicGroup": "feeding",
+  "title": "1 歲前後：讓孩子用手摸食物，耐心面對凌亂",
+  "ageMinDays": 300,
+  "ageMaxDays": 730,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署給 10 個月到 1 歲半的家長：\n\n要有耐心面對寶寶凌亂的吃飯和玩耍，寶寶正在學習。\n讓寶寶有機會嘗試新食物，允許用嘴巴或手觸摸食物來學習。\n給健康的食物、避免甜食；家裡每個照顧者用同樣的規則。\n讓寶寶學習選擇：給兩個都不錯的選項，例如香蕉或蘋果，擇一。\n換尿布後和飯前洗手。\n\n4 到 10 個月時，國健署也提醒：一次給一種新食物、不強迫進食，可以換不同稠度或寶寶有興趣的食物，每天三餐加 2 到 3 次點心。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：新生兒-十個月至三歲 你會關心的事 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3625&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：新生兒-十個月至三歲 你會關心的事（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3625&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "要有耐心面對寶寶凌亂飲食和玩耍，要記得您的寶寶正在學習。\r．確保寶寶所在的地方安全。\r．確保每個人都關心寶寶，給予健康的",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

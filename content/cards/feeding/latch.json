@@ -1,0 +1,34 @@
+{
+  "id": "feeding.latch",
+  "topicGroup": "feeding",
+  "title": "含乳與抱姿：肚子貼肚子、嘴張大含住乳暈",
+  "ageMinDays": 0,
+  "ageMaxDays": 180,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署說明的正確哺餵：\n\n餵之前先洗手，找一個舒服的姿勢，各種姿勢都可以。\n寶寶與媽媽緊密相貼：不論抱在哪一邊，寶寶的肚子貼著媽媽的肚子，頭和雙肩朝向乳房，上嘴唇對著乳頭，頭不扭轉、不彎曲，頭和身體呈一直線。\n含對了的樣子：寶寶嘴張得很大，含入乳暈和下方組織，下嘴唇外翻，下巴碰到乳房，吸得慢而深，看得到吞嚥動作。\n媽媽的手用 C 型握法：大拇指在上、其他手指在下托住乳房，不碰到乳暈。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：迎接誕生篇 新生兒哺育計畫 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3590&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：迎接誕生篇 新生兒哺育計畫（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3590&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "母親與寶寶必須緊密相貼：抱寶寶的姿勢，無論嬰兒抱在哪一邊，嬰兒的腹部與母親腹部應相貼，頭與雙肩朝向乳房，上嘴唇對著乳頭，嬰兒頭部不被扭轉或彎曲，頭與身體呈一直線。\r．寶寶已正確含住乳房：寶寶口中含入乳暈及下面組織兩大部分，嘴張得很大，下嘴唇外翻，下巴有接觸到乳房，慢而深地吸吮，可以看見寶寶有吞嚥的動",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "sleep.routine-4-10m",
+  "topicGroup": "sleep",
+  "title": "4 到 10 個月：睡前一小時安靜、夜醒先查看",
+  "ageMinDays": 120,
+  "ageMaxDays": 320,
+  "styleTags": [
+    "structured",
+    "mixed"
+  ],
+  "evidence": "official",
+  "body": "國健署給 4 到 10 個月的家長：\n\n為寶寶維持日常的生活習慣。\n睡前 1 小時安排溫馨的親子時間，讓寶寶慢慢鎮定下來。\n寶寶晚上醒來時，在旁邊查看，但不要把他抱起。\n不要讓寶寶看電視和電腦等螢幕。\n每天和寶寶說話、唱歌，用簡單的詞句告訴他你想要他做什麼。\n\n這張卡是國健署的做法整理。偏向立即回應的照顧者可以保留睡前親子時間與不看螢幕，夜醒的處理自行取捨；安全睡眠的做法不變。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：新生兒-出生至十個月 你會關心的事 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3624&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：新生兒-出生至十個月 你會關心的事（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3624&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "在睡前1個小時，可有溫馨的親子時間，也讓寶寶鎮定下來。\r．如果寶寶晚間醒來，在旁查看但不要把他抱起。\r．注意寶寶的行為，這階段他會探索家裡和外面的世界。\r．當把",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

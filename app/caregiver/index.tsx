@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
 import { View, Text, Pressable, Linking, Share } from 'react-native';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
+import { allCards } from '../../src/content/loader';
 import { ASKS, QUESTIONS, RESOURCES, askMessage, wantsSupport, type CheckIn, type Level } from '../../src/caregiver/resources';
 import { getCheckIns, saveCheckIn } from '../../src/caregiver/store';
 import { addDays, toIsoDate } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
-import { Screen, TopBar, Card, Section, Chip, Input, PrimaryButton, Icon, Badge } from '../../src/ui/components';
+import { Screen, TopBar, Card, Section, Chip, Input, PrimaryButton, Icon, Badge, ListCard, ListRow } from '../../src/ui/components';
 import { SpotMoonCloud } from '../../src/ui/art';
 
 // 照顧好自己（規劃 4.9）：10 秒打卡、想聊聊的專線、請求支援。不計分、不篩檢，紀錄只在這支手機。
@@ -113,6 +114,13 @@ export default function Caregiver() {
             {resourceList}
           </>
         ) : null}
+
+        <Section title="給照顧者的內容" />
+        <ListCard>
+          {allCards().filter((c) => c.topicGroup === 'caregiver').map((c, i) => (
+            <ListRow key={c.id} first={i === 0} main={c.title} chevron onPress={() => router.push({ pathname: '/cards/[id]', params: { id: c.id } })} />
+          ))}
+        </ListCard>
       </Screen>
     </View>
   );

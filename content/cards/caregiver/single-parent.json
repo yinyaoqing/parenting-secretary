@@ -1,0 +1,34 @@
+{
+  "id": "caregiver.single-parent",
+  "topicGroup": "caregiver",
+  "title": "給單親爸爸媽媽：照顧好自己，不必內疚",
+  "ageMinDays": 0,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署給單親家長的建議：\n\n照顧好自己：均衡飲食、足夠的休息、運動和睡眠，留時間做自己喜歡的事。\n不要對孩子感到內疚，不需要懲罰自己或用溺愛彌補。很多單親家庭的孩子都幸福快樂地長大，單親不代表會遇到更多問題。\n訂合理、清楚的規則並一致執行，孩子會有安全感，也慢慢有責任感。\n每天安排和孩子相處的時間，聊天、玩耍、共讀；經常讚美孩子。\n尋求外界協助：保母或幼兒園、親戚朋友、其他家庭的朋友，也可以和兒科或家醫科醫師討論孩子的發展與家庭的問題。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：新生兒-給單親爸爸媽媽 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3620&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：新生兒-給單親爸爸媽媽（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3620&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "不要對您的孩子感到內疚，很多家庭也有同樣遭遇，您不需要懲罰自己，或是用溺愛來彌補孩子。覺得自己有罪並不會讓生活美滿。\r．別鑽牛角尖，執著於不存在的問題。很多單親",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

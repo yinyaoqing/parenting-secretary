@@ -1,0 +1,34 @@
+{
+  "id": "feeding.healthy-habits",
+  "topicGroup": "feeding",
+  "title": "健康體重從小開始：不用食物當獎勵、喝白開水",
+  "ageMinDays": 180,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署「兒童肥胖防治實證指引」的飲食習慣：\n\n母乳哺餵對寶寶未來的健康有保護作用。\n不用食物來獎勵或控制孩子的行為。\n每天吃早餐，多在家吃飯，少去速食店。\n最好的飲料是白開水，不喝含糖飲料；水果直接吃，不喝果汁。\n1 歲以後的乳品選無添加糖的；2 歲以下不喝低脂或脫脂乳。\n點心不必過度限制也不鼓勵，注意品質而不是數量。不建議節食、少吃一餐或用藥物減重。\n從六大類選天然新鮮食物，避免高度加工，儘量少加糖。\n\n每次健康檢查時醫師會看身高體重，有疑問可以在健檢時討論。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：營養小常識-兒童過重和肥胖防治原則 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3631&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：營養小常識-兒童過重和肥胖防治原則（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3631&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "不以食物來獎勵或控制嬰幼兒的行為。\r‧每天吃早餐。\r‧鼓勵在家中用餐，減少至速食店用餐。\r‧鼓勵過重或肥胖兒童食用低熱量高營養密度食物，包括蔬菜、水果、全穀食物、低脂乳製品、瘦肉、低脂魚、豆類等。\r‧鼓勵食用強化維生素D的奶類與乳酪製品，以",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

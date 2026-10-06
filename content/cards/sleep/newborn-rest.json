@@ -1,0 +1,34 @@
+{
+  "id": "sleep.newborn-rest",
+  "topicGroup": "sleep",
+  "title": "新生兒期：寶寶睡時你也休息，同房不同床",
+  "ageMinDays": 0,
+  "ageMaxDays": 60,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署給出生到 2 個月的家長：\n\n寶寶睡覺時，試著跟著一起休息或睡覺，但要在不同的床鋪。\n讓寶寶和你在同一個房間，在自己的小床裡仰睡；嬰兒床的床欄間隔小於 6 公分，床欄保持拉起。\n喝奶喝到睡著時，可以拍拍他、換尿布或脫掉一些衣服讓他醒來繼續喝。\n寶寶用哭聲表達情緒和需求，6 到 8 週大時可能更會哭；可以跟他說話、拍他、摸他、抱他或輕輕搖來安撫。\n心情不好或連續幾天很累時，找家人或朋友幫忙。照顧好自己，才有精力照顧寶寶。\n\n安全睡眠的完整做法在安全內容「安全睡眠」。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：新生兒-出生至十個月 你會關心的事 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3624&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：新生兒-出生至十個月 你會關心的事（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3624&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "在寶寶睡覺時，嘗試也跟著一起休息或睡覺，但須在不同床鋪。\r．如果寶寶有哥哥姊姊，可以讓他們用安全的方式幫點小忙，並且也請",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

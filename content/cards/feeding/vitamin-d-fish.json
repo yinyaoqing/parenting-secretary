@@ -1,0 +1,34 @@
+{
+  "id": "feeding.vitamin-d-fish",
+  "topicGroup": "feeding",
+  "title": "維生素 D 與吃魚：日照、乳品、大型魚減量",
+  "ageMinDays": 180,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署說明：\n\n維生素 D 可以來自食物，也可以由皮膚曬太陽自行合成。母乳中的維生素 D 含量較低，台灣也因氣溫與空氣污染等因素日曬時間有限，食物就是重要來源。魚類和添加維生素 D 的乳品是國內重要的食物來源。\n鯊魚、旗魚、鮪魚、油魚等大型魚類可能累積較高濃度的甲基汞，可能影響嬰幼兒神經發育；各種魚類均衡吃，大型魚減量。\n可以帶孩子到戶外活動曬太陽，注意孩子的反應，避免曬傷或熱傷害。是否需要維生素 D 補充劑，可以問小兒科醫師。\n另外：2 歲以下不喝低脂或脫脂乳；嬰兒副食品不加鹽，其他家人用加碘鹽。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：營養小常識-嬰幼、兒童期每日膳食營養素 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3629&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：營養小常識-嬰幼、兒童期每日膳食營養素（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3629&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "考量部分大型魚類（如：鯊、旗、鮪、油魚等）有蓄積較高濃度甲基汞之情形，對嬰幼兒神經發育可能造成危害，建議均衡攝食各式魚類，減量攝取大型魚類。除在飲食中納入維生素D含量豐富的食物，亦可帶孩子到戶外活動曬太陽，但請注意孩子反應，避免曬傷或熱傷害",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

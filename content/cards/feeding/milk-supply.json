@@ -1,0 +1,34 @@
+{
+  "id": "feeding.milk-supply",
+  "topicGroup": "feeding",
+  "title": "奶水怎麼變多：早餵、勤餵、正確吸吮",
+  "ageMinDays": 0,
+  "ageMaxDays": 180,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署列出促進奶水分泌的做法：\n\n分娩後儘早哺餵，出生後就讓寶寶吸吮，並經常餵奶。\n寶寶餓了就餵，除了母乳之外，避免配方奶、其他飲料與奶瓶奶嘴干擾寶寶學習吸吮。\n寶寶不在身邊時，用手或擠奶器把奶擠出來冰存，留給寶寶吃。\n吸吮方式與餵奶姿勢要正確（見「含乳與抱姿」）。\n媽媽肚子餓就吃、口渴就喝，睡眠充足、心情愉快。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：迎接誕生篇 新生兒哺育計畫 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3590&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：迎接誕生篇 新生兒哺育計畫（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3590&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "分娩後儘早哺餵母乳。\r．新生兒出生後即刻吸吮母奶，並經常的餵奶，不另添加牛奶，不以奶瓶、奶嘴及安撫奶嘴干擾寶寶的學習。\r．勤於餵奶－寶寶餓了就可餵奶，餵得愈多，奶量會愈多。\r．除餵母乳外，避免給寶寶配方奶及其他飲料與奶嘴。\r．當寶寶不在身邊時，可用手或擠奶器將乳汁擠出，並將乳汁冰",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "sleep.routine-2-4m",
+  "topicGroup": "sleep",
+  "title": "2 到 4 個月：作息固定，醒著或想睡都放回小床",
+  "ageMinDays": 60,
+  "ageMaxDays": 130,
+  "styleTags": [
+    "structured",
+    "mixed"
+  ],
+  "evidence": "official",
+  "body": "國健署給 2 到 4 個月的家長：\n\n保持日常生活習慣，餵食、午睡和晚上睡覺的時間盡量固定。\n午睡和晚上睡覺時，不論寶寶是醒著或昏昏欲睡，都放在寶寶自己的床上。\n按摩寶寶，讓他容易入睡；每天擁抱寶寶，對著他唱歌與說話。\n寶寶快會坐之前先把床墊降低，讓他坐起來也翻不出床欄，床欄隨時拉起。\n鼓勵另一半一起照顧，也給自己一點私人時間。\n\n偏向跟隨孩子訊號的照顧者，可以只保留安全的部分；0 到 6 個月餵食依需求，固定作息不是排餵奶時間。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：新生兒-出生至十個月 你會關心的事 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3624&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：新生兒-出生至十個月 你會關心的事（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3624&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "保持日常生活習慣，例如餵食、午睡和晚上睡覺的時間需固定。\r．午睡和晚上睡覺的時間，不管寶寶是醒著或是昏昏欲睡，都放在寶寶床上。\r．降低寶寶的床墊，使他坐起來也無",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "caregiver.for-family",
+  "topicGroup": "caregiver",
+  "title": "給家人：傾聽、陪伴、分擔照顧與家事",
+  "ageMinDays": 0,
+  "ageMaxDays": 730,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署給家屬的一段話：\n\n產後的情緒變化常被忽視，媽媽自己也不一定察覺。家人透過簡單的聊天，傾聽、陪伴、支持，讓她能自在地說出想法與感受。\n照顧新生兒很耗體力，常常睡不夠。家人分擔照顧寶寶和家事，減輕身體的負擔，讓她能趁寶寶睡覺時休息。\n平時多關心。發現情緒低落長時間沒有改善，甚至加重時，陪她一起尋求醫療協助。\n\n爸爸、伴侶、祖父母也會累。照顧者彼此說出感受、輪流休息，是照顧好孩子的一部分。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：準媽媽生活篇 認識產後憂鬱症及防治 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3587&type=01"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：準媽媽生活篇 認識產後憂鬱症及防治（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3587&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "家屬們經由一些簡單的對談聊天，給予傾聽、陪伴及支持，是能讓產後媽媽們自在的談敘個人想法及感受，並讓其情緒獲得抒發。同時，產後媽媽在照顧新生兒時，需耗費相當的體力，也常致睡眠不足，因此，家人應該去分擔照",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}
