@@ -12,6 +12,8 @@ type ChildRow = {
   special_contexts: string;
   created_at: string;
   updated_at: string;
+  daycare_from?: string | null;
+  school_from?: string | null;
 };
 
 function rowToChild(r: ChildRow): Child {
@@ -24,6 +26,8 @@ function rowToChild(r: ChildRow): Child {
     location: r.location,
     locationUntil: r.location_until ?? undefined,
     specialContexts: JSON.parse(r.special_contexts || '[]'),
+    daycareFrom: r.daycare_from ?? undefined,
+    schoolFrom: r.school_from ?? undefined,
     createdAt: r.created_at,
     updatedAt: r.updated_at,
   };
@@ -48,8 +52,8 @@ export async function updateChild(id: string, patch: Partial<Omit<Child, 'id' | 
   if (!cur) throw new Error('child not found');
   const next = { ...cur, ...patch };
   await db.runAsync(
-    `UPDATE children SET nickname = ?, birth_date = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, updated_at = ? WHERE id = ?`,
-    next.nickname, next.birthDate, next.dueDate ?? null, next.feedingMethod, next.location, next.locationUntil ?? null, JSON.stringify(next.specialContexts ?? []), nowIso(), id,
+    `UPDATE children SET nickname = ?, birth_date = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, daycare_from = ?, school_from = ?, updated_at = ? WHERE id = ?`,
+    next.nickname, next.birthDate, next.dueDate ?? null, next.feedingMethod, next.location, next.locationUntil ?? null, JSON.stringify(next.specialContexts ?? []), next.daycareFrom ?? null, next.schoolFrom ?? null, nowIso(), id,
   );
 }
 

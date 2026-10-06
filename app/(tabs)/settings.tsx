@@ -76,6 +76,11 @@ export default function Settings() {
           />
         </ListCard>
 
+        <Label t={active ? `行程與範本（${active.nickname}）` : '行程與範本'} />
+        <ListCard>
+          <ListRow first icon="calendar" main="行程與作息範本" sub="托嬰、回診、課表、服藥；作息範本要先選起點（滿 6 個月或一個事件）" chevron onPress={() => active && router.push({ pathname: '/plan', params: { childId: active.id } })} />
+        </ListCard>
+
         <Label t="同步與交接" />
         <ListCard>
           <ListRow first icon="share-2" main="與另一支手機交接紀錄" sub="QR code 面對面交接，或用 AirDrop、Quick Share、LINE 傳加密的交接檔。不經伺服器。" chevron onPress={() => router.push('/sync')} />

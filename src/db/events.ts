@@ -167,3 +167,15 @@ export async function recentIntervalsMinutes(childId: string, types: EventType[]
   }
   return out;
 }
+
+// 某型別最早一筆的日期（YYYY-MM-DD，裝置時區）；作息範本的「副食品開始」起點用。
+export async function firstEventDate(childId: string, type: EventType): Promise<string | null> {
+  const db = await getDb();
+  const row = await db.getFirstAsync<{ start_at: string }>(
+    `SELECT e.start_at FROM events e WHERE e.child_id = ? AND e.type = ? AND ${ACTIVE_SQL} ORDER BY e.start_at ASC LIMIT 1`,
+    childId, type,
+  );
+  if (!row) return null;
+  const d = new Date(row.start_at);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}

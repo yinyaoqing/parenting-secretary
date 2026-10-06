@@ -1,3 +1,5 @@
+import { OUTCOME_LABEL, type Outcome } from '../tasks/toilet';
+
 export function hhmm(iso: string): string {
   const d = new Date(iso);
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
@@ -29,6 +31,7 @@ const TYPE_LABEL: Record<string, string> = {
   'diaper.wet': '濕尿布', 'diaper.dirty': '便便', 'diaper.both': '濕＋便', 'toilet.attempt': '如廁',
   sleep: '睡眠', tummy_time: '清醒趴臥', growth: '生長', temperature: '體溫', symptom: '症狀',
   medication: '用藥', visit: '就醫', milestone: '里程碑', mood_note: '情緒日記',
+  'task.attempt': '坐小馬桶', 'task.start': '開始如廁訓練', 'task.pause': '如廁訓練先休息', 'task.complete': '如廁訓練完成',
 };
 export function typeLabel(t: string): string { return TYPE_LABEL[t] ?? t; }
 
@@ -42,6 +45,7 @@ export function eventSummary(type: string, payload: Record<string, unknown>, sta
     case 'temperature': return `${p.celsius}°C（${siteLabel(String(p.site))}）`;
     case 'tummy_time': return `${p.minutes} 分`;
     case 'medication': return `${p.name ?? ''} ${p.doseText ?? ''}`;
+    case 'task.attempt': return OUTCOME_LABEL[p.outcome as Outcome] ?? '';
     default: return '';
   }
 }

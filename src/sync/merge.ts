@@ -126,6 +126,8 @@ export interface SyncChild {
   location: string;
   locationUntil?: string;
   specialContexts: string[];
+  daycareFrom?: string;
+  schoolFrom?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -159,4 +161,40 @@ export function remapEvents(events: SyncEvent[], map: { from: string; to: string
   if (map.length === 0) return events;
   const m = new Map(map.map((x) => [x.from, x.to]));
   return events.map((e) => (m.has(e.childId) ? { ...e, childId: m.get(e.childId)! } : e));
+}
+
+// ---------- 行程（計畫層） ----------
+// 行程是可編輯的設定，不是 append-only 紀錄：同一個 id 以 updatedAt 較晚者為準（刪除也是一次更新）；
+// 時間相同時刪除優先，避免一邊刪、一邊又被救回。
+export interface SyncScheduleItem {
+  id: string;
+  childId: string;
+  title: string;
+  kind: string;
+  weekdays: number[];
+  time: string;
+  durationMinutes?: number;
+  location?: string;
+  leadMinutes: number;
+  note?: string;
+  syncToDeviceCalendar: boolean;
+  validFrom?: string;
+  validTo?: string;
+  period?: number;
+  templateSource?: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string;
+}
+
+export function planSchedule(local: SyncScheduleItem[], incoming: SyncScheduleItem[], childMap: { from: string; to: string }[] = []): SyncScheduleItem[] {
+  const m = new Map(childMap.map((x) => [x.from, x.to]));
+  const byId = new Map(local.map((s) => [s.id, s]));
+  const upserts: SyncScheduleItem[] = [];
+  for (const raw of incoming) {
+    const r = m.has(raw.childId) ? { ...raw, childId: m.get(raw.childId)! } : raw;
+    const l = byId.get(r.id);
+    if (!l || r.updatedAt > l.updatedAt || (r.updatedAt === l.updatedAt && r.deletedAt && !l.deletedAt)) upserts.push(r);
+  }
+  return upserts;
 }

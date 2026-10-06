@@ -48,6 +48,17 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
     if (!(await hasColumn(db, 'children', 'archived_at'))) await db.execAsync('ALTER TABLE children ADD COLUMN archived_at TEXT');
   }
 
+  if (current < 4) {
+    for (const col of ['daycare_from', 'school_from']) {
+      if (!(await hasColumn(db, 'children', col))) await db.execAsync(`ALTER TABLE children ADD COLUMN ${col} TEXT`);
+    }
+    const cols: [string, string][] = [['kind', "TEXT NOT NULL DEFAULT 'care'"], ['duration_minutes', 'INTEGER'], ['valid_from', 'TEXT'], ['valid_to', 'TEXT'], ['period', 'INTEGER'], ['template_source', 'TEXT'], ['updated_at', 'TEXT'], ['deleted_at', 'TEXT']];
+    for (const [col, type] of cols) {
+      if (!(await hasColumn(db, 'schedule_items', col))) await db.execAsync(`ALTER TABLE schedule_items ADD COLUMN ${col} ${type}`);
+    }
+    await db.execAsync('UPDATE schedule_items SET updated_at = created_at WHERE updated_at IS NULL');
+  }
+
   await db.runAsync(
     'INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)',
     'schema_version',

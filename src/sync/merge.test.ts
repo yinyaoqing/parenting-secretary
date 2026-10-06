@@ -1,6 +1,6 @@
 // 合併引擎測試。執行：node --experimental-strip-types src/sync/merge.test.ts
 import assert from 'node:assert/strict';
-import { planMerge, planChildren, remapEvents, type SyncEvent, type SyncChild } from './merge.ts';
+import { planMerge, planChildren, remapEvents, planSchedule, type SyncEvent, type SyncChild, type SyncScheduleItem } from './merge.ts';
 
 const ev = (p: Partial<SyncEvent> & { id: string }): SyncEvent => ({
   childId: 'c1', type: 'diaper.wet', startAt: '2026-10-05T10:00:00.000Z', payload: {}, recordedBy: 'A', source: 'home', createdAt: '2026-10-05T10:00:00.000Z', ...p,
@@ -84,6 +84,20 @@ test('孩子：不同出生日視為不同孩子，直接插入；同 id 以較�
   const p = planChildren([child({ id: 'a' })], [child({ id: 'b', birthDate: '2024-01-01' }), child({ id: 'a', nickname: '米米', updatedAt: '2026-09-01T00:00:00.000Z' })]);
   assert.deepEqual(p.insert.map((c) => c.id), ['b']);
   assert.deepEqual(p.update.map((c) => c.nickname), ['米米']);
+});
+
+test('行程：同 id 以較晚的更新為準，刪除在同時間時優先，孩子 id 會跟著收斂', () => {
+  const it = (p: Partial<SyncScheduleItem> & { id: string }): SyncScheduleItem => ({ childId: 'c1', title: '托嬰', kind: 'care', weekdays: [1], time: '08:30', leadMinutes: 0, syncToDeviceCalendar: false, createdAt: 't0', updatedAt: '2026-10-01T00:00:00Z', ...p });
+  const local = [it({ id: 's1' }), it({ id: 's2', updatedAt: '2026-10-05T00:00:00Z' }), it({ id: 's3' })];
+  const incoming = [
+    it({ id: 's1', title: '托嬰中心', updatedAt: '2026-10-02T00:00:00Z' }),
+    it({ id: 's2', title: '舊的', updatedAt: '2026-10-03T00:00:00Z' }),
+    it({ id: 's3', deletedAt: '2026-10-01T00:00:00Z' }),
+    it({ id: 's4', childId: 'cB' }),
+  ];
+  const up = planSchedule(local, incoming, [{ from: 'cB', to: 'c1' }]);
+  assert.deepEqual(up.map((x) => x.id), ['s1', 's3', 's4']);
+  assert.equal(up.find((x) => x.id === 's4')!.childId, 'c1');
 });
 
 console.log(`\n${passed} tests passed`);

@@ -16,6 +16,8 @@ export interface Child {
   location: Location;
   locationUntil?: string; // 產後護理之家預定出所日，內容與提醒從此日開始
   specialContexts: string[]; // 'preterm' | 'multiple' | 'dev_concern' | 'disability_chronic' | 'new_immigrant' | 'grandparent' | ...
+  daycareFrom?: string; // 開始上托嬰的日期（作息範本的事件起點）
+  schoolFrom?: string; // 入園或入學的日期（作息範本的事件起點）
   createdAt: string;
   updatedAt: string;
 }
@@ -79,17 +81,29 @@ export interface Reminder {
   createdAt: string;
 }
 
+// 行程（計畫層）：作息範本、托育、回診復健、課表、才藝補習、服藥都是同一種資料（設計稿 4 時間軸）。
+// routine = 每天作息範本：只能家長自建或從自己一週紀錄產生，且須先選起點（滿 6 個月或三種事件之一）。
+export type ScheduleKind = 'routine' | 'care' | 'visit' | 'class' | 'activity' | 'medication';
+
 export interface ScheduleItem {
   id: string;
   childId: ChildId;
   title: string;
-  weekdays: number[]; // 0–6
+  kind: ScheduleKind;
+  weekdays: number[]; // 0–6，0 = 週日
   time: string; // HH:mm
+  durationMinutes?: number; // 沒有就是時間點
   location?: string;
-  leadMinutes: number;
+  leadMinutes: number; // 0 = 不提醒；1440 = 前一天
   note?: string;
-  syncToDeviceCalendar: boolean;
+  syncToDeviceCalendar: boolean; // 需要 development build（expo-calendar 不支援 Expo Go），目前只存設定
+  validFrom?: string; // YYYY-MM-DD
+  validTo?: string; // YYYY-MM-DD
+  period?: number; // 節次，課表格用
+  templateSource?: 'user' | 'derived'; // derived = 從一週紀錄產生
   createdAt: string;
+  updatedAt: string;
+  deletedAt?: string; // 墓碑，交接時讓對方也刪掉
 }
 
 export type StyleAxis =

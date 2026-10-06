@@ -48,7 +48,9 @@
     "lint": "expo lint",
     "publish:preview": "node scripts/publish-preview.mjs",
     "content:import": "node scripts/import-translation.mjs",
-    "test:sync": "node --experimental-strip-types --no-warnings src/sync/merge.test.ts && node --experimental-strip-types --no-warnings src/sync/codec.test.ts"
+    "test:sync": "node --experimental-strip-types --no-warnings src/sync/merge.test.ts && node --experimental-strip-types --no-warnings src/sync/codec.test.ts",
+    "test:timeline": "node --experimental-strip-types --no-warnings src/timeline/timeline.test.ts",
+    "test": "npm run test:sync && npm run test:timeline"
   },
   "private": true
 }

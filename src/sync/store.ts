@@ -3,7 +3,9 @@ import { getDb, nowIso } from '../db/index';
 import { getSetting, setSetting } from '../db/repo';
 import { deviceId } from '../db/device';
 import { rowToEvent, type EventRow } from '../db/events';
-import { planMerge, planChildren, remapEvents, type SyncChild, type SyncEvent } from './merge';
+import { planMerge, planChildren, remapEvents, planSchedule, type SyncChild, type SyncEvent, type SyncScheduleItem } from './merge';
+import { rowToScheduleItem, writeScheduleRow, type ScheduleRow } from '../db/schedule';
+import type { ScheduleItem } from '../db/types';
 import { encodePackage, decodePackage, type SyncPackage } from './codec';
 import { makeCrypto, generateFamilyKey, newFamilyId } from './crypto';
 
@@ -12,7 +14,7 @@ export interface Peer { deviceId: string; name: string; lastSentSeq: number; las
 export interface ApplyReport {
   from: string; fromName: string;
   inserted: number; updated: number; tombstones: number; duplicates: number;
-  childrenInserted: number; childrenRemapped: number;
+  childrenInserted: number; childrenRemapped: number; schedule: number;
 }
 
 // ---------- 身分與配對 ----------
@@ -64,8 +66,8 @@ export async function removePeer(id: string): Promise<void> {
 }
 
 // ---------- 組交接包 ----------
-type ChildRow = { id: string; nickname: string; birth_date: string; due_date: string | null; feeding_method: string; location: string; location_until: string | null; special_contexts: string; created_at: string; updated_at: string };
-const rowToChild = (r: ChildRow): SyncChild => ({ id: r.id, nickname: r.nickname, birthDate: r.birth_date, dueDate: r.due_date ?? undefined, feedingMethod: r.feeding_method, location: r.location, locationUntil: r.location_until ?? undefined, specialContexts: JSON.parse(r.special_contexts || '[]'), createdAt: r.created_at, updatedAt: r.updated_at });
+type ChildRow = { id: string; nickname: string; birth_date: string; due_date: string | null; feeding_method: string; location: string; location_until: string | null; special_contexts: string; created_at: string; updated_at: string; daycare_from: string | null; school_from: string | null };
+const rowToChild = (r: ChildRow): SyncChild => ({ id: r.id, nickname: r.nickname, birthDate: r.birth_date, dueDate: r.due_date ?? undefined, feedingMethod: r.feeding_method, location: r.location, locationUntil: r.location_until ?? undefined, specialContexts: JSON.parse(r.special_contexts || '[]'), daycareFrom: r.daycare_from ?? undefined, schoolFrom: r.school_from ?? undefined, createdAt: r.created_at, updatedAt: r.updated_at });
 
 // peerId 為空代表「給任何已配對裝置」，會打包全部事件（合併是冪等的，重複送不會壞）。
 export async function buildPackage(peerId?: string): Promise<{ text: string; events: number; delta: boolean }> {
@@ -84,7 +86,9 @@ export async function buildPackage(peerId?: string): Promise<{ text: string; eve
     rows = await db.getAllAsync<EventRow>('SELECT * FROM events ORDER BY created_at ASC');
   }
   const events: SyncEvent[] = rows.map(rowToEvent).map((e) => ({ ...e }));
-  const pkg: SyncPackage = { v: 1, familyId: me.familyId, from: me.deviceId, fromName: me.deviceName, createdAt: nowIso(), children, events };
+  // 行程筆數少，每次全送（含墓碑），合併以 updatedAt 為準。
+  const schedule: SyncScheduleItem[] = (await db.getAllAsync<ScheduleRow>('SELECT s.* FROM schedule_items s JOIN children c ON c.id = s.child_id WHERE c.archived_at IS NULL')).map(rowToScheduleItem);
+  const pkg: SyncPackage = { v: 1, familyId: me.familyId, from: me.deviceId, fromName: me.deviceName, createdAt: nowIso(), children, events, schedule };
   const text = await encodePackage(pkg, await makeCrypto(me.key));
   return { text, events: events.length, delta: !!peer };
 }
@@ -107,20 +111,20 @@ export async function applyPackageText(text: string): Promise<ApplyReport> {
 
 export async function applyPackage(pkg: SyncPackage): Promise<ApplyReport> {
   const db = await getDb();
-  const report: ApplyReport = { from: pkg.from, fromName: pkg.fromName, inserted: 0, updated: 0, tombstones: 0, duplicates: 0, childrenInserted: 0, childrenRemapped: 0 };
+  const report: ApplyReport = { from: pkg.from, fromName: pkg.fromName, inserted: 0, updated: 0, tombstones: 0, duplicates: 0, childrenInserted: 0, childrenRemapped: 0, schedule: 0 };
 
   await db.withTransactionAsync(async () => {
     // 1. 孩子檔案：插入、更新、或把兩邊各自建的同一個孩子收斂到同一個 id。
     const localChildren = (await db.getAllAsync<ChildRow>('SELECT * FROM children')).map(rowToChild);
     const cp = planChildren(localChildren, pkg.children);
     const insertChild = (c: SyncChild) => db.runAsync(
-      `INSERT INTO children (id, nickname, birth_date, due_date, feeding_method, location, location_until, special_contexts, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      c.id, c.nickname, c.birthDate, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.createdAt, c.updatedAt,
+      `INSERT INTO children (id, nickname, birth_date, due_date, feeding_method, location, location_until, special_contexts, daycare_from, school_from, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      c.id, c.nickname, c.birthDate, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.daycareFrom ?? null, c.schoolFrom ?? null, c.createdAt, c.updatedAt,
     );
     for (const c of cp.insert) { await insertChild(c); report.childrenInserted++; }
     for (const c of cp.update) {
-      await db.runAsync('UPDATE children SET nickname = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, updated_at = ? WHERE id = ?',
-        c.nickname, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.updatedAt, c.id);
+      await db.runAsync('UPDATE children SET nickname = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, daycare_from = ?, school_from = ?, updated_at = ? WHERE id = ?',
+        c.nickname, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.daycareFrom ?? null, c.schoolFrom ?? null, c.updatedAt, c.id);
     }
     for (const m of cp.remapLocal) {
       // 本機 id 讓位給對方較小的 id：先插入正本，改掉所有參照，再刪本機舊檔。
@@ -156,7 +160,16 @@ export async function applyPackage(pkg: SyncPackage): Promise<ApplyReport> {
     }
     report.duplicates = plan.duplicates.length;
 
-    // 3. 記住對方。
+    // 3. 行程：同 id 以較晚的更新為準。
+    if (pkg.schedule?.length) {
+      const localSchedule = (await db.getAllAsync<ScheduleRow>('SELECT * FROM schedule_items')).map(rowToScheduleItem);
+      for (const s of planSchedule(localSchedule, pkg.schedule, cp.remapIncoming)) {
+        await writeScheduleRow(s as ScheduleItem);
+        report.schedule++;
+      }
+    }
+
+    // 4. 記住對方。
     await db.runAsync(
       `INSERT INTO peers (device_id, name, last_received_at, created_at) VALUES (?, ?, ?, ?)
        ON CONFLICT(device_id) DO UPDATE SET name = excluded.name, last_received_at = excluded.last_received_at`,

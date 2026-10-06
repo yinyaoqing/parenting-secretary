@@ -65,7 +65,7 @@ export default function SyncHub() {
         {report ? (
           <Card accent>
             <Text style={[styles.p, { fontWeight: '700' }]}>已合併來自「{report.fromName}」的紀錄</Text>
-            <Text style={styles.muted}>新增 {report.inserted} 筆、補上結束或刪除 {report.updated} 筆{report.tombstones ? `、為維持單一睡眠計時合併 ${report.tombstones} 筆` : ''}{report.childrenInserted ? `、新增孩子 ${report.childrenInserted} 位` : ''}{report.childrenRemapped ? `、合併同一個孩子的檔案` : ''}。</Text>
+            <Text style={styles.muted}>新增 {report.inserted} 筆、補上結束或刪除 {report.updated} 筆{report.tombstones ? `、為維持單一睡眠計時合併 ${report.tombstones} 筆` : ''}{report.childrenInserted ? `、新增孩子 ${report.childrenInserted} 位` : ''}{report.childrenRemapped ? `、合併同一個孩子的檔案` : ''}{report.schedule ? `、更新行程 ${report.schedule} 筆` : ''}。</Text>
             {report.duplicates ? <Text style={[styles.muted, { color: palette.warm }]}>有 {report.duplicates} 組一分鐘內的同類紀錄可能重複，請到紀錄列表確認。</Text> : null}
           </Card>
         ) : null}

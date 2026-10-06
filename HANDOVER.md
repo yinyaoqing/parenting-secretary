@@ -61,13 +61,17 @@ app/                    expo-router 畫面（依設計稿 v1：https://claude.ai
   (tabs)/               底部四分頁：index（今天）、cards（內容）、schedule（時程，規劃中）、settings（設定）
   (tabs)/index.tsx      首頁：三格狀態、安全網提醒橫幅（首頁內，非通知）、安全內容入口、一鍵紀錄＋復原提示、清醒趴臥與用藥入口；無孩子時為歡迎頁
   onboarding/           建檔三步（child，原生日期選擇）、問卷（style：預設或逐題一頁）、結果（result）
-  record/               瓶餵、體溫、副食品、清醒趴臥（tummy）、用藥（medication）：都有「時間」列可補登；紀錄列表（timeline）；修正（edit：日期時間選擇器＋微調＋刪除）
+  record/               瓶餵、體溫、副食品、清醒趴臥（tummy）、用藥（medication）：都有「時間」列可補登；紀錄（timeline：列表／時間軸／一週或課表三視圖）；修正（edit：日期時間選擇器＋微調＋刪除）
   cards/[id].tsx        內容卡詳情：閱讀字級、來源區塊、右上 AA 切換字級
-  child/                switch（切換孩子的抽屜）、[id]（編輯、設為目前、封存）
+  child/                switch（切換孩子的抽屜）、[id]（編輯、設為目前、封存；開始上托嬰與入園入學日期）
+  plan/                 行程與範本：index（範本開關與起點、每天範本、每週固定行程）、edit（新增編輯，modal）、derive（從這週產生範本）
+  task/toilet.tsx       如廁訓練任務頁（國健署原文，只數次數）
   sync/                 同步與交接：index（配對、交接、分享與匯入交接檔）、qr（配對或交接 QR code，多張輪播）、scan（相機掃描，配對與交接共用）
-src/db/                 types（18 歲資料模型）、schema（SQLite v3：事件加 seq、updated_at、tz_offset_min；peers 表；children.archived_at）、index（開庫與遷移）、repo（孩子、風格、設定）、events（事件 append-only）、device（裝置 id）
+src/db/                 types（18 歲資料模型）、schema（SQLite v4：事件加 seq、updated_at、tz_offset_min；peers 表；children.archived_at、daycare_from、school_from；schedule_items 補 kind、時長、有效期間、節次、範本來源、墓碑）、schedule（行程與範本顯示設定）、index（開庫與遷移）、repo（孩子、風格、設定）、events（事件 append-only）、device（裝置 id）
 src/sync/               不經伺服器的多裝置同步：merge（純函式合併引擎，含測試）、codec（交接包打包、QR 多張切分、配對碼，含測試）、crypto（expo-crypto AES-GCM）、store（配對身分、peers、組差量包、套用交接包）
 src/records/quick.ts    一鍵紀錄輔助與安全網上界計算
+src/timeline/           時間軸：plan（純函式：起點、某天的計畫、從一週紀錄產生範本，含測試）、DayView、WeekView、Timetable、usePlan、colors
+src/tasks/toilet.ts     如廁訓練任務：國健署原文與狀態計算（任務狀態用 task.* 事件，不另開表）
 src/style/questionnaire.ts  六向度 12 題、三預設、計分、衍生預設
 src/content/            types（內容卡結構）、loader（載入打包 JSON）、cards.generated.json（產生物，勿手改）
 src/ui/ChildContext.tsx 目前孩子（activeChildId）的全域狀態；ChildTitle：標題列可點的孩子名字
@@ -106,6 +110,8 @@ npm run content:bilingual  # 對照稿
 npm run content:import -- docs/translation/bilingual-<日期>.csv --dry-run   # 譯審匯回（先 dry-run）
 npm run lint               # eslint，目前 0 錯誤
 npm run test:sync          # 合併引擎與交接包的 node 測試（不需 RN 環境）
+npm run test:timeline      # 時間軸計畫層與如廁任務的 node 測試
+npm test                   # 兩者都跑
 npx expo start             # Expo Go 開發
 npx expo export --platform android --output-dir /tmp/x   # 煙霧測試 JS 打包（web 會失敗，正常，未裝 react-native-web）
 npm run publish:preview    # 發布測試版（需 eas login）

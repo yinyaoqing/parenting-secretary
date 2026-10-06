@@ -33,6 +33,8 @@ export default function EditChild() {
   const [location, setLocation] = useState<Location>('home');
   const [until, setUntil] = useState<Date | null>(null);
   const [contexts, setContexts] = useState<string[]>([]);
+  const [daycareFrom, setDaycareFrom] = useState<Date | null>(null);
+  const [schoolFrom, setSchoolFrom] = useState<Date | null>(null);
   const [confirm, setConfirm] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -42,6 +44,7 @@ export default function EditChild() {
       if (!ch) return;
       setC(ch); setNickname(ch.nickname); setBirth(fromIsoDate(ch.birthDate)); setPreterm(!!ch.dueDate); setDue(ch.dueDate ? fromIsoDate(ch.dueDate) : null);
       setFeeding(ch.feedingMethod); setLocation(ch.location); setUntil(ch.locationUntil ? fromIsoDate(ch.locationUntil) : null); setContexts(ch.specialContexts);
+      setDaycareFrom(ch.daycareFrom ? fromIsoDate(ch.daycareFrom) : null); setSchoolFrom(ch.schoolFrom ? fromIsoDate(ch.schoolFrom) : null);
     });
   }, [id]);
 
@@ -55,6 +58,7 @@ export default function EditChild() {
     await updateChild(c.id, {
       nickname: nickname.trim(), birthDate: toIsoDate(birth), dueDate: preterm && due ? toIsoDate(due) : undefined,
       feedingMethod: feeding, location, locationUntil: location === 'postnatal_center' && until ? toIsoDate(until) : undefined, specialContexts,
+      daycareFrom: daycareFrom ? toIsoDate(daycareFrom) : undefined, schoolFrom: schoolFrom ? toIsoDate(schoolFrom) : undefined,
     });
     await reload();
     router.back();
@@ -100,6 +104,18 @@ export default function EditChild() {
           <View style={{ gap: 8 }}>{LOCATION.map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}</View>
         </Field>
         {location === 'postnatal_center' ? <Field label="預定出所日"><DatePick value={until} onChange={setUntil} mode="date" label="預定出所日" /></Field> : null}
+        <Card style={{ gap: 10 }}>
+          <Text style={[styles.p, { fontWeight: '700' }]}>生活的轉折（可留空）</Text>
+          <Text style={styles.muted}>作息範本可以從這兩天開始畫。日期可以是之後，到那天才顯示。</Text>
+          <Field label="開始上托嬰的日期">
+            <DatePick value={daycareFrom} onChange={setDaycareFrom} mode="date" label="開始上托嬰的日期" placeholder="還沒有" />
+            {daycareFrom ? <GhostButton small plain label="清除" onPress={() => setDaycareFrom(null)} /> : null}
+          </Field>
+          <Field label="入園或入學的日期">
+            <DatePick value={schoolFrom} onChange={setSchoolFrom} mode="date" label="入園或入學的日期" placeholder="還沒有" />
+            {schoolFrom ? <GhostButton small plain label="清除" onPress={() => setSchoolFrom(null)} /> : null}
+          </Field>
+        </Card>
         <Field label="想多看哪些資源">
           <View style={styles.chips}>{CONTEXTS.filter((k) => k.key !== 'preterm').map((k) => <Chip key={k.key} label={k.label} on={contexts.includes(k.key)} icon={contexts.includes(k.key) ? 'check' : undefined} onPress={() => setContexts((cur) => (cur.includes(k.key) ? cur.filter((x) => x !== k.key) : [...cur, k.key]))} />)}</View>
         </Field>

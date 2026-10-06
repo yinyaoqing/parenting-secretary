@@ -1,7 +1,8 @@
 // SQLite schema。事件表 append-only：修正以 supersedes 指向舊事件，刪除以 deleted_at 墓碑。
 // v2：事件加 seq（每個記錄裝置自己的單調序號）、updated_at（結束或刪除時更新，供交接差量）、tz_offset_min；新增 peers（配對過的裝置）。
 // v3：children 加 archived_at（封存孩子，紀錄保留不顯示）。
-export const SCHEMA_VERSION = 3;
+// v4：children 加 daycare_from、school_from（作息範本的事件起點）；schedule_items 補時間軸欄位與墓碑。
+export const SCHEMA_VERSION = 4;
 
 export const SCHEMA_SQL = `
 PRAGMA journal_mode = WAL;
@@ -23,7 +24,9 @@ CREATE TABLE IF NOT EXISTS children (
   special_contexts TEXT NOT NULL DEFAULT '[]',
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
-  archived_at TEXT
+  archived_at TEXT,
+  daycare_from TEXT,
+  school_from TEXT
 );
 
 CREATE TABLE IF NOT EXISTS events (
@@ -80,8 +83,17 @@ CREATE TABLE IF NOT EXISTS schedule_items (
   lead_minutes INTEGER NOT NULL DEFAULT 30,
   note TEXT,
   sync_to_device_calendar INTEGER NOT NULL DEFAULT 0,
-  created_at TEXT NOT NULL
+  created_at TEXT NOT NULL,
+  kind TEXT NOT NULL DEFAULT 'care',
+  duration_minutes INTEGER,
+  valid_from TEXT,
+  valid_to TEXT,
+  period INTEGER,
+  template_source TEXT,
+  updated_at TEXT,
+  deleted_at TEXT
 );
+CREATE INDEX IF NOT EXISTS idx_schedule_child ON schedule_items(child_id);
 
 CREATE TABLE IF NOT EXISTS style_profiles (
   child_id TEXT PRIMARY KEY REFERENCES children(id),

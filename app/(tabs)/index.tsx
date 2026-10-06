@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
-import { deleteEvent, lastEvent, listEvents, openEvent, recentIntervalsMinutes } from '../../src/db/events';
+import { addEvent, deleteEvent, lastEvent, listEvents, openEvent, recentIntervalsMinutes } from '../../src/db/events';
+import { OUTCOMES, TOILET_MAX_DAYS, TOILET_MIN_DAYS, TOILET_TASK, taskStatus, type Outcome, type TaskStatus } from '../../src/tasks/toilet';
 import { useChildren } from '../../src/ui/ChildContext';
 import { ChildTitle } from '../../src/ui/ChildTitle';
 import { logBreastFeed, logDiaper, startSleep, endSleep, safetyNetUpperBound } from '../../src/records/quick';
@@ -37,20 +38,23 @@ export default function Home() {
   const [intervals, setIntervals] = useState<number[]>([]);
   const [toast, setToast] = useState<ToastState | null>(null);
   const [netDismissedUntil, setNetDismissedUntil] = useState(0);
+  const [toilet, setToilet] = useState<TaskStatus>({ state: 'none' });
+  const [potty, setPotty] = useState(false);
   const [now, setNow] = useState(() => Date.now()); // 每分鐘更新一次，讓「幾分前」與安全網判斷跟著走
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const refresh = useCallback(async (c: Child | null) => {
     if (!c) return;
-    const [f, d, s, ls, t, iv] = await Promise.all([
+    const [f, d, s, ls, t, iv, tk] = await Promise.all([
       lastEvent(c.id, FEED_TYPES),
       lastEvent(c.id, DIAPER_TYPES),
       openEvent(c.id, 'sleep'),
       lastEvent(c.id, ['sleep']),
       listEvents(c.id, { from: startOfToday(), limit: 50 }),
       recentIntervalsMinutes(c.id, FEED_TYPES, NET_RECENT),
+      listEvents(c.id, { types: ['task.start', 'task.pause', 'task.complete'], limit: 20 }),
     ]);
-    setLastFeed(f); setLastDiaper(d); setSleeping(s); setLastSleep(ls); setToday(t); setIntervals(iv);
+    setLastFeed(f); setLastDiaper(d); setSleeping(s); setLastSleep(ls); setToday(t); setIntervals(iv); setToilet(taskStatus(tk));
   }, []);
 
   // 回到首頁時重讀孩子清單（建檔、交接匯入、封存後都可能變），並刷新目前孩子的狀態。
@@ -106,6 +110,13 @@ export default function Home() {
     } else {
       router.push({ pathname: '/record/bottle', params: { childId: child.id, reason: 'reminder' } });
     }
+  };
+
+  // 如廁訓練：滿 1 歲半到 6 歲顯示；夜間模式不顯示（擁有者決定，夜間首頁只留吃、睡、尿布）。
+  const showToilet = !night && d >= TOILET_MIN_DAYS && d < TOILET_MAX_DAYS && toilet.state !== 'done';
+  const logPotty = async (o: Outcome, label: string) => {
+    setPotty(false);
+    await quick(async () => addEvent({ childId: child.id, type: 'task.attempt', payload: { task: TOILET_TASK, outcome: o }, recordedBy: await deviceId() }), `已記錄 ${name} 坐小馬桶：${label}`);
   };
 
   // 兩週內只顯示「第 N 天」，避免「5 天 · 第 6 天」這種重複
@@ -187,6 +198,31 @@ export default function Home() {
           {older ? null : <Big label="清醒趴臥" sub="幾分鐘" icon="user" onPress={() => router.push({ pathname: '/record/tummy', params: { childId: child.id } })} />}
           <Big label="用藥" sub="只倒數間隔" icon="plus-circle" onPress={() => router.push({ pathname: '/record/medication', params: { childId: child.id } })} />
         </View>
+
+        {showToilet ? (
+          <>
+            <Section title="如廁訓練" action={toilet.state === 'active' ? '進度與做法' : undefined} onAction={() => router.push({ pathname: '/task/toilet', params: { childId: child.id } })} />
+            {toilet.state === 'active' ? (
+              potty ? (
+                <Card style={{ gap: 10 }}>
+                  <Text style={[styles.p, { fontWeight: '700' }]}>這次坐小馬桶</Text>
+                  <View style={styles.grid}>
+                    {OUTCOMES.map((o) => <Big key={o.key} third label={o.label} onPress={() => logPotty(o.key, o.label)} />)}
+                  </View>
+                  <GhostButton small plain label="取消" onPress={() => setPotty(false)} />
+                </Card>
+              ) : (
+                <View style={styles.grid}>
+                  <Big label="坐小馬桶" sub="記下結果" icon="check-circle" onPress={() => setPotty(true)} />
+                </View>
+              )
+            ) : (
+              <ListCard>
+                <ListRow first main={toilet.state === 'paused' ? '如廁訓練（休息中）' : '如廁訓練'} sub={toilet.state === 'paused' ? '準備好了再試一次' : '國健署的準備度與做法，開始後可以一鍵記錄'} chevron onPress={() => router.push({ pathname: '/task/toilet', params: { childId: child.id } })} />
+              </ListCard>
+            )}
+          </>
+        ) : null}
 
         {firstDay ? null : <>
         <Section title="今天" action={`全部 ${today.length} 筆`} onAction={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />

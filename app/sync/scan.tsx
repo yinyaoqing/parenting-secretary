@@ -95,7 +95,7 @@ export default function Scan() {
         {status === 'done' && report ? (
           <Card accent>
             <Text style={[styles.p, { fontWeight: '700' }]}>已合併來自「{report.fromName}」的紀錄</Text>
-            <Text style={styles.muted}>新增 {report.inserted} 筆、補上結束或刪除 {report.updated} 筆{report.tombstones ? `、合併重複的睡眠計時 ${report.tombstones} 筆` : ''}{report.childrenInserted ? `、新增孩子 ${report.childrenInserted} 位` : ''}{report.childrenRemapped ? '、合併同一個孩子的檔案' : ''}。</Text>
+            <Text style={styles.muted}>新增 {report.inserted} 筆、補上結束或刪除 {report.updated} 筆{report.tombstones ? `、合併重複的睡眠計時 ${report.tombstones} 筆` : ''}{report.childrenInserted ? `、新增孩子 ${report.childrenInserted} 位` : ''}{report.childrenRemapped ? '、合併同一個孩子的檔案' : ''}{report.schedule ? `、更新行程 ${report.schedule} 筆` : ''}。</Text>
             {report.duplicates ? <Text style={[styles.muted, { color: palette.warm }]}>有 {report.duplicates} 組一分鐘內的同類紀錄可能重複，請到紀錄列表確認。</Text> : null}
             <Text style={styles.muted}>請對方按「對方已掃描完成」，下次就只會傳新的紀錄。</Text>
           </Card>

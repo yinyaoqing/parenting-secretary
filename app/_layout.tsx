@@ -27,6 +27,10 @@ function Root() {
         <Stack.Screen name="sync/scan" options={{ presentation: 'modal' }} />
         <Stack.Screen name="child/switch" options={{ presentation: 'modal' }} />
         <Stack.Screen name="child/[id]" />
+        <Stack.Screen name="plan/index" />
+        <Stack.Screen name="plan/edit" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="plan/derive" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="task/toilet" />
       </Stack>
     </>
   );

@@ -1,7 +1,7 @@
 // 交接包的打包與拆包（純函式）。JSON → UTF-8 → deflate → AES-GCM（由呼叫端注入）→ base64。
 // 同一包位元組可走 QR code（切成多張連續切換）、檔案（AirDrop、Quick Share、LINE）。
 import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate';
-import type { SyncChild, SyncEvent } from './merge';
+import type { SyncChild, SyncScheduleItem, SyncEvent } from './merge';
 
 export interface SyncCrypto {
   encrypt(plain: Uint8Array): Promise<Uint8Array>;
@@ -16,6 +16,7 @@ export interface SyncPackage {
   createdAt: string;
   children: SyncChild[];
   events: SyncEvent[];
+  schedule?: SyncScheduleItem[]; // v4 起：行程與範本；舊版交接檔沒有這欄
 }
 
 export const PACKAGE_PREFIX = 'PS1.';
