@@ -63,7 +63,7 @@ export function DayView({ date, events, plan, now, older, onPressEvent, onPressP
       <View style={{ flexDirection: 'row', height: trackH + 8 }}>
         <View style={{ width: 30 }}>
           {hours.map((h) => (
-            <Text key={h} style={{ position: 'absolute', top: (h - startH) * hourH - 7, right: 6, fontSize: 11, color: palette.ink3, fontVariant: ['tabular-nums'] }}>{String(h).padStart(2, '0')}</Text>
+            <Text maxFontSizeMultiplier={1.3} key={h} style={{ position: 'absolute', top: (h - startH) * hourH - 7, right: 6, fontSize: 11, color: palette.ink3, fontVariant: ['tabular-nums'] }}>{String(h).padStart(2, '0')}</Text>
           ))}
         </View>
         <View style={{ flex: 1, position: 'relative' }}>
@@ -81,7 +81,7 @@ export function DayView({ date, events, plan, now, older, onPressEvent, onPressP
                 accessibilityLabel={`${o.item.kind === 'routine' ? '範本' : '行程'}：${o.item.title} ${o.item.time}`}
                 style={{ position: 'absolute', left: 0, right: 0, top, height: h, borderRadius: 8, borderWidth: 1.5, borderStyle: c.dashed ? 'dashed' : 'solid', borderColor: c.border, backgroundColor: c.bg, opacity: c.dashed ? 0.9 : 0.85, paddingHorizontal: 6, paddingTop: 2, alignItems: 'flex-end' }}
               >
-                <Text numberOfLines={1} style={{ fontSize: labelFs - 1, color: c.ink, fontWeight: '600' }}>{o.item.title}{o.item.kind === 'routine' ? ' 範本' : ''}</Text>
+                <Text maxFontSizeMultiplier={1.3} numberOfLines={1} style={{ fontSize: labelFs - 1, color: c.ink, fontWeight: '600' }}>{o.item.title}{o.item.kind === 'routine' ? ' 範本' : ''}</Text>
               </Pressable>
             );
           })}
@@ -98,8 +98,8 @@ export function DayView({ date, events, plan, now, older, onPressEvent, onPressP
                 accessibilityLabel={open ? `睡眠中，${hhmm(e.startAt)} 起` : `睡眠 ${hhmm(e.startAt)} 到 ${hhmm(e.endAt!)}`}
                 style={{ position: 'absolute', left: 0, width: '47%', top, height: h, borderRadius: 8, backgroundColor: palette.warm, opacity: open ? 0.75 : 1, paddingHorizontal: 6, paddingVertical: 2, overflow: 'hidden', borderBottomWidth: open ? 2 : 0, borderStyle: 'dashed', borderColor: palette.bg }}
               >
-                <Text numberOfLines={1} style={{ color: night ? palette.bg : '#fff', fontWeight: '700', fontSize: labelFs }}>{open ? '睡眠中' : `睡眠 ${durationLabel(e.startAt, e.endAt)}`}</Text>
-                {h >= 36 ? <Text numberOfLines={1} style={{ color: night ? palette.bg : '#fff', fontSize: labelFs - 1 }}>{open ? `${hhmm(e.startAt)} 起` : `${hhmm(e.startAt)} 到 ${hhmm(e.endAt!)}`}</Text> : null}
+                <Text maxFontSizeMultiplier={1.3} numberOfLines={1} style={{ color: night ? palette.bg : '#fff', fontWeight: '700', fontSize: labelFs }}>{open ? '睡眠中' : `睡眠 ${durationLabel(e.startAt, e.endAt)}`}</Text>
+                {h >= 36 ? <Text maxFontSizeMultiplier={1.3} numberOfLines={1} style={{ color: night ? palette.bg : '#fff', fontSize: labelFs - 1 }}>{open ? `${hhmm(e.startAt)} 起` : `${hhmm(e.startAt)} 到 ${hhmm(e.endAt!)}`}</Text> : null}
               </Pressable>
             );
           })}
@@ -114,7 +114,7 @@ export function DayView({ date, events, plan, now, older, onPressEvent, onPressP
               style={{ position: 'absolute', left: '50%', right: 0, top: top - 9, height: 20, flexDirection: 'row', alignItems: 'center', gap: 6 }}
             >
               <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: pointColor(e.type, palette) }} />
-              <Text numberOfLines={1} style={{ flexShrink: 1, fontSize: labelFs, color: palette.ink, backgroundColor: palette.surface, paddingHorizontal: 3, borderRadius: 4 }}>
+              <Text maxFontSizeMultiplier={1.3} numberOfLines={1} style={{ flexShrink: 1, fontSize: labelFs, color: palette.ink, backgroundColor: palette.surface, paddingHorizontal: 3, borderRadius: 4 }}>
                 {`${typeLabel(e.type)} ${eventSummary(e.type, e.payload, e.startAt, e.endAt)}`.trim()}
               </Text>
             </Pressable>
@@ -122,7 +122,7 @@ export function DayView({ date, events, plan, now, older, onPressEvent, onPressP
 
           {nowY !== null ? (
             <View pointerEvents="none" style={{ position: 'absolute', left: -4, right: 0, top: nowY, height: 2, backgroundColor: palette.danger }}>
-              <Text style={{ position: 'absolute', right: 0, top: -16, fontSize: 11, fontWeight: '700', color: palette.danger, backgroundColor: palette.surface, paddingHorizontal: 3 }}>{hhmm(new Date(now).toISOString())}</Text>
+              <Text maxFontSizeMultiplier={1.3} style={{ position: 'absolute', right: 0, top: -16, fontSize: 11, fontWeight: '700', color: palette.danger, backgroundColor: palette.surface, paddingHorizontal: 3 }}>{hhmm(new Date(now).toISOString())}</Text>
             </View>
           ) : null}
         </View>
@@ -138,7 +138,7 @@ export function Legend({ items }: { items: { label: string; color?: string; dot?
       {items.map((it) => (
         <View key={it.label} style={[styles.row, { gap: 6 }]}>
           <View style={{ width: 12, height: 12, borderRadius: it.dot ? 6 : 3, backgroundColor: it.dashed ? 'transparent' : it.color, borderWidth: it.dashed ? 1.5 : 0, borderStyle: 'dashed', borderColor: palette.ink3 }} />
-          <Text style={[styles.muted, { fontSize: 13 }]}>{it.label}</Text>
+          <Text maxFontSizeMultiplier={1.3} style={[styles.muted, { fontSize: 13 }]}>{it.label}</Text>
         </View>
       ))}
     </View>

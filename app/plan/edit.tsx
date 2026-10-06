@@ -117,7 +117,7 @@ export default function EditPlan() {
 
         <Field label="星期">
           <View style={styles.chips}>
-            {WEEK_ORDER.map((d) => <Chip key={d} label={weekdayChar(d)} on={weekdays.includes(d)} onPress={() => setWeekdays((cur) => (cur.includes(d) ? cur.filter((x) => x !== d) : [...cur, d]))} />)}
+            {WEEK_ORDER.map((d) => <Chip key={d} label={weekdayChar(d)} a11yLabel={`星期${weekdayChar(d)}`} on={weekdays.includes(d)} onPress={() => setWeekdays((cur) => (cur.includes(d) ? cur.filter((x) => x !== d) : [...cur, d]))} />)}
           </View>
         </Field>
 

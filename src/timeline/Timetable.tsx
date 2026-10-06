@@ -30,15 +30,15 @@ export function Timetable({ items, todayWeekday, onPressItem }: { items: Schedul
       <View style={{ flexDirection: 'row', gap: 4 }}>
         <View style={{ width: 46 }} />
         {DAYS.map((d) => (
-          <Text key={d} style={{ flex: 1, textAlign: 'center', fontSize: 14, fontWeight: '700', color: d === todayWeekday ? palette.accent : palette.ink2 }}>{DAY_LABEL[d]}</Text>
+          <Text maxFontSizeMultiplier={1.3} key={d} style={{ flex: 1, textAlign: 'center', fontSize: 14, fontWeight: '700', color: d === todayWeekday ? palette.accent : palette.ink2 }}>{DAY_LABEL[d]}</Text>
         ))}
       </View>
-      {rows.length === 0 ? <Text style={[styles.muted, { paddingVertical: 12 }]}>還沒有週一到週五的行程。新增課程時填「節次」，就會排進這張表。</Text> : null}
+      {rows.length === 0 ? <Text maxFontSizeMultiplier={1.3} style={[styles.muted, { paddingVertical: 12 }]}>還沒有週一到週五的行程。新增課程時填「節次」，就會排進這張表。</Text> : null}
       {rows.map((r) => (
         <View key={r.key} style={{ flexDirection: 'row', gap: 4 }}>
           <View style={{ width: 46, justifyContent: 'center' }}>
-            {r.period ? <Text style={{ fontSize: 14, fontWeight: '700', color: palette.ink }}>{r.period}</Text> : null}
-            <Text style={{ fontSize: 11, color: palette.ink3, fontVariant: ['tabular-nums'] }}>{r.time}</Text>
+            {r.period ? <Text maxFontSizeMultiplier={1.3} style={{ fontSize: 14, fontWeight: '700', color: palette.ink }}>{r.period}</Text> : null}
+            <Text maxFontSizeMultiplier={1.3} style={{ fontSize: 11, color: palette.ink3, fontVariant: ['tabular-nums'] }}>{r.time}</Text>
           </View>
           {r.cells.map((it, i) => {
             if (!it) return <View key={i} style={{ flex: 1, minHeight: 44, borderRadius: 8, borderWidth: 1, borderStyle: 'dashed', borderColor: palette.line }} />;
@@ -46,7 +46,7 @@ export function Timetable({ items, todayWeekday, onPressItem }: { items: Schedul
             return (
               <Pressable key={i} onPress={() => onPressItem(it)} accessibilityRole="button" accessibilityLabel={`${DAY_LABEL[i + 1]} ${it.time} ${it.title}`}
                 style={{ flex: 1, minHeight: 44, borderRadius: 8, borderWidth: 1, borderColor: c.border, backgroundColor: c.bg, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 2 }}>
-                <Text numberOfLines={2} style={{ fontSize: 13, color: c.ink, fontWeight: '600', textAlign: 'center' }}>{it.title}</Text>
+                <Text maxFontSizeMultiplier={1.3} numberOfLines={2} style={{ fontSize: 13, color: c.ink, fontWeight: '600', textAlign: 'center' }}>{it.title}</Text>
               </Pressable>
             );
           })}

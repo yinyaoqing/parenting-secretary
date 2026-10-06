@@ -5,13 +5,13 @@ import { StyleSheet } from 'react-native';
 export const colors = {
   day: {
     bg: '#F3F5F1', surface: '#FFFFFF', surface2: '#EAF0EC',
-    ink: '#1B2620', ink2: '#46534B', ink3: '#66736A', line: '#DCE2DD',
+    ink: '#1B2620', ink2: '#46534B', ink3: '#5C6960', line: '#DCE2DD',
     accent: '#2F6F5E', accentSoft: '#E1EEE8', accentInk: '#FFFFFF',
     warm: '#9A5B16', warmSoft: '#F6ECDD', danger: '#A3261C', dangerSoft: '#F8E5E2',
   },
   night: {
     bg: '#15110D', surface: '#201912', surface2: '#2B2219',
-    ink: '#EADCC8', ink2: '#C9B79F', ink3: '#A08F79', line: '#372C21',
+    ink: '#EADCC8', ink2: '#C9B79F', ink3: '#B09F88', line: '#372C21',
     accent: '#D99A4A', accentSoft: '#3A2A14', accentInk: '#1B1208',
     warm: '#D99A4A', warmSoft: '#3A2A14', danger: '#E8857A', dangerSoft: '#3D1F1A',
   },

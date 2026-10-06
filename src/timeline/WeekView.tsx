@@ -39,15 +39,15 @@ export function WeekView({ endDate, events, now, onPickDay }: { endDate: string;
           const color = c.isToday ? palette.accent : palette.ink2;
           return (
             <View key={c.date} style={{ flex: 1, alignItems: 'center' }}>
-              <Text style={{ fontSize: 12, color }}>{weekdayChar(d.getDay())}</Text>
-              <Text style={{ fontSize: 15, fontWeight: '700', color }}>{d.getDate()}</Text>
+              <Text maxFontSizeMultiplier={1.3} style={{ fontSize: 12, color }}>{weekdayChar(d.getDay())}</Text>
+              <Text maxFontSizeMultiplier={1.3} style={{ fontSize: 15, fontWeight: '700', color }}>{d.getDate()}</Text>
             </View>
           );
         })}
       </View>
       <View style={{ flexDirection: 'row', gap: 4, marginTop: 6 }}>
         <View style={{ width: 18, height: COL_H }}>
-          {[0, 6, 12, 18, 24].map((h) => <Text key={h} style={{ position: 'absolute', top: (h / 24) * COL_H - 7, right: 2, fontSize: 10, color: palette.ink3 }}>{h}</Text>)}
+          {[0, 6, 12, 18, 24].map((h) => <Text maxFontSizeMultiplier={1.3} key={h} style={{ position: 'absolute', top: (h / 24) * COL_H - 7, right: 2, fontSize: 10, color: palette.ink3 }}>{h}</Text>)}
         </View>
         {cols.map((c) => (
           <Pressable
@@ -66,7 +66,7 @@ export function WeekView({ endDate, events, now, onPickDay }: { endDate: string;
       <View style={{ flexDirection: 'row', gap: 4, marginTop: 6 }}>
         <View style={{ width: 18 }} />
         {cols.map((c) => (
-          <Text key={c.date} style={{ flex: 1, textAlign: 'center', fontSize: 12, color: c.isToday ? palette.accent : palette.ink2, fontWeight: c.isToday ? '700' : '400' }}>
+          <Text maxFontSizeMultiplier={1.3} key={c.date} style={{ flex: 1, textAlign: 'center', fontSize: 12, color: c.isToday ? palette.accent : palette.ink2, fontWeight: c.isToday ? '700' : '400' }}>
             {c.sleepMin ? `${(c.sleepMin / 60).toFixed(1)} 時` : '—'}
           </Text>
         ))}

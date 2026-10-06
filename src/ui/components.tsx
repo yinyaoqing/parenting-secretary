@@ -144,13 +144,14 @@ export function Big({ label, sub, icon, on, warm, third, onPress, disabled }: { 
   );
 }
 
-export function Chip({ label, on, off, sm, icon, onPress }: { label: string; on?: boolean; off?: boolean; sm?: boolean; icon?: IconName; onPress?: () => void }) {
+export function Chip({ label, on, off, sm, icon, onPress, a11yLabel }: { label: string; on?: boolean; off?: boolean; sm?: boolean; icon?: IconName; onPress?: () => void; a11yLabel?: string }) {
   const { styles, palette } = useTheme();
   return (
     <Pressable
       style={[styles.chip, sm && styles.chipSm, on && styles.chipOn, off && styles.chipOff]}
       onPress={off ? undefined : onPress}
       accessibilityRole="button"
+      accessibilityLabel={a11yLabel}
       accessibilityState={{ selected: !!on, disabled: !!off }}
     >
       {icon ? <Icon name={icon} size={16} color={on ? palette.accentInk : palette.ink} /> : null}
