@@ -1,0 +1,35 @@
+{
+  "id": "milestones.week-32",
+  "topicGroup": "milestones",
+  "title": "第 32 週：八個月、換手拿東西、預防奶瓶性蛀牙",
+  "ageMinDays": 217,
+  "ageMaxDays": 223,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "這週的樣子：約八個月。坐在地上看到想要的東西會挪動身體靠近，拿到後能從一手換到另一手，雙手更協調。\n\n蛀牙：長牙後如果沒有清潔習慣，加上飲食習慣不好，很容易蛀牙（幼兒早發性齲齒）。一開始多在上排門牙與後牙咬合面，從白色斑點變褐色、黑色，甚至蛀洞。容易蛀牙的習慣：\n含著奶瓶或乳頭入睡。\n常吃含糖飲料、含糖食物。\n飯含在嘴裡不吞。\n長牙後每天清潔，見健康照護「口腔清潔」。\n\n哺乳期染燙髮：目前沒有研究發現對喝母乳的寶寶有負面影響，吸收量極少。選合格美髮師並告知正在哺乳；洗頭輕柔不抓傷頭皮；環境通風；盡量不讓藥劑直接接觸頭皮。",
+  "readMore": [
+    {
+      "label": "國健署孕產兒關懷網站：寶寶篇 第32週 原文",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1600&type=01",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去生長數字範圍與需由醫師判別的內容，完整內容見原文。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署孕產兒關懷網站：寶寶篇 第32週：行動更敏捷的八個月大寶寶（政府網站資料開放宣告，可重製改作，須註明出處）",
+      "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=1600&type=01",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "一邊含著奶瓶喝奶，一邊入睡，或喝母乳時含著媽媽的乳頭入睡，便很容易蛀牙。\r2. 經常吃含糖飲料、含糖食物，也會增加蛀牙風險。\r3. 不良的含飯習慣，常讓細菌有可",
+      "checkedAt": "2026-10-06"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-06",
+  "status": "draft"
+}

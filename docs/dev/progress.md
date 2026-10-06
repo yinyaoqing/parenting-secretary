@@ -30,7 +30,7 @@
 | UI 設計稿套用 | 設計系統、底部四分頁、建檔三步、逐題問卷、首頁狀態格與復原、表單補登時間、原生日期選擇器、內容與設定頁、時程佔位頁 |
 | 內容產線 | check-content（十項檢查）、build-content、export-bilingual、import-translation 四支腳本 |
 | 部署 | EAS 專案（組織 yinyaoqings-team）、EAS Update preview 頻道、一鍵發布 `npm run publish:preview`、QR code 與發布紀錄在 docs/dev/release/ |
-| 品質 | typecheck 0 錯誤、eslint 0 錯誤、content:check 98 張全過、test:sync 與 test:timeline 全過、Android export 通過 |
+| 品質 | typecheck 0 錯誤、eslint 0 錯誤、content:check 134 張全過、test:sync 與 test:timeline 全過、Android export 通過 |
 | 驗證 | 家長規格驗證頁（私密 Artifact，回饋存於其資料庫） |
 | 文件 | 規劃 v0.3–v0.9、交接文件 HANDOVER.md、啟動與部署指南 |
 
@@ -69,7 +69,7 @@
 | 主題群 | 目標 | 目前 | 差 |
 |---|---|---|---|
 | 安全層 | 14 | 14（草稿，摘錄齊） | 0 |
-| 月齡卡（含週卡） | 48 | 22 | 26 |
+| 月齡卡（含週卡） | 48 | 58（CDC 月齡卡 10 張待譯審；國健署週卡第 1 到 48 週） | 12 到 36 個月主題卡待定 |
 | 飲食 | 24 | 24（草稿） | 0 |
 | 居家安全 | 8 | 8（草稿） | 0 |
 | 健康照護 | 14 | 14（草稿） | 0 |
@@ -77,4 +77,4 @@
 | 睡眠 | 10 | 10（草稿） | 0 |
 | 行為 | 2 | 0 | 2 |
 | 照顧者 | 6 | 6（草稿） | 0 |
-| 合計 | 146 | 98 | 48 |
+| 合計 | 146 | 134 | 22（家庭權益 20、行為 2） |
