@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-06T14:19:21.157Z",
+  "publishedAt": "2026-10-06T14:25:06.230Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "feat(content): 28 HPA cards — feeding 13, sleep 6, health 3, caregiver 6 (98 total)",
-  "updateGroupId": "d643e03d-7e26-4516-9967-23f6bb4998d8",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/d643e03d-7e26-4516-9967-23f6bb4998d8",
+  "message": "feat(notify): local notifications in Expo Go — safety net, medication interval, schedule lead, public schedule; health-check screen",
+  "updateGroupId": "be68c001-4cc1-4439-ae09-39582919c26a",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/be68c001-4cc1-4439-ae09-39582919c26a",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"
