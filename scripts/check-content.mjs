@@ -91,6 +91,11 @@ async function checkCard(path) {
     return { rel, fail: [`JSON 解析失敗：${e.message}`], warn };
   }
 
+  // 紅線 R7：「趴睡」一詞全產品禁用（畫面上看得到的標題、內文、補充）；來源摘錄是原文引文，不在此限。
+  for (const field of ['title', 'body', 'supplement']) {
+    if (typeof card[field] === 'string' && card[field].includes('趴睡')) fail.push(`${field} 含禁用詞「趴睡」（R7），改用「清醒趴臥」或「俯臥」`);
+  }
+
   // 1 必備欄位
   for (const k of REQUIRED) if (card[k] === undefined || card[k] === null || card[k] === '') fail.push(`缺必備欄位 ${k}`);
   if (!Array.isArray(card.sources) || card.sources.length === 0) fail.push('至少需要一個來源');

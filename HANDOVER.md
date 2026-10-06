@@ -85,7 +85,10 @@ src/ui/art.tsx          插畫（assets/art，8 張水彩 JPEG）與手繪 SVG �
 src/ui/                 theme（設計系統色票、字級三段、樣式表）、ThemeContext（日夜模式與字級的全域狀態）、useTheme、components（Tile、Big、Chip、Seg、Opt、PickRow、ListRow、Badge、Banner、SafetyBox、Toast…）、DatePick（原生日期時間選擇）、TimeRow（表單補登時間列）
 src/util/               age（實際與矯正月齡）、format、datetime（中文日期、相對時間、補登換算）
 content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12、home_safety 8、feeding 11、health 10、sleep 4）
+content/policy/         政策 policy.json（補助、假別、生育給付、扣除額、行政待辦；每項附官方連結與查核日期）
+docs/data/              GitHub Pages 發布的 manifest、policy、schedule（由 npm run data:build 產生，勿手改）
 content/schedule/       公費時程 timeline.json（健檢 9 次、發展篩檢 6 次、疫苗、塗氟；只有時間窗，沒有金額）
+src/policy/             政策 loader（內建＋遠端覆蓋、過期判斷）；src/remote/sync.ts 從 GitHub Pages 檢查更新
 src/schedule/           loader：依出生日算時間窗與狀態，之後遠端 JSON 用同格式覆蓋
 content/whitelist.json  相似度檢查白名單
 scripts/
@@ -116,6 +119,8 @@ npm run content:bilingual  # 對照稿
 npm run content:import -- docs/translation/bilingual-<日期>.csv --dry-run   # 譯審匯回（先 dry-run）
 npm run lint               # eslint，目前 0 錯誤
 npm run test:sync          # 合併引擎與交接包的 node 測試（不需 RN 環境）
+npm run data:check         # 政策與時程 JSON 檢查（查核超過 90 天、非政府來源會失敗）
+npm run data:build         # 檢查後寫入 docs/data/，推送後 GitHub Actions 發布到 Pages
 npm run test:timeline      # 時間軸計畫層與如廁任務的 node 測試
 npm test                   # 兩者都跑
 npx expo start             # Expo Go 開發
