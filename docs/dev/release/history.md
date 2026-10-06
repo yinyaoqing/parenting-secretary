@@ -11,3 +11,4 @@
 | 2026-10-05 18:33 | preview | exposdk:57.0.0 | content: 11 feeding cards | [6b250419](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/6b250419-0dea-4f72-be02-92cf677b54c2) |
 | 2026-10-05 18:37 | preview | exposdk:57.0.0 | content: 10 health-care cards | [63bcf91a](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/63bcf91a-06f2-47f8-81ac-eb84ad7ba5bc) |
 | 2026-10-05 18:41 | preview | exposdk:57.0.0 | content: 4 sleep cards | [e6ff8d4b](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/e6ff8d4b-4d5d-4303-b085-b16ad22aee68) |
+| 2026-10-06 09:22 | preview | exposdk:57.0.0 | ui: home layout fixes from device screenshot | [480b698e](https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/480b698e-ed8b-4153-a5cf-3b7ce5c5b0e2) |
