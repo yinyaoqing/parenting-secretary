@@ -1,5 +1,6 @@
 import { getDb, newId, nowIso } from './index';
 import type { Child, StyleProfile, StyleAxis } from './types';
+import { emitDataChange } from './changes';
 
 type ChildRow = {
   id: string;
@@ -55,11 +56,13 @@ export async function updateChild(id: string, patch: Partial<Omit<Child, 'id' | 
     `UPDATE children SET nickname = ?, birth_date = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, daycare_from = ?, school_from = ?, updated_at = ? WHERE id = ?`,
     next.nickname, next.birthDate, next.dueDate ?? null, next.feedingMethod, next.location, next.locationUntil ?? null, JSON.stringify(next.specialContexts ?? []), next.daycareFrom ?? null, next.schoolFrom ?? null, nowIso(), id,
   );
+  emitDataChange();
 }
 
 export async function archiveChild(id: string): Promise<void> {
   const db = await getDb();
   await db.runAsync('UPDATE children SET archived_at = ?, updated_at = ? WHERE id = ?', nowIso(), nowIso(), id);
+  emitDataChange();
 }
 
 export async function listArchivedChildren(): Promise<Child[]> {
@@ -71,6 +74,7 @@ export async function listArchivedChildren(): Promise<Child[]> {
 export async function unarchiveChild(id: string): Promise<void> {
   const db = await getDb();
   await db.runAsync('UPDATE children SET archived_at = NULL, updated_at = ? WHERE id = ?', nowIso(), id);
+  emitDataChange();
 }
 
 export async function createChild(input: Omit<Child, 'id' | 'createdAt' | 'updatedAt'>): Promise<Child> {
@@ -91,6 +95,7 @@ export async function createChild(input: Omit<Child, 'id' | 'createdAt' | 'updat
     ts,
     ts,
   );
+  emitDataChange();
   return { ...input, id, createdAt: ts, updatedAt: ts };
 }
 
@@ -125,4 +130,5 @@ export async function getSetting(key: string): Promise<string | null> {
 export async function setSetting(key: string, value: string): Promise<void> {
   const db = await getDb();
   await db.runAsync('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)', key, value);
+  if (key === 'pausedUntil' || key === 'activeChildId' || key.startsWith('notify:') || key.startsWith('templateMode:')) emitDataChange();
 }

@@ -11,15 +11,14 @@ import { useTheme, type ThemeMode } from '../../src/ui/useTheme';
 import { Screen, TopBar, Card, Badge, ListCard, ListRow, Seg } from '../../src/ui/components';
 import { SpotMoonCloud, Thumb } from '../../src/ui/art';
 import appConfig from '../../app.json';
+import { permissionStatus, requestPermission } from '../../src/notify/scheduler';
 
 const PAUSE_FOREVER = '9999-12-31T00:00:00.000Z';
+const NOTIFY_KEYS = ['safetyNet', 'medication', 'schedule', 'public'];
 
 function Label({ t }: { t: string }) {
   const { styles } = useTheme();
   return <Text style={[styles.label, { marginTop: 4 }]}>{t}</Text>;
-}
-function Soon() {
-  return <Badge label="即將推出" tone="gray" />;
 }
 
 export default function Settings() {
@@ -27,13 +26,21 @@ export default function Settings() {
   const { children, active, reload } = useChildren();
   const [profile, setProfile] = useState<StyleProfile | null>(null);
   const [paused, setPaused] = useState(false);
+  const [notify, setNotify] = useState<Record<string, boolean>>({ safetyNet: true, medication: true, schedule: true, public: true });
 
   useFocusEffect(useCallback(() => {
     reload();
     getSetting('pausedUntil').then((v) => setPaused(!!v && new Date(v).getTime() > Date.now()));
+    Promise.all(NOTIFY_KEYS.map((k) => getSetting(`notify:${k}`))).then((vs) => setNotify(Object.fromEntries(NOTIFY_KEYS.map((k, i) => [k, vs[i] !== '0']))));
   }, [reload]));
   const activeId = active?.id;
   useEffect(() => { Promise.resolve(activeId ? getStyleProfile(activeId) : null).then(setProfile); }, [activeId]);
+
+  const toggleNotify = async (k: string, v: boolean) => {
+    setNotify((n) => ({ ...n, [k]: v }));
+    await setSetting(`notify:${k}`, v ? '1' : '0');
+    if (v && (await permissionStatus()) === 'undetermined') await requestPermission();
+  };
 
   const togglePause = async (v: boolean) => {
     setPaused(v);
@@ -93,10 +100,11 @@ export default function Settings() {
 
         <Label t="提醒" />
         <ListCard>
-          <ListRow first main="餵食與尿布" sub="安全網提醒，比平常久才提醒一次。目前只在首頁顯示，通知功能製作中" right={<Soon />} />
-          <ListRow main="用藥倒數" sub="只倒數你輸入的間隔，不建議劑量" right={<Soon />} />
-          <ListRow main="公費健檢與疫苗" sub="依出生日計算的時程" right={<Soon />} />
-          <ListRow main="通知健康檢查" sub="確認系統允許準時通知" right={<Soon />} />
+          <ListRow first main="餵奶安全網" sub="1 歲前，距上次餵奶比平常久時提醒一次" right={<Switch value={notify.safetyNet} onValueChange={(v) => toggleNotify('safetyNet', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="餵奶安全網提醒" />} />
+          <ListRow main="用藥間隔" sub="只倒數你輸入的間隔，不建議劑量" right={<Switch value={notify.medication} onValueChange={(v) => toggleNotify('medication', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="用藥間隔提醒" />} />
+          <ListRow main="行程提前提醒" sub="依每筆行程設定的提前時間" right={<Switch value={notify.schedule} onValueChange={(v) => toggleNotify('schedule', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="行程提前提醒" />} />
+          <ListRow main="公費健檢與疫苗" sub="時間窗開始那天早上 9 點" right={<Switch value={notify.public} onValueChange={(v) => toggleNotify('public', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="公費健檢與疫苗提醒" />} />
+          <ListRow main="通知健康檢查" sub="權限、接下來的提醒、準時度" chevron onPress={() => router.push('/notify')} />
         </ListCard>
 
         <Label t="顯示" />

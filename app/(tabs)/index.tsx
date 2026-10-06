@@ -2,13 +2,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 import { addEvent, deleteEvent, lastEvent, listEvents, openEvent, recentIntervalsMinutes } from '../../src/db/events';
+import { permissionStatus, requestPermission } from '../../src/notify/scheduler';
 import { getCheckIns, isPaused, markInvitation, seenInvitation } from '../../src/caregiver/store';
 import { invitationKey, wantsSupport } from '../../src/caregiver/resources';
 import { setSetting } from '../../src/db/repo';
 import { OUTCOMES, TOILET_MAX_DAYS, TOILET_MIN_DAYS, TOILET_TASK, taskStatus, type Outcome, type TaskStatus } from '../../src/tasks/toilet';
 import { useChildren } from '../../src/ui/ChildContext';
 import { ChildTitle } from '../../src/ui/ChildTitle';
-import { logBreastFeed, logDiaper, startSleep, endSleep, safetyNetUpperBound } from '../../src/records/quick';
+import { logBreastFeed, logDiaper, startSleep, endSleep, safetyNetUpperBound, FEED_TYPES, FEED_CAP_MIN, FEED_PRIOR_MIN, NET_RECENT } from '../../src/records/quick';
 import { deviceId } from '../../src/db/device';
 import type { Child, Event } from '../../src/db/types';
 import { ageLabel, correctedDays, daysSince } from '../../src/util/age';
@@ -19,14 +20,8 @@ import { safetyCards } from '../../src/content/loader';
 import { Screen, TopBar, IconButton, Tile, Big, SafetyBox, Section, ListCard, ListRow, Toast, Banner, PrimaryButton, GhostButton, Icon, Badge, Card } from '../../src/ui/components';
 import { Hero, Thumb } from '../../src/ui/art';
 
-const FEED_TYPES = ['feed.breast', 'feed.bottle'];
 const DIAPER_TYPES = ['diaper.wet', 'diaper.dirty', 'diaper.both'];
-// 安全網（規劃 v0.4 第 6.1 節）：上界 = 最近間隔第 90 百分位與安全上限取小。
-// 安全上限只採官方文字可推得的值：國健署「新生兒依需求哺餵、每天約 8–12 次」推得白天間隔上限約 3 小時；
-// 月齡常模虛擬樣本以 2.5 小時計。只在 1 歲前啟用。
-const FEED_CAP_MIN = 180;
-const FEED_PRIOR_MIN = 150;
-const NET_RECENT = 14;
+// 安全網（規劃 v0.4 第 6.1 節）：上界 = 最近間隔第 90 百分位與安全上限取小；參數在 records/quick.ts，與本地通知共用。
 
 type ToastState = { text: string; eventId?: string };
 
@@ -46,6 +41,7 @@ export default function Home() {
   const [paused, setPaused] = useState(false);
   const [lowMood, setLowMood] = useState(false);
   const [invite, setInvite] = useState<'2w' | '6w' | null>(null);
+  const [askNotify, setAskNotify] = useState(false);
   const [now, setNow] = useState(() => Date.now()); // 每分鐘更新一次，讓「幾分前」與安全網判斷跟著走
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -66,6 +62,7 @@ export default function Home() {
     setLowMood(wantsSupport(ci, [0, 1, 2].map((i) => toIsoDate(addDays(new Date(), -i)))));
     const k = invitationKey(daysSince(c.birthDate));
     setInvite(k && !(await seenInvitation(c.id, k)) ? k : null);
+    setAskNotify(daysSince(c.birthDate) < 365 && (await permissionStatus()) === 'undetermined');
   }, []);
 
   // 回到首頁時重讀孩子清單（建檔、交接匯入、封存後都可能變），並刷新目前孩子的狀態。
@@ -185,6 +182,17 @@ export default function Home() {
           <Card warm onPress={async () => { if (invite) { await markInvitation(child.id, invite); setInvite(null); } router.push('/caregiver'); }}>
             <Text style={[styles.p, { fontWeight: '700', color: palette.warm }]}>{lowMood ? '最近好像很辛苦' : invite === '2w' ? '產後兩週了，你還好嗎？' : '產後六週了，也照顧一下自己'}</Text>
             <Text style={[styles.muted, { color: palette.ink2 }]}>{lowMood ? '照顧孩子的人也需要被照顧。這裡有可以直接撥打的專線。' : '10 秒記下今天的狀態，或看看可以找誰聊聊。只出現這一次。'}</Text>
+          </Card>
+        ) : null}
+
+        {!paused && askNotify ? (
+          <Card style={{ gap: 8 }}>
+            <Text style={[styles.p, { fontWeight: '700' }]}>允許通知，APP 關著也能提醒</Text>
+            <Text style={styles.muted}>距上次餵奶比平常久、用藥間隔到了、行程快到時各提醒一次。可以在設定逐項關閉。</Text>
+            <View style={styles.grid}>
+              <View style={{ flex: 1 }}><PrimaryButton label="允許" onPress={async () => { await requestPermission(); setAskNotify(false); }} /></View>
+              <View style={{ flex: 1 }}><GhostButton label="之後再說" onPress={() => setAskNotify(false)} /></View>
+            </View>
           </Card>
         ) : null}
 

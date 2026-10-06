@@ -6,6 +6,7 @@ import { rowToEvent, type EventRow } from '../db/events';
 import { planMerge, planChildren, remapEvents, planSchedule, type SyncChild, type SyncEvent, type SyncScheduleItem } from './merge';
 import { rowToScheduleItem, writeScheduleRow, type ScheduleRow } from '../db/schedule';
 import type { ScheduleItem } from '../db/types';
+import { emitDataChange } from '../db/changes';
 import { encodePackage, decodePackage, type SyncPackage } from './codec';
 import { makeCrypto, generateFamilyKey, newFamilyId } from './crypto';
 
@@ -178,5 +179,6 @@ export async function applyPackage(pkg: SyncPackage, opts: { fromBackup?: boolea
     );
   });
 
+  emitDataChange();
   return report;
 }

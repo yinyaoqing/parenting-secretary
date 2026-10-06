@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { anchorDate, occurrencesOn, deriveTemplates, weekdaysLabel, addMonthsIso, scheduleSub, type SleepSeg } from './plan.ts';
 import { taskStatus, countAttempts } from '../tasks/toilet.ts';
 import { wantsSupport, invitationKey, askMessage } from '../caregiver/resources.ts';
+import { planNotifications, medianDelay } from '../notify/plan.ts';
 import type { ScheduleItem } from '../db/types';
 
 let passed = 0;
@@ -110,6 +111,28 @@ test('照顧者：最近 3 天有 2 天心情很難受才主動放資源；邀�
   assert.equal(wantsSupport({ '2026-10-03': c(2), '2026-10-06': c(2) }, dates), false);
   assert.deepEqual([13, 14, 20, 21, 42, 48, 49].map(invitationKey), [null, '2w', '2w', null, '6w', '6w', null]);
   assert.ok(askMessage(['陪我聊一聊'], '').includes('・陪我聊一聊'));
+});
+
+test('通知規劃：暫停時不排；安全網只在 1 歲前；只排未來；依優先序截斷', () => {
+  const now = new Date('2026-10-06T10:00:00+08:00').getTime();
+  const base = { paused: false, safetyNet: true, medication: true, schedule: true, publicSchedule: true };
+  const child = {
+    id: 'c1', name: '小米', ageDays: 100, lastFeedAt: new Date(now - 60 * 60000).toISOString(), safetyNetMinutes: 150,
+    meds: [{ name: '退燒藥', lastAt: new Date(now - 2 * 3600000).toISOString(), intervalHours: 6 }, { name: '舊藥', lastAt: new Date(now - 10 * 3600000).toISOString(), intervalHours: 6 }],
+    occurrences: [{ title: '早療', start: now + 3 * 3600000, leadMinutes: 60, location: '復健科' }, { title: '親子館', start: now + 3600000, leadMinutes: 0 }],
+    publicOpens: [{ title: '第 3 次預防保健', category: '兒童預防保健', window: '2 到 4 個月', opensOn: now + 2 * 86400000 }],
+  };
+  assert.equal(planNotifications([child], { ...base, paused: true }, now).length, 0);
+  const p = planNotifications([child], base, now);
+  assert.deepEqual(p.map((x) => x.kind), ['safetyNet', 'schedule', 'medication', 'public']);
+  assert.equal(p[0].at, now + 90 * 60000);
+  assert.ok(p.find((x) => x.kind === 'medication')!.body.includes('不建議劑量'));
+  assert.equal(planNotifications([{ ...child, ageDays: 400 }], base, now).filter((x) => x.kind === 'safetyNet').length, 0);
+  const many = { ...child, occurrences: Array.from({ length: 80 }, (_, i) => ({ title: `課${i}`, start: now + (i + 2) * 3600000, leadMinutes: 15 })) };
+  const capped = planNotifications([many], base, now);
+  assert.equal(capped.length, 60);
+  assert.ok(capped.some((x) => x.kind === 'safetyNet') && capped.some((x) => x.kind === 'medication'));
+  assert.equal(medianDelay([3, 1, 2, 10]), 2.5);
 });
 
 console.log(`\n${passed} passed`);

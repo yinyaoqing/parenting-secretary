@@ -3,6 +3,7 @@ import { getDb, newId, nowIso } from './index';
 import { getSetting, setSetting } from './repo';
 import type { ScheduleItem, ScheduleKind } from './types';
 import type { Anchor } from '../timeline/plan';
+import { emitDataChange } from './changes';
 
 export type ScheduleRow = {
   id: string;
@@ -74,6 +75,7 @@ export async function writeScheduleRow(it: ScheduleItem): Promise<void> {
     it.id, it.childId, it.title, JSON.stringify(it.weekdays), it.time, it.location ?? null, it.leadMinutes, it.note ?? null, it.syncToDeviceCalendar ? 1 : 0, it.createdAt,
     it.kind, it.durationMinutes ?? null, it.validFrom ?? null, it.validTo ?? null, it.period ?? null, it.templateSource ?? null, it.updatedAt, it.deletedAt ?? null,
   );
+  emitDataChange();
 }
 
 export async function saveScheduleItem(input: ScheduleInput, id?: string): Promise<ScheduleItem> {
@@ -88,6 +90,7 @@ export async function deleteScheduleItem(id: string): Promise<void> {
   const db = await getDb();
   const ts = nowIso();
   await db.runAsync('UPDATE schedule_items SET deleted_at = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL', ts, ts, id);
+  emitDataChange();
 }
 
 // 「從這週產生」：先刪掉上一次產生的範本，再寫入新的，家長自建的不動。

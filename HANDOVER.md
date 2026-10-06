@@ -67,12 +67,14 @@ app/                    expo-router 畫面（依設計稿 v1：https://claude.ai
   plan/                 行程與範本：index（範本開關與起點、每天範本、每週固定行程）、edit（新增編輯，modal）、derive（從這週產生範本）
   task/toilet.tsx       如廁訓練任務頁（國健署原文，只數次數）
   data/index.tsx        資料與備份：加密備份匯出與還原、已封存的孩子、刪除全部資料
+  notify/index.tsx      通知健康檢查：權限、接下來的提醒、測試通知與準時度
   caregiver/index.tsx   照顧好自己：10 秒打卡（只存本機）、官方專線、請別人幫忙（系統分享）
   sync/                 同步與交接：index（配對、交接、分享與匯入交接檔）、qr（配對或交接 QR code，多張輪播）、scan（相機掃描，配對與交接共用）
 src/db/                 types（18 歲資料模型）、schema（SQLite v4：事件加 seq、updated_at、tz_offset_min；peers 表；children.archived_at、daycare_from、school_from；schedule_items 補 kind、時長、有效期間、節次、範本來源、墓碑）、schedule（行程與範本顯示設定）、index（開庫與遷移）、repo（孩子、風格、設定）、events（事件 append-only）、device（裝置 id）
 src/sync/               不經伺服器的多裝置同步：merge（純函式合併引擎，含測試）、codec（交接包打包、QR 多張切分、配對碼，含測試）、crypto（expo-crypto AES-GCM）、store（配對身分、peers、組差量包、套用交接包）
 src/records/quick.ts    一鍵紀錄輔助與安全網上界計算
 src/timeline/           時間軸：plan（純函式：起點、某天的計畫、從一週紀錄產生範本，含測試）、DayView、WeekView、Timetable、usePlan、colors
+src/notify/             本地通知：plan（純函式：安全網、用藥、行程、公費時程，最多 60 則，含測試）、scheduler（滾動重排、權限、準時度）；資料變動由 src/db/changes.ts 通知
 src/caregiver/          照顧者支持：resources（專線與查核日期、打卡題目、邀請時機，純函式）、store（打卡、暫停狀態）
 src/sync/backup.ts      備份檔格式 PSB1（PBKDF2 推導金鑰＋AES-GCM，含測試）；backupStore.ts 匯出、還原、刪除全部
 src/tasks/toilet.ts     如廁訓練任務：國健署原文與狀態計算（任務狀態用 task.* 事件，不另開表）

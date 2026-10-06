@@ -1,11 +1,35 @@
-import { Stack } from 'expo-router';
+import { useEffect } from 'react';
+import { AppState } from 'react-native';
+import { Stack, router } from 'expo-router';
+import * as Notifications from 'expo-notifications';
+import { startAutoReschedule, reschedule, recordDelay } from '../src/notify/scheduler';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider, useThemeCtx } from '../src/ui/ThemeContext';
 import { ChildProvider } from '../src/ui/ChildContext';
 
+// APP 開著時收到通知也顯示橫幅。
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({ shouldShowBanner: true, shouldShowList: true, shouldPlaySound: true, shouldSetBadge: false }),
+});
+
 // 所有畫面自己畫標題列（設計稿 topbar），系統 header 一律關閉。
 function Root() {
   const { night, palette } = useThemeCtx();
+
+  // 本地通知：資料變動與回到前景時重排；點通知開對應畫面；送達時記錄延遲（通知健康檢查）。
+  useEffect(() => {
+    const off = startAutoReschedule();
+    const app = AppState.addEventListener('change', (st) => { if (st === 'active') void reschedule().catch(() => undefined); });
+    const rec = Notifications.addNotificationReceivedListener((n) => {
+      const at = Number((n.request.content.data as { at?: number } | undefined)?.at);
+      if (at) void recordDelay(at);
+    });
+    const resp = Notifications.addNotificationResponseReceivedListener((r) => {
+      const url = (r.notification.request.content.data as { url?: string } | undefined)?.url;
+      if (url) router.push(url as never);
+    });
+    return () => { off(); app.remove(); rec.remove(); resp.remove(); };
+  }, []);
   return (
     <>
       <StatusBar style={night ? 'light' : 'dark'} />
@@ -33,6 +57,7 @@ function Root() {
         <Stack.Screen name="task/toilet" />
         <Stack.Screen name="data/index" />
         <Stack.Screen name="caregiver/index" />
+        <Stack.Screen name="notify/index" />
       </Stack>
     </>
   );

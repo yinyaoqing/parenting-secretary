@@ -118,7 +118,7 @@ export default function PlanList() {
             </View>
           </View>
         </Card>
-        <Text style={styles.muted}>提前提醒與同步到手機行事曆需要正式安裝版，製作中；目前先記下設定。行程會跟著交接傳給另一支手機。</Text>
+        <Text style={styles.muted}>提前提醒會發通知（設定 › 提醒可關閉）。同步到手機行事曆需要正式安裝版，製作中。行程會跟著交接傳給另一支手機。</Text>
       </Screen>
     </View>
   );

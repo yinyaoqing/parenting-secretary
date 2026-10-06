@@ -60,6 +60,13 @@ export async function logMedication(childId: string, name: string, doseText: str
   return addEvent({ childId, type: 'medication', payload: { name, doseText, intervalHours }, startAt, ...by(recordedBy) });
 }
 
+// 安全網參數（規劃 v0.4 第 6.1 節）：首頁橫幅與本地通知共用。
+// 安全上限只採官方文字可推得的值：國健署「新生兒依需求哺餵、每天約 8–12 次」推得白天間隔上限約 3 小時；月齡常模虛擬樣本以 2.5 小時計。只在 1 歲前啟用。
+export const FEED_TYPES = ['feed.breast', 'feed.bottle'];
+export const FEED_CAP_MIN = 180;
+export const FEED_PRIOR_MIN = 150;
+export const NET_RECENT = 14;
+
 // 安全網上界：最近間隔的第 90 百分位，與安全上限取較小者（規劃 v0.4 第 6.1 節）。
 export function safetyNetUpperBound(intervalsMinutes: number[], priorMinutes: number, safetyCapMinutes: number): number {
   const PRIOR_N = 5;

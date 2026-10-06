@@ -4,6 +4,7 @@
 
 import { getDb, newId, nowIso } from './index';
 import type { Event, EventType } from './types';
+import { emitDataChange } from './changes';
 
 export type EventRow = {
   id: string;
@@ -82,6 +83,7 @@ export async function addEvent(input: AddEventInput): Promise<Event> {
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, ?, ?)`,
     ev.id, ev.childId, ev.type, ev.startAt, ev.endAt ?? null, JSON.stringify(ev.payload), ev.recordedBy, ev.source, ev.supersedes ?? null, ev.createdAt, ev.seq ?? null, ev.updatedAt ?? null, ev.tzOffsetMin ?? null,
   );
+  emitDataChange();
   return ev;
 }
 
@@ -107,6 +109,7 @@ export async function deleteEvent(id: string): Promise<void> {
   const db = await getDb();
   const ts = nowIso();
   await db.runAsync('UPDATE events SET deleted_at = ?, updated_at = ? WHERE id = ? AND deleted_at IS NULL', ts, ts, id);
+  emitDataChange();
 }
 
 // 進行中的事件（例如睡眠、親餵計時）：有 start 沒有 end。同一孩子同一型別只允許一個進行中（計時器單一擁有者）。
@@ -123,6 +126,7 @@ export async function closeEvent(id: string, endAt?: string): Promise<void> {
   const db = await getDb();
   const ts = nowIso();
   await db.runAsync('UPDATE events SET end_at = ?, updated_at = ? WHERE id = ? AND end_at IS NULL', endAt ?? ts, ts, id);
+  emitDataChange();
 }
 
 export interface ListOptions {

@@ -7,6 +7,7 @@ import { applyPackage, type ApplyReport } from './store';
 import { encodeBackup, decodeBackup, pickSettings, type BackupData, type BackupChild, type CryptoFactory } from './backup';
 import type { SyncCrypto } from './codec';
 import appConfig from '../../app.json';
+import { emitDataChange } from '../db/changes';
 
 const aesFactory: CryptoFactory = async (keyBytes) => {
   const key = await AESEncryptionKey.import(keyBytes);
@@ -74,4 +75,5 @@ export async function deleteAllData(): Promise<void> {
     }
     await db.runAsync("DELETE FROM settings WHERE key <> 'deviceId'");
   });
+  emitDataChange();
 }

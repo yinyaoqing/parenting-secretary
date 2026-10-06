@@ -133,7 +133,7 @@ export default function EditPlan() {
 
         {kind !== 'routine' ? <Field label="地點（可留空）"><Input value={location} onChangeText={setLocation} accessibilityLabel="地點" /></Field> : null}
 
-        <Field label="提前提醒" hint="通知功能製作中，之後會照這個設定提醒">
+        <Field label="提前提醒" hint="到時間前發一則通知；可在設定 › 提醒關閉">
           <View style={styles.chips}>{LEADS.map(([l, m]) => <Chip key={l} sm label={l} on={lead === m} onPress={() => setLead(m)} />)}</View>
         </Field>
 
