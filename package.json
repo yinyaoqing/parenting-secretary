@@ -4,6 +4,7 @@
   "main": "expo-router/entry",
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
+    "@noble/hashes": "^2.4.0",
     "@react-native-community/datetimepicker": "9.1.0",
     "expo": "~57.0.26",
     "expo-calendar": "~57.0.5",
@@ -48,7 +49,7 @@
     "lint": "expo lint",
     "publish:preview": "node scripts/publish-preview.mjs",
     "content:import": "node scripts/import-translation.mjs",
-    "test:sync": "node --experimental-strip-types --no-warnings src/sync/merge.test.ts && node --experimental-strip-types --no-warnings src/sync/codec.test.ts",
+    "test:sync": "node --experimental-strip-types --no-warnings src/sync/merge.test.ts && node --experimental-strip-types --no-warnings src/sync/codec.test.ts && node --experimental-strip-types --no-warnings src/sync/backup.test.ts",
     "test:timeline": "node --experimental-strip-types --no-warnings src/timeline/timeline.test.ts",
     "test": "npm run test:sync && npm run test:timeline"
   },

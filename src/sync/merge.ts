@@ -128,6 +128,7 @@ export interface SyncChild {
   specialContexts: string[];
   daycareFrom?: string;
   schoolFrom?: string;
+  archivedAt?: string; // 只有備份檔會帶；交接不傳封存的孩子
   createdAt: string;
   updatedAt: string;
 }

@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import { anchorDate, occurrencesOn, deriveTemplates, weekdaysLabel, addMonthsIso, scheduleSub, type SleepSeg } from './plan.ts';
 import { taskStatus, countAttempts } from '../tasks/toilet.ts';
+import { wantsSupport, invitationKey, askMessage } from '../caregiver/resources.ts';
 import type { ScheduleItem } from '../db/types';
 
 let passed = 0;
@@ -99,6 +100,16 @@ test('如廁訓練：只數次數', () => {
   assert.equal(c.total, 3);
   assert.equal(c.byOutcome.pee, 1);
   assert.equal(c.byOutcome.accident, 1);
+});
+
+test('照顧者：最近 3 天有 2 天心情很難受才主動放資源；邀請只在產後 2 週與 6 週', () => {
+  const c = (mood: 0 | 1 | 2) => ({ sleep: 0 as const, energy: 0 as const, mood });
+  const dates = ['2026-10-06', '2026-10-05', '2026-10-04', '2026-10-03'];
+  assert.equal(wantsSupport({ '2026-10-06': c(2), '2026-10-05': c(1), '2026-10-04': c(0) }, dates), false);
+  assert.equal(wantsSupport({ '2026-10-06': c(2), '2026-10-04': c(2) }, dates), true);
+  assert.equal(wantsSupport({ '2026-10-03': c(2), '2026-10-06': c(2) }, dates), false);
+  assert.deepEqual([13, 14, 20, 21, 42, 48, 49].map(invitationKey), [null, '2w', '2w', null, '6w', '6w', null]);
+  assert.ok(askMessage(['陪我聊一聊'], '').includes('・陪我聊一聊'));
 });
 
 console.log(`\n${passed} passed`);

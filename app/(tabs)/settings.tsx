@@ -51,7 +51,7 @@ export default function Settings() {
             <SpotMoonCloud size={40} />
             <View style={styles.sp}>
               <Text style={[styles.p, { fontWeight: '700' }]}>暫停模式</Text>
-              <Text style={[styles.muted, { color: palette.ink2 }]}>一鍵暫停全部提醒與內容推送。不問原因，隨時恢復。</Text>
+              <Text style={[styles.muted, { color: palette.ink2 }]}>一鍵暫停全部提醒與推送內容，首頁不再出現提醒與育兒內容。紀錄照常可用，安全內容仍可查閱。不問原因，隨時恢復。</Text>
             </View>
             <Switch value={paused} onValueChange={togglePause} trackColor={{ true: palette.warm, false: palette.line }} thumbColor="#fff" accessibilityLabel="暫停模式" />
           </View>
@@ -81,6 +81,11 @@ export default function Settings() {
           <ListRow first icon="calendar" main="行程與作息範本" sub="托嬰、回診、課表、服藥；作息範本要先選起點（滿 6 個月或一個事件）" chevron onPress={() => active && router.push({ pathname: '/plan', params: { childId: active.id } })} />
         </ListCard>
 
+        <Label t="照顧者" />
+        <ListCard>
+          <ListRow first icon="heart" main="照顧好自己" sub="10 秒打卡、專線與資源、請別人幫忙。不計分，只存在這支手機" chevron onPress={() => router.push('/caregiver')} />
+        </ListCard>
+
         <Label t="同步與交接" />
         <ListCard>
           <ListRow first icon="share-2" main="與另一支手機交接紀錄" sub="QR code 面對面交接，或用 AirDrop、Quick Share、LINE 傳加密的交接檔。不經伺服器。" chevron onPress={() => router.push('/sync')} />
@@ -108,9 +113,9 @@ export default function Settings() {
 
         <Label t="資料" />
         <ListCard>
-          <ListRow first icon="download" main="匯出備份" sub="一個檔案，存到你自己的雲端" right={<Soon />} />
-          <ListRow main="匯入備份" right={<Soon />} />
-          <ListRow main="刪除全部資料" mainColor={palette.danger} right={<Soon />} />
+          <ListRow first icon="download" main="匯出與匯入備份" sub="一個加密檔案，存到你自己的雲端或電腦" chevron onPress={() => router.push('/data')} />
+          <ListRow main="已封存的孩子" chevron onPress={() => router.push('/data')} />
+          <ListRow main="刪除全部資料" mainColor={palette.danger} chevron onPress={() => router.push('/data')} />
         </ListCard>
 
         <Label t="關於" />

@@ -119,7 +119,7 @@ export default function EditChild() {
         <Field label="想多看哪些資源">
           <View style={styles.chips}>{CONTEXTS.filter((k) => k.key !== 'preterm').map((k) => <Chip key={k.key} label={k.label} on={contexts.includes(k.key)} icon={contexts.includes(k.key) ? 'check' : undefined} onPress={() => setContexts((cur) => (cur.includes(k.key) ? cur.filter((x) => x !== k.key) : [...cur, k.key]))} />)}</View>
         </Field>
-        <Text style={styles.muted}>封存只會把孩子從列表隱藏，所有紀錄仍留在手機裡，交接時也不會傳給對方。{children.length === 1 ? '這是唯一的孩子，封存後首頁會回到歡迎頁。' : ''}</Text>
+        <Text style={styles.muted}>封存只會把孩子從列表隱藏，所有紀錄仍留在手機裡，交接時也不會傳給對方。可以在「設定 › 資料」取消封存。{children.length === 1 ? '這是唯一的孩子，封存後首頁會回到歡迎頁。' : ''}</Text>
         {err ? <Text style={[styles.p, styles.danger, { color: palette.danger }]}>{err}</Text> : null}
       </Screen>
     </View>

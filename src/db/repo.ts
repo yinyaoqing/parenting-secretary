@@ -62,6 +62,17 @@ export async function archiveChild(id: string): Promise<void> {
   await db.runAsync('UPDATE children SET archived_at = ?, updated_at = ? WHERE id = ?', nowIso(), nowIso(), id);
 }
 
+export async function listArchivedChildren(): Promise<Child[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<ChildRow>('SELECT * FROM children WHERE archived_at IS NOT NULL ORDER BY archived_at DESC');
+  return rows.map(rowToChild);
+}
+
+export async function unarchiveChild(id: string): Promise<void> {
+  const db = await getDb();
+  await db.runAsync('UPDATE children SET archived_at = NULL, updated_at = ? WHERE id = ?', nowIso(), id);
+}
+
 export async function createChild(input: Omit<Child, 'id' | 'createdAt' | 'updatedAt'>): Promise<Child> {
   const db = await getDb();
   const id = newId();

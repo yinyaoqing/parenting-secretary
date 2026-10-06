@@ -109,7 +109,8 @@ export async function applyPackageText(text: string): Promise<ApplyReport> {
   return applyPackage(pkg);
 }
 
-export async function applyPackage(pkg: SyncPackage): Promise<ApplyReport> {
+// fromBackup：從自己的備份還原，不把來源登記成已配對裝置。
+export async function applyPackage(pkg: SyncPackage, opts: { fromBackup?: boolean } = {}): Promise<ApplyReport> {
   const db = await getDb();
   const report: ApplyReport = { from: pkg.from, fromName: pkg.fromName, inserted: 0, updated: 0, tombstones: 0, duplicates: 0, childrenInserted: 0, childrenRemapped: 0, schedule: 0 };
 
@@ -118,8 +119,8 @@ export async function applyPackage(pkg: SyncPackage): Promise<ApplyReport> {
     const localChildren = (await db.getAllAsync<ChildRow>('SELECT * FROM children')).map(rowToChild);
     const cp = planChildren(localChildren, pkg.children);
     const insertChild = (c: SyncChild) => db.runAsync(
-      `INSERT INTO children (id, nickname, birth_date, due_date, feeding_method, location, location_until, special_contexts, daycare_from, school_from, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      c.id, c.nickname, c.birthDate, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.daycareFrom ?? null, c.schoolFrom ?? null, c.createdAt, c.updatedAt,
+      `INSERT INTO children (id, nickname, birth_date, due_date, feeding_method, location, location_until, special_contexts, daycare_from, school_from, archived_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      c.id, c.nickname, c.birthDate, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.daycareFrom ?? null, c.schoolFrom ?? null, c.archivedAt ?? null, c.createdAt, c.updatedAt,
     );
     for (const c of cp.insert) { await insertChild(c); report.childrenInserted++; }
     for (const c of cp.update) {
@@ -170,7 +171,7 @@ export async function applyPackage(pkg: SyncPackage): Promise<ApplyReport> {
     }
 
     // 4. 記住對方。
-    await db.runAsync(
+    if (!opts.fromBackup) await db.runAsync(
       `INSERT INTO peers (device_id, name, last_received_at, created_at) VALUES (?, ?, ?, ?)
        ON CONFLICT(device_id) DO UPDATE SET name = excluded.name, last_received_at = excluded.last_received_at`,
       pkg.from, pkg.fromName, ts, ts,

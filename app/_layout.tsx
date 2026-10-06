@@ -31,6 +31,8 @@ function Root() {
         <Stack.Screen name="plan/edit" options={{ presentation: 'modal' }} />
         <Stack.Screen name="plan/derive" options={{ presentation: 'modal' }} />
         <Stack.Screen name="task/toilet" />
+        <Stack.Screen name="data/index" />
+        <Stack.Screen name="caregiver/index" />
       </Stack>
     </>
   );

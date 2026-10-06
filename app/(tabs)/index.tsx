@@ -2,6 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 import { addEvent, deleteEvent, lastEvent, listEvents, openEvent, recentIntervalsMinutes } from '../../src/db/events';
+import { getCheckIns, isPaused, markInvitation, seenInvitation } from '../../src/caregiver/store';
+import { invitationKey, wantsSupport } from '../../src/caregiver/resources';
+import { setSetting } from '../../src/db/repo';
 import { OUTCOMES, TOILET_MAX_DAYS, TOILET_MIN_DAYS, TOILET_TASK, taskStatus, type Outcome, type TaskStatus } from '../../src/tasks/toilet';
 import { useChildren } from '../../src/ui/ChildContext';
 import { ChildTitle } from '../../src/ui/ChildTitle';
@@ -10,7 +13,7 @@ import { deviceId } from '../../src/db/device';
 import type { Child, Event } from '../../src/db/types';
 import { ageLabel, correctedDays, daysSince } from '../../src/util/age';
 import { eventSummary, hhmm, durationLabel, startOfToday, typeLabel } from '../../src/util/format';
-import { minutesAgo, sinceShort } from '../../src/util/datetime';
+import { addDays, minutesAgo, sinceShort, toIsoDate } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
 import { safetyCards } from '../../src/content/loader';
 import { Screen, TopBar, IconButton, Tile, Big, SafetyBox, Section, ListCard, ListRow, Toast, Banner, PrimaryButton, GhostButton, Icon, Badge, Card } from '../../src/ui/components';
@@ -40,6 +43,9 @@ export default function Home() {
   const [netDismissedUntil, setNetDismissedUntil] = useState(0);
   const [toilet, setToilet] = useState<TaskStatus>({ state: 'none' });
   const [potty, setPotty] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [lowMood, setLowMood] = useState(false);
+  const [invite, setInvite] = useState<'2w' | '6w' | null>(null);
   const [now, setNow] = useState(() => Date.now()); // 每分鐘更新一次，讓「幾分前」與安全網判斷跟著走
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -55,6 +61,11 @@ export default function Home() {
       listEvents(c.id, { types: ['task.start', 'task.pause', 'task.complete'], limit: 20 }),
     ]);
     setLastFeed(f); setLastDiaper(d); setSleeping(s); setLastSleep(ls); setToday(t); setIntervals(iv); setToilet(taskStatus(tk));
+    const [p, ci] = await Promise.all([isPaused(), getCheckIns(3)]);
+    setPaused(p);
+    setLowMood(wantsSupport(ci, [0, 1, 2].map((i) => toIsoDate(addDays(new Date(), -i)))));
+    const k = invitationKey(daysSince(c.birthDate));
+    setInvite(k && !(await seenInvitation(c.id, k)) ? k : null);
   }, []);
 
   // 回到首頁時重讀孩子清單（建檔、交接匯入、封存後都可能變），並刷新目前孩子的狀態。
@@ -103,7 +114,8 @@ export default function Home() {
   // 安全網提醒：距上次餵奶超過上界，且還沒按「稍後」。
   const feedSince = lastFeed ? minutesAgo(lastFeed.startAt) : null;
   const upper = safetyNetUpperBound(intervals, FEED_PRIOR_MIN, FEED_CAP_MIN);
-  const showNet = d < 365 && feedSince !== null && feedSince > upper && now > netDismissedUntil;
+  // 暫停模式：停掉所有提醒與推送內容（住院、喪慟、暫時交由機構照顧）；紀錄與安全內容入口照常。
+  const showNet = !paused && d < 365 && feedSince !== null && feedSince > upper && now > netDismissedUntil;
   const netLog = async () => {
     if (child.feedingMethod === 'breast') {
       await quick(() => by().then((b) => logBreastFeed(child.id, 'both', undefined, 'reminder', b)), '已記錄 親餵');
@@ -113,7 +125,7 @@ export default function Home() {
   };
 
   // 如廁訓練：滿 1 歲半到 6 歲顯示；夜間模式不顯示（擁有者決定，夜間首頁只留吃、睡、尿布）。
-  const showToilet = !night && d >= TOILET_MIN_DAYS && d < TOILET_MAX_DAYS && toilet.state !== 'done';
+  const showToilet = !paused && !night && d >= TOILET_MIN_DAYS && d < TOILET_MAX_DAYS && toilet.state !== 'done';
   const logPotty = async (o: Outcome, label: string) => {
     setPotty(false);
     await quick(async () => addEvent({ childId: child.id, type: 'task.attempt', payload: { task: TOILET_TASK, outcome: o }, recordedBy: await deviceId() }), `已記錄 ${name} 坐小馬桶：${label}`);
@@ -159,6 +171,21 @@ export default function Home() {
               <View style={{ flex: 1 }}><GhostButton label="還在睡，稍後" onPress={() => setNetDismissedUntil(Date.now() + 30 * 60000)} /></View>
             </View>
           </Banner>
+        ) : null}
+
+        {paused ? (
+          <Card style={{ gap: 8 }}>
+            <Text style={[styles.p, { fontWeight: '700' }]}>暫停模式中</Text>
+            <Text style={styles.muted}>提醒與推送內容都已停止。紀錄照常可以用，隨時恢復。</Text>
+            <GhostButton small label="恢復" tone="accent" onPress={async () => { await setSetting('pausedUntil', ''); setPaused(false); }} />
+          </Card>
+        ) : null}
+
+        {!paused && (lowMood || invite) ? (
+          <Card warm onPress={async () => { if (invite) { await markInvitation(child.id, invite); setInvite(null); } router.push('/caregiver'); }}>
+            <Text style={[styles.p, { fontWeight: '700', color: palette.warm }]}>{lowMood ? '最近好像很辛苦' : invite === '2w' ? '產後兩週了，你還好嗎？' : '產後六週了，也照顧一下自己'}</Text>
+            <Text style={[styles.muted, { color: palette.ink2 }]}>{lowMood ? '照顧孩子的人也需要被照顧。這裡有可以直接撥打的專線。' : '10 秒記下今天的狀態，或看看可以找誰聊聊。只出現這一次。'}</Text>
+          </Card>
         ) : null}
 
         <SafetyBox title={`安全內容 ${safetyCards().length} 條`} sub="安全睡眠、發燒、噎食⋯ 離線可讀，無法關閉" onPress={() => router.push('/cards')} />
@@ -240,6 +267,10 @@ export default function Home() {
           ))}
         </ListCard>
         </>}
+
+        <ListCard>
+          <ListRow first icon="heart" main="想聊聊嗎？" sub="照顧者的專線、10 秒打卡、請別人幫忙" chevron onPress={() => router.push('/caregiver')} />
+        </ListCard>
       </Screen>
       {toast ? <Toast text={toast.text} onUndo={toast.eventId ? undo : undefined} /> : null}
     </View>
