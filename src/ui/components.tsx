@@ -38,8 +38,9 @@ export function TopBar({ title, subtitle, back, right, children, sky, skyRight =
   return (
     <View style={[styles.topbar, { paddingTop: insets.top + 8 }]}>
       {sky ? (
-        <View pointerEvents="none" style={{ position: 'absolute', right: skyRight, top: insets.top - 4, width: 150, height: 70 }}>
-          <Sky />
+        // 天空只佔按鈕左側一小塊（110×52），不會壓到標題文字
+        <View pointerEvents="none" style={{ position: 'absolute', right: skyRight, top: insets.top + 2, width: 110, height: 52 }}>
+          <Sky width={110} height={52} />
         </View>
       ) : null}
       {back ? (
@@ -117,7 +118,7 @@ export function Tile({ k, icon, v, s, on, onPress }: { k: string; icon: IconName
         <Icon name={icon} size={16} color={tint} />
         <Text style={[styles.tileK, on && styles.tileOnText]}>{k}</Text>
       </View>
-      <Text style={[styles.tileV, on && styles.tileOnText]} numberOfLines={2}>{v}</Text>
+      <Text style={[styles.tileV, on && styles.tileOnText]} numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.8}>{v}</Text>
       {s ? <Text style={[styles.tileS, on && styles.tileOnText]} numberOfLines={1}>{s}</Text> : null}
     </Pressable>
   );
@@ -313,13 +314,20 @@ export function Badge({ label, tone, icon }: { label: string; tone?: 'warm' | 'g
   );
 }
 
-export function Banner({ title, icon = 'bell', children }: { title: string; icon?: IconName; children?: ReactNode }) {
+// 橫幅：左側可放插畫（設計稿夜間安全網提醒），標題與正文在右側同一欄，不會互相覆蓋。
+export function Banner({ title, icon = 'bell', art, body, children }: { title: string; icon?: IconName; art?: ReactNode; body?: string; children?: ReactNode }) {
   const { styles, palette } = useTheme();
   return (
     <View style={styles.banner} accessibilityRole="alert">
-      <View style={styles.bannerTitle}>
-        <Icon name={icon} size={20} color={palette.warm} />
-        <Text style={styles.bannerTitleText}>{title}</Text>
+      <View style={[styles.row, { gap: 12, alignItems: 'flex-start' }]}>
+        {art}
+        <View style={[styles.sp, { gap: 4 }]}>
+          <View style={styles.bannerTitle}>
+            <Icon name={icon} size={18} color={palette.warm} />
+            <Text style={styles.bannerTitleText}>{title}</Text>
+          </View>
+          {body ? <Text style={[styles.p, { lineHeight: 25 }]}>{body}</Text> : null}
+        </View>
       </View>
       {children}
     </View>

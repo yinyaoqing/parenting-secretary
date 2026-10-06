@@ -108,7 +108,8 @@ export default function Home() {
     }
   };
 
-  const subtitle = `${ageLabel(d)}${cd !== null ? ` · 矯正 ${ageLabel(cd)}` : ''} · 第 ${d + 1} 天`;
+  // 兩週內只顯示「第 N 天」，避免「5 天 · 第 6 天」這種重複
+  const subtitle = d < 14 ? `第 ${d + 1} 天${cd !== null ? ` · 矯正 ${ageLabel(cd)}` : ''}` : `${ageLabel(d)}${cd !== null ? ` · 矯正 ${ageLabel(cd)}` : ''} · 第 ${d + 1} 天`;
   // 第一天空狀態：完全沒有紀錄時，用小熊卡取代狀態格與今天列表。
   const firstDay = !lastFeed && !lastDiaper && !lastSleep && today.length === 0;
 
@@ -140,13 +141,7 @@ export default function Home() {
         )}
 
         {showNet && lastFeed ? (
-          <Banner title={`距上次餵奶已 ${durationLabel(lastFeed.startAt)}`}>
-            <View style={[styles.row, { gap: 12, alignItems: 'flex-start', marginTop: -34 }]}>
-              <Thumb art="night" size={72} radius={16} />
-              <View style={[styles.sp, { paddingTop: 34 }]}>
-                <Text style={[styles.p, { lineHeight: 25 }]}>比平常久。寶寶醒著嗎？有沒有找奶的樣子？</Text>
-              </View>
-            </View>
+          <Banner title={`距上次餵奶已 ${durationLabel(lastFeed.startAt)}`} art={<Thumb art="night" size={72} radius={16} />} body="比平常久。寶寶醒著嗎？有沒有找奶的樣子？">
             <Text style={styles.muted}>依據最近 {intervals.length} 筆紀錄的間隔。只提醒這一次，不是時刻表。</Text>
             <View style={styles.grid}>
               <View style={{ flex: 1 }}><PrimaryButton label="記一筆餵奶" onPress={netLog} /></View>
