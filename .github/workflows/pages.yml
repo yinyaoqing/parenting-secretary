@@ -1,0 +1,29 @@
+# 只把 docs/data/ 發布到 GitHub Pages（APP 讀取的政策與公費時程 JSON）。
+# 擁有者需在 GitHub 倉庫 Settings › Pages › Build and deployment 選「GitHub Actions」。
+name: publish-data
+on:
+  push:
+    branches: [main]
+    paths: ['docs/data/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/data
+      - id: deployment
+        uses: actions/deploy-pages@v4

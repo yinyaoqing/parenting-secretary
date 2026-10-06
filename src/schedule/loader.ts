@@ -17,7 +17,11 @@ export interface ScheduleItem {
 export interface ScheduleSource { name: string; url: string; license: string }
 export interface ScheduleBundle { version: string; checkedAt: string; sources: Record<string, ScheduleSource>; items: ScheduleItem[] }
 
-const bundle = bundled as unknown as ScheduleBundle;
+export const BUNDLED_SCHEDULE = bundled as unknown as ScheduleBundle;
+let override: ScheduleBundle | null = null;
+// 遠端（GitHub Pages）版本較新時由 remote/sync.ts 設定。
+export function setScheduleOverride(b: ScheduleBundle | null): void { override = b; }
+function activeBundle(): ScheduleBundle { return override && override.version > BUNDLED_SCHEDULE.version ? override : BUNDLED_SCHEDULE; }
 
 export const CATEGORY_LABEL: Record<ScheduleCategory, string> = {
   checkup: '兒童預防保健',
@@ -49,7 +53,7 @@ export function scheduleFor(birthDate: string, now = new Date()): ScheduledEntry
   const today = new Date(now);
   today.setHours(0, 0, 0, 0);
   const ageDays = Math.floor((today.getTime() - new Date(birth.getFullYear(), birth.getMonth(), birth.getDate()).getTime()) / 86400000);
-  return bundle.items
+  return activeBundle().items
     .filter((it) => !it.effectiveFrom || new Date(it.effectiveFrom).getTime() <= now.getTime())
     .map((item) => {
       const status: ItemStatus = ageDays < item.ageMinDays ? 'upcoming' : ageDays >= item.ageMaxDays ? 'past' : 'open';
@@ -66,5 +70,6 @@ export function scheduleFor(birthDate: string, now = new Date()): ScheduledEntry
 }
 
 export function scheduleMeta(): { version: string; checkedAt: string; sources: ScheduleSource[] } {
-  return { version: bundle.version, checkedAt: bundle.checkedAt, sources: Object.values(bundle.sources) };
+  const b = activeBundle();
+  return { version: b.version, checkedAt: b.checkedAt, sources: Object.values(b.sources) };
 }

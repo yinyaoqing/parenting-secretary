@@ -3,6 +3,7 @@ import { AppState } from 'react-native';
 import { Stack, router } from 'expo-router';
 import * as Notifications from 'expo-notifications';
 import { startAutoReschedule, reschedule, recordDelay } from '../src/notify/scheduler';
+import { loadStoredRemote, syncRemote } from '../src/remote/sync';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider, useThemeCtx } from '../src/ui/ThemeContext';
 import { ChildProvider } from '../src/ui/ChildContext';
@@ -18,6 +19,8 @@ function Root() {
 
   // 本地通知：資料變動與回到前景時重排；點通知開對應畫面；送達時記錄延遲（通知健康檢查）。
   useEffect(() => {
+    // 遠端政策與公費時程：先套用上次存的，再背景檢查更新（12 小時一次）。
+    void loadStoredRemote().then(() => syncRemote()).catch(() => undefined);
     const off = startAutoReschedule();
     const app = AppState.addEventListener('change', (st) => { if (st === 'active') void reschedule().catch(() => undefined); });
     const rec = Notifications.addNotificationReceivedListener((n) => {

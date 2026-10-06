@@ -9,6 +9,7 @@ import { scheduleFor, scheduleMeta, CATEGORY_LABEL, type ScheduledEntry } from '
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Badge, Card, Section, ListCard, ListRow, Chip, Icon } from '../../src/ui/components';
 import { Thumb } from '../../src/ui/art';
+import { policyBundle, policyFor, isStale } from '../../src/policy/loader';
 
 // 時程分頁：依出生日算出公費健檢、發展篩檢、疫苗、塗氟的時間窗。只放時程，不放金額（紅線 R11：政策數字走遠端 JSON）。
 const UPCOMING_DAYS = 120;
@@ -17,6 +18,7 @@ export default function Schedule() {
   const { styles, palette } = useTheme();
   const { active: child, reload } = useChildren();
   const [showPast, setShowPast] = useState(false);
+  const [openPolicy, setOpenPolicy] = useState<string | null>(null);
   useFocusEffect(useCallback(() => { reload(); }, [reload]));
 
   const d = child ? daysSince(child.birthDate) : null;
@@ -88,11 +90,56 @@ export default function Schedule() {
           </>
         ) : null}
 
-        <Section title="行政待辦" />
-        <Card>
-          <View style={[styles.row, { gap: 8 }]}><Text style={[styles.p, { fontWeight: '700' }]}>育兒津貼、托育補助、育嬰留職停薪</Text><Badge label="製作中" tone="gray" /></View>
-          <Text style={styles.muted}>金額與年度會標查核日期並由遠端更新，不寫死在 APP 裡。在此之前請以各機關公告為準。</Text>
-        </Card>
+        {child && d !== null ? (() => {
+          const pol = policyFor(d);
+          const pb = policyBundle();
+          return (
+            <>
+              <Section title="行政待辦" />
+              <ListCard>
+                {pol.todos.length === 0 ? <ListRow first main="這個年齡目前沒有待辦。" mainColor={palette.ink3} /> : null}
+                {pol.todos.map((t, i) => (
+                  <ListRow key={t.id} first={i === 0} main={t.title} sub={`${t.when}
+${t.detail}`} right={<Icon name="external-link" size={14} color={palette.accent} />} onPress={() => Linking.openURL(t.source.url)} />
+                ))}
+              </ListCard>
+
+              <Section title={`補助與假別（${pb.year} 年度）`} />
+              {pol.items.map((it) => {
+                const open = openPolicy === it.id;
+                const stale = isStale(it.checkedAt);
+                return (
+                  <Card key={it.id} onPress={() => setOpenPolicy(open ? null : it.id)} style={{ gap: 8 }}>
+                    <View style={[styles.row, { gap: 8 }]}>
+                      <Text style={[styles.p, { fontWeight: '700' }, styles.sp]}>{it.title}</Text>
+                      {stale ? <Badge label="待複查" tone="warm" /> : null}
+                      <Icon name={open ? 'chevron-up' : 'chevron-down'} size={18} color={palette.ink3} />
+                    </View>
+                    <Text style={styles.muted}>{it.who}</Text>
+                    {open ? (
+                      <View style={{ gap: 8 }}>
+                        {it.amounts.map((a) => (
+                          <View key={a.label} style={[styles.row, { alignItems: 'flex-start', gap: 8 }]}>
+                            <Text style={[styles.muted, { width: 120, color: palette.ink2 }]}>{a.label}</Text>
+                            <Text style={[styles.p, styles.sp, { fontSize: 15 }]}>{a.value}</Text>
+                          </View>
+                        ))}
+                        {it.notes.map((n) => <Text key={n} style={styles.muted}>・{n}</Text>)}
+                        <Text style={[styles.muted, { color: palette.ink2 }]}>怎麼申請：{it.apply}</Text>
+                        <Pressable onPress={() => Linking.openURL(it.source.url)} accessibilityRole="link" style={[styles.row, { gap: 6, alignItems: 'flex-start' }]}>
+                          <Text style={[styles.link, styles.sp, { fontSize: 14, lineHeight: 20 }]}>{it.source.name}</Text>
+                          <Icon name="external-link" size={14} color={palette.accent} />
+                        </Pressable>
+                        <Text style={[styles.muted, { fontSize: 12 }]}>{pb.year} 年度，查核 {it.checkedAt}，以官方公告為準。</Text>
+                      </View>
+                    ) : null}
+                  </Card>
+                );
+              })}
+              <Text style={styles.muted}>金額、天數與資格每年可能變動。資料版本 {pb.version}，會自動從網路更新；APP 不知道你是否符合資格，請以各機關審核為準。</Text>
+            </>
+          );
+        })() : null}
 
         <Section title="資料來源" />
         <Card style={{ gap: 8 }}>

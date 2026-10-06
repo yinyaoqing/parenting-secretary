@@ -1,0 +1,305 @@
+{
+  "version": "2026-10-07",
+  "year": 2026,
+  "checkedAt": "2026-10-07",
+  "note": "金額、天數與資格每年可能變動，以各機關公告為準。本檔由遠端（GitHub Pages）更新；APP 內建一份作為離線預設。",
+  "items": [
+    {
+      "id": "allowance-under-2",
+      "category": "money",
+      "title": "育兒津貼（未滿 2 歲）",
+      "who": "未滿 2 歲、已完成出生登記，沒有送公共化或準公共托育、沒有公費安置",
+      "amounts": [
+        {
+          "label": "第 1 名子女",
+          "value": "每月 5,000 元"
+        },
+        {
+          "label": "第 2 名子女",
+          "value": "每月 6,000 元"
+        },
+        {
+          "label": "第 3 名以上子女",
+          "value": "每月 7,000 元"
+        }
+      ],
+      "notes": [
+        "不排富。",
+        "與托育補助擇一：送公共化或準公共托育時改領托育補助。"
+      ],
+      "apply": "兒童戶籍所在地的鄉（鎮、市、區）公所；出生登記時多數戶政事務所可一併申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 730,
+      "source": {
+        "name": "衛生福利部：未滿 2 歲幼兒照顧政策專區",
+        "url": "https://www.mohw.gov.tw/cp-5130-58003-1.html"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "childcare-subsidy-under-2",
+      "category": "money",
+      "title": "托育補助（未滿 2 歲送托）",
+      "who": "未滿 2 歲，送公共化托育機構，或簽約準公共的托嬰中心、居家托育人員（保母）",
+      "amounts": [
+        {
+          "label": "公共化托育，第 1 名子女",
+          "value": "每月 7,000 元"
+        },
+        {
+          "label": "公共化托育，第 2 名子女",
+          "value": "每月 8,000 元"
+        },
+        {
+          "label": "公共化托育，第 3 名以上子女",
+          "value": "每月 9,000 元"
+        },
+        {
+          "label": "準公共托育，第 1 名子女",
+          "value": "每月 13,000 元"
+        },
+        {
+          "label": "準公共托育，第 2 名子女",
+          "value": "每月 14,000 元"
+        },
+        {
+          "label": "準公共托育，第 3 名以上子女",
+          "value": "每月 15,000 元"
+        }
+      ],
+      "notes": [
+        "中低收入戶另加 2,000 元，低收入戶與弱勢家庭另加 4,000 元。",
+        "與未滿 2 歲育兒津貼擇一。",
+        "實際收費依托育機構與縣市而定。"
+      ],
+      "apply": "由簽約的托嬰中心或托育人員協助向縣市政府申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 730,
+      "source": {
+        "name": "衛生福利部：113 年托育補助再調高",
+        "url": "https://www.mohw.gov.tw/cp-16-76101-1.html"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "allowance-2-to-5",
+      "category": "money",
+      "title": "育兒津貼（2 歲以上未滿 5 歲）",
+      "who": "滿 2 歲以上未滿 5 歲的我國籍幼兒，沒有就讀公立、非營利或準公共幼兒園",
+      "amounts": [
+        {
+          "label": "第 1 名子女",
+          "value": "每月 5,000 元"
+        },
+        {
+          "label": "第 2 名子女",
+          "value": "每月 6,000 元"
+        },
+        {
+          "label": "第 3 名以上子女",
+          "value": "每月 7,000 元"
+        }
+      ],
+      "notes": [
+        "自 112 年 1 月起，綜合所得稅稅率 20% 以上的家庭也可以申領。",
+        "就讀公立、非營利或準公共幼兒園時，改適用幼兒園的收費補助。"
+      ],
+      "apply": "幼兒戶籍所在地的鄉（鎮、市、區）公所，或教育部指定網站線上申辦；免付費專線 0800-205-105。",
+      "ageMinDays": 730,
+      "ageMaxDays": 1826,
+      "source": {
+        "name": "教育部全國教保資訊網：2 歲以上未滿 5 歲幼兒育兒津貼",
+        "url": "https://www.ece.moe.edu.tw/ch/subsidy/allowance-1/"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "parental-leave",
+      "category": "leave",
+      "title": "育嬰留職停薪與津貼",
+      "who": "受僱者，子女未滿 3 歲",
+      "amounts": [
+        {
+          "label": "津貼加薪資補助",
+          "value": "平均月投保薪資 6 成津貼，加 2 成薪資補助，合計 8 成"
+        },
+        {
+          "label": "每位家長最長",
+          "value": "6 個月；父母可同時請領"
+        },
+        {
+          "label": "以日申請",
+          "value": "115 年起，其中 30 日可以「日」為單位申請"
+        }
+      ],
+      "notes": [
+        "以日申請要在 5 日前向雇主提出；子女生病、停托、停課等臨時情形可在前 1 日提出。"
+      ],
+      "apply": "向雇主申請育嬰留職停薪，津貼與薪資補助向勞保局申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 1095,
+      "source": {
+        "name": "勞動部：「育嬰留停照顧彈性化」相關問答",
+        "url": "https://www.mol.gov.tw/1607/28162/28166/28284/28294/84873/post"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "birth-leaves",
+      "category": "leave",
+      "title": "產假、產檢假、陪產檢及陪產假",
+      "who": "受僱者",
+      "amounts": [
+        {
+          "label": "產假（分娩）",
+          "value": "8 星期"
+        },
+        {
+          "label": "產檢假",
+          "value": "7 日，薪資照給"
+        },
+        {
+          "label": "陪產檢及陪產假",
+          "value": "7 日，薪資照給；配偶懷孕期間或分娩前後 15 日內請"
+        }
+      ],
+      "notes": [
+        "雇主給付產檢假、陪產檢及陪產假第 6、7 日薪資後，可以向勞保局申請補助。"
+      ],
+      "apply": "向雇主申請。",
+      "ageMinDays": -280,
+      "ageMaxDays": 60,
+      "source": {
+        "name": "勞動部：現行產檢假與陪產檢及陪產假各為 7 日",
+        "url": "https://www.mol.gov.tw/1607/1632/1640/55496/"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "birth-benefit",
+      "category": "money",
+      "title": "生育給付（勞保、國保）",
+      "who": "勞保被保險人分娩或早產；國民年金被保險人於加保期間（或退保後 1 年內）分娩或早產",
+      "amounts": [
+        {
+          "label": "勞工保險",
+          "value": "分娩當月起前 6 個月平均月投保薪資，一次給付 60 日"
+        },
+        {
+          "label": "國民年金",
+          "value": "月投保金額一次給付 2 個月"
+        },
+        {
+          "label": "雙生以上",
+          "value": "按比例增給"
+        }
+      ],
+      "notes": [
+        "同時符合勞保與國保資格時只能擇一請領。"
+      ],
+      "apply": "勞保局 e 化服務線上申請，或出生登記時一併申辦。",
+      "ageMinDays": 0,
+      "ageMaxDays": 730,
+      "source": {
+        "name": "勞動部：勞保、國保生育給付都是 2 個月，雙生以上加倍給",
+        "url": "https://www.mol.gov.tw/1607/1632/1640/43541/"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "preschool-tax-deduction",
+      "category": "tax",
+      "title": "幼兒學前特別扣除額（綜合所得稅）",
+      "who": "申報戶扶養 6 歲以下子女",
+      "amounts": [
+        {
+          "label": "第 1 名子女",
+          "value": "15 萬元"
+        },
+        {
+          "label": "第 2 名以上子女",
+          "value": "每人 22.5 萬元"
+        }
+      ],
+      "notes": [
+        "113 年度起適用，取消排富。",
+        "每年 5 月申報前一年度綜合所得稅時填寫。"
+      ],
+      "apply": "申報綜合所得稅時列報。",
+      "ageMinDays": 0,
+      "ageMaxDays": 2556,
+      "source": {
+        "name": "財政部臺北國稅局：113 年度幼兒學前特別扣除額加碼扣更多",
+        "url": "https://www.ntbt.gov.tw/singlehtml/41ae3594197f4f69b47753ce08188516?cntId=eb5911d38f684c0f92c141f38a5a93c0"
+      },
+      "checkedAt": "2026-10-07"
+    }
+  ],
+  "todos": [
+    {
+      "id": "birth-registration",
+      "title": "出生登記",
+      "when": "出生後 60 日內",
+      "ageMinDays": 0,
+      "ageMaxDays": 60,
+      "detail": "到戶籍地任一戶政事務所，或用自然人憑證線上申辦（父母雙方都在台設籍、在台灣出生）。線上申辦可以同時申請健保卡。",
+      "source": {
+        "name": "內政部戶政司：出生登記",
+        "url": "https://www.ris.gov.tw/documents/html/2/3/1/379.html"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "apply-allowance",
+      "title": "申請育兒津貼或安排托育",
+      "when": "出生登記後",
+      "ageMinDays": 0,
+      "ageMaxDays": 120,
+      "detail": "自己帶或家人帶的申請未滿 2 歲育兒津貼；要送托的先找公共化或準公共的托嬰中心、保母，改領托育補助。兩者擇一。",
+      "source": {
+        "name": "衛生福利部：未滿 2 歲幼兒照顧政策專區",
+        "url": "https://www.mohw.gov.tw/cp-5130-58003-1.html"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "apply-birth-benefit",
+      "title": "申請生育給付",
+      "when": "出生後",
+      "ageMinDays": 0,
+      "ageMaxDays": 365,
+      "detail": "勞保或國保擇一申請，勞保局 e 化服務可線上辦理。",
+      "source": {
+        "name": "勞動部：勞保、國保生育給付都是 2 個月，雙生以上加倍給",
+        "url": "https://www.mol.gov.tw/1607/1632/1640/43541/"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "allowance-switch-at-2",
+      "title": "滿 2 歲：育兒津貼改由教育部系統申請",
+      "when": "滿 2 歲前後",
+      "ageMinDays": 700,
+      "ageMaxDays": 760,
+      "detail": "未滿 2 歲的育兒津貼（衛福部）在滿 2 歲時結束，2 歲以上未滿 5 歲的育兒津貼（教育部）要另外申請。",
+      "source": {
+        "name": "教育部全國教保資訊網：2 歲以上未滿 5 歲幼兒育兒津貼",
+        "url": "https://www.ece.moe.edu.tw/ch/subsidy/allowance-1/"
+      },
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "tax-filing",
+      "title": "報稅時列報幼兒學前特別扣除額",
+      "when": "每年 5 月",
+      "ageMinDays": 0,
+      "ageMaxDays": 2556,
+      "detail": "申報前一年度綜合所得稅時，6 歲以下子女可列報。",
+      "source": {
+        "name": "財政部臺北國稅局：113 年度幼兒學前特別扣除額加碼扣更多",
+        "url": "https://www.ntbt.gov.tw/singlehtml/41ae3594197f4f69b47753ce08188516?cntId=eb5911d38f684c0f92c141f38a5a93c0"
+      },
+      "checkedAt": "2026-10-07"
+    }
+  ]
+}

@@ -51,7 +51,9 @@
     "content:import": "node scripts/import-translation.mjs",
     "test:sync": "node --experimental-strip-types --no-warnings src/sync/merge.test.ts && node --experimental-strip-types --no-warnings src/sync/codec.test.ts && node --experimental-strip-types --no-warnings src/sync/backup.test.ts",
     "test:timeline": "node --experimental-strip-types --no-warnings src/timeline/timeline.test.ts",
-    "test": "npm run test:sync && npm run test:timeline"
+    "test": "npm run test:sync && npm run test:timeline",
+    "data:check": "node scripts/build-data.mjs --check",
+    "data:build": "node scripts/build-data.mjs"
   },
   "private": true
 }
