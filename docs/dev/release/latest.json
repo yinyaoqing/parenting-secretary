@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-06T09:30:56.729Z",
+  "publishedAt": "2026-10-06T12:56:44.905Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "children: switch, edit, archive; simplified home for 3+",
-  "updateGroupId": "3195fa99-ca77-4cac-a7d8-e05506931a45",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/3195fa99-ca77-4cac-a7d8-e05506931a45",
+  "message": "feat(timeline): day/week/timetable views, schedule and templates with 6-month or event anchor, toilet-training task",
+  "updateGroupId": "02d87791-5d50-49da-aab4-4cddf4bac12e",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/02d87791-5d50-49da-aab4-4cddf4bac12e",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"
