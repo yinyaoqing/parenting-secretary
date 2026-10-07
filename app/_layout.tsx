@@ -61,6 +61,7 @@ function Root() {
         <Stack.Screen name="data/index" />
         <Stack.Screen name="caregiver/index" />
         <Stack.Screen name="notify/index" />
+        <Stack.Screen name="search/index" />
       </Stack>
     </>
   );

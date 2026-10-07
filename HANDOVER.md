@@ -67,6 +67,7 @@ app/                    expo-router 畫面（依設計稿 v1：https://claude.ai
   plan/                 行程與範本：index（範本開關與起點、每天範本、每週固定行程）、edit（新增編輯，modal）、derive（從這週產生範本）
   task/toilet.tsx       如廁訓練任務頁（國健署原文，只數次數）
   data/index.tsx        資料與備份：加密備份匯出與還原、已封存的孩子、刪除全部資料
+  search/index.tsx      問問看：離線檢索官方內容卡，危急字詞固定顯示 119（規劃 4.8）
   notify/index.tsx      通知健康檢查：權限、接下來的提醒、測試通知與準時度
   caregiver/index.tsx   照顧好自己：10 秒打卡（只存本機）、官方專線、請別人幫忙（系統分享）
   sync/                 同步與交接：index（配對、交接、分享與匯入交接檔）、qr（配對或交接 QR code，多張輪播）、scan（相機掃描，配對與交接共用）
@@ -74,6 +75,8 @@ src/db/                 types（18 歲資料模型）、schema（SQLite v4：事
 src/sync/               不經伺服器的多裝置同步：merge（純函式合併引擎，含測試）、codec（交接包打包、QR 多張切分、配對碼，含測試）、crypto（expo-crypto AES-GCM）、store（配對身分、peers、組差量包、套用交接包）
 src/records/quick.ts    一鍵紀錄輔助與安全網上界計算
 src/timeline/           時間軸：plan（純函式：起點、某天的計畫、從一週紀錄產生範本，含測試）、DayView、WeekView、Timetable、usePlan、colors
+src/search/             檢索引擎：斷詞、同義詞、危急字詞（純函式，含測試）
+src/encouragement/      今天一句：pick（挑卡純函式）、today（處境與記錄）、TodayCard；內容在 content/encouragement/cards.json（55 張，三類：國健署原文、自寫描述句、思想與角色模擬）
 src/notify/             本地通知：plan（純函式：安全網、用藥、行程、公費時程，最多 60 則，含測試）、scheduler（滾動重排、權限、準時度）；資料變動由 src/db/changes.ts 通知
 src/caregiver/          照顧者支持：resources（專線與查核日期、打卡題目、邀請時機，純函式）、store（打卡、暫停狀態）
 src/sync/backup.ts      備份檔格式 PSB1（PBKDF2 推導金鑰＋AES-GCM，含測試）；backupStore.ts 匯出、還原、刪除全部
@@ -121,6 +124,7 @@ npm run lint               # eslint，目前 0 錯誤
 npm run test:sync          # 合併引擎與交接包的 node 測試（不需 RN 環境）
 npm run data:check         # 政策與時程 JSON 檢查（查核超過 90 天、非政府來源會失敗）
 npm run data:build         # 檢查後寫入 docs/data/，推送後 GitHub Actions 發布到 Pages
+npm run test:search        # 檢索與今天一句的 node 測試
 npm run test:timeline      # 時間軸計畫層與如廁任務的 node 測試
 npm test                   # 兩者都跑
 npx expo start             # Expo Go 開發

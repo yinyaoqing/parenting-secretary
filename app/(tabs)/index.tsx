@@ -6,6 +6,9 @@ import { permissionStatus, requestPermission } from '../../src/notify/scheduler'
 import { getCheckIns, isPaused, markInvitation, seenInvitation } from '../../src/caregiver/store';
 import { invitationKey, wantsSupport } from '../../src/caregiver/resources';
 import { setSetting } from '../../src/db/repo';
+import { todayCard, dismissToday } from '../../src/encouragement/today';
+import { TodayCard } from '../../src/encouragement/TodayCard';
+import type { EncourageCard } from '../../src/encouragement/pick';
 import { OUTCOMES, TOILET_MAX_DAYS, TOILET_MIN_DAYS, TOILET_TASK, taskStatus, type Outcome, type TaskStatus } from '../../src/tasks/toilet';
 import { useChildren } from '../../src/ui/ChildContext';
 import { ChildTitle } from '../../src/ui/ChildTitle';
@@ -42,6 +45,7 @@ export default function Home() {
   const [lowMood, setLowMood] = useState(false);
   const [invite, setInvite] = useState<'2w' | '6w' | null>(null);
   const [askNotify, setAskNotify] = useState(false);
+  const [today1, setToday1] = useState<EncourageCard | null>(null);
   const [now, setNow] = useState(() => Date.now()); // 每分鐘更新一次，讓「幾分前」與安全網判斷跟著走
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -63,6 +67,7 @@ export default function Home() {
     const k = invitationKey(daysSince(c.birthDate));
     setInvite(k && !(await seenInvitation(c.id, k)) ? k : null);
     setAskNotify(daysSince(c.birthDate) < 365 && (await permissionStatus()) === 'undetermined');
+    setToday1(p ? null : (await todayCard(c))?.card ?? null);
   }, []);
 
   // 回到首頁時重讀孩子清單（建檔、交接匯入、封存後都可能變），並刷新目前孩子的狀態。
@@ -135,8 +140,9 @@ export default function Home() {
 
   return (
     <View style={styles.page}>
-      <TopBar title={<ChildTitle subtitle={subtitle} />} sky skyRight={112} right={
+      <TopBar title={<ChildTitle subtitle={subtitle} />} sky skyRight={156} right={
         <View style={[styles.row, { gap: 8 }]}>
+          <IconButton name="search" label="問問看，搜尋官方內容" onPress={() => router.push('/search')} />
           <IconButton name="share-2" label="同步與交接" onPress={() => router.push('/sync')} />
           <IconButton name={night ? 'sun' : 'moon'} label={night ? '切換日間模式' : '切換夜間模式'} onPress={() => setMode(night ? 'day' : 'night')} />
         </View>
@@ -169,6 +175,8 @@ export default function Home() {
             </View>
           </Banner>
         ) : null}
+
+        {!paused && !night && today1 ? <TodayCard card={today1} onDismiss={async () => { setToday1(null); await dismissToday(child.id); }} /> : null}
 
         {paused ? (
           <Card style={{ gap: 8 }}>

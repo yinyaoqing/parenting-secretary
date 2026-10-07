@@ -36,7 +36,7 @@ export default function Medication() {
         <Field label="劑量（可留空）">
           <Input value={dose} onChangeText={setDose} placeholder="照藥袋寫，例如 2.5 ml" accessibilityLabel="劑量" />
         </Field>
-        <Field label="下次最早可給的間隔" hint="間隔以藥袋或醫囑為準。倒數提醒的通知功能製作中，目前只保存紀錄。">
+        <Field label="下次最早可給的間隔" hint="間隔以藥袋或醫囑為準。到時間會發一則通知，可在設定 › 提醒關閉。">
           <View style={styles.chips}>
             {INTERVALS.map(([h, l]) => <Chip key={l} label={l} on={interval === h} onPress={() => setInterval(h)} />)}
           </View>

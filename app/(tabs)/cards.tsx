@@ -7,7 +7,7 @@ import { cardsForAge, safetyCards } from '../../src/content/loader';
 import type { ContentCard } from '../../src/content/types';
 import { ageLabel, daysSince, correctedDays } from '../../src/util/age';
 import { useTheme } from '../../src/ui/useTheme';
-import { Screen, TopBar, Chip, Card, Badge, Section, ListCard, ListRow, Icon } from '../../src/ui/components';
+import { Screen, TopBar, Chip, Card, Badge, Section, ListCard, ListRow, Icon, PickRow } from '../../src/ui/components';
 import { Hero, artForCard } from '../../src/ui/art';
 
 type Filter = 'all' | 'safety' | 'dev' | 'feeding';
@@ -46,6 +46,7 @@ export default function Cards() {
     <View style={styles.page}>
       <TopBar title={active ? <ChildTitle subtitle={subtitle} /> : '內容'} subtitle={active ? undefined : subtitle} />
       <Screen>
+        <PickRow icon="search" placeholder="問問看：吐奶、睡過夜、補助…" onPress={() => router.push('/search')} accessibilityLabel="問問看，搜尋官方內容" />
         <View style={[styles.chips, { flexWrap: 'nowrap' }]}>
           <Chip label="全部" sm on={filter === 'all'} onPress={() => setFilter('all')} />
           <Chip label="安全" sm on={filter === 'safety'} onPress={() => setFilter('safety')} />

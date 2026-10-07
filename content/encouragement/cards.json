@@ -1,0 +1,973 @@
+{
+  "_comment": "「今天一句」鼓勵小卡。三類：official 逐字引用國健署原文（A1）；plain 產品自寫的描述句，不評價表現；thought 思想模擬，依某位思想家或學派的觀點改寫，標示為模擬，quote 只放原典查得到的句子並附出處。全部固定寫在這裡，不即時生成。不依孩子性別挑選；依年齡階段（stage）與照顧者處境（contexts）挑選。一天最多一張，夜間不出現，可關閉。 文學角色（genre=literary）只用作者逝世超過 50 年、在台灣已屬公共領域的作品；內容是依角色性格改寫的模擬，不翻譯原文句子。",
+  "version": "2026-10-08",
+  "stages": {
+    "newborn": [
+      0,
+      90
+    ],
+    "infant": [
+      91,
+      365
+    ],
+    "toddler": [
+      366,
+      1095
+    ],
+    "preschool": [
+      1096,
+      2190
+    ],
+    "school": [
+      2191,
+      4380
+    ],
+    "teen": [
+      4381,
+      6570
+    ]
+  },
+  "cards": [
+    {
+      "id": "official.imperfect",
+      "kind": "official",
+      "voice": "國民健康署",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler",
+        "preschool"
+      ],
+      "body": "沒有人是完美的，所有父母都有不足之處，不必太在意，從中記取經驗比相互指責更為重要。",
+      "source": {
+        "name": "國民健康署孕產兒關懷網站：給新手爸媽的話&爸媽的心理調適",
+        "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3619&type=01",
+        "license": "A1"
+      }
+    },
+    {
+      "id": "official.trust-yourself",
+      "kind": "official",
+      "voice": "國民健康署",
+      "stages": [
+        "newborn",
+        "infant"
+      ],
+      "body": "相信自己的能力，您會做得非常好，而且每一天都在學習新的事物。",
+      "source": {
+        "name": "國民健康署孕產兒關懷網站：給新手爸媽的話&爸媽的心理調適",
+        "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3619&type=01",
+        "license": "A1"
+      }
+    },
+    {
+      "id": "official.rest-when-baby-sleeps",
+      "kind": "official",
+      "voice": "國民健康署",
+      "stages": [
+        "newborn"
+      ],
+      "body": "在寶寶睡覺時，嘗試也跟著一起休息或睡覺，但須在不同床鋪。記得照顧好自己，才有精力照顧寶寶。",
+      "source": {
+        "name": "國民健康署孕產兒關懷網站：新生兒-出生至十個月 你會關心的事",
+        "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3624&type=01",
+        "license": "A1"
+      }
+    },
+    {
+      "id": "official.ask-for-help",
+      "kind": "official",
+      "voice": "國民健康署",
+      "stages": [
+        "newborn",
+        "infant"
+      ],
+      "contexts": [
+        "night"
+      ],
+      "body": "當心情不好或連續幾天覺得好累時，記得找家人或朋友幫忙。",
+      "source": {
+        "name": "國民健康署孕產兒關懷網站：新生兒-出生至十個月 你會關心的事",
+        "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3624&type=01",
+        "license": "A1"
+      }
+    },
+    {
+      "id": "official.reward-yourself",
+      "kind": "official",
+      "voice": "國民健康署",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "定期獎賞自己。放鬆或做一些開心的事情，像是找時間去散步，和父母、另一半或朋友享受一頓美好的晚餐。",
+      "source": {
+        "name": "國民健康署孕產兒關懷網站：給新手爸媽的話&爸媽的心理調適",
+        "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3619&type=01",
+        "license": "A1"
+      }
+    },
+    {
+      "id": "official.single-no-guilt",
+      "kind": "official",
+      "voice": "國民健康署",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "contexts": [
+        "single"
+      ],
+      "body": "不要對您的孩子感到內疚，很多家庭也有同樣遭遇，您不需要懲罰自己，或是用溺愛來彌補孩子。",
+      "source": {
+        "name": "國民健康署孕產兒關懷網站：新生兒-給單親爸爸媽媽",
+        "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3620&type=01",
+        "license": "A1"
+      }
+    },
+    {
+      "id": "official.back-to-work",
+      "kind": "official",
+      "voice": "國民健康署",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler"
+      ],
+      "contexts": [
+        "work"
+      ],
+      "body": "每一次調適都不輕鬆，這是為人父母必經的學習過程，您會習慣生活上的變動和新安排。",
+      "source": {
+        "name": "國民健康署孕產兒關懷網站：給新手爸媽的話&爸媽的心理調適",
+        "url": "https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3619&type=01",
+        "license": "A1"
+      }
+    },
+    {
+      "id": "plain.night-count",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler"
+      ],
+      "contexts": [
+        "night"
+      ],
+      "template": "night",
+      "body": "昨晚你起來了 {n} 次。今天有沒有人可以換你睡一小時？",
+      "action": "help"
+    },
+    {
+      "id": "plain.first-days",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "newborn"
+      ],
+      "body": "這幾天你做的每一件事，餵、抱、換、哄，都是第一次。不順手是正常的，不是你的問題。"
+    },
+    {
+      "id": "plain.no-need-to-record",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler"
+      ],
+      "body": "沒記的日子不會有任何提醒。你今天可以只照顧孩子，不照顧這個 APP。"
+    },
+    {
+      "id": "plain.someone-sees",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "newborn",
+        "infant"
+      ],
+      "body": "很多事只有你知道：半夜那幾次，白天那幾次。這裡記下來了，不只你一個人記得。"
+    },
+    {
+      "id": "plain.slow-week",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "infant",
+        "toddler"
+      ],
+      "body": "這週孩子沒有新把戲也沒關係。發展不是每週都要交作業。"
+    },
+    {
+      "id": "plain.checkin",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "contexts": [
+        "streak"
+      ],
+      "body": "你已經連續一週每天晚上都在。要不要花 10 秒，也記一下自己今天的狀態？",
+      "action": "checkin"
+    },
+    {
+      "id": "plain.preterm",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "newborn",
+        "infant"
+      ],
+      "contexts": [
+        "preterm"
+      ],
+      "body": "矯正月齡才是孩子現在的時鐘。別人的孩子幾個月會什麼，跟你的孩子無關。"
+    },
+    {
+      "id": "plain.grandparent",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "contexts": [
+        "grandparent"
+      ],
+      "body": "你帶大過孩子，現在又帶一個。有些做法變了，但耐心沒有變。"
+    },
+    {
+      "id": "plain.school-age",
+      "kind": "plain",
+      "voice": "育兒秘書",
+      "stages": [
+        "school",
+        "teen"
+      ],
+      "body": "孩子大了，需要你的方式變了，不代表不需要你。"
+    },
+    {
+      "id": "thought.winnicott.good-enough",
+      "kind": "thought",
+      "school": "客體關係（Winnicott）",
+      "voice": "如果是 Winnicott",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler"
+      ],
+      "body": "他會說，孩子需要的不是完美的媽媽，而是「夠好」的媽媽。夠好的意思是：大多數時候在，偶爾沒接住也沒關係，孩子正是在那些小小的落差裡學會等待。",
+      "source": {
+        "name": "Winnicott, D. W. (1953). Transitional objects and transitional phenomena. International Journal of Psychoanalysis, 34. 「good-enough mother」一詞出處",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.tronick.repair",
+      "kind": "thought",
+      "school": "嬰兒研究（Tronick）",
+      "voice": "如果是 Tronick",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool"
+      ],
+      "body": "他的研究發現，媽媽和寶寶之間大部分時間其實對不上拍，重要的是對不上之後再對回來。你今天不耐煩了一下、然後回頭抱他，那個「回頭」就是孩子學到的東西。",
+      "source": {
+        "name": "Tronick, E. (2007). The Neurobehavioral and Social-Emotional Development of Infants and Children. W. W. Norton.「rupture and repair」概念",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.bion.container",
+      "kind": "thought",
+      "school": "精神分析（Bion）",
+      "voice": "如果是 Bion",
+      "stages": [
+        "newborn",
+        "infant"
+      ],
+      "body": "他把照顧者比喻成容器：孩子把承受不了的感覺丟過來，你先接住、放一放，再用他能承受的方式還回去。你覺得被哭聲塞滿，是因為你正在做這件事。",
+      "source": {
+        "name": "Bion, W. R. (1962). Learning from Experience. Heinemann.「container/contained」概念",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.adler.courage-imperfect",
+      "kind": "thought",
+      "school": "阿德勒學派",
+      "voice": "如果是阿德勒學派",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "這個學派談「不完美的勇氣」：允許自己今天做得不夠好，明天還是願意再來。他們也區分鼓勵和讚美：讚美看結果，鼓勵看過程。這句話對你自己也適用。",
+      "source": {
+        "name": "Dreikurs, R. (1957). The Courage to Be Imperfect. 芝加哥演講。Dreikurs & Soltz (1964). Children: The Challenge.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.adler.community",
+      "kind": "thought",
+      "school": "阿德勒學派",
+      "voice": "如果是阿德勒",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool"
+      ],
+      "body": "阿德勒認為人的健康來自「社會情懷」，也就是感覺自己屬於某個群體、對它有貢獻。孩子從你身上學這件事；而你也需要你的群體。找人說話不是示弱，是他理論裡的核心。",
+      "source": {
+        "name": "Adler, A. (1927). Menschenkenntnis（Understanding Human Nature）.「Gemeinschaftsgefühl」概念",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.rogers.regard",
+      "kind": "thought",
+      "school": "人本學派（Rogers）",
+      "voice": "如果是 Rogers",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "body": "他主張「無條件正向關懷」：接納這個人，不等於同意他每個行為。孩子鬧脾氣時，你可以不接受那個行為，同時仍然接受這個孩子。對自己也可以這樣。",
+      "source": {
+        "name": "Rogers, C. R. (1957). The necessary and sufficient conditions of therapeutic personality change. Journal of Consulting Psychology, 21(2).",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.erikson.trust",
+      "kind": "thought",
+      "school": "心理社會發展（Erikson）",
+      "voice": "如果是 Erikson",
+      "stages": [
+        "newborn",
+        "infant"
+      ],
+      "body": "他把第一年叫做「信任對不信任」：孩子在學的只有一件事，就是這個世界會不會回應我。你每一次出現，都是在回答這個問題。不需要每次都快，只需要大多數時候有來。",
+      "source": {
+        "name": "Erikson, E. H. (1950). Childhood and Society. W. W. Norton. 第七章",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.erikson.autonomy",
+      "kind": "thought",
+      "school": "心理社會發展（Erikson）",
+      "voice": "如果是 Erikson",
+      "stages": [
+        "toddler"
+      ],
+      "body": "一到三歲是「自主對羞愧」：孩子什麼都要自己來，弄得一團亂。他會說，那團亂是孩子在練習「我可以」。你清理的不是失敗，是練習的痕跡。",
+      "source": {
+        "name": "Erikson, E. H. (1950). Childhood and Society. W. W. Norton. 第七章",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.erikson.initiative",
+      "kind": "thought",
+      "school": "心理社會發展（Erikson）",
+      "voice": "如果是 Erikson",
+      "stages": [
+        "preschool"
+      ],
+      "body": "三到六歲是「主動對罪惡感」：孩子開始提計畫、問為什麼、扮演大人。他會說，這時候孩子需要的是有人把他的主意當真，哪怕計畫行不通。",
+      "source": {
+        "name": "Erikson, E. H. (1950). Childhood and Society. W. W. Norton. 第七章",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.erikson.industry",
+      "kind": "thought",
+      "school": "心理社會發展（Erikson）",
+      "voice": "如果是 Erikson",
+      "stages": [
+        "school"
+      ],
+      "body": "小學階段是「勤奮對自卑」：孩子在學校第一次被拿來比較。他會說，家裡要做的不是再比一次，而是讓孩子有一個地方，他做的事本身就算數。",
+      "source": {
+        "name": "Erikson, E. H. (1950). Childhood and Society. W. W. Norton. 第七章",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.erikson.identity",
+      "kind": "thought",
+      "school": "心理社會發展（Erikson）",
+      "voice": "如果是 Erikson",
+      "stages": [
+        "teen"
+      ],
+      "body": "青少年在做的是「我是誰」。他會說，孩子推開你，是在確認自己不是你；而他能放心推開，是因為知道你不會真的走掉。",
+      "source": {
+        "name": "Erikson, E. H. (1968). Identity: Youth and Crisis. W. W. Norton.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.jung.projection",
+      "kind": "thought",
+      "school": "分析心理學（榮格）",
+      "voice": "如果是榮格",
+      "stages": [
+        "school",
+        "teen"
+      ],
+      "body": "他會提醒：父母最容易把自己沒做到的事放到孩子身上，要孩子替自己完成。看見這一點，就能把孩子的人生還給孩子，也把自己的還給自己。",
+      "source": {
+        "name": "Jung, C. G. (1954). The Development of Personality. Collected Works vol. 17. 其中論及父母未活出的生命對孩子的影響；網路流傳的「孩子最沉重的負擔」一句未在原典查得，故不引用",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.stoic.control",
+      "kind": "thought",
+      "school": "斯多噶學派",
+      "voice": "如果是愛比克泰德",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "body": "他會先問你：這件事在你手上嗎？孩子今晚睡不睡、別人怎麼看你，不在；你怎麼回應、要不要休息，在。把力氣放在後面那一半。",
+      "quote": {
+        "text": "有些事情在我們的掌控之內，有些則不在。",
+        "source": "愛比克泰德《手冊》第 1 節，依希臘原文意譯"
+      },
+      "source": {
+        "name": "Epictetus, Enchiridion, 1.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.marcus.morning",
+      "kind": "thought",
+      "school": "斯多噶學派",
+      "voice": "如果是馬可・奧理略",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler"
+      ],
+      "contexts": [
+        "night"
+      ],
+      "body": "他在日記裡寫過早上不想起床的自己。他會說，你起來不是因為不累，是因為有人在等你，而這正是人會做的事。累是真的，起來也是真的。",
+      "quote": {
+        "text": "清晨不願起身時，想想：我是為了人的工作而起。",
+        "source": "馬可・奧理略《沉思錄》第五卷第 1 節，意譯"
+      },
+      "source": {
+        "name": "Marcus Aurelius, Meditations, 5.1.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.seneca.imagination",
+      "kind": "thought",
+      "school": "斯多噶學派",
+      "voice": "如果是塞內卡",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "他會說，我們在想像裡受的苦，常常多過實際發生的。孩子還沒出事，你已經先在腦中走完最壞的版本。注意到這一點，就可以回到現在這一刻。",
+      "quote": {
+        "text": "我們在想像中受苦，多於在現實中。",
+        "source": "塞內卡《道德書簡》第 13 封，意譯"
+      },
+      "source": {
+        "name": "Seneca, Epistulae Morales ad Lucilium, 13.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.laozi.raise-without-owning",
+      "kind": "thought",
+      "school": "道家",
+      "voice": "如果是老子",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "body": "他談的是生養卻不佔有，做了卻不居功，帶大了卻不主宰。孩子越大，這三句越難，也越重要。",
+      "quote": {
+        "text": "生而不有，為而不恃，長而不宰，是謂玄德。",
+        "source": "《道德經》第五十一章"
+      },
+      "source": {
+        "name": "《老子》第五十一章",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.laozi.small-steps",
+      "kind": "thought",
+      "school": "道家",
+      "voice": "如果是老子",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler"
+      ],
+      "body": "他會說，大事都是從細小的事累積的。今天一次餵奶、一次換尿布，看起來什麼都不是，加起來就是一個人被養大。",
+      "quote": {
+        "text": "天下難事，必作於易；天下大事，必作於細。",
+        "source": "《道德經》第六十三章"
+      },
+      "source": {
+        "name": "《老子》第六十三章",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.zhuangzi.moisten",
+      "kind": "thought",
+      "school": "道家",
+      "voice": "如果是莊子",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler",
+        "preschool"
+      ],
+      "contexts": [
+        "night",
+        "single"
+      ],
+      "body": "他寫過乾涸池裡的魚，彼此用口水濕潤對方。他會說，你現在需要的不是一片大海，是另一條魚。找一個人，今天互相潤一下。",
+      "quote": {
+        "text": "泉涸，魚相與處於陸，相呴以濕，相濡以沫。",
+        "source": "《莊子・大宗師》"
+      },
+      "source": {
+        "name": "《莊子》內篇〈大宗師〉",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.mencius.child-heart",
+      "kind": "thought",
+      "school": "儒家",
+      "voice": "如果是孟子",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "他說真正成熟的人，是沒有失去孩子那顆心的人。孩子蹲在路邊看螞蟻看半小時，你跟著蹲下去的那一刻，就是他說的那顆心。",
+      "quote": {
+        "text": "大人者，不失其赤子之心者也。",
+        "source": "《孟子・離婁下》"
+      },
+      "source": {
+        "name": "《孟子》離婁下",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.confucius.no-displacement",
+      "kind": "thought",
+      "school": "儒家",
+      "voice": "如果是孔子",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "body": "他稱讚顏回的，只有兩件事：不把氣出在別人身上，同樣的錯不犯第二次。他沒有說顏回不生氣。你今天生氣了，氣沒有落到孩子身上，就已經是這句話。",
+      "quote": {
+        "text": "不遷怒，不貳過。",
+        "source": "《論語・雍也》"
+      },
+      "source": {
+        "name": "《論語》雍也第六",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.confucius.haste",
+      "kind": "thought",
+      "school": "儒家",
+      "voice": "如果是孔子",
+      "stages": [
+        "toddler",
+        "preschool"
+      ],
+      "body": "戒尿布、自己吃飯、學會等待，他會說急不來。想快一點反而到不了，這不是安慰，是他對學生說的方法。",
+      "quote": {
+        "text": "欲速則不達。",
+        "source": "《論語・子路》"
+      },
+      "source": {
+        "name": "《論語》子路第十三",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.aristotle.habit",
+      "kind": "thought",
+      "school": "亞里斯多德",
+      "voice": "如果是亞里斯多德",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "他認為品格不是教出來的，是做出來的：做公正的事，人才變公正。孩子看你怎麼道歉、怎麼等、怎麼收拾，比聽你說一百次更有用。你也一樣，在做的過程裡變成那樣的人。",
+      "source": {
+        "name": "Aristotle, Nicomachean Ethics, II.1 (1103a–b).",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.kierkegaard.forwards",
+      "kind": "thought",
+      "school": "存在主義（齊克果）",
+      "voice": "如果是齊克果",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "body": "他會說，人生只能往前活，卻只能往回理解。你現在不知道這樣帶對不對，是因為你正在活它。理解會晚一點來，而且通常比你現在擔心的寬容。",
+      "quote": {
+        "text": "人生只能回頭理解，卻必須向前活。",
+        "source": "齊克果《日記》1843 年，意譯"
+      },
+      "source": {
+        "name": "Kierkegaard, S. Journals and Papers, 1843 (JP 1030).",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.weil.attention",
+      "kind": "thought",
+      "school": "西蒙・韋伊",
+      "voice": "如果是西蒙・韋伊",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "body": "她認為注意力是最純粹的慷慨。你放下手機看孩子三分鐘，什麼都沒做，但那三分鐘是你今天最大方的時刻。",
+      "quote": {
+        "text": "注意力是最罕見、最純粹的慷慨。",
+        "source": "西蒙・韋伊致 Joë Bousquet 的信，1942 年，意譯"
+      },
+      "source": {
+        "name": "Weil, S. (1942). Letter to Joë Bousquet, 13 April 1942. 收錄於 Correspondance.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.frankl.meaning",
+      "kind": "thought",
+      "school": "意義治療（Frankl）",
+      "voice": "如果是 Frankl",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "contexts": [
+        "night",
+        "preterm"
+      ],
+      "body": "他在集中營裡觀察到，能撐過去的人，是心裡有一個「為了誰」的人。你半夜起來的那個「為了誰」就睡在旁邊。累不會因此消失，但會有方向。",
+      "source": {
+        "name": "Frankl, V. E. (1946). Ein Psycholog erlebt das Konzentrationslager（Man's Search for Meaning）. 網路常見的「刺激與反應之間有空間」一句非 Frankl 原文，故不引用",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.nietzsche.why",
+      "kind": "thought",
+      "school": "尼采",
+      "voice": "如果是尼采",
+      "stages": [
+        "school",
+        "teen"
+      ],
+      "body": "他寫過：有了為什麼而活，幾乎什麼樣的怎麼活都能忍受。青春期的孩子正在找他的為什麼，而你的為什麼，不必只剩下他。",
+      "quote": {
+        "text": "一個人若知道為何而活，幾乎能承受任何生活方式。",
+        "source": "尼采《偶像的黃昏》〈箴言與箭〉第 12 節，意譯"
+      },
+      "source": {
+        "name": "Nietzsche, F. (1889). Götzen-Dämmerung, Sprüche und Pfeile, 12.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.ainsworth.secure-base",
+      "kind": "thought",
+      "school": "依附理論（Bowlby、Ainsworth）",
+      "voice": "如果是依附理論",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool"
+      ],
+      "body": "這個理論把照顧者叫做「安全堡壘」：孩子跑出去探索，回頭確認你還在，再跑遠一點。黏人和獨立不是相反的，前者是後者的起點。",
+      "source": {
+        "name": "Ainsworth, M. D. S., Blehar, M. C., Waters, E., & Wall, S. (1978). Patterns of Attachment. Erlbaum.「secure base」概念",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.marmee",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《小婦人》的馬區太太",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "body": "她帶四個女兒，自己也會發脾氣。她對喬說過，她花了四十年學著不把怒氣說出口。她會告訴你：生氣不是失敗，每天少說一句，就是在練。",
+      "source": {
+        "name": "Alcott, L. M. (1868). Little Women. 作者 1888 年逝世，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.anne",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《清秀佳人》的安妮",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "她總說明天是全新的一天，還沒有任何錯誤。今天打翻的、哭過的、沒做到的，到了明天早上都不算數。她會要你先睡，明天再說。",
+      "source": {
+        "name": "Montgomery, L. M. (1908). Anne of Green Gables. 作者 1942 年逝世，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.alice",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《愛麗絲夢遊仙境》的愛麗絲",
+      "stages": [
+        "toddler",
+        "preschool"
+      ],
+      "body": "她掉進一個規則每天都變的世界，一下太大一下太小。她會說：帶兩歲的孩子就是這樣，昨天管用的今天不管用，這不是你的錯，是地方的問題。",
+      "source": {
+        "name": "Carroll, L. (1865). Alice's Adventures in Wonderland. 作者 1898 年逝世，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.tom",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《湯姆歷險記》的湯姆",
+      "stages": [
+        "preschool",
+        "school"
+      ],
+      "body": "他發現只要把刷籬笆說成只有他能做的事，全村的孩子都搶著來刷。他會建議你：收玩具、刷牙、穿襪子，別說「去做」，說「你會嗎？」",
+      "source": {
+        "name": "Twain, M. (1876). The Adventures of Tom Sawyer. 作者 1910 年逝世，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.heidi",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《海蒂》的爺爺",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "contexts": [
+        "grandparent"
+      ],
+      "body": "他一個人在山上，什麼都不會帶孩子，後來只做了幾件事：讓她吃飽、讓她跑、晚上有乾草可以睡。他會說，大部分時候，這樣就夠了。",
+      "source": {
+        "name": "Spyri, J. (1881). Heidi. 作者 1901 年逝世，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.judy",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《長腿叔叔》的茱蒂",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler"
+      ],
+      "contexts": [
+        "single",
+        "night"
+      ],
+      "body": "她在孤兒院長大，寫信給一個沒見過面的人，寫了四年。她會說，有人聽你說今天發生了什麼，比有人替你解決重要。今天找一個人說一句。",
+      "source": {
+        "name": "Webster, J. (1912). Daddy-Long-Legs. 作者 1916 年逝世，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.mary",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《秘密花園》的瑪麗",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "她發現一個鎖了十年的花園，沒有人教她，她就每天去拔草。她會說，孩子不需要你知道怎麼做，只需要你每天都來。",
+      "source": {
+        "name": "Burnett, F. H. (1911). The Secret Garden. 作者 1924 年逝世，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.petitprince",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《小王子》裡的狐狸",
+      "stages": [
+        "infant",
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "狐狸說，你為一朵花花過的時間，讓那朵花變得重要。你在這孩子身上花的時間，沒有人看見，但正是那些時間讓他變成你的孩子，也讓你變成他的。",
+      "source": {
+        "name": "Saint-Exupéry, A. de (1943). Le Petit Prince. 作者 1944 年逝世，在台灣屬公共領域；此為依角色改寫，非原文翻譯",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.quixote",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《唐吉訶德》的桑丘",
+      "stages": [
+        "preschool",
+        "school",
+        "teen"
+      ],
+      "body": "他跟著一個把風車當巨人的主人走遍西班牙，一路抱怨，一路沒離開。他會說，孩子今天又把什麼小事當成天大的事，你不必相信那是巨人，陪他走過去就好。",
+      "source": {
+        "name": "Cervantes, M. de (1605). Don Quijote. 作者 1616 年逝世，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.wukong",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《西遊記》的孫悟空",
+      "stages": [
+        "preschool",
+        "school"
+      ],
+      "body": "他翻了十萬八千里，還在如來手掌上。他會說，小孩以為自己很厲害，你知道他還在你手掌上；讓他翻，手掌不用收。",
+      "source": {
+        "name": "吳承恩《西遊記》，明代，公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.peterpan",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《彼得潘》的溫蒂",
+      "stages": [
+        "toddler",
+        "preschool",
+        "school"
+      ],
+      "body": "她去了永無島，當了一群男孩的媽媽，最後還是決定長大回家。她會說，你有時候想逃到一個沒有責任的地方，那很正常；想一下，然後回來，也很正常。",
+      "source": {
+        "name": "Barrie, J. M. (1911). Peter and Wendy. 作者 1937 年逝世，在台灣屬公共領域",
+        "license": "C"
+      }
+    },
+    {
+      "id": "literary.santiago",
+      "kind": "thought",
+      "genre": "literary",
+      "school": "文學角色",
+      "voice": "如果是《老人與海》的老人",
+      "stages": [
+        "newborn",
+        "infant",
+        "toddler"
+      ],
+      "contexts": [
+        "night"
+      ],
+      "body": "他八十四天沒釣到魚，第八十五天還是出海。他不會跟你談運氣，他會說：今天也出海了，這件事本身就算數。",
+      "source": {
+        "name": "Hemingway, E. (1952). The Old Man and the Sea. 作者 1961 年逝世，在台灣屬公共領域；此為依角色改寫",
+        "license": "C"
+      }
+    }
+  ]
+}

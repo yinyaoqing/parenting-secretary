@@ -28,11 +28,13 @@ export default function Settings() {
   const [profile, setProfile] = useState<StyleProfile | null>(null);
   const [paused, setPaused] = useState(false);
   const [remote, setRemote] = useState<RemoteStatus | null>(null);
+  const [encourage, setEncourage] = useState(true);
   const [notify, setNotify] = useState<Record<string, boolean>>({ safetyNet: true, medication: true, schedule: true, public: true });
 
   useFocusEffect(useCallback(() => {
     reload();
     syncRemote().then(setRemote).catch(() => undefined);
+    getSetting('encourage').then((v) => setEncourage(v !== '0'));
     getSetting('pausedUntil').then((v) => setPaused(!!v && new Date(v).getTime() > Date.now()));
     Promise.all(NOTIFY_KEYS.map((k) => getSetting(`notify:${k}`))).then((vs) => setNotify(Object.fromEntries(NOTIFY_KEYS.map((k, i) => [k, vs[i] !== '0']))));
   }, [reload]));
@@ -94,6 +96,7 @@ export default function Settings() {
         <Label t="照顧者" />
         <ListCard>
           <ListRow first icon="heart" main="照顧好自己" sub="10 秒打卡、專線與資源、請別人幫忙。不計分，只存在這支手機" chevron onPress={() => router.push('/caregiver')} />
+          <ListRow main="今天一句" sub="每天第一次打開時一句話：國健署原文、陪伴句，或哲學家與文學角色的思想模擬。不評分，夜間不出現" right={<Switch value={encourage} onValueChange={async (v) => { setEncourage(v); await setSetting('encourage', v ? '1' : '0'); }} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="今天一句" />} />
         </ListCard>
 
         <Label t="同步與交接" />
