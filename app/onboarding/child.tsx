@@ -6,6 +6,8 @@ import { useChildren } from '../../src/ui/ChildContext';
 import { PRESETS } from '../../src/style/questionnaire';
 import type { FeedingMethod, Location } from '../../src/db/types';
 import { toIsoDate } from '../../src/util/datetime';
+import { daysSince } from '../../src/util/age';
+import { locationsForAge } from '../../src/home/location';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Progress, Field, Input, Chip, Opt, Card, SwitchRow, PrimaryButton, GhostButton } from '../../src/ui/components';
 import { DatePick } from '../../src/ui/DatePick';
@@ -18,13 +20,8 @@ const FEEDING: { key: FeedingMethod; label: string }[] = [
   { key: 'mixed', label: '混合' },
 ];
 
-const LOCATION: { key: Location; label: string }[] = [
-  { key: 'home', label: '在家' },
-  { key: 'postnatal_center', label: '產後護理之家' },
-  { key: 'daycare', label: '托嬰中心或保母' },
-];
 
-// 特殊情境：措辭為「你想多看哪些資源」，可不選（v0.8 D6-7）。上架 7 種，其餘標即將推出。
+// 特殊情境：措辭為「你想多看哪些資源」，可不選（v0.8 D6-7）。上架 7 種；soon 的三種先不顯示（商店不接受「即將推出」佔位）。
 const CONTEXTS: { key: string; label: string; soon?: boolean }[] = [
   { key: 'preterm', label: '早產兒' },
   { key: 'multiple', label: '多胞胎' },
@@ -140,7 +137,7 @@ export default function ChildForm() {
           </Field>
           <Field label="孩子現在主要在哪裡">
             <View style={{ gap: 8 }}>
-              {LOCATION.map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}
+              {locationsForAge(birthDate ? daysSince(toIsoDate(birthDate)) : null, location).map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}
             </View>
           </Field>
           {location === 'postnatal_center' ? (
@@ -165,10 +162,6 @@ export default function ChildForm() {
             ))}
           </View>
           {isPreterm ? <Text style={styles.muted}>早產兒已依預產期自動勾選。</Text> : null}
-          <Text style={[styles.label, { marginTop: 6 }]}>即將推出</Text>
-          <View style={styles.chips}>
-            {CONTEXTS.filter((c) => c.soon).map((c) => <Chip key={c.key} label={c.label} off />)}
-          </View>
         </Screen>
       ) : null}
     </View>

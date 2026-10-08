@@ -5,15 +5,14 @@ import { getChild, updateChild, archiveChild } from '../../src/db/repo';
 import { useChildren } from '../../src/ui/ChildContext';
 import type { Child, FeedingMethod, Location } from '../../src/db/types';
 import { fromIsoDate, toIsoDate } from '../../src/util/datetime';
+import { daysSince } from '../../src/util/age';
+import { locationsForAge } from '../../src/home/location';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Field, Input, Chip, Opt, Card, SwitchRow, PrimaryButton, GhostButton, Badge } from '../../src/ui/components';
 import { DatePick } from '../../src/ui/DatePick';
 
 const FEEDING: { key: FeedingMethod; label: string }[] = [
   { key: 'breast', label: '親餵母乳' }, { key: 'bottle_breastmilk', label: '瓶餵母乳' }, { key: 'formula', label: '配方奶' }, { key: 'mixed', label: '混合' },
-];
-const LOCATION: { key: Location; label: string }[] = [
-  { key: 'home', label: '在家' }, { key: 'postnatal_center', label: '產後護理之家' }, { key: 'daycare', label: '托嬰中心或保母' },
 ];
 const CONTEXTS: { key: string; label: string }[] = [
   { key: 'preterm', label: '早產兒' }, { key: 'multiple', label: '多胞胎' }, { key: 'dev_concern', label: '想了解發展評估資源' }, { key: 'disability_chronic', label: '身心障礙或慢性病' }, { key: 'new_immigrant', label: '新住民家庭' }, { key: 'grandparent', label: '隔代教養' }, { key: 'protection', label: '兒少保護資源' },
@@ -101,7 +100,7 @@ export default function EditChild() {
           <View style={styles.chips}>{FEEDING.map((f) => <Chip key={f.key} label={f.label} on={feeding === f.key} onPress={() => setFeeding(f.key)} />)}</View>
         </Field>
         <Field label="孩子現在主要在哪裡">
-          <View style={{ gap: 8 }}>{LOCATION.map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}</View>
+          <View style={{ gap: 8 }}>{locationsForAge(birth ? daysSince(toIsoDate(birth)) : null, location).map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}</View>
         </Field>
         {location === 'postnatal_center' ? <Field label="預定出所日"><DatePick value={until} onChange={setUntil} mode="date" label="預定出所日" /></Field> : null}
         <Card style={{ gap: 10 }}>

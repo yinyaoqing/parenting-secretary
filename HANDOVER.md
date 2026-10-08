@@ -86,6 +86,7 @@ scripts/build-content.mjs --release  送審版內容包：只含 review／publis
 scripts/build-legal.mjs 隱私權政策、服務條款、支援頁轉成 docs/data/*.html（GitHub Pages）
 src/release/profile.ts  送審版型 personal／org 與功能開關 FEATURES（決策第 10 項、plan-v1.0 第 1 章）；改一行切換，資料結構不變
 src/db/reminders.ts     倒數提醒（reminders 表 kind=timer）：新增、列出未到期、刪除、清掉已到期
+src/home/location.ts    照顧地點六種與依年齡篩選（建檔與編輯共用）
 src/home/buttons.ts     首頁按鈕依餵養方式與年齡的預設與自訂覆蓋（純函式）；體溫與用藥鍵受版型控制
 src/records/            pump（庫存）、share（分享今天文字）、csv（匯出），皆純函式含測試
 src/content/summary.ts  卡片一句話與分段折疊

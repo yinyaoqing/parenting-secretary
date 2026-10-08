@@ -5,7 +5,8 @@ export type ChildId = string;
 export type EventId = string;
 
 export type FeedingMethod = 'breast' | 'bottle_breastmilk' | 'formula' | 'mixed';
-export type Location = 'home' | 'postnatal_center' | 'daycare' | 'other';
+// 主要照顧地點：0 到 3 歲是家裡、月子中心、托嬰；3 到 6 歲多了幼兒園、共學團；學齡是學校（自學生也設籍學校）。地點切換首頁與時程（規劃 v1.0 第 3 章）。
+export type Location = 'home' | 'postnatal_center' | 'daycare' | 'kindergarten' | 'coop' | 'school' | 'other';
 
 export interface Child {
   id: ChildId;
@@ -34,6 +35,7 @@ export type EventType =
   | 'toilet.attempt'
   | 'sleep'
   | 'tummy_time'
+  | 'outdoor' // 戶外活動分鐘數（國健署近視防治：只記錄，不設目標）
   | 'growth'
   | 'temperature'
   | 'symptom'

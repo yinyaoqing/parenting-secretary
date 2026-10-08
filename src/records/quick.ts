@@ -45,6 +45,11 @@ export async function logTummyTime(childId: string, minutes: number, recordedBy:
   return addEvent({ childId, type: 'tummy_time', payload: { minutes }, startAt, ...by(recordedBy) });
 }
 
+// 戶外活動：只記分鐘數，不設目標、不算累計達標（R1）。
+export async function logOutdoor(childId: string, minutes: number, recordedBy: string, startAt?: string): Promise<Event> {
+  return addEvent({ childId, type: 'outdoor', payload: { minutes }, startAt, ...by(recordedBy) });
+}
+
 // 體溫：只記錄數字與部位，不產生任何判斷（紅線 R1）。
 export async function logTemperature(childId: string, celsius: number, site: TempSite, recordedBy: string, startAt?: string): Promise<Event> {
   if (!Number.isFinite(celsius) || celsius < 30 || celsius > 45) throw new Error('temperature out of range');

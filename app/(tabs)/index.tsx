@@ -260,6 +260,7 @@ export default function Home() {
           )}
           {show.temp ? <Big label="體溫" sub="數字與部位" icon="thermometer" onPress={() => router.push({ pathname: '/record/temperature', params: { childId: child.id } })} /> : null}
           {show.tummy ? <Big label="清醒趴臥" sub="幾分鐘" icon="user" onPress={() => router.push({ pathname: '/record/tummy', params: { childId: child.id } })} /> : null}
+          {show.outdoor ? <Big label="戶外活動" sub="今天出門幾分鐘" icon="sun" onPress={() => router.push({ pathname: '/record/outdoor', params: { childId: child.id } })} /> : null}
           {show.med ? <Big label="用藥" sub="只倒數間隔" icon="plus-circle" onPress={() => router.push({ pathname: '/record/medication', params: { childId: child.id } })} /> : null}
           {show.timer ? <Big label="倒數提醒" sub="你寫標題，到時通知" icon="clock" onPress={() => router.push({ pathname: '/record/timer', params: { childId: child.id } })} /> : null}
           <Big label="更多紀錄" sub={FEATURES.healthRecords ? '生長、症狀、就醫⋯' : '生長、日記'} icon="more-horizontal" onPress={() => router.push({ pathname: '/record/more', params: { childId: child.id } })} />

@@ -29,7 +29,7 @@ export function startOfToday(now = new Date()): string {
 const TYPE_LABEL: Record<string, string> = {
   'feed.breast': '親餵', 'feed.bottle': '瓶餵', 'feed.solid': '副食品', 'feed.pump': '擠奶', 'pump.use': '用掉一袋母乳',
   'diaper.wet': '濕尿布', 'diaper.dirty': '便便', 'diaper.both': '濕＋便', 'toilet.attempt': '如廁',
-  sleep: '睡眠', tummy_time: '清醒趴臥', growth: '生長', temperature: '體溫', symptom: '症狀',
+  sleep: '睡眠', tummy_time: '清醒趴臥', outdoor: '戶外活動', growth: '生長', temperature: '體溫', symptom: '症狀',
   medication: '用藥', visit: '就醫', milestone: '里程碑', mood_note: '情緒日記',
   'task.attempt': '坐小馬桶', 'task.start': '開始如廁訓練', 'task.pause': '如廁訓練先休息', 'task.complete': '如廁訓練完成',
 };
@@ -44,6 +44,7 @@ export function eventSummary(type: string, payload: Record<string, unknown>, sta
     case 'sleep': return endAt ? durationLabel(startAt, endAt) : `進行中 ${durationLabel(startAt)}`;
     case 'temperature': return `${p.celsius}°C（${siteLabel(String(p.site))}）`;
     case 'tummy_time': return `${p.minutes} 分`;
+    case 'outdoor': return `${p.minutes} 分`;
     case 'medication': return `${p.name ?? ''} ${p.doseText ?? ''}`;
     case 'feed.pump': return `${p.ml ?? ''} ml${p.store === 'fridge' ? ' 冷藏' : p.store === 'freezer' ? ' 冷凍' : ''}`;
     case 'pump.use': return `${p.store === 'freezer' ? '冷凍' : '冷藏'} ${p.ml ?? ''} ml`;
