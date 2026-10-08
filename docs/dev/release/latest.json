@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-08T13:51:59.470Z",
+  "publishedAt": "2026-10-08T15:05:14.460Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "feat: every age stage can enter 1.0 — care location, outdoor record, preschool and school admin items",
-  "updateGroupId": "49a984eb-d54a-449b-a237-3a76ce3b6901",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/49a984eb-d54a-449b-a237-3a76ce3b6901",
+  "message": "feat: county-aware policy, places, school-age schedule, learning record, MAS L1 hardening, B2G prep",
+  "updateGroupId": "00d9f4cd-cd06-431b-8ec5-c7ab6acfe483",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/00d9f4cd-cd06-431b-8ec5-c7ab6acfe483",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"
