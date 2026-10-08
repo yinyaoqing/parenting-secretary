@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { FEATURES } from '../../src/release/profile';
 import { View, Text, ScrollView } from 'react-native';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { deleteEvent, listEvents } from '../../src/db/events';
@@ -78,6 +79,8 @@ export default function Timeline() {
   const diapers = shown.filter((e) => e.type.startsWith('diaper.')).length;
   const meds = shown.filter((e) => e.type === 'medication').length;
   const temps = shown.filter((e) => e.type === 'temperature').length;
+  // 3 歲以上的摘要列：有健康紀錄的版型顯示體溫與用藥次數；沒有的版型只顯示睡眠與筆數。
+  const olderCells: [string, string][] = FEATURES.healthRecords ? [['睡眠', hm(sleepMin)], ['體溫', `${temps} 次`], ['用藥', `${meds} 次`]] : [['睡眠', hm(sleepMin)], ['紀錄', `${shown.length} 筆`]];
 
   const remove = async (id: string) => { await deleteEvent(id); setConfirmId(null); setSelected(null); load(); };
   const openEdit = (e: Event) => router.push({ pathname: '/record/edit', params: { childId: e.childId, eventId: e.id } });
@@ -102,7 +105,7 @@ export default function Timeline() {
   const next = dayIndex === 0 ? occ.find((o) => o.item.kind !== 'routine' && o.startMin > nowMin && hmToMin(o.item.time) === o.startMin) : undefined;
   const lastMed = events.find((e) => e.type === 'medication' && Number((e.payload as { intervalHours?: number }).intervalHours) > 0);
   const nextMedAt = lastMed ? new Date(lastMed.startAt).getTime() + Number((lastMed.payload as { intervalHours?: number }).intervalHours) * 3600000 : null;
-  const medDue = nextMedAt && nextMedAt > now ? nextMedAt : null;
+  const medDue = FEATURES.medicationLog && nextMedAt && nextMedAt > now ? nextMedAt : null;
 
   const subtitle = child ? `${child.nickname} · ${ageLabel(d)}` : undefined;
   const title = view === 'week' ? (school ? '課表' : '這一週') : view === 'day' ? `${dayLabel(days[dayIndex], nowDate)} ${days[dayIndex].getMonth() + 1}/${days[dayIndex].getDate()}` : '紀錄';
@@ -128,7 +131,7 @@ export default function Timeline() {
         {view === 'list' ? (
           <>
             <Card style={[styles.summary, { gap: 0 }]}>
-              {(older ? [['睡眠', hm(sleepMin)], ['體溫', `${temps} 次`], ['用藥', `${meds} 次`]] : [['親餵', `${breast} 次`], ['瓶餵', `${bottleMl} ml`], ['尿布', `${diapers} 片`], ['睡眠', hm(sleepMin)]]).map(([k, v], i) => (
+              {(older ? olderCells : [['親餵', `${breast} 次`], ['瓶餵', `${bottleMl} ml`], ['尿布', `${diapers} 片`], ['睡眠', hm(sleepMin)]]).map(([k, v], i) => (
                 <View key={k} style={[styles.summaryCell, i === 0 && styles.summaryCellFirst]}>
                   <Text style={styles.summaryK}>{k}</Text>
                   <Text style={styles.summaryV}>{v}</Text>
@@ -184,7 +187,7 @@ export default function Timeline() {
               </Banner>
             ) : null}
             <Card style={[styles.summary, { gap: 0 }]}>
-              {(older ? [['睡眠', hm(sleepMin)], ['體溫', `${temps} 次`], ['用藥', `${meds} 次`]] : [['睡眠', hm(sleepMin)], ['餵食', `${feeds} 次`], ['尿布', `${diapers} 片`]]).map(([k, v], i) => (
+              {(older ? olderCells : [['睡眠', hm(sleepMin)], ['餵食', `${feeds} 次`], ['尿布', `${diapers} 片`]]).map(([k, v], i) => (
                 <View key={k} style={[styles.summaryCell, i === 0 && styles.summaryCellFirst]}>
                   <Text style={styles.summaryK}>{k}</Text>
                   <Text style={[styles.summaryV, { fontSize: 15 }]} adjustsFontSizeToFit numberOfLines={1}>{v}</Text>

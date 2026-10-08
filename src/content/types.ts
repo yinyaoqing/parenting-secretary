@@ -46,4 +46,5 @@ export interface ContentCard {
   policyNumbers: boolean; // 政策數字卡：查核日期須在 90 天內
   updatedAt: string;
   status: 'draft' | 'review' | 'published';
+  profile?: 'org'; // 只在指定送審版型打包的卡（src/release/profile.ts）；沒有就是所有版型都出現
 }

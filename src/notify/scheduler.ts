@@ -6,6 +6,8 @@ import { listChildren, getSetting, setSetting } from '../db/repo';
 import { firstEventDate, lastEvent, listEvents, recentIntervalsMinutes } from '../db/events';
 import { listScheduleItems, getTemplateMode } from '../db/schedule';
 import { onDataChange } from '../db/changes';
+import { listTimers, purgeDueTimers } from '../db/reminders';
+import { FEATURES } from '../release/profile';
 import { safetyNetUpperBound, FEED_TYPES, FEED_CAP_MIN, FEED_PRIOR_MIN, NET_RECENT } from '../records/quick';
 import { anchorDate, occurrencesOn, addDaysIso, isoDate, parseDate } from '../timeline/plan';
 import { scheduleFor, CATEGORY_LABEL } from '../schedule/loader';
@@ -16,20 +18,23 @@ export const CHANNEL_ID = 'reminders';
 const DELAYS_KEY = 'notifyDelays';
 
 export async function getNotifySettings(): Promise<NotifySettings> {
-  const [p, a, b, c, d] = await Promise.all([getSetting('pausedUntil'), getSetting('notify:safetyNet'), getSetting('notify:medication'), getSetting('notify:schedule'), getSetting('notify:public')]);
-  return { paused: !!p && new Date(p).getTime() > Date.now(), safetyNet: a !== '0', medication: b !== '0', schedule: c !== '0', publicSchedule: d !== '0' };
+  const [p, a, b, t, c, d] = await Promise.all([getSetting('pausedUntil'), getSetting('notify:safetyNet'), getSetting('notify:medication'), getSetting('notify:timer'), getSetting('notify:schedule'), getSetting('notify:public')]);
+  // 用藥間隔通知只在開啟用藥紀錄的版型才存在（src/release/profile.ts）。
+  return { paused: !!p && new Date(p).getTime() > Date.now(), safetyNet: a !== '0', medication: FEATURES.medicationLog && b !== '0', timer: t !== '0', schedule: c !== '0', publicSchedule: d !== '0' };
 }
 
 async function gather(now: number): Promise<ChildNotifyInput[]> {
   const children = await listChildren();
   const out: ChildNotifyInput[] = [];
   const today = isoDate(new Date(now));
+  await purgeDueTimers(now); // 響過的倒數不留
   for (const c of children) {
     const ageDays = daysSince(c.birthDate);
-    const [lastFeed, intervals, meds, items, mode, firstSolid] = await Promise.all([
+    const [lastFeed, intervals, meds, timers, items, mode, firstSolid] = await Promise.all([
       lastEvent(c.id, FEED_TYPES),
       recentIntervalsMinutes(c.id, FEED_TYPES, NET_RECENT),
-      listEvents(c.id, { types: ['medication'], from: new Date(now - 3 * 86400000).toISOString(), limit: 50 }),
+      FEATURES.medicationLog ? listEvents(c.id, { types: ['medication'], from: new Date(now - 3 * 86400000).toISOString(), limit: 50 }) : Promise.resolve([]),
+      listTimers(c.id, now),
       listScheduleItems(c.id),
       getTemplateMode(c.id),
       firstEventDate(c.id, 'feed.solid'),
@@ -59,7 +64,7 @@ async function gather(now: number): Promise<ChildNotifyInput[]> {
     out.push({
       id: c.id, name: c.nickname, ageDays, lastFeedAt: lastFeed?.startAt,
       safetyNetMinutes: safetyNetUpperBound(intervals, FEED_PRIOR_MIN, FEED_CAP_MIN),
-      meds: [...lastByName.values()], occurrences, publicOpens,
+      meds: [...lastByName.values()], timers: timers.map((t) => ({ id: t.id, title: t.title, at: new Date(t.dueAt).getTime() })), occurrences, publicOpens,
     });
   }
   return out;
@@ -156,7 +161,7 @@ async function readLog(key: string): Promise<FireLog[]> {
 
 // 點開通知時記一筆，提醒疲勞就從這裡重新計算。
 export async function recordTap(kind: string): Promise<void> {
-  if (!['safetyNet', 'medication', 'schedule', 'public'].includes(kind)) return;
+  if (!['safetyNet', 'medication', 'timer', 'schedule', 'public'].includes(kind)) return;
   const tapped = await readLog('notify:tapped');
   await setSetting('notify:tapped', JSON.stringify([...tapped, { kind, at: Date.now() }].slice(-40)));
 }
@@ -164,7 +169,8 @@ export async function recordTap(kind: string): Promise<void> {
 // 連續兩次沒點開、而且還沒問過的提醒種類，首頁問一次要不要關。
 export async function fatigueToAsk(): Promise<NotifyKind | null> {
   const [fired, tapped, s] = await Promise.all([readLog('notify:fired'), readLog('notify:tapped'), getNotifySettings()]);
-  const on: Record<NotifyKind, boolean> = { safetyNet: s.safetyNet, medication: s.medication, schedule: s.schedule, public: s.publicSchedule };
+  const on: Record<NotifyKind, boolean> = { safetyNet: s.safetyNet, medication: s.medication, timer: s.timer, schedule: s.schedule, public: s.publicSchedule };
+  // 倒數提醒是使用者一則一則自己設的，不問疲勞。
   for (const k of ['safetyNet', 'schedule', 'public', 'medication'] as NotifyKind[]) {
     if (!on[k] || (await getSetting(`notify:asked:${k}`)) === '1') continue;
     if (ignoredStreak(fired, tapped, k) >= 2) return k;
@@ -172,5 +178,5 @@ export async function fatigueToAsk(): Promise<NotifyKind | null> {
   return null;
 }
 
-export const KIND_SETTING: Record<NotifyKind, string> = { safetyNet: 'notify:safetyNet', medication: 'notify:medication', schedule: 'notify:schedule', public: 'notify:public' };
-export const KIND_NAME: Record<NotifyKind, string> = { safetyNet: '餵奶安全網', medication: '用藥間隔', schedule: '行程提前', public: '公費健檢與疫苗' };
+export const KIND_SETTING: Record<NotifyKind, string> = { safetyNet: 'notify:safetyNet', medication: 'notify:medication', timer: 'notify:timer', schedule: 'notify:schedule', public: 'notify:public' };
+export const KIND_NAME: Record<NotifyKind, string> = { safetyNet: '餵奶安全網', medication: '用藥間隔', timer: '倒數提醒', schedule: '行程提前', public: '公費健檢與疫苗' };

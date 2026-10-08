@@ -115,7 +115,7 @@ test('照顧者：最近 3 天有 2 天心情很難受才主動放資源；邀�
 
 test('通知規劃：暫停時不排；安全網只在 1 歲前；只排未來；依優先序截斷', () => {
   const now = new Date('2026-10-06T10:00:00+08:00').getTime();
-  const base = { paused: false, safetyNet: true, medication: true, schedule: true, publicSchedule: true };
+  const base = { paused: false, safetyNet: true, medication: true, timer: true, schedule: true, publicSchedule: true };
   const child = {
     id: 'c1', name: '小米', ageDays: 100, lastFeedAt: new Date(now - 60 * 60000).toISOString(), safetyNetMinutes: 150,
     meds: [{ name: '退燒藥', lastAt: new Date(now - 2 * 3600000).toISOString(), intervalHours: 6 }, { name: '舊藥', lastAt: new Date(now - 10 * 3600000).toISOString(), intervalHours: 6 }],
@@ -133,6 +133,12 @@ test('通知規劃：暫停時不排；安全網只在 1 歲前；只排未來�
   assert.equal(capped.length, 60);
   assert.ok(capped.some((x) => x.kind === 'safetyNet') && capped.some((x) => x.kind === 'medication'));
   assert.equal(medianDelay([3, 1, 2, 10]), 2.5);
+  // 倒數提醒：通知標題只重複使用者的字，關閉設定就不排。
+  const withTimer = { ...child, timers: [{ id: 't1', title: '奶瓶消毒好了', at: now + 40 * 60000 }, { id: 't2', title: '過期', at: now - 60000 }] };
+  const timers = planNotifications([withTimer], base, now).filter((x) => x.kind === 'timer');
+  assert.equal(timers.length, 1);
+  assert.equal(timers[0].title, '奶瓶消毒好了');
+  assert.equal(planNotifications([withTimer], { ...base, timer: false }, now).filter((x) => x.kind === 'timer').length, 0);
 });
 
 console.log(`\n${passed} passed`);

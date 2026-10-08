@@ -40,8 +40,9 @@ export function buildShareText(name: string, events: ShareEvent[], fromMs: numbe
     lines.push(`睡眠 ${sleeps.length} 次，共 ${dur(total)}${open ? `；${hm(open.startAt)} 起睡著中` : ''}`);
   } else lines.push('睡眠：沒有紀錄');
 
+  // 用藥一行只在有紀錄時出現；沒有用藥紀錄的版型不會多出「用藥：無」。
   const meds = inRange.filter((e) => e.type === 'medication');
-  lines.push(meds.length ? `用藥：${meds.map((e) => { const p = e.payload as { name?: string; doseText?: string; intervalHours?: number }; return `${hm(e.startAt)} ${p.name ?? ''} ${p.doseText ?? ''}${p.intervalHours ? `（間隔 ${p.intervalHours} 小時）` : ''}`.trim(); }).join('；')}` : '用藥：無');
+  if (meds.length) lines.push(`用藥：${meds.map((e) => { const p = e.payload as { name?: string; doseText?: string; intervalHours?: number }; return `${hm(e.startAt)} ${p.name ?? ''} ${p.doseText ?? ''}${p.intervalHours ? `（間隔 ${p.intervalHours} 小時）` : ''}`.trim(); }).join('；')}`);
 
   const temps = inRange.filter((e) => e.type === 'temperature');
   if (temps.length) { const t = temps[temps.length - 1]; const p = t.payload as { celsius?: number; site?: string }; lines.push(`最後一次體溫：${p.celsius}°C（${SITE[String(p.site)] ?? ''}）${hm(t.startAt)}`); }

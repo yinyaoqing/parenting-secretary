@@ -75,5 +75,5 @@
 | 邀請測試家長的 Expo 帳號進組織、傳 QR code | 0 |
 | 寄三封學會授權信、存 11 張授權聲明截圖、訂閱 RSS | 3 的第二次查核 |
 | 把對照稿交給譯者 | 3 |
-| 辦行號商業登記、申請 D-U-N-S、以組織身分申請 Apple Developer Program 與 Google Play 開發者帳號 | 1 的 iOS 建置、5 |
+| 以個人身分申請 Apple Developer Program（US$99／年）與 Google Play 開發者帳號（US$25 一次）；不需 D-U-N-S（決策第 3、10 項，personal 送審版型） | 1 的 iOS 建置、5 |
 | 決定遠端 JSON 空間 | 2 |

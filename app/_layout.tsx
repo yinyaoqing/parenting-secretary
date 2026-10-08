@@ -48,6 +48,7 @@ function Root() {
         <Stack.Screen name="record/solid" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/tummy" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/medication" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/timer" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/edit" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/pump" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/more" options={{ presentation: 'modal' }} />

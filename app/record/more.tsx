@@ -9,9 +9,13 @@ import { fmtMonthDay } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, SheetHeader, Field, Chip, Input, NumInput, PrimaryButton, Seg, Card, ListCard, ListRow, Icon } from '../../src/ui/components';
 import { TimeRow } from '../../src/ui/TimeRow';
+import { FEATURES } from '../../src/release/profile';
 
 type Tab = 'growth' | 'stool' | 'symptom' | 'visit' | 'diary';
-const TABS: { key: Tab; label: string }[] = [{ key: 'growth', label: '生長' }, { key: 'stool', label: '便色' }, { key: 'symptom', label: '症狀' }, { key: 'visit', label: '就醫' }, { key: 'diary', label: '日記' }];
+// 便色、症狀、就醫三個分頁只在開啟健康紀錄的版型出現（src/release/profile.ts）；關閉時使用者想記什麼寫在日記裡，APP 不解析。
+const HEALTH_TABS: Tab[] = ['stool', 'symptom', 'visit'];
+const TABS: { key: Tab; label: string }[] = ([{ key: 'growth', label: '生長' }, { key: 'stool', label: '便色' }, { key: 'symptom', label: '症狀' }, { key: 'visit', label: '就醫' }, { key: 'diary', label: '日記' }] as { key: Tab; label: string }[])
+  .filter((t) => FEATURES.healthRecords || !HEALTH_TABS.includes(t.key));
 const SYMPTOMS = ['咳嗽', '流鼻水', '鼻塞', '嘔吐', '腹瀉', '紅疹', '哭鬧不安', '食慾差', '睡不好'];
 const DIARY = ['情緒爆發', '分離焦慮', '新技能', '有趣的話', '其他'];
 const STOOL_URL = 'https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3649&type=01';
@@ -20,7 +24,7 @@ const STOOL_URL = 'https://mammy.hpa.gov.tw/Home/NewsKBContent?id=3649&type=01';
 export default function MoreRecords() {
   const { childId, tab: initialTab } = useLocalSearchParams<{ childId: string; tab?: Tab }>();
   const { styles, palette } = useTheme();
-  const [tab, setTab] = useState<Tab>(initialTab ?? 'growth');
+  const [tab, setTab] = useState<Tab>(initialTab && TABS.some((t) => t.key === initialTab) ? initialTab : 'growth');
   const [at, setAt] = useState(new Date());
   const [kg, setKg] = useState('');
   const [cm, setCm] = useState('');

@@ -30,12 +30,12 @@
 
 | 編號 | 一句話 |
 |---|---|
-| R1 | 不診斷、不監測疾病、不分級判讀。體溫、尿布只顯示數字與官方定義。 |
+| R1 | 不診斷、不監測疾病、不分級判讀。personal 送審版型下沒有體溫、症狀、便色、就醫入口；org 版型體溫只顯示數字與官方定義。 |
 | R2 | 不重製需授權的量表（M-CHAT-R、EPDS）與教材（Satter 逐字）。 |
 | R3 | 內容只用可信度達標且授權允許的來源（見第 6 節）。 |
 | R4 | 1 歲以下配方食品不得廣告促銷；不接受任何嬰幼兒用品品牌贊助。 |
 | R5 | 特種個資本地化：資料只在裝置，無伺服器。 |
-| R6 | 不建議藥物劑量、不宣稱療效。用藥提醒只倒數使用者輸入的間隔。 |
+| R6 | 不建議藥物劑量、不宣稱療效。personal 版型只有通用「倒數提醒」（標題自寫、響過即刪）；org 版型用藥提醒只倒數使用者輸入的間隔。 |
 | R7 | 安全睡眠等安全層不得被任何風格或設定關閉。「趴睡」一詞全產品禁用，改「清醒趴臥時間」。 |
 | R8 | 符合 Apple 1.4.1、5.1.3 與 Google Play 健康應用聲明。 |
 | R9 | 不以生成式 AI 產生醫療內容。 |
@@ -67,7 +67,7 @@ app/                    expo-router 畫面（依設計稿 v1：https://claude.ai
   plan/                 行程與範本：index（範本開關與起點、每天範本、每週固定行程）、edit（新增編輯，modal）、derive（從這週產生範本）
   task/toilet.tsx       如廁訓練任務頁（國健署原文，只數次數）
   data/index.tsx        資料與備份：加密備份匯出與還原、已封存的孩子、刪除全部資料
-  record/pump.tsx       擠奶與母乳庫存；record/more.tsx 生長、便色、症狀、就醫、日記；record/share.tsx 分享今天（純文字）
+  record/pump.tsx       擠奶與母乳庫存；record/more.tsx 生長、日記（org 版型多便色、症狀、就醫）；record/timer.tsx 倒數提醒（標題自寫、響過即刪）；record/share.tsx 分享今天（純文字）
   checkup/questions.tsx 這次想問醫師的事（只存本機）
   resources/nursing.tsx 哺集乳室清單（國健署開放資料，依縣市鄉鎮篩選，系統地圖導航）
   search/index.tsx      問問看：離線檢索官方內容卡，危急字詞固定顯示 119（規劃 4.8）
@@ -78,7 +78,9 @@ src/db/                 types（18 歲資料模型）、schema（SQLite v4：事
 src/sync/               不經伺服器的多裝置同步：merge（純函式合併引擎，含測試）、codec（交接包打包、QR 多張切分、配對碼，含測試）、crypto（expo-crypto AES-GCM）、store（配對身分、peers、組差量包、套用交接包）
 src/records/quick.ts    一鍵紀錄輔助與安全網上界計算
 src/timeline/           時間軸：plan（純函式：起點、某天的計畫、從一週紀錄產生範本，含測試）、DayView、WeekView、Timetable、usePlan、colors
-src/home/buttons.ts     首頁按鈕依餵養方式與年齡的預設與自訂覆蓋（純函式）
+src/release/profile.ts  送審版型 personal／org 與功能開關 FEATURES（決策第 10 項、plan-v1.0 第 1 章）；改一行切換，資料結構不變
+src/db/reminders.ts     倒數提醒（reminders 表 kind=timer）：新增、列出未到期、刪除、清掉已到期
+src/home/buttons.ts     首頁按鈕依餵養方式與年齡的預設與自訂覆蓋（純函式）；體溫與用藥鍵受版型控制
 src/records/            pump（庫存）、share（分享今天文字）、csv（匯出），皆純函式含測試
 src/content/summary.ts  卡片一句話與分段折疊
 src/search/             檢索引擎：斷詞、同義詞、危急字詞（純函式，含測試）
@@ -183,6 +185,7 @@ npm run publish:preview    # 發布測試版（需 eas login）
 3. 訂閱法規異動與機關新聞 RSS（流程在 docs/week1/subscription-howto.md）。
 4. 把家長驗證頁分享給 3–5 位家長；把 docs/translation/ 的對照稿交給譯者（擁有者已有譯者資源）。
 5. 邀請家長測試者的 Expo 帳號進組織 yinyaoqings-team（角色 Viewer），再把 docs/dev/release/expo-go-preview.png 傳給他們；測試版已發布到 preview 頻道。
+6. 以個人身分申請 Apple Developer Program 與 Google Play 開發者帳號（決策第 3、10 項）；商店類別、文案與審查備註照 docs/plan/plan-v1.0.md 第 1.5 節。
 
 ---
 

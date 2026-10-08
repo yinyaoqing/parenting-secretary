@@ -63,7 +63,7 @@ export interface Event {
   tzOffsetMin?: number; // 記錄當下的時區偏移（分鐘），跨時區顯示用
 }
 
-export type ReminderKind = 'safety_net' | 'schedule' | 'medication' | 'public_resource' | 'vaccine' | 'calendar';
+export type ReminderKind = 'safety_net' | 'schedule' | 'medication' | 'public_resource' | 'vaccine' | 'calendar' | 'timer';
 
 export interface Reminder {
   id: string;

@@ -9,6 +9,7 @@ import { invitationKey, wantsSupport } from '../../src/caregiver/resources';
 import { getSetting, setSetting } from '../../src/db/repo';
 import { todayCard, dismissToday } from '../../src/encouragement/today';
 import { resolveHome, HOME_KEYS, type HomeKey } from '../../src/home/buttons';
+import { FEATURES } from '../../src/release/profile';
 import { TodayCard } from '../../src/encouragement/TodayCard';
 import type { EncourageCard } from '../../src/encouragement/pick';
 import { OUTCOMES, TOILET_MAX_DAYS, TOILET_MIN_DAYS, TOILET_TASK, taskStatus, type Outcome, type TaskStatus } from '../../src/tasks/toilet';
@@ -250,7 +251,7 @@ export default function Home() {
           </>
         ) : null}
 
-        <Text style={styles.h2}>睡眠與健康</Text>
+        <Text style={styles.h2}>{FEATURES.healthRecords ? '睡眠與健康' : '睡眠與其他'}</Text>
         <View style={styles.grid}>
           {sleeping ? (
             <Big label="醒了" sub={`已睡 ${durationLabel(sleeping.startAt)}`} icon="sun" warm onPress={() => quick(() => endSleep(child.id), `已記錄 ${name} 醒了`, false)} />
@@ -260,7 +261,8 @@ export default function Home() {
           {show.temp ? <Big label="體溫" sub="數字與部位" icon="thermometer" onPress={() => router.push({ pathname: '/record/temperature', params: { childId: child.id } })} /> : null}
           {show.tummy ? <Big label="清醒趴臥" sub="幾分鐘" icon="user" onPress={() => router.push({ pathname: '/record/tummy', params: { childId: child.id } })} /> : null}
           {show.med ? <Big label="用藥" sub="只倒數間隔" icon="plus-circle" onPress={() => router.push({ pathname: '/record/medication', params: { childId: child.id } })} /> : null}
-          <Big label="更多紀錄" sub="生長、症狀、就醫⋯" icon="more-horizontal" onPress={() => router.push({ pathname: '/record/more', params: { childId: child.id } })} />
+          {show.timer ? <Big label="倒數提醒" sub="你寫標題，到時通知" icon="clock" onPress={() => router.push({ pathname: '/record/timer', params: { childId: child.id } })} /> : null}
+          <Big label="更多紀錄" sub={FEATURES.healthRecords ? '生長、症狀、就醫⋯' : '生長、日記'} icon="more-horizontal" onPress={() => router.push({ pathname: '/record/more', params: { childId: child.id } })} />
         </View>
 
         {showToilet ? (

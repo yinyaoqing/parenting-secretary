@@ -7,7 +7,7 @@ import { fmtWhen } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Card, ListCard, ListRow, PrimaryButton, GhostButton, Badge, Section } from '../../src/ui/components';
 
-const KIND_LABEL: Record<Planned['kind'], string> = { safetyNet: '安全網', medication: '用藥', schedule: '行程', public: '公費時程' };
+const KIND_LABEL: Record<Planned['kind'], string> = { safetyNet: '安全網', medication: '用藥', timer: '倒數', schedule: '行程', public: '公費時程' };
 
 // 通知健康檢查（規劃第 7–8 週）：權限、排了哪些、準時度。
 export default function NotifyHealth() {
@@ -38,7 +38,7 @@ export default function NotifyHealth() {
           {perm === 'undetermined' ? <PrimaryButton label="允許通知" icon="bell" onPress={async () => { await requestPermission(); await load(); }} /> : null}
           {perm === 'denied' ? (
             <>
-              <Text style={styles.muted}>通知被關掉了，安全網與用藥提醒都收不到。請到手機的設定打開。</Text>
+              <Text style={styles.muted}>通知被關掉了，安全網與倒數提醒都收不到。請到手機的設定打開。</Text>
               <GhostButton label="打開手機設定" onPress={() => Linking.openSettings()} />
             </>
           ) : null}

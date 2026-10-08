@@ -1,12 +1,13 @@
 // 本地通知的排程規劃（純函式，可用 node 測試）。實際排程在 scheduler.ts。
 // 原則：滾動排程，每次資料變動或回到前景就重算；只排未來的；總數不超過 60（iOS 上限 64）。
 // 暫停模式時什麼都不排（規劃 4.2）。安全網只在 1 歲前；用藥只倒數使用者輸入的間隔，不建議劑量（R6）。
+// 倒數提醒（timer）：標題與時間全由使用者輸入，通知文字只重複她的標題，APP 不解讀內容。
 
 export const MAX_PENDING = 60;
 export const WINDOW_DAYS = 7;
 export const PUBLIC_WINDOW_DAYS = 30;
 
-export interface NotifySettings { paused: boolean; safetyNet: boolean; medication: boolean; schedule: boolean; publicSchedule: boolean; netCapped?: boolean }
+export interface NotifySettings { paused: boolean; safetyNet: boolean; medication: boolean; timer: boolean; schedule: boolean; publicSchedule: boolean; netCapped?: boolean }
 export interface ChildNotifyInput {
   id: string;
   name: string;
@@ -14,13 +15,14 @@ export interface ChildNotifyInput {
   lastFeedAt?: string;
   safetyNetMinutes?: number; // 已算好的上界（分鐘）
   meds: { name: string; lastAt: string; intervalHours: number }[];
+  timers?: { id: string; title: string; at: number }[]; // 使用者自訂的倒數，at 為到期時間
   occurrences: { title: string; start: number; leadMinutes: number; location?: string }[]; // 未來 7 天的固定行程
   publicOpens: { title: string; category: string; window: string; opensOn: number }[]; // 時間窗開始日（當天 0 時）
 }
-export type NotifyKind = 'safetyNet' | 'medication' | 'schedule' | 'public';
+export type NotifyKind = 'safetyNet' | 'medication' | 'timer' | 'schedule' | 'public';
 export interface Planned { key: string; kind: NotifyKind; at: number; title: string; body: string; url: string }
 
-const PRIORITY: Record<NotifyKind, number> = { safetyNet: 0, medication: 1, schedule: 2, public: 3 };
+const PRIORITY: Record<NotifyKind, number> = { safetyNet: 0, medication: 1, timer: 1, schedule: 2, public: 3 };
 const pad = (n: number) => String(n).padStart(2, '0');
 const hm = (ms: number) => { const d = new Date(ms); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 const dur = (min: number) => (min < 60 ? `${Math.round(min)} 分` : `${Math.floor(min / 60)} 時 ${pad(Math.round(min % 60))} 分`);
@@ -41,6 +43,11 @@ export function planNotifications(children: ChildNotifyInput[], s: NotifySetting
       for (const m of c.meds) {
         const at = new Date(m.lastAt).getTime() + m.intervalHours * 3600000;
         if (at > soon && at <= horizon) out.push({ key: `med:${c.id}:${m.name}`, kind: 'medication', at, title: `${c.name}：${m.name} 的間隔到了`, body: `距上次已滿你輸入的 ${m.intervalHours} 小時。APP 不建議劑量，請依醫師或藥袋的指示。`, url: timeline });
+      }
+    }
+    if (s.timer) {
+      for (const t of c.timers ?? []) {
+        if (t.at > soon && t.at <= horizon) out.push({ key: `timer:${t.id}`, kind: 'timer', at: t.at, title: t.title, body: `${c.name}：你設定的倒數到了。`, url: '/' });
       }
     }
     if (s.schedule) {

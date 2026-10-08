@@ -30,5 +30,6 @@
   "foreignOnly": false,
   "policyNumbers": false,
   "updatedAt": "2026-10-06",
-  "status": "draft"
+  "status": "draft",
+  "profile": "org"
 }

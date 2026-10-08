@@ -14,11 +14,12 @@ import appConfig from '../../app.json';
 import { permissionStatus, requestPermission } from '../../src/notify/scheduler';
 import { syncRemote, type RemoteStatus } from '../../src/remote/sync';
 import { resolveHome, defaultHint, HOME_KEYS, HOME_LABEL, type HomeKey } from '../../src/home/buttons';
+import { FEATURES } from '../../src/release/profile';
 
 const ENC_KINDS: { key: string; label: string }[] = [{ key: 'official', label: '國健署原文' }, { key: 'plain', label: '陪伴句' }, { key: 'thought', label: '諮商學派與哲學家' }, { key: 'literary', label: '文學角色' }];
 
 const PAUSE_FOREVER = '9999-12-31T00:00:00.000Z';
-const NOTIFY_KEYS = ['safetyNet', 'medication', 'schedule', 'public'];
+const NOTIFY_KEYS = ['safetyNet', 'medication', 'timer', 'schedule', 'public'];
 
 function Label({ t }: { t: string }) {
   const { styles } = useTheme();
@@ -150,7 +151,8 @@ export default function Settings() {
         <Label t="提醒" />
         <ListCard>
           <ListRow first main="餵奶安全網" sub="1 歲前，距上次餵奶比平常久時提醒一次" right={<Switch value={notify.safetyNet} onValueChange={(v) => toggleNotify('safetyNet', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="餵奶安全網提醒" />} />
-          <ListRow main="用藥間隔" sub="只倒數你輸入的間隔，不建議劑量" right={<Switch value={notify.medication} onValueChange={(v) => toggleNotify('medication', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="用藥間隔提醒" />} />
+          {FEATURES.medicationLog ? <ListRow main="用藥間隔" sub="只倒數你輸入的間隔，不建議劑量" right={<Switch value={notify.medication} onValueChange={(v) => toggleNotify('medication', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="用藥間隔提醒" />} /> : null}
+          <ListRow main="倒數提醒" sub="你自己寫標題與時間，到了發一則通知；響過就刪，不留紀錄" right={<Switch value={notify.timer} onValueChange={(v) => toggleNotify('timer', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="倒數提醒" />} />
           <ListRow main="行程提前提醒" sub="依每筆行程設定的提前時間" right={<Switch value={notify.schedule} onValueChange={(v) => toggleNotify('schedule', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="行程提前提醒" />} />
           <ListRow main="公費健檢與疫苗" sub="時間窗開始那天早上 9 點" right={<Switch value={notify.public} onValueChange={(v) => toggleNotify('public', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="公費健檢與疫苗提醒" />} />
           <ListRow main="通知健康檢查" sub="權限、接下來的提醒、準時度" chevron onPress={() => router.push('/notify')} />

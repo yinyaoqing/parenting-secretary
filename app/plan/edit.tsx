@@ -5,13 +5,15 @@ import { useChildren } from '../../src/ui/ChildContext';
 import { deleteScheduleItem, getScheduleItem, getTemplateMode, saveScheduleItem } from '../../src/db/schedule';
 import type { ScheduleItem, ScheduleKind } from '../../src/db/types';
 import { KIND_LABEL, SIX_MONTHS_DAYS, hmToMin, minToHm, weekdayChar } from '../../src/timeline/plan';
+import { FEATURES } from '../../src/release/profile';
 import { daysSince } from '../../src/util/age';
 import { fromIsoDate, toIsoDate } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, SheetHeader, Field, Input, Chip, Card, PrimaryButton, GhostButton, Badge } from '../../src/ui/components';
 import { DatePick } from '../../src/ui/DatePick';
 
-const KINDS: ScheduleKind[] = ['routine', 'care', 'visit', 'class', 'activity', 'medication'];
+// 「服藥」種類只在開啟用藥紀錄的版型出現（src/release/profile.ts）；其他版型用「托育」等通用種類，標題自己寫。
+const KINDS: ScheduleKind[] = (['routine', 'care', 'visit', 'class', 'activity', 'medication'] as ScheduleKind[]).filter((k) => k !== 'medication' || FEATURES.medicationLog);
 const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0];
 const DURATIONS = [0, 15, 30, 45, 50, 60, 90, 120];
 const LEADS: [string, number][] = [['不提醒', 0], ['15 分', 15], ['30 分', 30], ['1 小時', 60], ['前一天', 1440]];
