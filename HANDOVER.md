@@ -69,6 +69,7 @@ app/                    expo-router 畫面（依設計稿 v1：https://claude.ai
   data/index.tsx        資料與備份：加密備份匯出與還原、已封存的孩子、刪除全部資料
   record/pump.tsx       擠奶與母乳庫存；record/more.tsx 生長、便色、症狀、就醫、日記；record/share.tsx 分享今天（純文字）
   checkup/questions.tsx 這次想問醫師的事（只存本機）
+  resources/nursing.tsx 哺集乳室清單（國健署開放資料，依縣市鄉鎮篩選，系統地圖導航）
   search/index.tsx      問問看：離線檢索官方內容卡，危急字詞固定顯示 119（規劃 4.8）
   notify/index.tsx      通知健康檢查：權限、接下來的提醒、測試通知與準時度
   caregiver/index.tsx   照顧好自己：10 秒打卡（只存本機）、官方專線、請別人幫忙（系統分享）
@@ -93,6 +94,8 @@ src/ui/art.tsx          插畫（assets/art，8 張水彩 JPEG）與手繪 SVG �
 src/ui/                 theme（設計系統色票、字級三段、樣式表）、ThemeContext（日夜模式與字級的全域狀態）、useTheme、components（Tile、Big、Chip、Seg、Opt、PickRow、ListRow、Badge、Banner、SafetyBox、Toast…）、DatePick（原生日期時間選擇）、TimeRow（表單補登時間列）
 src/util/               age（實際與矯正月齡）、format、datetime（中文日期、相對時間、補登換算）
 content/cards/          內容卡 JSON 原始檔（safety 14、milestones 10、weeks 12、home_safety 8、feeding 11、health 10、sleep 4）
+content/alerts/         官方疫情提醒 alerts.json（只收疾管署原文；擁有者每週查核後 npm run data:build）
+content/resources/      nursing-rooms.json（國健署自願設置哺集乳室名單彙整表，1,372 處）
 content/policy/         政策 policy.json（補助、假別、生育給付、扣除額、行政待辦；每項附官方連結與查核日期）
 docs/data/              GitHub Pages 發布的 manifest、policy、schedule（由 npm run data:build 產生，勿手改）
 content/schedule/       公費時程 timeline.json（健檢 9 次、發展篩檢 6 次、疫苗、塗氟；只有時間窗，沒有金額）

@@ -68,6 +68,7 @@ function Root() {
         <Stack.Screen name="notify/index" />
         <Stack.Screen name="search/index" />
         <Stack.Screen name="checkup/questions" />
+        <Stack.Screen name="resources/nursing" />
       </Stack>
     </>
   );

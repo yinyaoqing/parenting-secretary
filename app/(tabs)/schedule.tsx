@@ -10,6 +10,7 @@ import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Badge, Card, Section, ListCard, ListRow, Chip, Icon } from '../../src/ui/components';
 import { Thumb } from '../../src/ui/art';
 import { policyBundle, policyFor, isStale } from '../../src/policy/loader';
+import { activeAlerts, alertsBundle } from '../../src/alerts/loader';
 
 // 時程分頁：依出生日算出公費健檢、發展篩檢、疫苗、塗氟的時間窗。只放時程，不放金額（紅線 R11：政策數字走遠端 JSON）。
 const UPCOMING_DAYS = 120;
@@ -148,6 +149,33 @@ ${t.detail}`} right={<Icon name="external-link" size={14} color={palette.accent}
             </>
           );
         })() : null}
+
+        <Section title="官方疫情提醒" />
+        {(() => {
+          const al = activeAlerts(d);
+          const ab = alertsBundle();
+          if (!al.length) return <Card><Text style={styles.muted}>本週無官方警示，上次查核：{ab.checkedAt}。只轉述疾管署已發布的內容。</Text></Card>;
+          return (
+            <>
+              {al.map((a) => (
+                <Card key={a.id} style={{ gap: 6 }}>
+                  <Text style={[styles.p, { fontWeight: '700' }]}>{a.title}</Text>
+                  <Text style={[styles.muted, { color: palette.ink2 }]}>疾管署原文：「{a.quote}」</Text>
+                  <Pressable onPress={() => Linking.openURL(a.source.url)} accessibilityRole="link" style={[styles.row, { gap: 6 }]}>
+                    <Text style={[styles.link, { fontSize: 13 }]}>{a.source.name}，{a.date}</Text>
+                    <Icon name="external-link" size={14} color={palette.accent} />
+                  </Pressable>
+                </Card>
+              ))}
+              <Text style={styles.muted}>上次查核 {ab.checkedAt}。APP 不自行判斷流行期，只轉述疾管署已發布的內容。</Text>
+            </>
+          );
+        })()}
+
+        <Section title="外出" />
+        <ListCard>
+          <ListRow first icon="map-pin" main="找哺集乳室" sub="國健署名單，依縣市鄉鎮篩選，用手機地圖導航" chevron onPress={() => router.push('/resources/nursing')} />
+        </ListCard>
 
         <Section title="資料來源" />
         <Card style={{ gap: 8 }}>

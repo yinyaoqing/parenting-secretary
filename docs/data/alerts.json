@@ -1,0 +1,20 @@
+{
+  "_comment": "官方疫情提醒（規劃 v0.8 決定 D6-2、紅線 R14）：只轉述疾管署已發布的新聞稿與週報中與幼兒相關的段落，不自設門檻、不自行判斷流行期。每週查核一次，查核後更新 checkedAt；沒有新警示時 items 可以是空的，畫面會顯示「本週無官方警示，上次查核：日期」。",
+  "version": "2026-10-08",
+  "checkedAt": "2026-10-08",
+  "items": [
+    {
+      "id": "cdc-2026-10-06-flu-vaccine",
+      "date": "2026-10-06",
+      "title": "公費流感及新冠疫苗接種踴躍 請符合資格民眾儘速接種 及早獲得保護力",
+      "quote": "長者、幼兒及慢性病患等高風險族群應儘速完成流感及新冠疫苗接種",
+      "ageMinDays": 183,
+      "ageMaxDays": 2190,
+      "showDays": 30,
+      "source": {
+        "name": "衛生福利部疾病管制署新聞稿",
+        "url": "https://www.cdc.gov.tw/Bulletin/Detail/tC7VIc05_kkg8wOlIPpQIw?typeId=9"
+      }
+    }
+  ]
+}

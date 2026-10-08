@@ -4,12 +4,14 @@ import { getSetting, setSetting } from '../db/repo';
 import { emitDataChange } from '../db/changes';
 import { BUNDLED_POLICY, setPolicyOverride, type PolicyBundle } from '../policy/loader';
 import { BUNDLED_SCHEDULE, setScheduleOverride, type ScheduleBundle } from '../schedule/loader';
+import { BUNDLED_ALERTS, setAlertsOverride, type AlertBundle } from '../alerts/loader';
 
 export const DATA_BASE = 'https://yinyaoqing.github.io/parenting-secretary/';
 const CHECK_EVERY_MS = 12 * 3600000;
 const TIMEOUT_MS = 8000;
 
-interface Manifest { v: number; policy: { version: string; path: string }; schedule: { version: string; path: string } }
+interface Manifest { v: number; policy: { version: string; path: string }; schedule: { version: string; path: string }; alerts?: { version: string; path: string } }
+const validAlerts = (x: unknown): x is AlertBundle => !!x && typeof (x as AlertBundle).version === 'string' && Array.isArray((x as AlertBundle).items);
 
 const validPolicy = (x: unknown): x is PolicyBundle => !!x && typeof (x as PolicyBundle).version === 'string' && Array.isArray((x as PolicyBundle).items) && Array.isArray((x as PolicyBundle).todos);
 const validSchedule = (x: unknown): x is ScheduleBundle => !!x && typeof (x as ScheduleBundle).version === 'string' && Array.isArray((x as ScheduleBundle).items) && typeof (x as ScheduleBundle).sources === 'object';
@@ -32,6 +34,9 @@ export async function loadStoredRemote(): Promise<void> {
     const sj = s ? JSON.parse(s) : null;
     if (validPolicy(pj)) setPolicyOverride(pj);
     if (validSchedule(sj)) setScheduleOverride(sj);
+    const a = await getSetting('remote:alerts');
+    const aj = a ? JSON.parse(a) : null;
+    if (validAlerts(aj)) setAlertsOverride(aj);
   } catch { /* 壞資料就用內建 */ }
 }
 
@@ -60,6 +65,14 @@ export async function syncRemote(force = false): Promise<RemoteStatus> {
     if (m.schedule?.version > curSv && m.schedule.version > BUNDLED_SCHEDULE.version) {
       const sj = await getJson(DATA_BASE + m.schedule.path);
       if (validSchedule(sj)) { await setSetting('remote:schedule', JSON.stringify(sj)); setScheduleOverride(sj); changed = true; }
+    }
+    if (m.alerts) {
+      const curA = await getSetting('remote:alerts');
+      const curAv = curA ? (JSON.parse(curA) as AlertBundle).version : BUNDLED_ALERTS.version;
+      if (m.alerts.version > curAv && m.alerts.version > BUNDLED_ALERTS.version) {
+        const aj = await getJson(DATA_BASE + m.alerts.path);
+        if (validAlerts(aj)) { await setSetting('remote:alerts', JSON.stringify(aj)); setAlertsOverride(aj); changed = true; }
+      }
     }
     await setSetting('remote:lastCheck', new Date().toISOString());
     if (changed) emitDataChange();
