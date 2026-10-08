@@ -107,6 +107,7 @@ docs/translation/       對照稿輸出
 docs/dev/run.md         如何啟動驗證
 docs/dev/deploy-test.md 如何部署測試版（已含 EAS 專案資訊）
 docs/dev/device-test.md 真機驗證清單（階段 0，兩支手機）
+docs/dev/business-review.md 商業模式三輪檢驗（2026-10-08）：營收情境、付費牆修正建議、B2B 機構版的代價、上架後驗證指標
 docs/dev/roadmap.md     開發順序（2026-10-06 排定，含各階段完成標準與擁有者待辦）
 docs/dev/release/       最新一次發布的 QR code、latest.json、history.md（publish-preview 產生）
 ```
