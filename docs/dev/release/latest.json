@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-08T12:03:36.283Z",
+  "publishedAt": "2026-10-08T13:51:59.470Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "feat: release readiness — file association, calendar sync, store assets",
-  "updateGroupId": "3ba4c75a-3b6d-4c15-a99c-e51fb4784489",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/3ba4c75a-3b6d-4c15-a99c-e51fb4784489",
+  "message": "feat: every age stage can enter 1.0 — care location, outdoor record, preschool and school admin items",
+  "updateGroupId": "49a984eb-d54a-449b-a237-3a76ce3b6901",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/49a984eb-d54a-449b-a237-3a76ce3b6901",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"
