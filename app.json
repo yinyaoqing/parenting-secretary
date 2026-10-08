@@ -7,16 +7,95 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yinyaoqing.parentingsecretary",
+      "config": {
+        "usesNonExemptEncryption": true
+      },
+      "infoPlist": {
+        "CFBundleDocumentTypes": [
+          {
+            "CFBundleTypeName": "育兒秘書交接檔",
+            "CFBundleTypeRole": "Editor",
+            "LSHandlerRank": "Owner",
+            "LSItemContentTypes": [
+              "com.yinyaoqing.parentingsecretary.psync"
+            ]
+          }
+        ],
+        "UTExportedTypeDeclarations": [
+          {
+            "UTTypeIdentifier": "com.yinyaoqing.parentingsecretary.psync",
+            "UTTypeDescription": "育兒秘書交接檔",
+            "UTTypeConformsTo": [
+              "public.data"
+            ],
+            "UTTypeTagSpecification": {
+              "public.filename-extension": [
+                "psync"
+              ],
+              "public.mime-type": [
+                "application/x-psync"
+              ]
+            }
+          }
+        ],
+        "LSSupportsOpeningDocumentsInPlace": false
+      }
     },
     "android": {
+      "package": "com.yinyaoqing.parentingsecretary",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#FEFEF3",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.SCHEDULE_EXACT_ALARM"
+      ],
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.USE_EXACT_ALARM"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "category": [
+            "DEFAULT",
+            "BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "file",
+              "mimeType": "*/*",
+              "pathPattern": ".*\\\\.psync"
+            },
+            {
+              "scheme": "content",
+              "mimeType": "*/*",
+              "pathPattern": ".*\\\\.psync"
+            }
+          ]
+        },
+        {
+          "action": "VIEW",
+          "category": [
+            "DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "content",
+              "mimeType": "application/octet-stream"
+            },
+            {
+              "scheme": "content",
+              "mimeType": "application/x-psync"
+            }
+          ]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -24,14 +103,42 @@
     "plugins": [
       "expo-sqlite",
       "expo-sharing",
-      "expo-notifications",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#2F6F5E"
+        }
+      ],
       "expo-router",
       "expo-status-bar",
       "@react-native-community/datetimepicker",
       [
         "expo-camera",
         {
-          "cameraPermission": "掃描另一支手機上的 QR code，用來配對與交接紀錄。影像不會儲存。"
+          "cameraPermission": "掃描另一支手機上的 QR code，用來配對與交接紀錄。影像不會儲存。",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "把你設定要同步的固定行程（托育、回診、課程）寫進手機行事曆，並在行程修改或刪除時一起更新。APP 不讀取你其他的行事曆內容。",
+          "remindersPermission": false
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#FEFEF3",
+          "dark": {
+            "image": "./assets/splash-icon.png",
+            "backgroundColor": "#15110D"
+          }
         }
       ]
     ],

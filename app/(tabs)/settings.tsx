@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { View, Text, Switch } from 'react-native';
+import { View, Text, Switch, Linking } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 import { getSetting, getStyleProfile, setSetting } from '../../src/db/repo';
 import type { StyleProfile } from '../../src/db/types';
@@ -12,7 +12,7 @@ import { Screen, TopBar, Card, Badge, ListCard, ListRow, Seg, Chip } from '../..
 import { SpotMoonCloud, Thumb } from '../../src/ui/art';
 import appConfig from '../../app.json';
 import { permissionStatus, requestPermission } from '../../src/notify/scheduler';
-import { syncRemote, type RemoteStatus } from '../../src/remote/sync';
+import { syncRemote, DATA_BASE, type RemoteStatus } from '../../src/remote/sync';
 import { resolveHome, defaultHint, HOME_KEYS, HOME_LABEL, type HomeKey } from '../../src/home/buttons';
 import { FEATURES } from '../../src/release/profile';
 
@@ -180,7 +180,9 @@ export default function Settings() {
         <Label t="關於" />
         <ListCard>
           <ListRow first main="內容來源政策" sub="每條內容都附可公開查核的來源；只用可信度達標且授權允許的來源；不以生成式 AI 產生醫療內容" />
-          <ListRow main="隱私權" sub="沒有帳號、沒有伺服器，紀錄只在這支手機。APP 只會從網路下載公開的政策與公費時程資料，不上傳任何紀錄" />
+          <ListRow main="隱私權政策" sub="沒有帳號、沒有伺服器，紀錄只在這支手機。APP 只會從網路下載公開的政策與公費時程資料，不上傳任何紀錄" chevron onPress={() => { void Linking.openURL(`${DATA_BASE}privacy.html`); }} />
+          <ListRow main="服務條款" chevron onPress={() => { void Linking.openURL(`${DATA_BASE}terms.html`); }} />
+          <ListRow main="支援與意見回饋" sub="常見問題與聯絡信箱" chevron onPress={() => { void Linking.openURL(`${DATA_BASE}support.html`); }} />
           <ListRow main="版本" right={<Text style={styles.muted}>{appConfig.expo.version}</Text>} />
           <ListRow main="政策與公費時程資料" sub={remote ? `政策 ${remote.policyVersion}、時程 ${remote.scheduleVersion}${remote.checkedAt ? `；上次檢查 ${new Date(remote.checkedAt).toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}` : ''}${remote.error ? '；這次沒連上，沿用手機上的版本' : ''}` : '讀取中'} right={<Badge label="檢查更新" tone="gray" />} onPress={() => { void syncRemote(true).then(setRemote); }} />
         </ListCard>

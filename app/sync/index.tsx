@@ -6,6 +6,7 @@ import * as Sharing from 'expo-sharing';
 import * as DocumentPicker from 'expo-document-picker';
 import { getIdentity, setDeviceName, listPeers, buildPackage, applyPackageText, removePeer, type Identity, type Peer, type ApplyReport } from '../../src/sync/store';
 import { FILE_EXTENSION } from '../../src/sync/codec';
+import { PSYNC_UTI } from '../../src/util/runtime';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Card, Field, Input, ListCard, ListRow, Badge, Chip, PrimaryButton, GhostButton, SafetyBox, Hint, Icon } from '../../src/ui/components';
 
@@ -37,7 +38,8 @@ export default function SyncHub() {
       if (file.exists) file.delete();
       file.create();
       file.write(text);
-      await Sharing.shareAsync(file.uri, { mimeType: 'application/octet-stream', UTI: 'public.data', dialogTitle: '分享交接檔' });
+      // UTI 與 app.json 的 UTExportedTypeDeclarations 一致，對方 iPhone 點檔案就會直接開育兒秘書。
+      await Sharing.shareAsync(file.uri, { mimeType: 'application/octet-stream', UTI: PSYNC_UTI, dialogTitle: '分享交接檔' });
       setMsg(`已產生交接檔：${events} 筆事件${delta ? '（差量）' : '（全部）'}。對方匯入後，再按「對方已收到」。`);
     } catch (e) {
       setMsg(e instanceof Error ? e.message : '分享失敗');

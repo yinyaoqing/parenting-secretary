@@ -3,6 +3,7 @@ import { AppState } from 'react-native';
 import { Stack, router } from 'expo-router';
 import * as Notifications from 'expo-notifications';
 import { startAutoReschedule, reschedule, recordDelay, recordTap } from '../src/notify/scheduler';
+import { startAutoCalendarSync, syncCalendar } from '../src/calendar/sync';
 import { loadStoredRemote, syncRemote } from '../src/remote/sync';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider, useThemeCtx } from '../src/ui/ThemeContext';
@@ -22,7 +23,8 @@ function Root() {
     // 遠端政策與公費時程：先套用上次存的，再背景檢查更新（12 小時一次）。
     void loadStoredRemote().then(() => syncRemote()).catch(() => undefined);
     const off = startAutoReschedule();
-    const app = AppState.addEventListener('change', (st) => { if (st === 'active') void reschedule().catch(() => undefined); });
+    const offCal = startAutoCalendarSync(); // 正式安裝版才有；Expo Go 不做事
+    const app = AppState.addEventListener('change', (st) => { if (st === 'active') { void reschedule().catch(() => undefined); void syncCalendar().catch(() => undefined); } });
     const rec = Notifications.addNotificationReceivedListener((n) => {
       const at = Number((n.request.content.data as { at?: number } | undefined)?.at);
       if (at) void recordDelay(at);
@@ -33,7 +35,7 @@ function Root() {
       const url = data?.url;
       if (url) router.push(url as never);
     });
-    return () => { off(); app.remove(); rec.remove(); resp.remove(); };
+    return () => { off(); offCal(); app.remove(); rec.remove(); resp.remove(); };
   }, []);
   return (
     <>
@@ -58,6 +60,7 @@ function Root() {
         <Stack.Screen name="sync/index" />
         <Stack.Screen name="sync/qr" options={{ presentation: 'modal' }} />
         <Stack.Screen name="sync/scan" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="sync/import" />
         <Stack.Screen name="child/switch" options={{ presentation: 'modal' }} />
         <Stack.Screen name="child/[id]" />
         <Stack.Screen name="plan/index" />

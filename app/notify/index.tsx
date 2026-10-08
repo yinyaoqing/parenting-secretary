@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react';
 import { View, Text, Platform, Linking } from 'react-native';
 import { useFocusEffect } from 'expo-router';
+import * as IntentLauncher from 'expo-intent-launcher';
+import Constants from 'expo-constants';
+import { isExpoGo } from '../../src/util/runtime';
 import { permissionStatus, requestPermission, reschedule, sendTest, getDelays, getNotifySettings } from '../../src/notify/scheduler';
 import { medianDelay, type Planned } from '../../src/notify/plan';
 import { fmtWhen } from '../../src/util/datetime';
@@ -62,9 +65,20 @@ export default function NotifyHealth() {
           {msg ? <Text style={[styles.muted, { color: palette.accent }]}>{msg}</Text> : null}
         </Card>
 
-        {Platform.OS === 'android' ? (
+        {Platform.OS === 'android' && isExpoGo ? (
           <Card warm>
-            <Text style={[styles.muted, { color: palette.ink2 }]}>Android 的省電模式可能延後通知幾分鐘。準時的鬧鐘權限要等正式安裝版才能申請；在這之前，可以到手機設定把本 APP（目前是 Expo Go）的電池最佳化關閉。</Text>
+            <Text style={[styles.muted, { color: palette.ink2 }]}>Android 的省電模式可能延後通知幾分鐘。測試版跑在 Expo Go 裡，沒辦法申請準時鬧鐘權限；可以到手機設定把 Expo Go 的電池最佳化關閉。</Text>
+          </Card>
+        ) : null}
+        {Platform.OS === 'android' && !isExpoGo ? (
+          <Card warm style={{ gap: 8 }}>
+            <Text style={[styles.p, { fontWeight: '700' }]}>讓提醒準時</Text>
+            <Text style={[styles.muted, { color: palette.ink2 }]}>Android 12 以上要打開「鬧鐘與提醒」權限，安全網與倒數提醒才會準時；沒打開時系統可能延後幾分鐘。{med !== null && med > 60 ? '最近的通知平均晚了一分鐘以上，建議打開。' : ''}</Text>
+            <GhostButton label="打開「鬧鐘與提醒」設定" icon="settings" onPress={() => {
+              const pkg = Constants.expoConfig?.android?.package;
+              void IntentLauncher.startActivityAsync(IntentLauncher.ActivityAction.REQUEST_SCHEDULE_EXACT_ALARM, pkg ? { data: `package:${pkg}` } : undefined).catch(() => Linking.openSettings());
+            }} />
+            <Text style={styles.muted}>也可以到手機設定把本 APP 的電池最佳化關閉。</Text>
           </Card>
         ) : null}
       </Screen>

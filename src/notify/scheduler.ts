@@ -7,6 +7,7 @@ import { firstEventDate, lastEvent, listEvents, recentIntervalsMinutes } from '.
 import { listScheduleItems, getTemplateMode } from '../db/schedule';
 import { onDataChange } from '../db/changes';
 import { listTimers, purgeDueTimers } from '../db/reminders';
+import { calendarManagedIds } from '../calendar/sync';
 import { FEATURES } from '../release/profile';
 import { safetyNetUpperBound, FEED_TYPES, FEED_CAP_MIN, FEED_PRIOR_MIN, NET_RECENT } from '../records/quick';
 import { anchorDate, occurrencesOn, addDaysIso, isoDate, parseDate } from '../timeline/plan';
@@ -28,6 +29,7 @@ async function gather(now: number): Promise<ChildNotifyInput[]> {
   const out: ChildNotifyInput[] = [];
   const today = isoDate(new Date(now));
   await purgeDueTimers(now); // 響過的倒數不留
+  const inCalendar = await calendarManagedIds(); // 已寫進手機行事曆的行程由行事曆提醒，這裡不重複排
   for (const c of children) {
     const ageDays = daysSince(c.birthDate);
     const [lastFeed, intervals, meds, timers, items, mode, firstSolid] = await Promise.all([
@@ -53,7 +55,7 @@ async function gather(now: number): Promise<ChildNotifyInput[]> {
       const date = addDaysIso(today, i);
       const base = parseDate(date).getTime();
       for (const o of occurrencesOn(items, date, opts)) {
-        if (o.item.kind === 'routine' || o.startMin !== Number(o.item.time.slice(0, 2)) * 60 + Number(o.item.time.slice(3, 5))) continue;
+        if (o.item.kind === 'routine' || inCalendar.has(o.item.id) || o.startMin !== Number(o.item.time.slice(0, 2)) * 60 + Number(o.item.time.slice(3, 5))) continue;
         occurrences.push({ title: o.item.title, start: base + o.startMin * 60000, leadMinutes: o.item.leadMinutes, location: o.item.location });
       }
     }

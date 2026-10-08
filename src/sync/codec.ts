@@ -56,6 +56,11 @@ export async function encodePackage(pkg: SyncPackage, crypto: SyncCrypto): Promi
   return PACKAGE_PREFIX + bytesToBase64(sealed);
 }
 
+// 不解密，只看開頭：從其他 APP 收到的檔案先確認是交接檔再請使用者按合併。
+export function looksLikePackage(text: string): boolean {
+  return text.trimStart().startsWith(PACKAGE_PREFIX);
+}
+
 export async function decodePackage(text: string, crypto: SyncCrypto): Promise<SyncPackage> {
   const t = text.trim();
   if (!t.startsWith(PACKAGE_PREFIX)) throw new Error('不是交接檔');

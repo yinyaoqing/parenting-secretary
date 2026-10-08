@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { View, Text } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { takeCalendarNotice } from '../../src/calendar/sync';
 import { useChildren } from '../../src/ui/ChildContext';
 import { setTemplateMode } from '../../src/db/schedule';
 import { usePlan } from '../../src/timeline/usePlan';
@@ -19,6 +20,8 @@ export default function PlanList() {
   const child = children.find((c) => c.id === childId) ?? active;
   const plan = usePlan(child);
   const [picking, setPicking] = useState(false);
+  const [calNotice, setCalNotice] = useState(false);
+  useFocusEffect(useCallback(() => { takeCalendarNotice().then((v) => { if (v) setCalNotice(true); }); }, []));
   const [pickType, setPickType] = useState<'age' | 'event'>('age');
   const [pick, setPick] = useState<Anchor | null>(null);
 
@@ -114,11 +117,12 @@ export default function PlanList() {
             <Icon name="calendar" size={22} color={palette.accent} />
             <View style={styles.sp}>
               <Text style={[styles.p, { fontWeight: '700' }]}>上學以後，這張表就是課表</Text>
-              <Text style={[styles.muted, { color: palette.ink2 }]}>同一種行程：名稱、星期、時間、時長、地點、提前提醒。幼兒園作息、國小課表、補習班、服藥間隔都放這裡，時間軸自動畫出來。</Text>
+              <Text style={[styles.muted, { color: palette.ink2 }]}>同一種行程：名稱、星期、時間、時長、地點、提前提醒。幼兒園作息、國小課表、補習班都放這裡，時間軸自動畫出來。</Text>
             </View>
           </View>
         </Card>
-        <Text style={styles.muted}>提前提醒會發通知（設定 › 提醒可關閉）。同步到手機行事曆需要正式安裝版，製作中。行程會跟著交接傳給另一支手機。</Text>
+        {calNotice ? <Card warm><Text style={[styles.muted, { color: palette.ink2 }]}>手機裡的「育兒秘書」行事曆被刪掉了，所以所有行程的行事曆同步都已關閉，改回由 APP 發提前提醒。要再同步，到行程編輯頁打開。</Text></Card> : null}
+        <Text style={styles.muted}>提前提醒會發通知（設定 › 提醒可關閉）。每筆行程可以在編輯頁打開「同步到手機行事曆」。行程會跟著交接傳給另一支手機，行事曆開關不會。</Text>
       </Screen>
     </View>
   );

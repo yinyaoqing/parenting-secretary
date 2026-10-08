@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Switch } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useChildren } from '../../src/ui/ChildContext';
 import { deleteScheduleItem, getScheduleItem, getTemplateMode, saveScheduleItem } from '../../src/db/schedule';
 import type { ScheduleItem, ScheduleKind } from '../../src/db/types';
 import { KIND_LABEL, SIX_MONTHS_DAYS, hmToMin, minToHm, weekdayChar } from '../../src/timeline/plan';
 import { FEATURES } from '../../src/release/profile';
+import { calendarSupported, calSyncIds, setItemCalendarSync } from '../../src/calendar/sync';
 import { daysSince } from '../../src/util/age';
 import { fromIsoDate, toIsoDate } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
-import { Screen, SheetHeader, Field, Input, Chip, Card, PrimaryButton, GhostButton, Badge } from '../../src/ui/components';
+import { Screen, SheetHeader, Field, Input, Chip, Card, PrimaryButton, GhostButton } from '../../src/ui/components';
 import { DatePick } from '../../src/ui/DatePick';
 
 // 「服藥」種類只在開啟用藥紀錄的版型出現（src/release/profile.ts）；其他版型用「托育」等通用種類，標題自己寫。
@@ -42,11 +43,16 @@ export default function EditPlan() {
   const [hasAnchor, setHasAnchor] = useState(false);
   const [confirmDel, setConfirmDel] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const [calOn, setCalOn] = useState(false);
 
   useEffect(() => {
     if (!child) return;
     getTemplateMode(child.id).then((m) => setHasAnchor(!!m.anchor));
   }, [child]);
+
+  useEffect(() => {
+    if (id) calSyncIds().then((ids) => setCalOn(ids.includes(id)));
+  }, [id]);
 
   useEffect(() => {
     if (!id) return;
@@ -71,19 +77,28 @@ export default function EditPlan() {
     if (routineBlocked) return setErr('要先在行程清單打開範本並選起點');
     if (kind === 'routine' && young && /餵|奶|喝/.test(t)) return setErr('0 到 6 個月餵食依需求，範本不排餵奶時間');
     if (validFrom && validTo && validTo < validFrom) return setErr('結束日期早於開始日期');
-    await saveScheduleItem({
+    const saved = await saveScheduleItem({
       childId: child.id, title: t, kind, weekdays, time, durationMinutes: dur || undefined,
       location: location.trim() || undefined, leadMinutes: lead, note: orig?.note, syncToDeviceCalendar: false,
       validFrom: validFrom ? toIsoDate(validFrom) : undefined, validTo: validTo ? toIsoDate(validTo) : undefined,
       period: kind === 'class' && Number(period) > 0 ? Number(period) : undefined,
       templateSource: kind === 'routine' ? (orig?.templateSource ?? 'user') : undefined,
     }, orig?.id);
+    // 行事曆開關是這支手機的設定（src/calendar/sync.ts）；要先有行程 id 才能寫入。
+    if (calendarSupported && kind !== 'routine') {
+      const wasOn = orig ? (await calSyncIds()).includes(orig.id) : false;
+      if (calOn !== wasOn) {
+        const ok = await setItemCalendarSync(saved.id, calOn);
+        if (calOn && !ok) return setErr('沒有行事曆權限。行程已儲存，可到手機設定允許後再打開。');
+      }
+    }
     router.back();
   };
 
   const remove = async () => {
     if (!orig) return;
     await deleteScheduleItem(orig.id);
+    if (calendarSupported) await setItemCalendarSync(orig.id, false);
     router.back();
   };
 
@@ -139,15 +154,17 @@ export default function EditPlan() {
           <View style={styles.chips}>{LEADS.map(([l, m]) => <Chip key={l} sm label={l} on={lead === m} onPress={() => setLead(m)} />)}</View>
         </Field>
 
-        <Card>
-          <View style={styles.row}>
-            <View style={styles.sp}>
-              <Text style={[styles.p, { fontWeight: '700' }]}>同步到裝置行事曆</Text>
-              <Text style={styles.muted}>由手機行事曆發通知。需要正式安裝版，Expo Go 測試版不支援。</Text>
+        {calendarSupported && kind !== 'routine' ? (
+          <Card>
+            <View style={styles.row}>
+              <View style={styles.sp}>
+                <Text style={[styles.p, { fontWeight: '700' }]}>同步到手機行事曆</Text>
+                <Text style={styles.muted}>寫進「育兒秘書」行事曆，由行事曆提前提醒，APP 不再另外通知。只在這支手機生效，不隨交接同步。</Text>
+              </View>
+              <Switch value={calOn} onValueChange={setCalOn} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="同步到手機行事曆" />
             </View>
-            <Badge label="即將推出" tone="gray" />
-          </View>
-        </Card>
+          </Card>
+        ) : null}
 
         <View style={[styles.row, { alignItems: 'flex-start' }]}>
           <View style={styles.sp}><Field label="開始"><DatePick value={validFrom} mode="date" label="開始日期" placeholder="不限" onChange={setValidFrom} /></Field></View>
