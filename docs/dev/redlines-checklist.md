@@ -14,7 +14,7 @@
 | R8 | 符合 Apple 1.4.1、5.1.3 與 Google Play 健康應用聲明 | ⬜ 👤 | personal 版型：Apple 類別選 Lifestyle、Google 選 Parenting，不選 Medical 或 Health & Fitness；資料不離開裝置，App Privacy 可填「未蒐集資料」；不接 HealthKit 或 Health Connect、不要求健康權限；審查備註寫明離線、不診斷、內容皆引政府來源；Google 資料安全表與隱私權政策網址仍要填；5.1.3(ii) 不把健康資料放 iCloud（目前沒有雲端功能） |
 | R9 | 不以生成式 AI 產生醫療內容 | 🔶 👤 | 內容都改寫自政府原文並附來源與逐字摘錄，但改寫文字由 AI 協助撰寫，全部標 draft；上架前需人工逐張對照原文複核後改為 review 或 published |
 | R10 | 不以書名或品牌命名風格 | ✅ | 風格名稱為結構型、回應型、混合型（src/style/questionnaire.ts） |
-| R11 | 政策數字標年度與查核日期，走遠端 JSON | ✅ | content/policy/policy.json 每項附年度、查核日期與官方連結；data:check 擋查核超過 90 天；APP 由 GitHub Pages 更新（待擁有者開啟 Pages） |
+| R11 | 政策數字標年度與查核日期，走遠端 JSON | ✅ | content/policy/policy.json 每項附年度、查核日期與官方連結；data:check 擋查核超過 90 天；APP 由 GitHub Pages 更新（GitHub Pages 已開啟並發布，2026-10-08） |
 | R12 | 政府開放資料標示來源 | ✅ | 每張卡的來源名稱含「政府網站資料開放宣告，可重製改作，須註明出處」；卡片詳情顯示來源 |
 | R13 | 安全層須有 A 級原文可離線閱讀 | ✅ | 安全內容 14 張隨 APP 打包，離線可讀 |
 | R14 | 疫情與環境提醒只轉述官方警示 | ✅ | content/alerts/alerts.json 只收疾管署新聞稿原文引句；data:check 擋非 cdc.gov.tw 來源，查核超過 14 天警告；沒有警示時顯示「本週無官方警示，上次查核」 |

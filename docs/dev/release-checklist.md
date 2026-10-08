@@ -10,10 +10,10 @@
 - [ ] Google 個人帳號新上架要先跑封閉測試（目前規則為 12 位測試者連續 14 天，以 Play Console 當下顯示為準），拿到正式上架資格後才能送正式版。帳號一開就開始找測試者。
 - [ ] 確認套件識別碼。app.json 目前是 `com.yinyaoqing.parentingsecretary`（iOS 與 Android 相同）。第一次上傳後就不能改，要換請在上傳前告訴工程。
 
-## 2. 開啟 GitHub Pages（👤，5 分鐘）
+## 2. 開啟 GitHub Pages ✅（2026-10-08 完成）
 
-- [ ] GitHub 倉庫 Settings › Pages › Build and deployment 選「GitHub Actions」。
-- [ ] 推一次 main 後確認三個網址打得開，商店表單要填：
+- [x] GitHub 倉庫 Settings › Pages › Build and deployment 選「GitHub Actions」。
+- [x] 三個網址已確認可開啟（HTTP 200），商店表單要填：
   - 隱私權政策 https://yinyaoqing.github.io/parenting-secretary/privacy.html
   - 服務條款 https://yinyaoqing.github.io/parenting-secretary/terms.html
   - 支援 https://yinyaoqing.github.io/parenting-secretary/support.html
