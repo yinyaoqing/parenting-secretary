@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-08T11:21:14.596Z",
+  "publishedAt": "2026-10-08T12:03:36.283Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "feat: nursing-room list from HPA open data; official epidemic alerts via remote JSON",
-  "updateGroupId": "f2371e35-f36e-4dff-af30-45c33d04e23a",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/f2371e35-f36e-4dff-af30-45c33d04e23a",
+  "message": "feat: release readiness — file association, calendar sync, store assets",
+  "updateGroupId": "3ba4c75a-3b6d-4c15-a99c-e51fb4784489",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/3ba4c75a-3b6d-4c15-a99c-e51fb4784489",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"
