@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-08",
+  "version": "2026-10-08b",
   "year": 2026,
   "checkedAt": "2026-10-08",
   "note": "金額、天數與資格每年可能變動，以各機關公告為準。本檔由遠端（GitHub Pages）更新；APP 內建一份作為離線預設。",
@@ -290,6 +290,706 @@
         "url": "https://www.ece.moe.edu.tw/ch/subsidy/public-non-profit/"
       },
       "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-taipei",
+      "category": "money",
+      "county": "臺北市",
+      "title": "臺北市生育津貼（縣市加碼）",
+      "who": "父或母從出生日前 10 個月起到申請時，都連續設籍臺北市",
+      "amounts": [
+        {
+          "label": "第 1 名",
+          "value": "4 萬元"
+        },
+        {
+          "label": "第 2 名",
+          "value": "4.5 萬元"
+        },
+        {
+          "label": "第 3 名起每名",
+          "value": "5 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生次日起 60 日內，向辦出生登記或新生兒設籍地的戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 60,
+      "source": {
+        "name": "臺北市生育補助發放辦法（115-09-03 修正）",
+        "url": "https://laws.gov.taipei/Law/LawSearch/LawArticleContent/FL081869"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-newtaipei",
+      "category": "money",
+      "county": "新北市",
+      "title": "新北市生育津貼（縣市加碼）",
+      "who": "父或母一方設籍滿 10 個月（可併計臺北、基隆、桃園），或到申請時已在新北連續累計滿 10 個月",
+      "amounts": [
+        {
+          "label": "第 1 名",
+          "value": "4 萬元"
+        },
+        {
+          "label": "第 2 名",
+          "value": "4.5 萬元"
+        },
+        {
+          "label": "第 3 名起每名",
+          "value": "5 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "115 年 1 月 1 日起出生適用。"
+      ],
+      "apply": "出生次日起 1 年內，向任一戶政事務所申請，或線上申辦。",
+      "ageMinDays": 0,
+      "ageMaxDays": 365,
+      "source": {
+        "name": "新北市民政局：生育獎勵金",
+        "url": "https://www.ca.ntpc.gov.tw/home.jsp?id=3af0fb3ede4a9056"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-taoyuan",
+      "category": "money",
+      "county": "桃園市",
+      "title": "桃園市生育津貼（縣市加碼）",
+      "who": "法定代理人在出生前連續設籍桃園滿 1 年，申請時仍設籍；滿 10 個月未滿 1 年可併計北北基",
+      "amounts": [
+        {
+          "label": "第 1 名",
+          "value": "3 萬元"
+        },
+        {
+          "label": "第 2 名",
+          "value": "4 萬元"
+        },
+        {
+          "label": "第 3 名起每名",
+          "value": "5 萬元"
+        },
+        {
+          "label": "多胞胎",
+          "value": "每名再加 1 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生次日起 6 個月內，向各區戶政事務所申請，或用桃園網路 e 指通線上申辦。",
+      "ageMinDays": 0,
+      "ageMaxDays": 183,
+      "source": {
+        "name": "桃園市生育津貼發放作業要點（113-12-30 修正）",
+        "url": "https://law.tycg.gov.tw/LawContent.aspx?id=GL001382"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-taichung",
+      "category": "money",
+      "county": "臺中市",
+      "title": "臺中市生育津貼（縣市加碼）",
+      "who": "父母一方在出生當日已設籍滿 180 天，申請時仍設籍",
+      "amounts": [
+        {
+          "label": "第 1 名",
+          "value": "2 萬元"
+        },
+        {
+          "label": "第 2 名",
+          "value": "2 萬元"
+        },
+        {
+          "label": "第 3 名起",
+          "value": "每多 1 名再加 1 萬元（依條文）"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "115 年 1 月 1 日起出生適用。"
+      ],
+      "apply": "出生次日起 6 個月內，向各區戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 183,
+      "source": {
+        "name": "臺中市生育津貼發放作業計畫（114-11-19 修正）",
+        "url": "https://law.taichung.gov.tw/LawContent.aspx?id=GL004113"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-tainan",
+      "category": "money",
+      "county": "臺南市",
+      "title": "臺南市生育津貼（縣市加碼）",
+      "who": "父或母一方連續設籍滿 6 個月，申請時仍設籍",
+      "amounts": [
+        {
+          "label": "第 1、2 名",
+          "value": "各 2 萬元"
+        },
+        {
+          "label": "第 3、4 名",
+          "value": "各 3 萬元"
+        },
+        {
+          "label": "第 5 名起每名",
+          "value": "5 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生後 180 日內，向辦出生或初設戶籍登記的戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 180,
+      "source": {
+        "name": "臺南人口政策資源網：生育獎勵金",
+        "url": "https://people.tainan.gov.tw/cp.aspx?n=32018"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-kaohsiung",
+      "category": "money",
+      "county": "高雄市",
+      "title": "高雄市生育津貼（縣市加碼）",
+      "who": "出生當日父或母已設籍並實際居住滿 10 個月，申請時仍設籍",
+      "amounts": [
+        {
+          "label": "每名",
+          "value": "3 萬元（不分胎次）"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生之日起 1 年內，向社會局或各區戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 365,
+      "source": {
+        "name": "高雄市生育津貼發給辦法（114-06-24 修正）",
+        "url": "https://outlaw.kcg.gov.tw/LawContent.aspx?id=GL000578"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-keelung",
+      "category": "money",
+      "county": "基隆市",
+      "title": "基隆市生育津貼（縣市加碼）",
+      "who": "父或母從出生日前 10 個月起到申請時連續設籍",
+      "amounts": [
+        {
+          "label": "每名",
+          "value": "3 萬元（不分胎次）"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生後 60 日內，有正當理由可延長到 1 年；向辦出生登記或設籍地的戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 60,
+      "source": {
+        "name": "基隆市生育獎勵金自治條例（114-04-29 修正）",
+        "url": "https://exlaw.klcg.gov.tw/LawContent.aspx?id=GL000244"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-hsinchucity",
+      "category": "money",
+      "county": "新竹市",
+      "title": "新竹市生育津貼（縣市加碼）",
+      "who": "父母一方從出生日前 1 年起到申請時連續設籍",
+      "amounts": [
+        {
+          "label": "每胎",
+          "value": "3 萬元"
+        },
+        {
+          "label": "雙胞胎",
+          "value": "合計 6 萬元"
+        },
+        {
+          "label": "三胞胎以上",
+          "value": "10 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生後 6 個月內（有正當理由可延到 1 年），向辦出生登記的戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 183,
+      "source": {
+        "name": "新竹市生育津貼發放作業要點（113-10-23 修正）",
+        "url": "https://law.hccg.gov.tw/LawContent.aspx?id=GL000025"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-chiayicity",
+      "category": "money",
+      "county": "嘉義市",
+      "title": "嘉義市生育津貼（縣市加碼）",
+      "who": "父或母設籍滿 6 個月且中途未遷出，申請時仍設籍",
+      "amounts": [
+        {
+          "label": "每名",
+          "value": "3 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "國內出生 3 個月內、國外出生 1 年內，向設籍地戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 92,
+      "source": {
+        "name": "嘉義市生育津貼發放作業要點",
+        "url": "https://social.chiayi.gov.tw/News_Content.aspx?n=403&s=782684"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-hsinchucounty",
+      "category": "money",
+      "county": "新竹縣",
+      "title": "新竹縣生育津貼（縣市加碼）",
+      "who": "父母一方設籍並居住滿 1 年（從出生日往前算）",
+      "amounts": [
+        {
+          "label": "第 1 胎",
+          "value": "1 萬元"
+        },
+        {
+          "label": "第 2 胎",
+          "value": "2 萬元"
+        },
+        {
+          "label": "第 3 胎起",
+          "value": "5 萬元"
+        },
+        {
+          "label": "雙胞胎",
+          "value": "3 萬元"
+        },
+        {
+          "label": "三胞胎以上",
+          "value": "10 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "名稱是「新生兒營養補助」。胎次與多胞胎金額擇高發給。"
+      ],
+      "apply": "完成出生登記後 1 個月內，向辦出生登記的戶政事務所申請，逾期喪失資格。",
+      "ageMinDays": 0,
+      "ageMaxDays": 60,
+      "source": {
+        "name": "新竹縣政府社會處：新生兒營養補助",
+        "url": "https://social.hsinchu.gov.tw/News_Content.aspx?n=203&s=3713"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-miaoli",
+      "category": "money",
+      "county": "苗栗縣",
+      "title": "苗栗縣生育津貼（縣市加碼）",
+      "who": "父母一方在出生當日已連續設籍滿 6 個月，申請時仍設籍",
+      "amounts": [
+        {
+          "label": "每名",
+          "value": "2 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "116 年 1 月 1 日起出生改為第 1 胎 2 萬元、第 2 胎起 5 萬元、多胞胎每名 5 萬元。"
+      ],
+      "apply": "出生之日起 6 個月內，向辦出生登記的戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 183,
+      "source": {
+        "name": "苗栗縣生育津貼實施辦法（115-09-21 修正）",
+        "url": "https://law.miaoli.gov.tw/glrsnewsout/LawContent.aspx?id=FL044438"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-changhua",
+      "category": "money",
+      "county": "彰化縣",
+      "title": "彰化縣生育津貼（縣市加碼）",
+      "who": "父或母從出生前 1 年起到申請時連續設籍，新生兒也設籍彰化",
+      "amounts": [
+        {
+          "label": "第 1 名",
+          "value": "3 萬元"
+        },
+        {
+          "label": "第 2 名",
+          "value": "5 萬元"
+        },
+        {
+          "label": "第 3 名起",
+          "value": "8 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "115 年 1 月 1 日起出生適用；多胞胎各依胎次計算。",
+        "部分鄉鎮另有加碼，見縣府社會處彙整表。"
+      ],
+      "apply": "國內出生 3 個月內、國外出生 6 個月內，向任一戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 92,
+      "source": {
+        "name": "彰化縣政府生育補助實施要點（115-03-26 修正）",
+        "url": "https://lawsearch.chcg.gov.tw/GLRSNEWSOUT/LawContent.aspx?id=FL088160"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-nantou",
+      "category": "money",
+      "county": "南投縣",
+      "title": "南投縣生育津貼（縣市加碼）",
+      "who": "父或母一方設籍並連續居住滿 10 個月",
+      "amounts": [
+        {
+          "label": "第 1 名",
+          "value": "1 萬元"
+        },
+        {
+          "label": "第 2 名",
+          "value": "1.5 萬元"
+        },
+        {
+          "label": "第 3 名",
+          "value": "2 萬元"
+        },
+        {
+          "label": "第 4 名",
+          "value": "5 萬元"
+        },
+        {
+          "label": "第 5 名起",
+          "value": "10 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生後 60 日內，到設籍地戶政事務所臨櫃或線上申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 60,
+      "source": {
+        "name": "南投縣生育獎勵金發放作業要點（113-11-23 修正）",
+        "url": "https://glrs.nantou.gov.tw/LawContent.aspx?id=GL000080"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-chiayicounty",
+      "category": "money",
+      "county": "嘉義縣",
+      "title": "嘉義縣生育津貼（縣市加碼）",
+      "who": "產婦或配偶設籍滿 6 個月，申請時仍在籍",
+      "amounts": [
+        {
+          "label": "第 1 名",
+          "value": "1.2 萬元"
+        },
+        {
+          "label": "第 2 名",
+          "value": "2.4 萬元"
+        },
+        {
+          "label": "第 3 名",
+          "value": "3.6 萬元"
+        },
+        {
+          "label": "第 4 名起",
+          "value": "10 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "辦出生登記者出生次日起 3 個月內，向縣內任一戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 92,
+      "source": {
+        "name": "嘉義縣社會局：婦女生育補助",
+        "url": "https://sabcc.cyhg.gov.tw/cp.aspx?n=B5EE49FA21B5A443"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-pingtung",
+      "category": "money",
+      "county": "屏東縣",
+      "title": "屏東縣生育津貼（縣市加碼）",
+      "who": "出生當日父或母已設籍並實際居住滿 1 年，申請時仍設籍",
+      "amounts": [
+        {
+          "label": "第 1 名",
+          "value": "2 萬元"
+        },
+        {
+          "label": "第 2 名起",
+          "value": "3 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生次日起 6 個月內，向辦出生登記的戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 183,
+      "source": {
+        "name": "屏東縣民政處：生育津貼",
+        "url": "https://www.pthg.gov.tw/plancab/cp.aspx?n=9F8B99754361E42D"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-yilan",
+      "category": "money",
+      "county": "宜蘭縣",
+      "title": "宜蘭縣生育津貼（縣市加碼）",
+      "who": "本人或配偶現設籍滿 1 年（期間遷出再遷入要重新起算），新生兒須設籍宜蘭",
+      "amounts": [
+        {
+          "label": "每名",
+          "value": "2 萬元（多胞胎每人各給）"
+        },
+        {
+          "label": "產檢交通費",
+          "value": "每人每胎次 3,000 元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "社會處網頁寫 6 個月內，但法規寫 3 個月內，以法規為準，請盡早申請。",
+        "南澳、壯圍、蘇澳、宜蘭市等鄉鎮另有加碼。"
+      ],
+      "apply": "出生日起 3 個月內，向縣內各戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 92,
+      "source": {
+        "name": "宜蘭縣婦女生育津貼實施辦法（114-12-03 修正，115-01-01 施行）",
+        "url": "https://glrslaw.e-land.gov.tw/LawContent.aspx?id=GL000001"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-taitung",
+      "category": "money",
+      "county": "臺東縣",
+      "title": "臺東縣生育津貼（縣市加碼）",
+      "who": "產婦或生父連續設籍滿 6 個月",
+      "amounts": [
+        {
+          "label": "第 1 胎",
+          "value": "4 萬元"
+        },
+        {
+          "label": "第 2 胎",
+          "value": "4.5 萬元"
+        },
+        {
+          "label": "第 3 胎起",
+          "value": "5 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。"
+      ],
+      "apply": "出生後 60 日內，向戶籍地戶政事務所申請。",
+      "ageMinDays": 0,
+      "ageMaxDays": 60,
+      "source": {
+        "name": "臺東縣政府生育補助實施計畫（臺東育見幸福）",
+        "url": "https://ttbaby.taitung.gov.tw/articles/29/"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-penghu",
+      "category": "money",
+      "county": "澎湖縣",
+      "title": "澎湖縣生育津貼（縣市加碼）",
+      "who": "生父或生母一方連續設籍滿 2 年，新生兒設籍澎湖",
+      "amounts": [
+        {
+          "label": "第 1 胎",
+          "value": "4 萬元"
+        },
+        {
+          "label": "第 2 胎",
+          "value": "6 萬元"
+        },
+        {
+          "label": "第 3 胎起",
+          "value": "8 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "多胞胎以胎次計算。"
+      ],
+      "apply": "出生後 3 個月內，到戶政事務所臨櫃申請，或送件到轄區衛生所。",
+      "ageMinDays": 0,
+      "ageMaxDays": 92,
+      "source": {
+        "name": "澎湖縣幸福專區：生育津貼",
+        "url": "https://www.penghu.gov.tw/welfare/home.jsp?id=9&act=view&dataserno=202502180005"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-kinmen",
+      "category": "money",
+      "county": "金門縣",
+      "title": "金門縣生育津貼（縣市加碼）",
+      "who": "生產補助：父母一方設籍滿 6 個月，嬰兒在金門初設戶籍；加碼：出生前連續設籍滿 1 年",
+      "amounts": [
+        {
+          "label": "婦女生產補助：單胞胎",
+          "value": "2 萬元"
+        },
+        {
+          "label": "婦女生產補助：雙胞胎",
+          "value": "6 萬元"
+        },
+        {
+          "label": "婦女生產補助：三胞胎以上",
+          "value": "每胞 4 萬元"
+        },
+        {
+          "label": "支持生育加碼",
+          "value": "每名 3 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "兩項可以疊加。加碼適用 115 年 1 月 1 日起出生；9 月 1 日起出生者 8 個月內申請。"
+      ],
+      "apply": "向新生兒戶籍所屬的鄉鎮公所社會課申請（不是戶政事務所）。生產補助在生產後 8 個月內。",
+      "ageMinDays": 0,
+      "ageMaxDays": 243,
+      "source": {
+        "name": "金門縣政府支持生育加碼補助實施計畫（115-08-21 修正）",
+        "url": "https://law.kinmen.gov.tw/LawContent.aspx?id=GL000869"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "birth-local-lienchiang",
+      "category": "money",
+      "county": "連江縣",
+      "title": "連江縣生育津貼（縣市加碼）",
+      "who": "父母之一設籍滿 1 年且累計設籍滿 2 年，嬰兒設籍連江",
+      "amounts": [
+        {
+          "label": "第 1 胎",
+          "value": "3 萬元"
+        },
+        {
+          "label": "第 2 胎",
+          "value": "6 萬元"
+        },
+        {
+          "label": "第 3 胎",
+          "value": "9 萬元"
+        },
+        {
+          "label": "第 4 胎起",
+          "value": "15 萬元"
+        }
+      ],
+      "notes": [
+        "和中央的生育給付分開，可以都領。",
+        "多胞胎各依胎次計算。"
+      ],
+      "apply": "生產後 3 個月內，向縣府民政社會處申請（不是戶政事務所）。",
+      "ageMinDays": 0,
+      "ageMaxDays": 92,
+      "source": {
+        "name": "連江縣婦女生產補助自治條例（114-12-30 修正）",
+        "url": "https://law.matsu.gov.tw/LawContent.aspx?id=GL000234"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "yilan-public-nursery",
+      "category": "childcare",
+      "county": "宜蘭縣",
+      "title": "宜蘭縣公共托嬰中心",
+      "who": "設籍宜蘭、未滿 2 歲，至少一位照顧者就業；114 年 1 月 1 日起父或母要設籍滿 6 個月",
+      "amounts": [
+        {
+          "label": "公共托嬰中心",
+          "value": "14 處"
+        },
+        {
+          "label": "公設民營托嬰中心",
+          "value": "5 處"
+        },
+        {
+          "label": "費用",
+          "value": "適用中央的公共化托育補助"
+        }
+      ],
+      "notes": [
+        "名稱有「家園」的也在這份名單裡。",
+        "名額有限，常需候補，請直接向各中心登記。"
+      ],
+      "apply": "向各公共托嬰中心登記；名單見縣府社會處頁面或宜蘭縣育兒資源網。",
+      "ageMinDays": 0,
+      "ageMaxDays": 730,
+      "source": {
+        "name": "宜蘭縣政府社會處：公共托嬰中心（115-07-13）",
+        "url": "https://sntroot.e-land.gov.tw/News_Content.aspx?n=11276&s=133318"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "yilan-home-postpartum",
+      "category": "service",
+      "county": "宜蘭縣",
+      "title": "宜蘭縣安心生育幸福親子到宅服務",
+      "who": "新生兒設籍並實際居住宜蘭，父母一方設籍居住滿 6 個月，且為低收或中低收入戶、產婦或配偶領有本縣身障證明、特殊境遇家庭，或領弱勢兒少生活扶助",
+      "amounts": [
+        {
+          "label": "內容",
+          "value": "到宅協助產婦與新生兒照顧、簡易家務、月子餐"
+        }
+      ],
+      "notes": [
+        "只限符合條件的家庭。頁面更新於 2024-06-04，申請前請先電話確認。"
+      ],
+      "apply": "電話 03-9904366，或透過宜蘭縣育兒資源網。",
+      "ageMinDays": 0,
+      "ageMaxDays": 60,
+      "source": {
+        "name": "宜蘭縣政府社會處：安心生育幸福親子到宅服務",
+        "url": "https://sntroot.e-land.gov.tw/News_Content.aspx?n=10117&s=134974"
+      },
+      "checkedAt": "2026-10-08"
     }
   ],
   "todos": [
@@ -394,6 +1094,20 @@
       "source": {
         "name": "全國法規資料庫：高級中等以下教育階段非學校型態實驗教育實施條例",
         "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070059"
+      },
+      "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "yilan-resources",
+      "county": "宜蘭縣",
+      "title": "宜蘭縣育兒資源網",
+      "when": "隨時",
+      "ageMinDays": -280,
+      "ageMaxDays": 2190,
+      "detail": "縣府社會處的育兒資源網：13 處親子館預約（要先加入會員）、托嬰中心與居家托育名單、縣內補助。APP 的「親子館」清單用的是社家署全國名冊，資料截至 111 年 12 月，最新開放時間以這裡為準。",
+      "source": {
+        "name": "宜蘭縣育兒資源網",
+        "url": "https://parenting.e-land.gov.tw/"
       },
       "checkedAt": "2026-10-08"
     }

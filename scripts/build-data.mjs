@@ -20,7 +20,9 @@ const schedule = read('content/schedule/timeline.json');
 const alerts = read('content/alerts/alerts.json');
 
 const ageDays = (iso) => Math.floor((today.getTime() - new Date(iso).getTime()) / 86400000);
-const isGov = (url) => /^https:\/\/([a-z0-9-]+\.)*gov\.tw\//.test(url) || /^https:\/\/([a-z0-9-]+\.)*edu\.tw\//.test(url);
+const COUNTIES = ['臺北市', '新北市', '桃園市', '臺中市', '臺南市', '高雄市', '基隆市', '新竹市', '嘉義市', '新竹縣', '苗栗縣', '彰化縣', '南投縣', '雲林縣', '嘉義縣', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'];
+// gov.taipei 是臺北市政府的正式網域。
+const isGov = (url) => /^https:\/\/([a-z0-9-]+\.)*(gov|edu)\.tw\//.test(url) || /^https:\/\/([a-z0-9-]+\.)*gov\.taipei\//.test(url);
 
 if (!/^\d{4}-\d{2}-\d{2}/.test(policy.version ?? '')) fails.push('policy.version 須為 YYYY-MM-DD');
 if (!policy.year) fails.push('policy.year 缺少');
@@ -28,6 +30,7 @@ for (const it of [...(policy.items ?? []), ...(policy.todos ?? [])]) {
   const tag = `policy ${it.id ?? '(無 id)'}`;
   for (const k of ['id', 'title', 'ageMinDays', 'ageMaxDays', 'source', 'checkedAt']) if (it[k] === undefined) fails.push(`${tag} 缺少 ${k}`);
   if (it.source && !isGov(it.source.url)) fails.push(`${tag} 來源不是政府網站（R16）：${it.source.url}`);
+  if (it.county !== undefined && !COUNTIES.includes(it.county)) fails.push(`${tag} county 不是正式縣市名稱（用「臺」）：${it.county}`);
   if (it.checkedAt && ageDays(it.checkedAt) > MAX_AGE_DAYS) fails.push(`${tag} 查核日期 ${it.checkedAt} 已超過 ${MAX_AGE_DAYS} 天，請重新查核`);
 }
 for (const it of policy.items ?? []) {

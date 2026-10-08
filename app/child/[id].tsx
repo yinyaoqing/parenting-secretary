@@ -7,6 +7,7 @@ import type { Child, FeedingMethod, Location } from '../../src/db/types';
 import { fromIsoDate, toIsoDate } from '../../src/util/datetime';
 import { daysSince } from '../../src/util/age';
 import { locationsForAge } from '../../src/home/location';
+import { CountyPick } from '../../src/ui/CountyPick';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Field, Input, Chip, Opt, Card, SwitchRow, PrimaryButton, GhostButton, Badge } from '../../src/ui/components';
 import { DatePick } from '../../src/ui/DatePick';
@@ -34,6 +35,7 @@ export default function EditChild() {
   const [contexts, setContexts] = useState<string[]>([]);
   const [daycareFrom, setDaycareFrom] = useState<Date | null>(null);
   const [schoolFrom, setSchoolFrom] = useState<Date | null>(null);
+  const [county, setCounty] = useState<string | undefined>(undefined);
   const [confirm, setConfirm] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -43,7 +45,7 @@ export default function EditChild() {
       if (!ch) return;
       setC(ch); setNickname(ch.nickname); setBirth(fromIsoDate(ch.birthDate)); setPreterm(!!ch.dueDate); setDue(ch.dueDate ? fromIsoDate(ch.dueDate) : null);
       setFeeding(ch.feedingMethod); setLocation(ch.location); setUntil(ch.locationUntil ? fromIsoDate(ch.locationUntil) : null); setContexts(ch.specialContexts);
-      setDaycareFrom(ch.daycareFrom ? fromIsoDate(ch.daycareFrom) : null); setSchoolFrom(ch.schoolFrom ? fromIsoDate(ch.schoolFrom) : null);
+      setDaycareFrom(ch.daycareFrom ? fromIsoDate(ch.daycareFrom) : null); setSchoolFrom(ch.schoolFrom ? fromIsoDate(ch.schoolFrom) : null); setCounty(ch.county);
     });
   }, [id]);
 
@@ -57,7 +59,7 @@ export default function EditChild() {
     await updateChild(c.id, {
       nickname: nickname.trim(), birthDate: toIsoDate(birth), dueDate: preterm && due ? toIsoDate(due) : undefined,
       feedingMethod: feeding, location, locationUntil: location === 'postnatal_center' && until ? toIsoDate(until) : undefined, specialContexts,
-      daycareFrom: daycareFrom ? toIsoDate(daycareFrom) : undefined, schoolFrom: schoolFrom ? toIsoDate(schoolFrom) : undefined,
+      daycareFrom: daycareFrom ? toIsoDate(daycareFrom) : undefined, schoolFrom: schoolFrom ? toIsoDate(schoolFrom) : undefined, county,
     });
     await reload();
     router.back();
@@ -102,6 +104,7 @@ export default function EditChild() {
         <Field label="孩子現在主要在哪裡">
           <View style={{ gap: 8 }}>{locationsForAge(birth ? daysSince(toIsoDate(birth)) : null, location).map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}</View>
         </Field>
+        <Field label="戶籍縣市（可不選）" hint="用來顯示該縣市的生育津貼等地方補助"><CountyPick value={county} onChange={setCounty} /></Field>
         {location === 'postnatal_center' ? <Field label="預定出所日"><DatePick value={until} onChange={setUntil} mode="date" label="預定出所日" /></Field> : null}
         <Card style={{ gap: 10 }}>
           <Text style={[styles.p, { fontWeight: '700' }]}>生活的轉折（可留空）</Text>

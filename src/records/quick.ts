@@ -45,6 +45,16 @@ export async function logTummyTime(childId: string, minutes: number, recordedBy:
   return addEvent({ childId, type: 'tummy_time', payload: { minutes }, startAt, ...by(recordedBy) });
 }
 
+// 3C 時間：只記分鐘數，不設上限、不評分（R1）。
+export async function logScreenTime(childId: string, minutes: number, recordedBy: string, startAt?: string): Promise<Event> {
+  return addEvent({ childId, type: 'screen_time', payload: { minutes }, startAt, ...by(recordedBy) });
+}
+
+// 自學學習紀錄：科目、分鐘、材料、備註都由家長寫；不評分（規劃 v1.0 第 5.3 節）。
+export async function logLearning(childId: string, p: { subject: string; minutes?: number; material?: string; note?: string }, recordedBy: string, startAt?: string): Promise<Event> {
+  return addEvent({ childId, type: 'learning', payload: p, startAt, ...by(recordedBy) });
+}
+
 // 戶外活動：只記分鐘數，不設目標、不算累計達標（R1）。
 export async function logOutdoor(childId: string, minutes: number, recordedBy: string, startAt?: string): Promise<Event> {
   return addEvent({ childId, type: 'outdoor', payload: { minutes }, startAt, ...by(recordedBy) });

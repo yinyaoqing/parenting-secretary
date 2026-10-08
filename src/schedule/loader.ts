@@ -2,7 +2,7 @@
 // 之後遠端 JSON 投放時，同一格式覆蓋 bundled 即可（版本比較用 version 欄位）。
 import bundled from '../../content/schedule/timeline.json';
 
-export type ScheduleCategory = 'checkup' | 'development' | 'vaccine' | 'dental';
+export type ScheduleCategory = 'checkup' | 'development' | 'vaccine' | 'dental' | 'school';
 export interface ScheduleItem {
   id: string;
   category: ScheduleCategory;
@@ -27,7 +27,8 @@ export const CATEGORY_LABEL: Record<ScheduleCategory, string> = {
   checkup: '兒童預防保健',
   development: '兒童發展篩檢',
   vaccine: '公費疫苗',
-  dental: '塗氟',
+  dental: '牙齒保健',
+  school: '學校健康服務',
 };
 
 export type ItemStatus = 'open' | 'upcoming' | 'past';

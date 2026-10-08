@@ -15,6 +15,7 @@ type ChildRow = {
   updated_at: string;
   daycare_from?: string | null;
   school_from?: string | null;
+  county?: string | null;
 };
 
 function rowToChild(r: ChildRow): Child {
@@ -29,6 +30,7 @@ function rowToChild(r: ChildRow): Child {
     specialContexts: JSON.parse(r.special_contexts || '[]'),
     daycareFrom: r.daycare_from ?? undefined,
     schoolFrom: r.school_from ?? undefined,
+    county: r.county ?? undefined,
     createdAt: r.created_at,
     updatedAt: r.updated_at,
   };
@@ -53,8 +55,8 @@ export async function updateChild(id: string, patch: Partial<Omit<Child, 'id' | 
   if (!cur) throw new Error('child not found');
   const next = { ...cur, ...patch };
   await db.runAsync(
-    `UPDATE children SET nickname = ?, birth_date = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, daycare_from = ?, school_from = ?, updated_at = ? WHERE id = ?`,
-    next.nickname, next.birthDate, next.dueDate ?? null, next.feedingMethod, next.location, next.locationUntil ?? null, JSON.stringify(next.specialContexts ?? []), next.daycareFrom ?? null, next.schoolFrom ?? null, nowIso(), id,
+    `UPDATE children SET nickname = ?, birth_date = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, daycare_from = ?, school_from = ?, county = ?, updated_at = ? WHERE id = ?`,
+    next.nickname, next.birthDate, next.dueDate ?? null, next.feedingMethod, next.location, next.locationUntil ?? null, JSON.stringify(next.specialContexts ?? []), next.daycareFrom ?? null, next.schoolFrom ?? null, next.county ?? null, nowIso(), id,
   );
   emitDataChange();
 }
@@ -82,8 +84,8 @@ export async function createChild(input: Omit<Child, 'id' | 'createdAt' | 'updat
   const id = newId();
   const ts = nowIso();
   await db.runAsync(
-    `INSERT INTO children (id, nickname, birth_date, due_date, feeding_method, location, location_until, special_contexts, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO children (id, nickname, birth_date, due_date, feeding_method, location, location_until, special_contexts, county, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     id,
     input.nickname,
     input.birthDate,
@@ -92,6 +94,7 @@ export async function createChild(input: Omit<Child, 'id' | 'createdAt' | 'updat
     input.location,
     input.locationUntil ?? null,
     JSON.stringify(input.specialContexts ?? []),
+    input.county ?? null,
     ts,
     ts,
   );

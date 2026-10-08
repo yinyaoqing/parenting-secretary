@@ -87,6 +87,14 @@ scripts/build-legal.mjs 隱私權政策、服務條款、支援頁轉成 docs/da
 src/release/profile.ts  送審版型 personal／org 與功能開關 FEATURES（決策第 10 項、plan-v1.0 第 1 章）；改一行切換，資料結構不變
 src/db/reminders.ts     倒數提醒（reminders 表 kind=timer）：新增、列出未到期、刪除、清掉已到期
 src/home/location.ts    照顧地點六種與依年齡篩選（建檔與編輯共用）
+src/home/county.ts      22 縣市正式名稱；孩子的戶籍縣市（schema v5）決定地方補助
+src/policy/select.ts    政策依年齡與縣市篩選（純函式，含測試）
+src/progress/           進度對照表：select（年級換算、入口條件，含測試）、store（勾選只存本機）；內容在 content/progress/checklist.json，授權查核前保持空白
+src/remote/validate.ts  遠端資料只接受政府網址與單純檔名（MAS L1，含測試）
+src/ui/PlaceList.tsx    依縣市鄉鎮篩選的場所清單：哺集乳室、親子館（content/resources/parent-child-centers.json）、幼兒園（kindergartens.json）共用
+scripts/import-centers.mjs、import-kindergartens.mjs  親子館與幼兒園名錄開放資料匯入
+scripts/b2g-tenders.mjs 育兒資源網類標案追蹤，輸出 docs/dev/b2g-tenders.md
+docs/dev/mas-l1-checklist.md、docs/b2g/yilan-demo.md  資安自我檢查與宜蘭縣示範說明
 src/home/buttons.ts     首頁按鈕依餵養方式與年齡的預設與自訂覆蓋（純函式）；體溫與用藥鍵受版型控制
 src/records/            pump（庫存）、share（分享今天文字）、csv（匯出），皆純函式含測試
 src/content/summary.ts  卡片一句話與分段折疊

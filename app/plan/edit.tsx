@@ -19,6 +19,12 @@ const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0];
 const DURATIONS = [0, 15, 30, 45, 50, 60, 90, 120];
 const LEADS: [string, number][] = [['不提醒', 0], ['15 分', 15], ['30 分', 30], ['1 小時', 60], ['前一天', 1440]];
 const ROUTINE_TITLES_YOUNG = ['小睡', '夜間睡眠'];
+// 照顧地點是幼兒園或學校時的快速範本（規劃 v1.0 第 5.1 節）：只是預填，存成一般行程，可改可刪。
+const SCHOOL_PRESETS: { title: string; kind: ScheduleKind; time: string; dur: number; lead: number }[] = [
+  { title: '上學', kind: 'care', time: '07:30', dur: 0, lead: 15 },
+  { title: '放學接送', kind: 'care', time: '16:00', dur: 0, lead: 30 },
+  { title: '才藝課', kind: 'activity', time: '17:00', dur: 60, lead: 30 },
+];
 const ROUTINE_TITLES = ['小睡', '夜間睡眠', '早餐', '午餐', '晚餐', '點心', '洗澡', '就寢'];
 
 const timeToDate = (hm: string) => { const d = new Date(); d.setHours(Math.floor(hmToMin(hm) / 60), hmToMin(hm) % 60, 0, 0); return d; };
@@ -127,6 +133,9 @@ export default function EditPlan() {
 
         <Field label="名稱">
           <Input value={title} onChangeText={setTitle} placeholder={kind === 'routine' ? '例如：小睡' : kind === 'class' ? '例如：國語' : '例如：早療復健'} accessibilityLabel="名稱" />
+          {!orig && kind !== 'routine' && (child.location === 'kindergarten' || child.location === 'school') ? (
+            <View style={styles.chips}>{SCHOOL_PRESETS.map((p) => <Chip key={p.title} sm label={p.title} on={title === p.title} onPress={() => { setTitle(p.title); setKind(p.kind); setTime(p.time); setDuration(p.dur ? String(p.dur) : ''); setLead(p.lead); setWeekdays([1, 2, 3, 4, 5]); }} />)}</View>
+          ) : null}
           {kind === 'routine' ? (
             <View style={styles.chips}>{(young ? ROUTINE_TITLES_YOUNG : ROUTINE_TITLES).map((s) => <Chip key={s} sm label={s} on={title === s} onPress={() => setTitle(s)} />)}</View>
           ) : null}

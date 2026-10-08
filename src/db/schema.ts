@@ -2,7 +2,8 @@
 // v2：事件加 seq（每個記錄裝置自己的單調序號）、updated_at（結束或刪除時更新，供交接差量）、tz_offset_min；新增 peers（配對過的裝置）。
 // v3：children 加 archived_at（封存孩子，紀錄保留不顯示）。
 // v4：children 加 daycare_from、school_from（作息範本的事件起點）；schedule_items 補時間軸欄位與墓碑。
-export const SCHEMA_VERSION = 4;
+// v5：children 加 county（戶籍縣市，決定地方補助與縣市資源；規劃 v1.0 第 6.3 節）。
+export const SCHEMA_VERSION = 5;
 
 export const SCHEMA_SQL = `
 PRAGMA journal_mode = WAL;
@@ -22,6 +23,7 @@ CREATE TABLE IF NOT EXISTS children (
   location TEXT NOT NULL DEFAULT 'home',
   location_until TEXT,
   special_contexts TEXT NOT NULL DEFAULT '[]',
+  county TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
   archived_at TEXT,

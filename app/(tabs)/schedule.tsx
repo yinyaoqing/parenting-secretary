@@ -10,6 +10,8 @@ import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Badge, Card, Section, ListCard, ListRow, Chip, Icon } from '../../src/ui/components';
 import { Thumb } from '../../src/ui/art';
 import { policyBundle, policyFor, isStale } from '../../src/policy/loader';
+import { gradeFor, showEntry } from '../../src/progress/select';
+import { PROGRESS, progressEnabled } from '../../src/progress/store';
 import { activeAlerts, alertsBundle } from '../../src/alerts/loader';
 
 // 時程分頁：依出生日算出公費健檢、發展篩檢、疫苗、塗氟的時間窗。只放時程，不放金額（紅線 R11：政策數字走遠端 JSON）。
@@ -20,7 +22,8 @@ export default function Schedule() {
   const { active: child, reload } = useChildren();
   const [showPast, setShowPast] = useState(false);
   const [openPolicy, setOpenPolicy] = useState<string | null>(null);
-  useFocusEffect(useCallback(() => { reload(); }, [reload]));
+  const [progressOn, setProgressOn] = useState(true);
+  useFocusEffect(useCallback(() => { reload(); progressEnabled().then(setProgressOn); }, [reload]));
 
   const d = child ? daysSince(child.birthDate) : null;
   const entries = child ? scheduleFor(child.birthDate) : [];
@@ -100,7 +103,7 @@ export default function Schedule() {
         ) : null}
 
         {child && d !== null ? (() => {
-          const pol = policyFor(d);
+          const pol = policyFor(d, child?.county);
           const pb = policyBundle();
           return (
             <>
@@ -172,9 +175,20 @@ ${t.detail}`} right={<Icon name="external-link" size={14} color={palette.accent}
           );
         })()}
 
-        <Section title="外出" />
+        {child && showEntry(PROGRESS, gradeFor(child.birthDate, new Date()), progressOn) && (child.location === 'coop' || child.location === 'school') ? (
+          <>
+            <Section title="學習" />
+            <ListCard>
+              <ListRow first icon="check-square" main="進度對照" sub="體制內同年級的進度，供銜接參考；不計分" chevron onPress={() => router.push('/progress')} />
+            </ListCard>
+          </>
+        ) : null}
+
+        <Section title="找地方" />
         <ListCard>
-          <ListRow first icon="map-pin" main="找哺集乳室" sub="國健署名單，依縣市鄉鎮篩選，用手機地圖導航" chevron onPress={() => router.push('/resources/nursing')} />
+          <ListRow first icon="home" main="親子館與托育資源中心" sub="社家署名冊，依縣市鄉鎮篩選" chevron onPress={() => router.push('/resources/centers')} />
+          {d !== null && d >= 730 && d <= 2557 ? <ListRow icon="flag" main="找幼兒園" sub="教育部立案名錄，不排序、不推薦" chevron onPress={() => router.push('/resources/kindergartens')} /> : null}
+          <ListRow icon="map-pin" main="找哺集乳室" sub="國健署名單，依縣市鄉鎮篩選，用手機地圖導航" chevron onPress={() => router.push('/resources/nursing')} />
         </ListCard>
 
         <Section title="資料來源" />

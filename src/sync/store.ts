@@ -67,8 +67,8 @@ export async function removePeer(id: string): Promise<void> {
 }
 
 // ---------- 組交接包 ----------
-type ChildRow = { id: string; nickname: string; birth_date: string; due_date: string | null; feeding_method: string; location: string; location_until: string | null; special_contexts: string; created_at: string; updated_at: string; daycare_from: string | null; school_from: string | null };
-const rowToChild = (r: ChildRow): SyncChild => ({ id: r.id, nickname: r.nickname, birthDate: r.birth_date, dueDate: r.due_date ?? undefined, feedingMethod: r.feeding_method, location: r.location, locationUntil: r.location_until ?? undefined, specialContexts: JSON.parse(r.special_contexts || '[]'), daycareFrom: r.daycare_from ?? undefined, schoolFrom: r.school_from ?? undefined, createdAt: r.created_at, updatedAt: r.updated_at });
+type ChildRow = { id: string; nickname: string; birth_date: string; due_date: string | null; feeding_method: string; location: string; location_until: string | null; special_contexts: string; created_at: string; updated_at: string; daycare_from: string | null; school_from: string | null; county?: string | null };
+const rowToChild = (r: ChildRow): SyncChild => ({ id: r.id, nickname: r.nickname, birthDate: r.birth_date, dueDate: r.due_date ?? undefined, feedingMethod: r.feeding_method, location: r.location, locationUntil: r.location_until ?? undefined, specialContexts: JSON.parse(r.special_contexts || '[]'), daycareFrom: r.daycare_from ?? undefined, schoolFrom: r.school_from ?? undefined, county: r.county ?? undefined, createdAt: r.created_at, updatedAt: r.updated_at });
 
 // peerId 為空代表「給任何已配對裝置」，會打包全部事件（合併是冪等的，重複送不會壞）。
 export async function buildPackage(peerId?: string): Promise<{ text: string; events: number; delta: boolean }> {
@@ -120,13 +120,13 @@ export async function applyPackage(pkg: SyncPackage, opts: { fromBackup?: boolea
     const localChildren = (await db.getAllAsync<ChildRow>('SELECT * FROM children')).map(rowToChild);
     const cp = planChildren(localChildren, pkg.children);
     const insertChild = (c: SyncChild) => db.runAsync(
-      `INSERT INTO children (id, nickname, birth_date, due_date, feeding_method, location, location_until, special_contexts, daycare_from, school_from, archived_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      c.id, c.nickname, c.birthDate, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.daycareFrom ?? null, c.schoolFrom ?? null, c.archivedAt ?? null, c.createdAt, c.updatedAt,
+      `INSERT INTO children (id, nickname, birth_date, due_date, feeding_method, location, location_until, special_contexts, daycare_from, school_from, county, archived_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      c.id, c.nickname, c.birthDate, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.daycareFrom ?? null, c.schoolFrom ?? null, c.county ?? null, c.archivedAt ?? null, c.createdAt, c.updatedAt,
     );
     for (const c of cp.insert) { await insertChild(c); report.childrenInserted++; }
     for (const c of cp.update) {
-      await db.runAsync('UPDATE children SET nickname = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, daycare_from = ?, school_from = ?, updated_at = ? WHERE id = ?',
-        c.nickname, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.daycareFrom ?? null, c.schoolFrom ?? null, c.updatedAt, c.id);
+      await db.runAsync('UPDATE children SET nickname = ?, due_date = ?, feeding_method = ?, location = ?, location_until = ?, special_contexts = ?, daycare_from = ?, school_from = ?, county = ?, updated_at = ? WHERE id = ?',
+        c.nickname, c.dueDate ?? null, c.feedingMethod, c.location, c.locationUntil ?? null, JSON.stringify(c.specialContexts), c.daycareFrom ?? null, c.schoolFrom ?? null, c.county ?? null, c.updatedAt, c.id);
     }
     for (const m of cp.remapLocal) {
       // 本機 id 讓位給對方較小的 id：先插入正本，改掉所有參照，再刪本機舊檔。

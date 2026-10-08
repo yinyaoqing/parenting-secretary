@@ -18,14 +18,14 @@ const aesFactory: CryptoFactory = async (keyBytes) => {
   return c;
 };
 
-type ChildRow = { id: string; nickname: string; birth_date: string; due_date: string | null; feeding_method: string; location: string; location_until: string | null; special_contexts: string; created_at: string; updated_at: string; daycare_from: string | null; school_from: string | null; archived_at: string | null };
+type ChildRow = { id: string; nickname: string; birth_date: string; due_date: string | null; feeding_method: string; location: string; location_until: string | null; special_contexts: string; created_at: string; updated_at: string; daycare_from: string | null; school_from: string | null; county?: string | null; archived_at: string | null };
 
 export async function buildBackup(password: string): Promise<{ text: string; children: number; events: number }> {
   const db = await getDb();
   const children: BackupChild[] = (await db.getAllAsync<ChildRow>('SELECT * FROM children')).map((r) => ({
     id: r.id, nickname: r.nickname, birthDate: r.birth_date, dueDate: r.due_date ?? undefined, feedingMethod: r.feeding_method, location: r.location,
     locationUntil: r.location_until ?? undefined, specialContexts: JSON.parse(r.special_contexts || '[]'), daycareFrom: r.daycare_from ?? undefined,
-    schoolFrom: r.school_from ?? undefined, archivedAt: r.archived_at ?? undefined, createdAt: r.created_at, updatedAt: r.updated_at,
+    schoolFrom: r.school_from ?? undefined, county: r.county ?? undefined, archivedAt: r.archived_at ?? undefined, createdAt: r.created_at, updatedAt: r.updated_at,
   }));
   const events = (await db.getAllAsync<EventRow>('SELECT * FROM events ORDER BY created_at ASC')).map(rowToEvent);
   const schedule = (await db.getAllAsync<ScheduleRow>('SELECT * FROM schedule_items')).map(rowToScheduleItem);

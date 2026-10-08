@@ -19,6 +19,7 @@ export interface Child {
   specialContexts: string[]; // 'preterm' | 'multiple' | 'dev_concern' | 'disability_chronic' | 'new_immigrant' | 'grandparent' | ...
   daycareFrom?: string; // 開始上托嬰的日期（作息範本的事件起點）
   schoolFrom?: string; // 入園或入學的日期（作息範本的事件起點）
+  county?: string; // 戶籍縣市（臺北市…連江縣），決定地方補助與縣市資源；沒填只顯示中央項目
   createdAt: string;
   updatedAt: string;
 }
@@ -36,6 +37,8 @@ export type EventType =
   | 'sleep'
   | 'tummy_time'
   | 'outdoor' // 戶外活動分鐘數（國健署近視防治：只記錄，不設目標）
+  | 'screen_time' // 3C 時間分鐘數（只記錄，不設上限）
+  | 'learning' // 自學學習紀錄：科目、分鐘、材料、備註
   | 'growth'
   | 'temperature'
   | 'symptom'

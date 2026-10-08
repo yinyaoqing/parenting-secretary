@@ -59,6 +59,10 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
     await db.execAsync('UPDATE schedule_items SET updated_at = created_at WHERE updated_at IS NULL');
   }
 
+  if (current < 5) {
+    if (!(await hasColumn(db, 'children', 'county'))) await db.execAsync('ALTER TABLE children ADD COLUMN county TEXT');
+  }
+
   await db.runAsync(
     'INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)',
     'schema_version',

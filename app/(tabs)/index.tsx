@@ -135,7 +135,7 @@ export default function Home() {
   };
 
   // 如廁訓練：滿 1 歲半到 6 歲顯示；夜間模式不顯示（擁有者決定，夜間首頁只留吃、睡、尿布）。
-  const show = resolveHome(child.feedingMethod, d, homeOv);
+  const show = resolveHome(child.feedingMethod, d, homeOv, child.location);
   const showToilet = !paused && !night && d >= TOILET_MIN_DAYS && d < TOILET_MAX_DAYS && toilet.state !== 'done';
   const logPotty = async (o: Outcome, label: string) => {
     setPotty(false);
@@ -261,6 +261,8 @@ export default function Home() {
           {show.temp ? <Big label="體溫" sub="數字與部位" icon="thermometer" onPress={() => router.push({ pathname: '/record/temperature', params: { childId: child.id } })} /> : null}
           {show.tummy ? <Big label="清醒趴臥" sub="幾分鐘" icon="user" onPress={() => router.push({ pathname: '/record/tummy', params: { childId: child.id } })} /> : null}
           {show.outdoor ? <Big label="戶外活動" sub="今天出門幾分鐘" icon="sun" onPress={() => router.push({ pathname: '/record/outdoor', params: { childId: child.id } })} /> : null}
+          {show.screen ? <Big label="3C 時間" sub="看了幾分鐘" icon="monitor" onPress={() => router.push({ pathname: '/record/screen', params: { childId: child.id } })} /> : null}
+          {show.learning ? <Big label="學習紀錄" sub="科目與時間" icon="book-open" onPress={() => router.push({ pathname: '/record/learning', params: { childId: child.id } })} /> : null}
           {show.med ? <Big label="用藥" sub="只倒數間隔" icon="plus-circle" onPress={() => router.push({ pathname: '/record/medication', params: { childId: child.id } })} /> : null}
           {show.timer ? <Big label="倒數提醒" sub="你寫標題，到時通知" icon="clock" onPress={() => router.push({ pathname: '/record/timer', params: { childId: child.id } })} /> : null}
           <Big label="更多紀錄" sub={FEATURES.healthRecords ? '生長、症狀、就醫⋯' : '生長、日記'} icon="more-horizontal" onPress={() => router.push({ pathname: '/record/more', params: { childId: child.id } })} />

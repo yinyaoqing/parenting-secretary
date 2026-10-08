@@ -121,7 +121,7 @@ export default function Settings() {
         </ListCard>
 
         {active ? (() => {
-          const shown = resolveHome(active.feedingMethod, daysSince(active.birthDate), homeOv);
+          const shown = resolveHome(active.feedingMethod, daysSince(active.birthDate), homeOv, active.location);
           return (
             <>
               <Label t={`首頁要顯示哪些（${active.nickname}）`} />
@@ -183,7 +183,7 @@ export default function Settings() {
           <ListRow main="隱私權政策" sub="沒有帳號、沒有伺服器，紀錄只在這支手機。APP 只會從網路下載公開的政策與公費時程資料，不上傳任何紀錄" chevron onPress={() => { void Linking.openURL(`${DATA_BASE}privacy.html`); }} />
           <ListRow main="服務條款" chevron onPress={() => { void Linking.openURL(`${DATA_BASE}terms.html`); }} />
           <ListRow main="支援與意見回饋" sub="常見問題與聯絡信箱" chevron onPress={() => { void Linking.openURL(`${DATA_BASE}support.html`); }} />
-          <ListRow main="版本" right={<Text style={styles.muted}>{appConfig.expo.version}</Text>} />
+          <ListRow main="版本" sub="目前功能永久免費，日後新增的進階功能會另外收費。" right={<Text style={styles.muted}>{appConfig.expo.version}</Text>} />
           <ListRow main="政策與公費時程資料" sub={remote ? `政策 ${remote.policyVersion}、時程 ${remote.scheduleVersion}${remote.checkedAt ? `；上次檢查 ${new Date(remote.checkedAt).toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}` : ''}${remote.error ? '；這次沒連上，沿用手機上的版本' : ''}` : '讀取中'} right={<Badge label="檢查更新" tone="gray" />} onPress={() => { void syncRemote(true).then(setRemote); }} />
         </ListCard>
       </Screen>

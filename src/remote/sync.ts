@@ -5,16 +5,17 @@ import { emitDataChange } from '../db/changes';
 import { BUNDLED_POLICY, setPolicyOverride, type PolicyBundle } from '../policy/loader';
 import { BUNDLED_SCHEDULE, setScheduleOverride, type ScheduleBundle } from '../schedule/loader';
 import { BUNDLED_ALERTS, setAlertsOverride, type AlertBundle } from '../alerts/loader';
+import { alertUrlsSafe, isSafeDataPath, policyUrlsSafe, scheduleUrlsSafe } from './validate'; // 遠端資料只接受政府網址與單純檔名
 
 export const DATA_BASE = 'https://yinyaoqing.github.io/parenting-secretary/';
 const CHECK_EVERY_MS = 12 * 3600000;
 const TIMEOUT_MS = 8000;
 
 interface Manifest { v: number; policy: { version: string; path: string }; schedule: { version: string; path: string }; alerts?: { version: string; path: string } }
-const validAlerts = (x: unknown): x is AlertBundle => !!x && typeof (x as AlertBundle).version === 'string' && Array.isArray((x as AlertBundle).items);
+const validAlerts = (x: unknown): x is AlertBundle => !!x && typeof (x as AlertBundle).version === 'string' && Array.isArray((x as AlertBundle).items) && alertUrlsSafe(x as AlertBundle);
 
-const validPolicy = (x: unknown): x is PolicyBundle => !!x && typeof (x as PolicyBundle).version === 'string' && Array.isArray((x as PolicyBundle).items) && Array.isArray((x as PolicyBundle).todos);
-const validSchedule = (x: unknown): x is ScheduleBundle => !!x && typeof (x as ScheduleBundle).version === 'string' && Array.isArray((x as ScheduleBundle).items) && typeof (x as ScheduleBundle).sources === 'object';
+const validPolicy = (x: unknown): x is PolicyBundle => !!x && typeof (x as PolicyBundle).version === 'string' && Array.isArray((x as PolicyBundle).items) && Array.isArray((x as PolicyBundle).todos) && policyUrlsSafe(x as PolicyBundle);
+const validSchedule = (x: unknown): x is ScheduleBundle => !!x && typeof (x as ScheduleBundle).version === 'string' && Array.isArray((x as ScheduleBundle).items) && typeof (x as ScheduleBundle).sources === 'object' && scheduleUrlsSafe(x as ScheduleBundle);
 
 async function getJson(url: string): Promise<unknown> {
   const ctrl = new AbortController();
@@ -56,20 +57,20 @@ export async function syncRemote(force = false): Promise<RemoteStatus> {
     let changed = false;
     const curP = await getSetting('remote:policy');
     const curPv = curP ? (JSON.parse(curP) as PolicyBundle).version : BUNDLED_POLICY.version;
-    if (m.policy?.version > curPv && m.policy.version > BUNDLED_POLICY.version) {
+    if (isSafeDataPath(m.policy?.path) && m.policy.version > curPv && m.policy.version > BUNDLED_POLICY.version) {
       const pj = await getJson(DATA_BASE + m.policy.path);
       if (validPolicy(pj)) { await setSetting('remote:policy', JSON.stringify(pj)); setPolicyOverride(pj); changed = true; }
     }
     const curS = await getSetting('remote:schedule');
     const curSv = curS ? (JSON.parse(curS) as ScheduleBundle).version : BUNDLED_SCHEDULE.version;
-    if (m.schedule?.version > curSv && m.schedule.version > BUNDLED_SCHEDULE.version) {
+    if (isSafeDataPath(m.schedule?.path) && m.schedule.version > curSv && m.schedule.version > BUNDLED_SCHEDULE.version) {
       const sj = await getJson(DATA_BASE + m.schedule.path);
       if (validSchedule(sj)) { await setSetting('remote:schedule', JSON.stringify(sj)); setScheduleOverride(sj); changed = true; }
     }
     if (m.alerts) {
       const curA = await getSetting('remote:alerts');
       const curAv = curA ? (JSON.parse(curA) as AlertBundle).version : BUNDLED_ALERTS.version;
-      if (m.alerts.version > curAv && m.alerts.version > BUNDLED_ALERTS.version) {
+      if (isSafeDataPath(m.alerts.path) && m.alerts.version > curAv && m.alerts.version > BUNDLED_ALERTS.version) {
         const aj = await getJson(DATA_BASE + m.alerts.path);
         if (validAlerts(aj)) { await setSetting('remote:alerts', JSON.stringify(aj)); setAlertsOverride(aj); changed = true; }
       }

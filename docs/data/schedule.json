@@ -1,7 +1,7 @@
 {
   "_comment": "公費健檢、發展篩檢、疫苗、塗氟的時間窗。只放時程，不放金額；政策金額另走遠端 JSON（紅線 R11）。年齡以實際月齡的天數計（1 個月 = 30.4375 天）。每一項都附來源與查核日期。",
-  "version": "2026-10-06",
-  "checkedAt": "2026-10-06",
+  "version": "2026-10-08",
+  "checkedAt": "2026-10-08",
   "sources": {
     "hpa-7plus2": {
       "name": "國民健康署新聞稿：兒童預防保健增至 9 次 7 月 1 日正式上路（2026-04-01）",
@@ -21,6 +21,26 @@
     "mohw-fluoride": {
       "name": "衛生福利部：兒童牙齒塗氟補助（2014-04-03）",
       "url": "https://www.mohw.gov.tw/cp-16-22191-1.html",
+      "license": "A1"
+    },
+    "moe-student-health": {
+      "name": "全國法規資料庫：學生健康檢查實施辦法（109-04-23 修正；對象與項目依附表學生健康檢查基準表）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=H0020052",
+      "license": "A1"
+    },
+    "mohw-sealant": {
+      "name": "衛生福利部：國小學童臼齒窩溝封填（施作年齡 72 至 108 個月）",
+      "url": "https://mohw.gov.tw/dl-79591-2304a4d7-9b4c-451e-8063-ec36cedfef8b.html",
+      "license": "A1"
+    },
+    "hpa-hpv": {
+      "name": "國民健康署：公費人類乳突病毒（HPV）疫苗擴大施打，國中男女生皆可接種（2025-08-12）",
+      "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=4878&pid=19321",
+      "license": "A1"
+    },
+    "cdc-flu-student": {
+      "name": "疾病管制署：公費流感疫苗接種計畫學生篇",
+      "url": "https://www.cdc.gov.tw/Category/QAPage/lqCWXtsI9LEtKhDwC2F1Pg",
       "license": "A1"
     }
   },
@@ -266,8 +286,8 @@
       "category": "vaccine",
       "title": "流感疫苗",
       "ageMinDays": 183,
-      "ageMaxDays": 2557,
-      "window": "滿 6 個月起，每年流感季",
+      "ageMaxDays": 2190,
+      "window": "滿 6 個月到國小入學前，每年流感季",
       "note": "9 歲以下初次接種，或 3 歲以下累計只打過 1 劑者，接種 2 劑、間隔 4 週以上；其餘每年 1 劑。",
       "source": "cdc-schedule"
     },
@@ -373,6 +393,66 @@
       "window": "未滿 6 歲，每半年一次",
       "note": "低收入戶、身心障礙、原住民族地區、偏遠及離島地區的未滿 12 歲兒童每 3 個月一次。長第一顆牙後開始。",
       "source": "mohw-fluoride"
+    },
+    {
+      "id": "school-health-g1",
+      "category": "school",
+      "title": "國小一年級學生健康檢查",
+      "ageMinDays": 2190,
+      "ageMaxDays": 2555,
+      "window": "小一上學期，在學校做",
+      "note": "學校委託醫院或診所到校檢查，項目包括身高體重、視力、口腔等；結果由學校通知家長。不用另外掛號。",
+      "source": "moe-student-health"
+    },
+    {
+      "id": "school-health-g4",
+      "category": "school",
+      "title": "國小四年級學生健康檢查",
+      "ageMinDays": 3285,
+      "ageMaxDays": 3650,
+      "window": "小四上學期，在學校做",
+      "note": "學校統一辦理，結果由學校通知家長。",
+      "source": "moe-student-health"
+    },
+    {
+      "id": "school-health-g7",
+      "category": "school",
+      "title": "國中一年級學生健康檢查",
+      "ageMinDays": 4380,
+      "ageMaxDays": 4745,
+      "window": "國一上學期，在學校做",
+      "note": "學校統一辦理，結果由學校通知家長。",
+      "source": "moe-student-health"
+    },
+    {
+      "id": "sealant",
+      "category": "dental",
+      "title": "臼齒窩溝封填",
+      "ageMinDays": 2190,
+      "ageMaxDays": 3285,
+      "window": "國小一、二年級（72 到 108 個月大）",
+      "note": "恆牙第一大臼齒長出後，到有提供服務的牙科診所施作，公費補助；施作後 6 個月與 12 個月可回診評估。",
+      "source": "mohw-sealant"
+    },
+    {
+      "id": "hpv",
+      "category": "school",
+      "title": "HPV 疫苗（公費，國中男女生）",
+      "ageMinDays": 4380,
+      "ageMaxDays": 5110,
+      "window": "國中，在學校集中接種",
+      "note": "2025 年 9 月起國中男生也納入公費。共 2 劑，間隔 6 個月以上；沒趕上校園接種的，依補接種通知單到合約院所補打。",
+      "source": "hpa-hpv"
+    },
+    {
+      "id": "flu-student",
+      "category": "school",
+      "title": "學生流感疫苗（公費）",
+      "ageMinDays": 2190,
+      "ageMaxDays": 6570,
+      "window": "國小到高中，每年 10 到 11 月在學校接種",
+      "note": "家長要先簽意願書（紙本或線上），接種當天帶健保卡；自學生也是公費對象。",
+      "source": "cdc-flu-student"
     }
   ]
 }

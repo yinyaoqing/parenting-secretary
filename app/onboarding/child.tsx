@@ -8,6 +8,7 @@ import type { FeedingMethod, Location } from '../../src/db/types';
 import { toIsoDate } from '../../src/util/datetime';
 import { daysSince } from '../../src/util/age';
 import { locationsForAge } from '../../src/home/location';
+import { CountyPick } from '../../src/ui/CountyPick';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Progress, Field, Input, Chip, Opt, Card, SwitchRow, PrimaryButton, GhostButton } from '../../src/ui/components';
 import { DatePick } from '../../src/ui/DatePick';
@@ -48,6 +49,7 @@ export default function ChildForm() {
   const [location, setLocation] = useState<Location>('home');
   const [locationUntil, setLocationUntil] = useState<Date | null>(null);
   const [contexts, setContexts] = useState<string[]>([]);
+  const [county, setCounty] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -73,6 +75,7 @@ export default function ChildForm() {
       feedingMethod: feeding,
       location,
       locationUntil: location === 'postnatal_center' && locationUntil ? toIsoDate(locationUntil) : undefined,
+      county,
       specialContexts,
     });
     // 新建的孩子成為目前的孩子（第二個孩子建檔完就直接看他）
@@ -148,6 +151,9 @@ export default function ChildForm() {
               <Text style={styles.muted}>內容與提醒從這天開始。可留空。</Text>
             </Card>
           ) : null}
+          <Field label="戶籍縣市（可不選）" hint="用來顯示該縣市的生育津貼等地方補助。只存在這支手機。">
+            <CountyPick value={county} onChange={setCounty} />
+          </Field>
         </Screen>
       ) : null}
 

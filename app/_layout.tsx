@@ -50,6 +50,9 @@ function Root() {
         <Stack.Screen name="record/solid" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/tummy" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/outdoor" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/screen" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/learning" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="progress/index" />
         <Stack.Screen name="record/medication" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/timer" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/edit" options={{ presentation: 'modal' }} />
@@ -74,6 +77,8 @@ function Root() {
         <Stack.Screen name="search/index" />
         <Stack.Screen name="checkup/questions" />
         <Stack.Screen name="resources/nursing" />
+        <Stack.Screen name="resources/centers" />
+        <Stack.Screen name="resources/kindergartens" />
       </Stack>
     </>
   );

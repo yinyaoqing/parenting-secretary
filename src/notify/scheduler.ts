@@ -59,7 +59,7 @@ async function gather(now: number): Promise<ChildNotifyInput[]> {
         occurrences.push({ title: o.item.title, start: base + o.startMin * 60000, leadMinutes: o.item.leadMinutes, location: o.item.location });
       }
     }
-    const publicOpens = scheduleFor(c.birthDate, new Date(now)).filter((e) => e.status === 'upcoming').map((e) => {
+    const publicOpens = scheduleFor(c.birthDate, new Date(now)).filter((e) => e.status === 'upcoming' && e.item.category !== 'school') /* 學校統一辦理的不另外提醒 */.map((e) => {
       const d = new Date(e.opensOn); d.setHours(0, 0, 0, 0);
       return { title: e.item.title, category: CATEGORY_LABEL[e.item.category], window: e.item.window, opensOn: d.getTime() };
     });
