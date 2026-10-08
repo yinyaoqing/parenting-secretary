@@ -27,7 +27,7 @@ export function startOfToday(now = new Date()): string {
 }
 
 const TYPE_LABEL: Record<string, string> = {
-  'feed.breast': '親餵', 'feed.bottle': '瓶餵', 'feed.solid': '副食品', 'feed.pump': '擠奶',
+  'feed.breast': '親餵', 'feed.bottle': '瓶餵', 'feed.solid': '副食品', 'feed.pump': '擠奶', 'pump.use': '用掉一袋母乳',
   'diaper.wet': '濕尿布', 'diaper.dirty': '便便', 'diaper.both': '濕＋便', 'toilet.attempt': '如廁',
   sleep: '睡眠', tummy_time: '清醒趴臥', growth: '生長', temperature: '體溫', symptom: '症狀',
   medication: '用藥', visit: '就醫', milestone: '里程碑', mood_note: '情緒日記',
@@ -45,6 +45,13 @@ export function eventSummary(type: string, payload: Record<string, unknown>, sta
     case 'temperature': return `${p.celsius}°C（${siteLabel(String(p.site))}）`;
     case 'tummy_time': return `${p.minutes} 分`;
     case 'medication': return `${p.name ?? ''} ${p.doseText ?? ''}`;
+    case 'feed.pump': return `${p.ml ?? ''} ml${p.store === 'fridge' ? ' 冷藏' : p.store === 'freezer' ? ' 冷凍' : ''}`;
+    case 'pump.use': return `${p.store === 'freezer' ? '冷凍' : '冷藏'} ${p.ml ?? ''} ml`;
+    case 'growth': return [p.kg ? `${p.kg} kg` : '', p.cm ? `${p.cm} cm` : '', p.headCm ? `頭圍 ${p.headCm}` : ''].filter(Boolean).join(' ');
+    case 'symptom': return [Array.isArray(payload.items) ? (payload.items as string[]).join('、') : '', p.note ?? ''].filter(Boolean).join('：');
+    case 'visit': return [p.place, p.reason].filter(Boolean).join(' ');
+    case 'mood_note': return `${p.kind ?? ''} ${p.note ?? ''}`.trim();
+    case 'diaper.dirty': case 'diaper.both': return p.stoolColor && p.stoolColor !== 'unsure' ? `九色卡 ${p.stoolColor} 號` : '';
     case 'task.attempt': return OUTCOME_LABEL[p.outcome as Outcome] ?? '';
     default: return '';
   }

@@ -8,11 +8,14 @@ import { daysSince } from '../../src/util/age';
 import { PRESETS } from '../../src/style/questionnaire';
 import { SCALE_LABEL, type TextScale } from '../../src/ui/theme';
 import { useTheme, type ThemeMode } from '../../src/ui/useTheme';
-import { Screen, TopBar, Card, Badge, ListCard, ListRow, Seg } from '../../src/ui/components';
+import { Screen, TopBar, Card, Badge, ListCard, ListRow, Seg, Chip } from '../../src/ui/components';
 import { SpotMoonCloud, Thumb } from '../../src/ui/art';
 import appConfig from '../../app.json';
 import { permissionStatus, requestPermission } from '../../src/notify/scheduler';
 import { syncRemote, type RemoteStatus } from '../../src/remote/sync';
+import { resolveHome, defaultHint, HOME_KEYS, HOME_LABEL, type HomeKey } from '../../src/home/buttons';
+
+const ENC_KINDS: { key: string; label: string }[] = [{ key: 'official', label: '國健署原文' }, { key: 'plain', label: '陪伴句' }, { key: 'thought', label: '諮商學派與哲學家' }, { key: 'literary', label: '文學角色' }];
 
 const PAUSE_FOREVER = '9999-12-31T00:00:00.000Z';
 const NOTIFY_KEYS = ['safetyNet', 'medication', 'schedule', 'public'];
@@ -29,12 +32,18 @@ export default function Settings() {
   const [paused, setPaused] = useState(false);
   const [remote, setRemote] = useState<RemoteStatus | null>(null);
   const [encourage, setEncourage] = useState(true);
+  const [quiet, setQuiet] = useState(false);
+  const [encKinds, setEncKinds] = useState<string[]>(ENC_KINDS.map((k) => k.key));
+  const [homeOv, setHomeOv] = useState<Partial<Record<HomeKey, string | null>>>({});
   const [notify, setNotify] = useState<Record<string, boolean>>({ safetyNet: true, medication: true, schedule: true, public: true });
 
   useFocusEffect(useCallback(() => {
     reload();
     syncRemote().then(setRemote).catch(() => undefined);
     getSetting('encourage').then((v) => setEncourage(v !== '0'));
+    getSetting('contentQuiet').then((v) => setQuiet(v === '1'));
+    getSetting('encourage:kinds').then((v) => { try { if (v) setEncKinds(JSON.parse(v)); } catch { /* 預設 */ } });
+    Promise.all(HOME_KEYS.map((k) => getSetting(`home:${k}`))).then((vs) => setHomeOv(Object.fromEntries(HOME_KEYS.map((k, i) => [k, vs[i]]))));
     getSetting('pausedUntil').then((v) => setPaused(!!v && new Date(v).getTime() > Date.now()));
     Promise.all(NOTIFY_KEYS.map((k) => getSetting(`notify:${k}`))).then((vs) => setNotify(Object.fromEntries(NOTIFY_KEYS.map((k, i) => [k, vs[i] !== '0']))));
   }, [reload]));
@@ -92,6 +101,40 @@ export default function Settings() {
         <ListCard>
           <ListRow first icon="calendar" main="行程與作息範本" sub="托嬰、回診、課表、服藥；作息範本要先選起點（滿 6 個月或一個事件）" chevron onPress={() => active && router.push({ pathname: '/plan', params: { childId: active.id } })} />
         </ListCard>
+
+        <Label t="安靜一點" />
+        <ListCard>
+          <ListRow first main="內容安靜" sub="內容分頁不主動放任何卡片，問問看與安全內容照常。和暫停模式分開，可以單獨開" right={<Switch value={quiet} onValueChange={async (v) => { setQuiet(v); await setSetting('contentQuiet', v ? '1' : '0'); }} trackColor={{ true: palette.warm, false: palette.line }} thumbColor="#fff" accessibilityLabel="內容安靜" />} />
+          <ListRow main="今天一句要哪些" sub="每天一句從勾選的類別挑">
+            <View style={styles.chips}>
+              {ENC_KINDS.map((k) => {
+                const on = encKinds.includes(k.key);
+                return <Chip key={k.key} sm label={k.label} on={on} icon={on ? 'check' : undefined} onPress={async () => {
+                  const next = on ? encKinds.filter((x) => x !== k.key) : [...encKinds, k.key];
+                  if (!next.length) return;
+                  setEncKinds(next); await setSetting('encourage:kinds', JSON.stringify(next));
+                }} />;
+              })}
+            </View>
+          </ListRow>
+        </ListCard>
+
+        {active ? (() => {
+          const shown = resolveHome(active.feedingMethod, daysSince(active.birthDate), homeOv);
+          return (
+            <>
+              <Label t={`首頁要顯示哪些（${active.nickname}）`} />
+              <ListCard>
+                {HOME_KEYS.map((k, i) => (
+                  <ListRow key={k} first={i === 0} main={HOME_LABEL[k]} sub={`預設：${defaultHint(k)}${homeOv[k] === '1' || homeOv[k] === '0' ? '（已自訂）' : ''}`}
+                    right={<Switch value={shown[k]} onValueChange={async (v) => { setHomeOv((o) => ({ ...o, [k]: v ? '1' : '0' })); await setSetting(`home:${k}`, v ? '1' : '0'); }} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel={`首頁顯示${HOME_LABEL[k]}`} />} />
+                ))}
+                <ListRow main="恢復預設" mainColor={palette.accent} onPress={async () => { for (const k of HOME_KEYS) await setSetting(`home:${k}`, ''); setHomeOv({}); }} />
+              </ListCard>
+              <Text style={styles.muted}>預設依建檔的餵養方式與年齡自動調整。睡眠、更多紀錄與安全內容入口一直都在。</Text>
+            </>
+          );
+        })() : null}
 
         <Label t="照顧者" />
         <ListCard>

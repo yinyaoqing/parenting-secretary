@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { View, Text, Pressable, Linking } from 'react-native';
+import { firstLine, sections } from '../../src/content/summary';
 import { useLocalSearchParams } from 'expo-router';
 import { cardById, GROUP_LABEL } from '../../src/content/loader';
 import type { ContentCard, LicenseLevel } from '../../src/content/types';
@@ -26,6 +28,8 @@ export default function CardDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { styles, palette, scale, setScale } = useTheme();
   const c = id ? cardById(id) : undefined;
+  const [openIdx, setOpenIdx] = useState<Set<number>>(new Set([0]));
+  const [allOpen, setAllOpen] = useState(false);
 
   if (!c) return <View style={styles.page}><TopBar back /><Screen><Text style={styles.p}>找不到這張內容卡。</Text></Screen></View>;
 
@@ -56,9 +60,41 @@ export default function CardDetail() {
           </Card>
         ) : null}
 
-        <Card style={{ gap: 14, paddingVertical: 18, paddingHorizontal: 18 }}>
-          {c.body.split(/\n{2,}/).map((para, i) => <Text key={i} style={styles.read}>{para}</Text>)}
-        </Card>
+        {(() => {
+          const secs = sections(c.body);
+          // 安全內容與短卡全部展開；其餘卡片只開第一段，其他段落點標題展開（媽媽視角：半夜只看一句）。
+          const fold = !isSafety && secs.length >= 3 && !allOpen;
+          if (!fold) {
+            return (
+              <Card style={{ gap: 14, paddingVertical: 18, paddingHorizontal: 18 }}>
+                {secs.map((p, i) => <Text key={i} style={styles.read}>{p.text}</Text>)}
+              </Card>
+            );
+          }
+          return (
+            <>
+              <Card style={{ backgroundColor: palette.accentSoft, borderColor: palette.accent, gap: 4 }}>
+                <Text style={[styles.label, { color: palette.accent }]}>一句話</Text>
+                <Text style={styles.read}>{firstLine(c)}</Text>
+              </Card>
+              <Card style={{ gap: 0, paddingVertical: 4 }}>
+                {secs.map((p, i) => {
+                  const isOpen = openIdx.has(i);
+                  return (
+                    <View key={i} style={{ borderTopWidth: i ? 1 : 0, borderTopColor: palette.line }}>
+                      <Pressable onPress={() => setOpenIdx((cur) => { const n = new Set(cur); if (n.has(i)) n.delete(i); else n.add(i); return n; })} accessibilityRole="button" accessibilityState={{ expanded: isOpen }} style={[styles.row, { minHeight: 52, gap: 8 }]}>
+                        <Text style={[styles.lrowMain, styles.sp]}>{p.title}</Text>
+                        <Icon name={isOpen ? 'chevron-up' : 'chevron-down'} size={18} color={palette.ink3} />
+                      </Pressable>
+                      {isOpen ? <Text style={[styles.read, { paddingBottom: 14 }]}>{p.text}</Text> : null}
+                    </View>
+                  );
+                })}
+              </Card>
+              <Pressable onPress={() => setAllOpen(true)} accessibilityRole="button"><Text style={[styles.link, { fontSize: 14 }]}>全部展開</Text></Pressable>
+            </>
+          );
+        })()}
 
         {c.supplement ? (
           <Card>

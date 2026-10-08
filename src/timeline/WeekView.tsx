@@ -25,7 +25,7 @@ export function WeekView({ endDate, events, now, onPickDay }: { endDate: string;
       sleepMin += (Math.min(f, end) - Math.max(s, start)) / 60000;
       bars.push({ top: pct(s), h: Math.max(0.6, pct(f) - pct(s)), open: !e.endAt });
     }
-    const feeds = events.filter((e) => e.type.startsWith('feed.')).map((e) => new Date(e.startAt).getTime()).filter((t) => t >= start && t < end).map(pct);
+    const feeds = events.filter((e) => e.type === 'feed.breast' || e.type === 'feed.bottle' || e.type === 'feed.solid').map((e) => new Date(e.startAt).getTime()).filter((t) => t >= start && t < end).map(pct);
     const isToday = now >= start && now < end;
     return { date, bars, feeds, sleepMin, isToday, nowPct: isToday ? pct(now) : null };
   });

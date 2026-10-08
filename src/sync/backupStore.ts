@@ -58,7 +58,7 @@ export async function restoreBackup(text: string, password: string): Promise<Res
     profiles += r.changes;
   }
   for (const [k, v] of Object.entries(data.settings)) {
-    const m = /^(templateMode|toiletReady):(.+)$/.exec(k);
+    const m = /^(templateMode|toiletReady|askDoctor):(.+)$/.exec(k);
     const key = m ? `${m[1]}:${mapId(m[2])}` : k;
     const value = k === 'activeChildId' ? mapId(v) : v;
     await db.runAsync('INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)', key, value);

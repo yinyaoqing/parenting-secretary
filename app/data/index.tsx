@@ -6,7 +6,11 @@ import * as Sharing from 'expo-sharing';
 import * as DocumentPicker from 'expo-document-picker';
 import { buildBackup, restoreBackup, deleteAllData, type RestoreReport } from '../../src/sync/backupStore';
 import { BACKUP_EXTENSION, MIN_PASSWORD } from '../../src/sync/backup';
-import { listArchivedChildren, unarchiveChild } from '../../src/db/repo';
+import { listArchivedChildren, unarchiveChild, listChildren } from '../../src/db/repo';
+import { getDb } from '../../src/db/index';
+import { rowToEvent, type EventRow } from '../../src/db/events';
+import { eventsToCsv } from '../../src/records/csv';
+import { typeLabel, eventSummary } from '../../src/util/format';
 import type { Child } from '../../src/db/types';
 import { useChildren } from '../../src/ui/ChildContext';
 import { useTheme } from '../../src/ui/useTheme';
@@ -70,6 +74,27 @@ export default function DataScreen() {
     } finally { setBusy(null); }
   };
 
+  // CSV 匯出：未加密，給自己保存或給醫師看。只含未刪除、未被取代的紀錄。
+  const exportCsv = async () => {
+    setBusy('csv'); setMsg(null);
+    try {
+      const db = await getDb();
+      const rows = await db.getAllAsync<EventRow>(`SELECT e.* FROM events e WHERE e.deleted_at IS NULL AND NOT EXISTS (SELECT 1 FROM events s WHERE s.supersedes = e.id AND s.deleted_at IS NULL)`);
+      const kids = await listChildren();
+      const names = Object.fromEntries(kids.map((c) => [c.id, c.nickname]));
+      const csv = eventsToCsv(rows.map(rowToEvent), names, typeLabel, (e) => eventSummary(e.type, e.payload, e.startAt, e.endAt));
+      const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const file = new File(Paths.cache, `parenting-records-${stamp}.csv`);
+      if (file.exists) file.delete();
+      file.create();
+      file.write(csv);
+      await Sharing.shareAsync(file.uri, { mimeType: 'text/csv', UTI: 'public.comma-separated-values-text', dialogTitle: '匯出紀錄' });
+      setMsg({ text: `已匯出 ${rows.length} 筆紀錄。CSV 沒有加密，請存在自己信任的地方。` });
+    } catch (e) {
+      setMsg({ text: e instanceof Error ? e.message : '匯出失敗', error: true });
+    } finally { setBusy(null); }
+  };
+
   const wipe = async () => {
     setDeleting(true);
     try {
@@ -91,6 +116,12 @@ export default function DataScreen() {
           <Field label="備份密碼"><Input value={pw} onChangeText={setPw} secureTextEntry autoCapitalize="none" placeholder={`至少 ${MIN_PASSWORD} 個字`} accessibilityLabel="備份密碼" /></Field>
           <Field label="再輸入一次"><Input value={pw2} onChangeText={setPw2} secureTextEntry autoCapitalize="none" accessibilityLabel="再輸入一次備份密碼" /></Field>
           <PrimaryButton label={busy === 'export' ? '加密中…' : '產生備份檔'} icon="upload" onPress={exportBackup} disabled={!!busy} />
+        </Card>
+
+        <Section title="匯出紀錄（CSV）" />
+        <Card style={{ gap: 10 }}>
+          <Text style={styles.muted}>所有孩子的紀錄存成一個 CSV，可以用 Excel 或 Numbers 開，也可以給醫師看。CSV 沒有加密，也不能拿來還原。</Text>
+          <GhostButton label={busy === 'csv' ? '產生中…' : '匯出 CSV'} icon="file-text" onPress={exportCsv} />
         </Card>
 
         <Section title="匯入備份" />

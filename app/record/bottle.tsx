@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { listEvents } from '../../src/db/events';
+import { recentAmounts } from '../../src/records/pump';
 import { View, Text } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { logBottle } from '../../src/records/quick';
@@ -22,6 +24,11 @@ export default function Bottle() {
   const [kind, setKind] = useState<Kind>('breastmilk');
   const [reason, setReason] = useState<FeedStartReason>(reasonParam === 'reminder' ? 'reminder' : 'cue');
   const [err, setErr] = useState<string | null>(null);
+  const [recent, setRecent] = useState<number[]>([]);
+  useEffect(() => {
+    if (childId) listEvents(childId, { types: ['feed.bottle'], limit: 30 }).then((evs) => setRecent(recentAmounts(evs, 'feed.bottle', [])));
+  }, [childId]);
+  const quick = recent.length ? [...recent, ...QUICK.filter((q) => !recent.includes(q))].slice(0, 6) : QUICK;
 
   const save = async () => {
     const n = Number(ml);
@@ -38,7 +45,7 @@ export default function Bottle() {
         <Field label="奶量">
           <NumInput value={ml} onChangeText={setMl} unit="ml" label="奶量 ml" />
           <View style={styles.chips}>
-            {QUICK.map((q) => <Chip key={q} label={String(q)} on={ml === String(q)} onPress={() => setMl(String(q))} />)}
+            {quick.map((q, i) => <Chip key={q} label={i < recent.length ? `${q}・最近` : String(q)} on={ml === String(q)} onPress={() => setMl(String(q))} />)}
           </View>
         </Field>
         <Field label="種類">

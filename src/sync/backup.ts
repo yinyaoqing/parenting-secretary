@@ -60,7 +60,7 @@ export async function decodeBackup(text: string, password: string, makeCrypto: C
 }
 
 // 備份要帶走的設定：只留使用偏好，不帶配對金鑰、裝置 id、已配對裝置。
-const KEEP = [/^activeChildId$/, /^templateMode:/, /^toiletReady:/, /^themeMode$/, /^textScale$/, /^deviceName$/];
+const KEEP = [/^activeChildId$/, /^templateMode:/, /^toiletReady:/, /^askDoctor:/, /^home:/, /^contentQuiet$/, /^encourage$/, /^encourage:kinds$/, /^themeMode$/, /^textScale$/, /^deviceName$/];
 export function pickSettings(all: Record<string, string>): Record<string, string> {
   return Object.fromEntries(Object.entries(all).filter(([k]) => KEEP.some((r) => r.test(k))));
 }

@@ -76,16 +76,19 @@ export default function Timeline() {
   const feeds = shown.filter((e) => e.type === 'feed.breast' || e.type === 'feed.bottle').length;
   const bottleMl = shown.filter((e) => e.type === 'feed.bottle').reduce((a, e) => a + (Number(e.payload.ml) || 0), 0);
   const diapers = shown.filter((e) => e.type.startsWith('diaper.')).length;
-  // 最長清醒：當天兩段睡眠之間最長的間隔（今天的話，最後一段醒來到現在也算）。
-  let longestAwake = 0;
-  for (let i = 1; i < sleepSegs.length; i++) longestAwake = Math.max(longestAwake, (sleepSegs[i].s - sleepSegs[i - 1].f) / 60000);
-  if (dayIndex === 0 && sleepSegs.length && !events.some((e) => e.type === 'sleep' && !e.endAt)) longestAwake = Math.max(longestAwake, (now - sleepSegs[sleepSegs.length - 1].f) / 60000);
   const meds = shown.filter((e) => e.type === 'medication').length;
   const temps = shown.filter((e) => e.type === 'temperature').length;
 
   const remove = async (id: string) => { await deleteEvent(id); setConfirmId(null); setSelected(null); load(); };
   const openEdit = (e: Event) => router.push({ pathname: '/record/edit', params: { childId: e.childId, eventId: e.id } });
   const openPlan = (o: Occurrence) => router.push({ pathname: '/plan/edit', params: { childId: child?.id, id: o.item.id } });
+
+  // 新食材觀察（國健署：一次一種，觀察 3 到 5 天）：只標示天數，不發通知。
+  const newFoodDay = (e: Event): number | null => {
+    if (e.type !== 'feed.solid' || !(e.payload as { newFood?: boolean }).newFood) return null;
+    const n = Math.floor((now - new Date(e.startAt).getTime()) / 86400000) + 1;
+    return n >= 1 && n <= 5 ? n : null;
+  };
 
   const subOf = (e: Event) => {
     if (e.type === 'sleep') return e.endAt ? `${durationLabel(e.startAt, e.endAt)}，到 ${hhmm(e.endAt)}` : `進行中 ${durationLabel(e.startAt)}`;
@@ -106,7 +109,12 @@ export default function Timeline() {
 
   return (
     <View style={styles.page}>
-      <TopBar title={title} subtitle={subtitle} back right={child ? <IconButton name="calendar" label="行程與範本" onPress={() => router.push({ pathname: '/plan', params: { childId: child.id } })} /> : undefined} />
+      <TopBar title={title} subtitle={subtitle} back right={child ? (
+        <View style={[styles.row, { gap: 8 }]}>
+          <IconButton name="share" label="分享今天" onPress={() => router.push({ pathname: '/record/share', params: { childId: child.id } })} />
+          <IconButton name="calendar" label="行程與範本" onPress={() => router.push({ pathname: '/plan', params: { childId: child.id } })} />
+        </View>
+      ) : undefined} />
       <Screen>
         <Seg<View3> label="檢視" value={view} onChange={(v) => { setView(v); setSelected(null); if (v === 'day' && day === 'earlier') setDay(0); }} options={[{ key: 'list', label: '列表' }, { key: 'day', label: '時間軸' }, { key: 'week', label: school ? '課表' : '一週' }]} />
 
@@ -140,7 +148,7 @@ export default function Timeline() {
                     time={hhmm(e.startAt)}
                     main={main}
                     sub={subOf(e)}
-                    right={e.type === 'sleep' && !e.endAt ? <Badge label="進行中" tone="warm" /> : dupIds.has(e.id) ? <Badge label="可能重複" tone="warm" /> : undefined}
+                    right={e.type === 'sleep' && !e.endAt ? <Badge label="進行中" tone="warm" /> : dupIds.has(e.id) ? <Badge label="可能重複" tone="warm" /> : newFoodDay(e) ? <Badge label={`新食材 觀察第 ${newFoodDay(e)} 天`} tone="gray" /> : undefined}
                     chevron={!isSel}
                     selected={isSel}
                     onPress={() => { setSelected(isSel ? null : e.id); setConfirmId(null); }}
@@ -176,7 +184,7 @@ export default function Timeline() {
               </Banner>
             ) : null}
             <Card style={[styles.summary, { gap: 0 }]}>
-              {(older ? [['睡眠', hm(sleepMin)], ['體溫', `${temps} 次`], ['用藥', `${meds} 次`]] : [['睡眠', hm(sleepMin)], ['餵食', `${feeds} 次`], ['尿布', `${diapers} 片`], ['最長清醒', longestAwake ? hm(longestAwake) : '—']]).map(([k, v], i) => (
+              {(older ? [['睡眠', hm(sleepMin)], ['體溫', `${temps} 次`], ['用藥', `${meds} 次`]] : [['睡眠', hm(sleepMin)], ['餵食', `${feeds} 次`], ['尿布', `${diapers} 片`]]).map(([k, v], i) => (
                 <View key={k} style={[styles.summaryCell, i === 0 && styles.summaryCellFirst]}>
                   <Text style={styles.summaryK}>{k}</Text>
                   <Text style={[styles.summaryV, { fontSize: 15 }]} adjustsFontSizeToFit numberOfLines={1}>{v}</Text>

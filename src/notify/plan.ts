@@ -6,7 +6,7 @@ export const MAX_PENDING = 60;
 export const WINDOW_DAYS = 7;
 export const PUBLIC_WINDOW_DAYS = 30;
 
-export interface NotifySettings { paused: boolean; safetyNet: boolean; medication: boolean; schedule: boolean; publicSchedule: boolean }
+export interface NotifySettings { paused: boolean; safetyNet: boolean; medication: boolean; schedule: boolean; publicSchedule: boolean; netCapped?: boolean }
 export interface ChildNotifyInput {
   id: string;
   name: string;
@@ -33,7 +33,7 @@ export function planNotifications(children: ChildNotifyInput[], s: NotifySetting
 
   for (const c of children) {
     const timeline = `/record/timeline?childId=${c.id}`;
-    if (s.safetyNet && c.ageDays < 365 && c.lastFeedAt && c.safetyNetMinutes) {
+    if (s.safetyNet && !s.netCapped && c.ageDays < 365 && c.lastFeedAt && c.safetyNetMinutes) {
       const at = new Date(c.lastFeedAt).getTime() + c.safetyNetMinutes * 60000;
       if (at > soon) out.push({ key: `net:${c.id}`, kind: 'safetyNet', at, title: `${c.name}距上次餵奶已 ${dur(c.safetyNetMinutes)}`, body: '比平常久。寶寶醒著嗎？有沒有找奶的樣子？只提醒這一次，不是時刻表。', url: '/' });
     }
@@ -70,4 +70,19 @@ export function medianDelay(delays: number[]): number | null {
   const s = [...delays].sort((a, b) => a - b);
   const n = s.length;
   return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2;
+}
+
+// ---------- 提醒疲勞（媽媽視角自檢：它一直叫我） ----------
+export const NET_DAILY_CAP = 3;
+export interface FireLog { kind: NotifyKind; at: number }
+
+// 從上次點開這種提醒之後，又響了幾次沒點。
+export function ignoredStreak(fired: FireLog[], tapped: FireLog[], kind: NotifyKind): number {
+  const lastTap = Math.max(0, ...tapped.filter((t) => t.kind === kind).map((t) => t.at));
+  return fired.filter((f) => f.kind === kind && f.at > lastTap).length;
+}
+
+export function firedToday(fired: FireLog[], kind: NotifyKind, now: number): number {
+  const d = new Date(now); d.setHours(0, 0, 0, 0);
+  return fired.filter((f) => f.kind === kind && f.at >= d.getTime() && f.at <= now).length;
 }

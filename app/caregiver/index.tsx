@@ -6,7 +6,8 @@ import { ASKS, QUESTIONS, RESOURCES, askMessage, wantsSupport, type CheckIn, typ
 import { getCheckIns, saveCheckIn } from '../../src/caregiver/store';
 import { addDays, toIsoDate } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
-import { Screen, TopBar, Card, Section, Chip, Input, PrimaryButton, Icon, Badge, ListCard, ListRow } from '../../src/ui/components';
+import { Screen, TopBar, Card, Section, Chip, Input, PrimaryButton, Icon, Badge, ListCard, ListRow, Big } from '../../src/ui/components';
+import { setSetting } from '../../src/db/repo';
 import { SpotMoonCloud } from '../../src/ui/art';
 
 // 照顧好自己（規劃 4.9）：10 秒打卡、想聊聊的專線、請求支援。不計分、不篩檢，紀錄只在這支手機。
@@ -18,6 +19,7 @@ export default function Caregiver() {
   const [draft, setDraft] = useState<Partial<CheckIn>>({});
   const [picks, setPicks] = useState<string[]>([]);
   const [extra, setExtra] = useState('');
+  const [want, setWant] = useState<'record' | 'help' | 'talk' | null>(null);
 
   const load = useCallback(() => {
     getCheckIns(7).then((m) => { setByDate(m); setDraft(m[toIsoDate(new Date())] ?? {}); });
@@ -33,7 +35,7 @@ export default function Caregiver() {
     }
   };
 
-  const support = wantsSupport(byDate, dates) || draft.mood === 2;
+  const support = wantsSupport(byDate, dates) || draft.mood === 2 || want === 'talk';
   const done = byDate[today];
 
   const resourceList = (
@@ -67,6 +69,15 @@ export default function Caregiver() {
     <View style={styles.page}>
       <TopBar back title="照顧好自己" />
       <Screen>
+        <Text style={styles.label}>今天只想</Text>
+        <View style={styles.grid}>
+          <Big third label="只記錄" sub="不看內容" on={want === 'record'} onPress={async () => { setWant('record'); await setSetting('contentQuiet', '1'); }} />
+          <Big third label="找人換手" sub="請別人幫忙" on={want === 'help'} onPress={() => setWant('help')} />
+          <Big third label="找人說話" sub="專線" on={want === 'talk'} onPress={() => setWant('talk')} />
+        </View>
+        {want === 'record' ? <Text style={[styles.muted, { color: palette.accent }]}>已打開內容安靜：內容分頁不再主動放卡片，紀錄照常。設定裡可以關。</Text> : <Text style={styles.muted}>不問原因，也不記錄你選了什麼。</Text>}
+        {want === 'help' ? <Text style={[styles.muted, { color: palette.accent }]}>往下滑到「請別人幫忙」，選好要說的事就能傳出去。</Text> : null}
+
         <Card warm style={{ gap: 10 }}>
           <View style={styles.row}>
             <SpotMoonCloud size={40} />

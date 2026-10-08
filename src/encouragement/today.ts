@@ -41,9 +41,13 @@ export async function todayCard(child: Child, now = new Date()): Promise<{ card:
   for (const k of child.specialContexts) if (k === 'preterm' || k === 'multiple' || k === 'grandparent') contexts.push(k);
   if (child.location === 'daycare' || (child.daycareFrom && daysSince(child.daycareFrom) >= 0 && daysSince(child.daycareFrom) <= 60)) contexts.push('work');
 
+  // 她選的類別：official、plain、thought（諮商與哲學）、literary（文學角色）。沒設定就全部。
+  let kinds: string[] = ['official', 'plain', 'thought', 'literary'];
+  try { const k = await getSetting('encourage:kinds'); if (k) kinds = JSON.parse(k); } catch { /* 用預設 */ }
+  const allowed = ENCOURAGE.cards.filter((c) => kinds.includes(c.genre === 'literary' ? 'literary' : c.kind));
   let recent: string[] = [];
   try { recent = JSON.parse((await getSetting(`encourage:recent:${child.id}`)) || '[]'); } catch { recent = []; }
-  const card = pickCard({ ageDays: daysSince(child.birthDate), contexts, nightWakes, date: today, seed: child.id, recent }, ENCOURAGE.cards);
+  const card = pickCard({ ageDays: daysSince(child.birthDate), contexts, nightWakes, date: today, seed: child.id, recent }, allowed);
   if (!card) return null;
   const last = await getSetting(`encourage:last:${child.id}`);
   if (last !== `${today}|${card.id}`) {

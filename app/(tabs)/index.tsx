@@ -2,11 +2,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 import { addEvent, deleteEvent, lastEvent, listEvents, openEvent, recentIntervalsMinutes } from '../../src/db/events';
-import { permissionStatus, requestPermission } from '../../src/notify/scheduler';
+import { permissionStatus, requestPermission, fatigueToAsk, KIND_NAME, KIND_SETTING } from '../../src/notify/scheduler';
+import type { NotifyKind } from '../../src/notify/plan';
 import { getCheckIns, isPaused, markInvitation, seenInvitation } from '../../src/caregiver/store';
 import { invitationKey, wantsSupport } from '../../src/caregiver/resources';
-import { setSetting } from '../../src/db/repo';
+import { getSetting, setSetting } from '../../src/db/repo';
 import { todayCard, dismissToday } from '../../src/encouragement/today';
+import { resolveHome, HOME_KEYS, type HomeKey } from '../../src/home/buttons';
 import { TodayCard } from '../../src/encouragement/TodayCard';
 import type { EncourageCard } from '../../src/encouragement/pick';
 import { OUTCOMES, TOILET_MAX_DAYS, TOILET_MIN_DAYS, TOILET_TASK, taskStatus, type Outcome, type TaskStatus } from '../../src/tasks/toilet';
@@ -20,7 +22,7 @@ import { eventSummary, hhmm, durationLabel, startOfToday, typeLabel } from '../.
 import { addDays, minutesAgo, sinceShort, toIsoDate } from '../../src/util/datetime';
 import { useTheme } from '../../src/ui/useTheme';
 import { safetyCards } from '../../src/content/loader';
-import { Screen, TopBar, IconButton, Tile, Big, SafetyBox, Section, ListCard, ListRow, Toast, Banner, PrimaryButton, GhostButton, Icon, Badge, Card } from '../../src/ui/components';
+import { Screen, TopBar, IconButton, Tile, Big, SafetyBox, Section, ListCard, ListRow, Toast, Banner, PrimaryButton, GhostButton, Icon, Card } from '../../src/ui/components';
 import { Hero, Thumb } from '../../src/ui/art';
 
 const DIAPER_TYPES = ['diaper.wet', 'diaper.dirty', 'diaper.both'];
@@ -46,6 +48,8 @@ export default function Home() {
   const [invite, setInvite] = useState<'2w' | '6w' | null>(null);
   const [askNotify, setAskNotify] = useState(false);
   const [today1, setToday1] = useState<EncourageCard | null>(null);
+  const [fatigue, setFatigue] = useState<NotifyKind | null>(null);
+  const [homeOv, setHomeOv] = useState<Partial<Record<HomeKey, string | null>>>({});
   const [now, setNow] = useState(() => Date.now()); // 每分鐘更新一次，讓「幾分前」與安全網判斷跟著走
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -68,6 +72,9 @@ export default function Home() {
     setInvite(k && !(await seenInvitation(c.id, k)) ? k : null);
     setAskNotify(daysSince(c.birthDate) < 365 && (await permissionStatus()) === 'undetermined');
     setToday1(p ? null : (await todayCard(c))?.card ?? null);
+    setFatigue(p ? null : await fatigueToAsk());
+    const ov = await Promise.all(HOME_KEYS.map((k) => getSetting(`home:${k}`)));
+    setHomeOv(Object.fromEntries(HOME_KEYS.map((k, i) => [k, ov[i]])));
   }, []);
 
   // 回到首頁時重讀孩子清單（建檔、交接匯入、封存後都可能變），並刷新目前孩子的狀態。
@@ -127,6 +134,7 @@ export default function Home() {
   };
 
   // 如廁訓練：滿 1 歲半到 6 歲顯示；夜間模式不顯示（擁有者決定，夜間首頁只留吃、睡、尿布）。
+  const show = resolveHome(child.feedingMethod, d, homeOv);
   const showToilet = !paused && !night && d >= TOILET_MIN_DAYS && d < TOILET_MAX_DAYS && toilet.state !== 'done';
   const logPotty = async (o: Outcome, label: string) => {
     setPotty(false);
@@ -140,9 +148,10 @@ export default function Home() {
 
   return (
     <View style={styles.page}>
-      <TopBar title={<ChildTitle subtitle={subtitle} />} sky skyRight={156} right={
+      <TopBar title={<ChildTitle subtitle={subtitle} />} sky skyRight={204} right={
         <View style={[styles.row, { gap: 8 }]}>
           <IconButton name="search" label="問問看，搜尋官方內容" onPress={() => router.push('/search')} />
+          <IconButton name="heart" label="照顧好自己" onPress={() => router.push('/caregiver')} />
           <IconButton name="share-2" label="同步與交接" onPress={() => router.push('/sync')} />
           <IconButton name={night ? 'sun' : 'moon'} label={night ? '切換日間模式' : '切換夜間模式'} onPress={() => setMode(night ? 'day' : 'night')} />
         </View>
@@ -193,7 +202,18 @@ export default function Home() {
           </Card>
         ) : null}
 
-        {!paused && askNotify ? (
+        {fatigue ? (
+          <Card style={{ gap: 10 }}>
+            <Text style={[styles.p, { fontWeight: '700' }]}>{KIND_NAME[fatigue]}提醒連續兩次你都沒點開</Text>
+            <Text style={styles.muted}>可能你已經有自己的節奏。要不要先關掉這種提醒？紀錄照常，隨時可以在設定打開。這個問題只問一次。</Text>
+            <View style={styles.grid}>
+              <View style={{ flex: 1 }}><GhostButton label="先關掉" onPress={async () => { await setSetting(KIND_SETTING[fatigue], '0'); await setSetting(`notify:asked:${fatigue}`, '1'); setFatigue(null); }} /></View>
+              <View style={{ flex: 1 }}><GhostButton label="繼續提醒" tone="accent" onPress={async () => { await setSetting(`notify:asked:${fatigue}`, '1'); setFatigue(null); }} /></View>
+            </View>
+          </Card>
+        ) : null}
+
+        {!paused && askNotify && !(lowMood || invite) && !fatigue ? (
           <Card style={{ gap: 8 }}>
             <Text style={[styles.p, { fontWeight: '700' }]}>允許通知，APP 關著也能提醒</Text>
             <Text style={styles.muted}>距上次餵奶比平常久、用藥間隔到了、行程快到時各提醒一次。可以在設定逐項關閉。</Text>
@@ -206,21 +226,21 @@ export default function Home() {
 
         <SafetyBox title={`安全內容 ${safetyCards().length} 條`} sub="安全睡眠、發燒、噎食⋯ 離線可讀，無法關閉" onPress={() => router.push('/cards')} />
 
-        {older ? (
-          <Card>
-            <Text style={[styles.p, { fontWeight: '700' }]}>{name} 已經 {ageLabel(d)}</Text>
-            <Text style={styles.muted}>這個版本的內容與時程以 0 到 3 歲為主。{name} 可以記錄睡眠、體溫與用藥；餵食與尿布已隱藏。3 歲以上的功能在之後的版本。</Text>
-          </Card>
-        ) : (
+        {show.breast || show.bottle || show.pump || show.solid ? (
           <>
             <Text style={styles.h2}>餵食</Text>
             <View style={styles.grid}>
-              <Big label="親餵 左" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'L', undefined, 'cue', b)), `已記錄 ${name} 親餵 左`)} />
-              <Big label="親餵 右" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'R', undefined, 'cue', b)), `已記錄 ${name} 親餵 右`)} />
-              <Big label="瓶餵" sub="輸入 ml" icon="coffee" onPress={() => router.push({ pathname: '/record/bottle', params: { childId: child.id } })} />
-              <Big label="副食品" sub="吃了什麼" icon="pie-chart" onPress={() => router.push({ pathname: '/record/solid', params: { childId: child.id } })} />
+              {show.breast ? <Big label="親餵 左" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'L', undefined, 'cue', b)), `已記錄 ${name} 親餵 左`)} /> : null}
+              {show.breast ? <Big label="親餵 右" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'R', undefined, 'cue', b)), `已記錄 ${name} 親餵 右`)} /> : null}
+              {show.bottle ? <Big label="瓶餵" sub="輸入 ml" icon="coffee" onPress={() => router.push({ pathname: '/record/bottle', params: { childId: child.id } })} /> : null}
+              {show.pump ? <Big label="擠奶" sub="量與庫存" icon="archive" onPress={() => router.push({ pathname: '/record/pump', params: { childId: child.id } })} /> : null}
+              {show.solid ? <Big label="副食品" sub="吃了什麼" icon="pie-chart" onPress={() => router.push({ pathname: '/record/solid', params: { childId: child.id } })} /> : null}
             </View>
+          </>
+        ) : null}
 
+        {show.diaper ? (
+          <>
             <Text style={styles.h2}>尿布</Text>
             <View style={styles.grid}>
               <Big third label="濕" sub="一鍵記錄" onPress={() => quick(() => by().then((b) => logDiaper(child.id, 'wet', b)), `已記錄 ${name} 濕尿布`)} />
@@ -228,7 +248,7 @@ export default function Home() {
               <Big third label="濕＋便" sub="一鍵記錄" onPress={() => quick(() => by().then((b) => logDiaper(child.id, 'both', b)), `已記錄 ${name} 濕＋便`)} />
             </View>
           </>
-        )}
+        ) : null}
 
         <Text style={styles.h2}>睡眠與健康</Text>
         <View style={styles.grid}>
@@ -237,9 +257,10 @@ export default function Home() {
           ) : (
             <Big label="睡著了" sub="開始計時" icon="moon" onPress={() => quick(() => by().then((b) => startSleep(child.id, b)).then((r) => r.event), `已開始 ${name} 的睡眠計時`)} />
           )}
-          <Big label="體溫" sub="數字與部位" icon="thermometer" onPress={() => router.push({ pathname: '/record/temperature', params: { childId: child.id } })} />
-          {older ? null : <Big label="清醒趴臥" sub="幾分鐘" icon="user" onPress={() => router.push({ pathname: '/record/tummy', params: { childId: child.id } })} />}
-          <Big label="用藥" sub="只倒數間隔" icon="plus-circle" onPress={() => router.push({ pathname: '/record/medication', params: { childId: child.id } })} />
+          {show.temp ? <Big label="體溫" sub="數字與部位" icon="thermometer" onPress={() => router.push({ pathname: '/record/temperature', params: { childId: child.id } })} /> : null}
+          {show.tummy ? <Big label="清醒趴臥" sub="幾分鐘" icon="user" onPress={() => router.push({ pathname: '/record/tummy', params: { childId: child.id } })} /> : null}
+          {show.med ? <Big label="用藥" sub="只倒數間隔" icon="plus-circle" onPress={() => router.push({ pathname: '/record/medication', params: { childId: child.id } })} /> : null}
+          <Big label="更多紀錄" sub="生長、症狀、就醫⋯" icon="more-horizontal" onPress={() => router.push({ pathname: '/record/more', params: { childId: child.id } })} />
         </View>
 
         {showToilet ? (
@@ -267,26 +288,11 @@ export default function Home() {
           </>
         ) : null}
 
-        {firstDay ? null : <>
-        <Section title="今天" action={`全部 ${today.length} 筆`} onAction={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
-        <ListCard>
-          {today.length === 0 ? <ListRow first main="今天還沒有紀錄。" mainColor={palette.ink3} /> : null}
-          {today.slice(0, 6).map((e, i) => (
-            <ListRow
-              key={e.id}
-              first={i === 0}
-              time={hhmm(e.startAt)}
-              main={`${typeLabel(e.type)} ${eventSummary(e.type, e.payload, e.startAt, e.endAt)}`.trim()}
-              right={e.type === 'sleep' && !e.endAt ? <Badge label="進行中" tone="warm" /> : undefined}
-              onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })}
-            />
-          ))}
-        </ListCard>
-        </>}
-
-        <ListCard>
-          <ListRow first icon="heart" main="想聊聊嗎？" sub="照顧者的專線、10 秒打卡、請別人幫忙" chevron onPress={() => router.push('/caregiver')} />
-        </ListCard>
+        {firstDay ? null : (
+          <ListCard>
+            <ListRow first icon="list" main={`今天 ${today.length} 筆`} sub={today[0] ? `最近：${hhmm(today[0].startAt)} ${typeLabel(today[0].type)} ${eventSummary(today[0].type, today[0].payload, today[0].startAt, today[0].endAt)}`.trim() : '今天還沒有紀錄'} chevron onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
+          </ListCard>
+        )}
       </Screen>
       {toast ? <Toast text={toast.text} onUndo={toast.eventId ? undo : undefined} /> : null}
     </View>

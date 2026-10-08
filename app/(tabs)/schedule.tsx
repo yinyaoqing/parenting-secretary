@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { View, Text, Pressable, Linking } from 'react-native';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { useChildren } from '../../src/ui/ChildContext';
 import { ChildTitle } from '../../src/ui/ChildTitle';
 import { ageLabel, daysSince } from '../../src/util/age';
@@ -65,6 +65,10 @@ export default function Schedule() {
 
         {child ? (
           <>
+            <ListCard>
+              <ListRow first icon="edit-3" main="這次想問醫師的事" sub="平常想到就記一句，健檢或回診時打開看" chevron onPress={() => router.push('/checkup/questions')} />
+            </ListCard>
+
             <Section title="現在可以去" />
             <ListCard>
               {open.length === 0 ? <ListRow first main="目前沒有在時間窗內的項目。" mainColor={palette.ink3} /> : null}
@@ -87,6 +91,10 @@ export default function Schedule() {
               </ListCard>
             ) : null}
             <Text style={styles.muted}>APP 不知道你是否已經去過，這裡只依年齡列出時間窗；是否完成以兒童健康手冊的紀錄為準。</Text>
+            <Pressable onPress={() => Linking.openURL('https://www.nhi.gov.tw/Content_List.aspx?n=2B2E346936670280&topn=874605F03B8FDFBA')} accessibilityRole="link" style={[styles.row, { gap: 6, alignItems: 'flex-start' }]}>
+              <Text style={[styles.link, styles.sp, { fontSize: 14, lineHeight: 20 }]}>健保署「全民健保行動快易通｜健康存摺」APP：查詢就醫與檢查紀錄</Text>
+              <Icon name="external-link" size={14} color={palette.accent} />
+            </Pressable>
           </>
         ) : null}
 

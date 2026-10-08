@@ -10,7 +10,7 @@ import { safetyNetUpperBound, FEED_TYPES, FEED_CAP_MIN, FEED_PRIOR_MIN, NET_RECE
 import { anchorDate, occurrencesOn, addDaysIso, isoDate, parseDate } from '../timeline/plan';
 import { scheduleFor, CATEGORY_LABEL } from '../schedule/loader';
 import { daysSince } from '../util/age';
-import { planNotifications, WINDOW_DAYS, type ChildNotifyInput, type NotifySettings, type Planned } from './plan';
+import { planNotifications, firedToday, ignoredStreak, NET_DAILY_CAP, WINDOW_DAYS, type ChildNotifyInput, type FireLog, type NotifyKind, type NotifySettings, type Planned } from './plan';
 
 export const CHANNEL_ID = 'reminders';
 const DELAYS_KEY = 'notifyDelays';
@@ -89,7 +89,17 @@ export async function reschedule(): Promise<Planned[]> {
   if (running) return running;
   running = (async () => {
     const now = Date.now();
-    const plan = planNotifications(await gather(now), await getNotifySettings(), now);
+    // 上一輪排的、時間已過的，視為已響過，記進紀錄（提醒疲勞與每日上限用）。
+    const fired = await readLog('notify:fired');
+    let last: FireLog[] = [];
+    try { last = JSON.parse((await getSetting('notify:lastPlan')) || '[]'); } catch { last = []; }
+    const newly = last.filter((x) => x.at <= now && !fired.some((f) => f.kind === x.kind && f.at === x.at));
+    const allFired = [...fired, ...newly].slice(-80);
+    if (newly.length) await setSetting('notify:fired', JSON.stringify(allFired));
+    const settings = await getNotifySettings();
+    settings.netCapped = firedToday(allFired, 'safetyNet', now) >= NET_DAILY_CAP;
+    const plan = planNotifications(await gather(now), settings, now);
+    await setSetting('notify:lastPlan', JSON.stringify(plan.map((x) => ({ kind: x.kind, at: x.at }))));
     if ((await permissionStatus()) !== 'granted') return plan;
     await ensureChannel();
     // 只取消本排程器排的（測試通知保留，才能量準時度）。
@@ -139,3 +149,28 @@ export function startAutoReschedule(): () => void {
   void reschedule().catch(() => undefined);
   return off;
 }
+
+async function readLog(key: string): Promise<FireLog[]> {
+  try { return JSON.parse((await getSetting(key)) || '[]'); } catch { return []; }
+}
+
+// 點開通知時記一筆，提醒疲勞就從這裡重新計算。
+export async function recordTap(kind: string): Promise<void> {
+  if (!['safetyNet', 'medication', 'schedule', 'public'].includes(kind)) return;
+  const tapped = await readLog('notify:tapped');
+  await setSetting('notify:tapped', JSON.stringify([...tapped, { kind, at: Date.now() }].slice(-40)));
+}
+
+// 連續兩次沒點開、而且還沒問過的提醒種類，首頁問一次要不要關。
+export async function fatigueToAsk(): Promise<NotifyKind | null> {
+  const [fired, tapped, s] = await Promise.all([readLog('notify:fired'), readLog('notify:tapped'), getNotifySettings()]);
+  const on: Record<NotifyKind, boolean> = { safetyNet: s.safetyNet, medication: s.medication, schedule: s.schedule, public: s.publicSchedule };
+  for (const k of ['safetyNet', 'schedule', 'public', 'medication'] as NotifyKind[]) {
+    if (!on[k] || (await getSetting(`notify:asked:${k}`)) === '1') continue;
+    if (ignoredStreak(fired, tapped, k) >= 2) return k;
+  }
+  return null;
+}
+
+export const KIND_SETTING: Record<NotifyKind, string> = { safetyNet: 'notify:safetyNet', medication: 'notify:medication', schedule: 'notify:schedule', public: 'notify:public' };
+export const KIND_NAME: Record<NotifyKind, string> = { safetyNet: '餵奶安全網', medication: '用藥間隔', schedule: '行程提前', public: '公費健檢與疫苗' };

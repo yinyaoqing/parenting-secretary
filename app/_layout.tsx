@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { AppState } from 'react-native';
 import { Stack, router } from 'expo-router';
 import * as Notifications from 'expo-notifications';
-import { startAutoReschedule, reschedule, recordDelay } from '../src/notify/scheduler';
+import { startAutoReschedule, reschedule, recordDelay, recordTap } from '../src/notify/scheduler';
 import { loadStoredRemote, syncRemote } from '../src/remote/sync';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider, useThemeCtx } from '../src/ui/ThemeContext';
@@ -28,7 +28,9 @@ function Root() {
       if (at) void recordDelay(at);
     });
     const resp = Notifications.addNotificationResponseReceivedListener((r) => {
-      const url = (r.notification.request.content.data as { url?: string } | undefined)?.url;
+      const data = r.notification.request.content.data as { url?: string; kind?: string } | undefined;
+      if (data?.kind) void recordTap(data.kind);
+      const url = data?.url;
       if (url) router.push(url as never);
     });
     return () => { off(); app.remove(); rec.remove(); resp.remove(); };
@@ -47,6 +49,9 @@ function Root() {
         <Stack.Screen name="record/tummy" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/medication" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/edit" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/pump" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/more" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="record/share" options={{ presentation: 'modal' }} />
         <Stack.Screen name="record/timeline" />
         <Stack.Screen name="cards/[id]" />
         <Stack.Screen name="sync/index" />
@@ -62,6 +67,7 @@ function Root() {
         <Stack.Screen name="caregiver/index" />
         <Stack.Screen name="notify/index" />
         <Stack.Screen name="search/index" />
+        <Stack.Screen name="checkup/questions" />
       </Stack>
     </>
   );
