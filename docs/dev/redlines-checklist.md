@@ -30,5 +30,5 @@
 1. R8：兩家商店的隱私與健康聲明（依 docs/legal/privacy-policy.md 填寫）。
 2. R9：全部內容卡人工複核，draft 改為 review 或 published。
 3. R17：CDC 月齡卡譯審。
-4. 隱私權政策與服務條款由律師審閱，填入公司資料。
+4. 隱私權政策與服務條款由律師審閱，填入行號資料（負責人、統一編號、地址）。
 5. Apple 加密出口申報：APP 使用 AES-256-GCM（交接與備份），依美國出口規定申報（見 docs/legal/sync-route-b-legal-review.md）。

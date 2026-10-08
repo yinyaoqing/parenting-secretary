@@ -57,7 +57,6 @@
 | 3 | 公費資源遠端 JSON 的靜態空間 | GitHub Pages、Cloudflare Pages 或其他 |
 | 4 | Apple Developer Program 是否現在申請 | 影響第 8 週 TestFlight 檢查點 |
 | 5 | 付費牆位置：內容收費，或改為家庭版功能收費 | 見 docs/dev/business-review.md 與 decisions.md 第 8 項 |
-| 6 | 送審主體維持有限公司，或先用行號 | decisions.md 第 9 項 |
 
 ### 工程待辦（依優先序；詳細階段與完成標準見 roadmap.md）
 
