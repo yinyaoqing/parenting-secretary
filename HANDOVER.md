@@ -81,7 +81,7 @@ src/timeline/           時間軸：plan（純函式：起點、某天的計畫�
 src/calendar/            同步到手機行事曆：plan（純函式：行程轉週期事件、比對新增更新刪除，含測試）、sync（expo-calendar 寫入、單機開關 cal:on、對應表 cal:map；Expo Go 不做事）
 src/util/runtime.ts     是否在 Expo Go、交接檔 UTI
 app/+native-intent.tsx  系統交來的 file:// 或 content:// 網址轉到 sync/import（點 .psync 直接開 APP）
-app.config.js           只決定 runtimeVersion：預設 sdkVersion（Expo Go 測試頻道），EAS 建置設 NATIVE_BUILD=1 改 appVersion
+app.config.js           runtimeVersion：預設 sdkVersion（Expo Go 測試頻道），EAS 建置設 NATIVE_BUILD=1 改 appVersion；APP 內更新：production 建置關閉（隱私標示「未蒐集資料」的前提），測試版照舊
 scripts/build-content.mjs --release  送審版內容包：只含 review／published 且譯審完成的卡，安全層不完整就失敗；EAS production 建置經 eas-post-install.mjs 自動執行
 scripts/build-legal.mjs 隱私權政策、服務條款、支援頁轉成 docs/data/*.html（GitHub Pages）
 src/release/profile.ts  送審版型 personal／org 與功能開關 FEATURES（決策第 10 項、plan-v1.0 第 1 章）；改一行切換，資料結構不變

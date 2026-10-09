@@ -40,7 +40,7 @@
 | 項目 | 狀態 | 證據 |
 |---|---|---|
 | 使用者身分鑑別 | ➖ | 無帳號（L1） |
-| 只用加密連線 | ✅ | 唯一的網路請求為 https://yinyaoqing.github.io（src/remote/sync.ts）；Android 目標版本預設禁止明文流量；iOS ATS 預設啟用 |
+| 只用加密連線 | ✅ | 正式版唯一的網路請求為 https://yinyaoqing.github.io（src/remote/sync.ts）；關閉 APP 內更新後不再連 Expo，也不再送出 EAS-Client-ID 安裝識別碼；Android 目標版本預設禁止明文流量；iOS ATS 預設啟用 |
 | 憑證驗證 | ✅ | 使用系統預設的 TLS 驗證，未自訂信任或關閉驗證 |
 | 遠端資料完整性 | 🔧 | manifest 指定的檔名只接受單純檔名（擋 ../ 與外部網址）；內容做結構與連結檢查後才套用（src/remote/validate.ts） |
 | 裝置配對 | ✅ | 配對 QR code 面對面掃描；拒絕自己的配對碼；交接檔以家庭金鑰解密，金鑰不符即失敗 |
@@ -49,7 +49,7 @@
 
 | 項目 | 狀態 | 證據 |
 |---|---|---|
-| 不執行外部程式碼 | ✅ | 無 WebView、無 eval；遠端只載入 JSON 資料。EAS Update 由 Expo 簽章機制發布 |
+| 不執行外部程式碼 | ✅ | 無 WebView、無 eval；遠端只載入 JSON 資料。商店正式版關閉 APP 內更新（app.config.js 依 EAS_BUILD_PROFILE=production 設 updates.enabled = false），程式只來自商店審核過的安裝檔 |
 | 輸入檢查 | ✅ | SQLite 全部使用參數化查詢（src/db/*.ts）；匯入檔先檢查格式前綴再解密（src/sync/codec.ts looksLikePackage） |
 | 深層連結 | ✅ | app/+native-intent.tsx 只把 file:// 與 content:// 轉到匯入確認頁；匯入一定要使用者按「合併紀錄」 |
 | 除錯資訊 | ✅ | 正式建置不含開發選單；無日誌輸出 |

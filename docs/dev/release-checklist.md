@@ -53,7 +53,8 @@
 - [ ] 類別：Apple 主類別 Lifestyle、次類別 Productivity；Google 類別 Parenting。不選 Medical、Health & Fitness。
 - [ ] 文案與截圖用詞照 plan-v1.0 第 1.5 節：不出現健康管理、醫療、監測、發燒、退燒、用藥、症狀、體溫。截圖不拍安全層的發燒卡。
 - [ ] 截圖：iPhone 6.9 吋；app.json 目前 supportsTablet = true，Apple 會另要 iPad 13 吋截圖。不想準備 iPad 截圖就改成 false。Google 另要 1024×500 特色圖。
-- [ ] App Privacy：資料不離開裝置，選「未蒐集資料」。
+- [ ] App Privacy：資料不離開裝置，選「未蒐集資料」。前提是正式版關閉 APP 內更新（app.config.js 已設定，production 建置自動生效），否則 Expo 會收到安裝識別碼。
+- [ ] 程式修正一律走商店改版：npx eas-cli build --profile production 後 npx eas-cli submit；政策與時程資料照舊推 GitHub 自動更新。
 - [ ] Google 資料安全表：不蒐集、不分享；交接與備份為使用者自行傳送的加密檔。
 - [ ] Google 目標對象選 18 歲以上（家長），APP 不是給兒童使用。
 - [ ] 年齡分級（Apple 問卷、Google IARC）：無暴力、無使用者互動、無購買。

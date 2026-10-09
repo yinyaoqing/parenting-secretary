@@ -8,7 +8,7 @@
 | R2 | 不重製需授權的量表與教材 | ✅ | 程式與內容不含 EPDS、M-CHAT-R；產後情緒卡不放自評題目（content/cards/caregiver/postpartum-mood.json） |
 | R3 | 內容只用可信度達標且授權允許的來源 | ✅ | npm run content:check 檢查每張卡的可信度、授權級與來源欄位 |
 | R4 | 1 歲以下配方食品不廣告；不接受品牌贊助 | ✅ | 內容與程式無任何品牌名稱；無廣告元件 |
-| R5 | 特種個資本地化，無伺服器 | ✅ | 紀錄只在 SQLite；使用者自行打開的行事曆同步只寫入行程（孩子暱稱、名稱、時間、地點），寫進手機行事曆後隨使用者自己的帳號設定保存，隱私權政策 4-1 節已說明（src/calendar/sync.ts）；對外連線只有下載公開政策資料（src/remote/sync.ts，純 GET）與 APP 更新；交接與備份皆加密（src/sync/）；隱私權政策草稿 docs/legal/privacy-policy.md |
+| R5 | 特種個資本地化，無伺服器 | ✅ | 紀錄只在 SQLite；使用者自行打開的行事曆同步只寫入行程（孩子暱稱、名稱、時間、地點），寫進手機行事曆後隨使用者自己的帳號設定保存，隱私權政策 4-1 節已說明（src/calendar/sync.ts）；對外連線只有下載公開政策資料（src/remote/sync.ts，純 GET）；正式版關閉 APP 內更新，不連 Expo（app.config.js）；交接與備份皆加密（src/sync/）；隱私權政策草稿 docs/legal/privacy-policy.md |
 | R6 | 不建議劑量、不宣稱療效 | ✅ | personal 版型沒有用藥紀錄，只有通用「倒數提醒」：標題由使用者寫、通知只重複標題、響過即刪（src/db/reminders.ts、app/record/timer.tsx）；org 版型用藥只記名稱與使用者輸入的間隔，通知文字含「APP 不建議劑量」（src/notify/plan.ts）；週卡退燒相關改為依醫師指示 |
 | R7 | 安全層不得被關閉；「趴睡」全產品禁用 | ✅ | 安全內容入口在暫停模式下仍顯示（app/(tabs)/index.tsx）；content:check 對標題、內文、補充擋「趴睡」（2026-10-07 新增，並修正 safety.safe-sleep 一處）；來源摘錄為原文引文不在此限 |
 | R8 | 符合 Apple 1.4.1、5.1.3 與 Google Play 健康應用聲明 | ⬜ 👤 | personal 版型：Apple 類別選 Lifestyle、Google 選 Parenting，不選 Medical 或 Health & Fitness；資料不離開裝置，App Privacy 可填「未蒐集資料」；不接 HealthKit 或 Health Connect、不要求健康權限；審查備註寫明離線、不診斷、內容皆引政府來源；Google 資料安全表與隱私權政策網址仍要填；5.1.3(ii) 不把健康資料放 iCloud（目前沒有雲端功能） |
