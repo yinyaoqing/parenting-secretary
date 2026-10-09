@@ -21,7 +21,8 @@
 ## 3. 法務（👤）
 
 - [x] 填入開發者殷耀慶與聯絡信箱 yinyaoqing@protonmail.com（2026-10-09），網頁已重建發布。
-- [ ] 請律師審閱隱私權政策與服務條款；修改後執行 `npm run legal:build` 並推上 main。
+- [x] 兩輪審閱修正完成（2026-10-09）：五項必修、建議補強、與程式行為不符的四項、條款結構六項。
+- [ ] 請執業律師簽核；修改後執行 `npm run legal:build` 並推上 main。
 - [ ] 加密出口：app.json 已設 ITSAppUsesNonExemptEncryption = true（依 docs/legal/sync-route-b-legal-review.md 的保守判斷）。App Store Connect 第一次上傳會要求出口合規文件；向美國 BIS 提交年度自我分類報告（每年 2 月 1 日前）。若律師判斷只用系統加密可適用豁免，改成 false 並在工程端重建。
 - [ ] App Store Connect 的發行地區先排除法國（ANSSI 申報）。
 
