@@ -1,14 +1,14 @@
 {
-  "publishedAt": "2026-10-08T15:05:14.460Z",
+  "publishedAt": "2026-10-10T09:18:11.533Z",
   "owner": "yinyaoqings-team",
   "slug": "parenting-secretary",
   "projectId": "e71c550f-b0ed-4bfd-b807-04d248ee70a1",
   "channel": "preview",
   "runtimeVersion": "exposdk:57.0.0",
   "platforms": "android, ios",
-  "message": "feat: county-aware policy, places, school-age schedule, learning record, MAS L1 hardening, B2G prep",
-  "updateGroupId": "00d9f4cd-cd06-431b-8ec5-c7ab6acfe483",
-  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/00d9f4cd-cd06-431b-8ec5-c7ab6acfe483",
+  "message": "feat: rename app to 育村; community layers 1-3 (my village, neighbourhood groups, village notices)",
+  "updateGroupId": "3fd2a690-7566-4ded-96f6-96ab237b259c",
+  "dashboard": "https://expo.dev/accounts/yinyaoqings-team/projects/parenting-secretary/updates/3fd2a690-7566-4ded-96f6-96ab237b259c",
   "expoGoLink": "exp://u.expo.dev/e71c550f-b0ed-4bfd-b807-04d248ee70a1?runtime-version=exposdk%3A57.0.0&channel-name=preview",
   "qrPng": "docs/dev/release/expo-go-preview.png",
   "qrSvg": "docs/dev/release/expo-go-preview.svg"
