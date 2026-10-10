@@ -43,7 +43,7 @@ export function mdToHtml(md) {
 
 const page = (title, body) => `<!doctype html>
 <html lang="zh-Hant-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)}｜育兒秘書</title>
+<title>${esc(title)}｜育村</title>
 <style>
 :root{--bg:#F3F5F1;--fg:#1F2A22;--muted:#56645A;--line:#D5DDD6;--accent:#2F6F5E}
 @media (prefers-color-scheme:dark){:root{--bg:#15110D;--fg:#F1E9DE;--muted:#C2B5A3;--line:#3A2E22;--accent:#D99A4A}}
@@ -66,7 +66,7 @@ for (const [src, dst, title] of [['privacy-policy.md', 'privacy.html', '隱私�
   console.log(`docs/data/${dst}`);
 }
 const contact = (readFileSync(join(ROOT, 'docs', 'legal', 'privacy-policy.md'), 'utf8').match(/聯絡方式：([^\s。]+)/) ?? [])[1] ?? '[聯絡信箱]';
-writeFileSync(join(OUT, 'support.html'), page('支援', mdToHtml(`# 育兒秘書 支援
+writeFileSync(join(OUT, 'support.html'), page('支援', mdToHtml(`# 育村 支援
 
 ## 聯絡
 
@@ -77,6 +77,7 @@ writeFileSync(join(OUT, 'support.html'), page('支援', mdToHtml(`# 育兒秘書
 - **資料存在哪裡？** 只存在你的手機。沒有帳號、沒有伺服器，開發者看不到你的紀錄。
 - **換手機怎麼辦？** 在「設定 › 資料」匯出加密備份檔，到新手機匯入。忘記備份密碼就無法還原。
 - **怎麼和家人一起記？** 在「設定 › 同步與交接」面對面掃一次配對 QR code，之後用 QR code 或交接檔交換紀錄，不經任何伺服器。
+- **鄰里小組怎麼用？** 在「育村」分頁建立小組，請其他家庭當面掃加入碼。有人新增或修改行程後，按「把行程傳給其他家庭」，用 LINE 傳出小組檔，對方點開就合併。小組只交換行程，不交換孩子的紀錄。
 - **收到的交接檔打不開？** 先確認兩支手機已經配對。點檔案沒有開啟 APP 時，到「同步與交接」按「匯入交接檔」選檔案。
 - **提醒不準時？** 到「設定 › 提醒 › 通知健康檢查」看權限與準時度。Android 請打開「鬧鐘與提醒」權限並關閉電池最佳化。
 - **APP 會判斷孩子是不是生病嗎？** 不會。APP 只做紀錄、提醒與官方衛教連結，不診斷、不判讀。孩子不舒服請就醫，緊急狀況撥 119。

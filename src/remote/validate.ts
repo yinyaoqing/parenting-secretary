@@ -15,3 +15,8 @@ export function scheduleUrlsSafe(b: { sources: Record<string, { url?: unknown }>
 export function alertUrlsSafe(b: { items: WithSource[] }): boolean {
   return b.items.every((x) => isCdcUrl(x.source?.url));
 }
+
+// 村長公告：每則都要政府網址，且有發布機關與標題。
+export function noticeUrlsSafe(b: { items: { url?: unknown; publisher?: unknown; title?: unknown }[] }): boolean {
+  return b.items.every((n) => isGovUrl(n.url) && typeof n.publisher === 'string' && !!n.publisher && typeof n.title === 'string' && !!n.title);
+}

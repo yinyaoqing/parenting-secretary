@@ -5,13 +5,15 @@ import { emitDataChange } from '../db/changes';
 import { BUNDLED_POLICY, setPolicyOverride, type PolicyBundle } from '../policy/loader';
 import { BUNDLED_SCHEDULE, setScheduleOverride, type ScheduleBundle } from '../schedule/loader';
 import { BUNDLED_ALERTS, setAlertsOverride, type AlertBundle } from '../alerts/loader';
-import { alertUrlsSafe, isSafeDataPath, policyUrlsSafe, scheduleUrlsSafe } from './validate'; // 遠端資料只接受政府網址與單純檔名
+import { BUNDLED_NOTICES, setNoticesOverride, type NoticeBundle } from '../notices/loader';
+import { alertUrlsSafe, isSafeDataPath, noticeUrlsSafe, policyUrlsSafe, scheduleUrlsSafe } from './validate'; // 遠端資料只接受政府網址與單純檔名
 
 export const DATA_BASE = 'https://yinyaoqing.github.io/parenting-secretary/';
 const CHECK_EVERY_MS = 12 * 3600000;
 const TIMEOUT_MS = 8000;
 
-interface Manifest { v: number; policy: { version: string; path: string }; schedule: { version: string; path: string }; alerts?: { version: string; path: string } }
+interface Manifest { v: number; policy: { version: string; path: string }; schedule: { version: string; path: string }; alerts?: { version: string; path: string }; notices?: { version: string; path: string } }
+const validNotices = (x: unknown): x is NoticeBundle => !!x && typeof (x as NoticeBundle).version === 'string' && Array.isArray((x as NoticeBundle).items) && noticeUrlsSafe(x as NoticeBundle);
 const validAlerts = (x: unknown): x is AlertBundle => !!x && typeof (x as AlertBundle).version === 'string' && Array.isArray((x as AlertBundle).items) && alertUrlsSafe(x as AlertBundle);
 
 const validPolicy = (x: unknown): x is PolicyBundle => !!x && typeof (x as PolicyBundle).version === 'string' && Array.isArray((x as PolicyBundle).items) && Array.isArray((x as PolicyBundle).todos) && policyUrlsSafe(x as PolicyBundle);
@@ -38,6 +40,9 @@ export async function loadStoredRemote(): Promise<void> {
     const a = await getSetting('remote:alerts');
     const aj = a ? JSON.parse(a) : null;
     if (validAlerts(aj)) setAlertsOverride(aj);
+    const n = await getSetting('remote:notices');
+    const nj = n ? JSON.parse(n) : null;
+    if (validNotices(nj)) setNoticesOverride(nj);
   } catch { /* 壞資料就用內建 */ }
 }
 
@@ -73,6 +78,14 @@ export async function syncRemote(force = false): Promise<RemoteStatus> {
       if (isSafeDataPath(m.alerts.path) && m.alerts.version > curAv && m.alerts.version > BUNDLED_ALERTS.version) {
         const aj = await getJson(DATA_BASE + m.alerts.path);
         if (validAlerts(aj)) { await setSetting('remote:alerts', JSON.stringify(aj)); setAlertsOverride(aj); changed = true; }
+      }
+    }
+    if (m.notices) {
+      const curN = await getSetting('remote:notices');
+      const curNv = curN ? (JSON.parse(curN) as NoticeBundle).version : BUNDLED_NOTICES.version;
+      if (isSafeDataPath(m.notices.path) && m.notices.version > curNv && m.notices.version > BUNDLED_NOTICES.version) {
+        const nj = await getJson(DATA_BASE + m.notices.path);
+        if (validNotices(nj)) { await setSetting('remote:notices', JSON.stringify(nj)); setNoticesOverride(nj); changed = true; }
       }
     }
     await setSetting('remote:lastCheck', new Date().toISOString());

@@ -65,6 +65,12 @@ function Root() {
         <Stack.Screen name="sync/qr" options={{ presentation: 'modal' }} />
         <Stack.Screen name="sync/scan" options={{ presentation: 'modal' }} />
         <Stack.Screen name="sync/import" />
+        <Stack.Screen name="village/member" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="village/handover" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="village/group-new" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="village/group-item" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="village/join" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="village/group/[id]" />
         <Stack.Screen name="child/switch" options={{ presentation: 'modal' }} />
         <Stack.Screen name="child/[id]" />
         <Stack.Screen name="plan/index" />

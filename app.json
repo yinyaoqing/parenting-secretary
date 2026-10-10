@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "育兒秘書",
+    "name": "育村",
     "slug": "parenting-secretary",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +15,7 @@
       "infoPlist": {
         "CFBundleDocumentTypes": [
           {
-            "CFBundleTypeName": "育兒秘書交接檔",
+            "CFBundleTypeName": "育村交接檔",
             "CFBundleTypeRole": "Editor",
             "LSHandlerRank": "Owner",
             "LSItemContentTypes": [
@@ -26,7 +26,7 @@
         "UTExportedTypeDeclarations": [
           {
             "UTTypeIdentifier": "com.yinyaoqing.parentingsecretary.psync",
-            "UTTypeDescription": "育兒秘書交接檔",
+            "UTTypeDescription": "育村交接檔",
             "UTTypeConformsTo": [
               "public.data"
             ],

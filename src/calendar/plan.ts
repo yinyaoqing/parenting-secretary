@@ -14,7 +14,7 @@ export interface CalendarEventSpec {
 }
 
 export const DEFAULT_DURATION_MIN = 30;
-export const CAL_NOTES = '由育兒秘書同步。要修改請回 APP 的行程頁，在這裡改的內容下次同步會被蓋過。';
+export const CAL_NOTES = '由育村同步。要修改請回 APP 的行程頁，在這裡改的內容下次同步會被蓋過。';
 
 export function canSync(it: ScheduleItem): boolean {
   return it.kind !== 'routine' && !it.deletedAt && it.weekdays.length > 0;

@@ -53,6 +53,6 @@ export function buildShareText(name: string, events: ShareEvent[], fromMs: numbe
     lines.push(n.type === 'symptom' ? `${hm(n.startAt)} 症狀：${[...(p.items ?? []), p.note].filter(Boolean).join('、')}` : `${hm(n.startAt)} 就醫：${[p.place, p.reason, p.note].filter(Boolean).join('，')}`);
   }
 
-  lines.push('（育兒秘書紀錄，只有紀錄，沒有判斷）');
+  lines.push('（育村紀錄，只有紀錄，沒有判斷）');
   return lines.join('\n');
 }

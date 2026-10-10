@@ -168,7 +168,7 @@ export default function EditPlan() {
             <View style={styles.row}>
               <View style={styles.sp}>
                 <Text style={[styles.p, { fontWeight: '700' }]}>同步到手機行事曆</Text>
-                <Text style={styles.muted}>寫進「育兒秘書」行事曆，由行事曆提前提醒，APP 不再另外通知。只在這支手機生效，不隨交接同步。</Text>
+                <Text style={styles.muted}>寫進「育村」行事曆，由行事曆提前提醒，APP 不再另外通知。只在這支手機生效，不隨交接同步。</Text>
               </View>
               <Switch value={calOn} onValueChange={setCalOn} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="同步到手機行事曆" />
             </View>

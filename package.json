@@ -54,7 +54,7 @@
     "content:import": "node scripts/import-translation.mjs",
     "test:sync": "node --experimental-strip-types --no-warnings src/sync/merge.test.ts && node --experimental-strip-types --no-warnings src/sync/codec.test.ts && node --experimental-strip-types --no-warnings src/sync/backup.test.ts",
     "test:timeline": "node --experimental-strip-types --no-warnings src/timeline/timeline.test.ts",
-    "test": "npm run test:sync && npm run test:timeline && npm run test:search && npm run test:calendar && npm run test:data",
+    "test": "npm run test:sync && npm run test:timeline && npm run test:search && npm run test:calendar && npm run test:data && npm run test:village",
     "data:check": "node scripts/build-data.mjs --check",
     "data:build": "node scripts/build-data.mjs",
     "test:search": "node --experimental-strip-types --no-warnings src/search/search.test.ts",
@@ -63,7 +63,8 @@
     "test:calendar": "node --experimental-strip-types --no-warnings src/calendar/calendar.test.ts",
     "legal:build": "node scripts/build-legal.mjs",
     "test:data": "node --experimental-strip-types --no-warnings src/remote/validate.test.ts",
-    "b2g:tenders": "node scripts/b2g-tenders.mjs"
+    "b2g:tenders": "node scripts/b2g-tenders.mjs",
+    "test:village": "node --experimental-strip-types --no-warnings src/village/village.test.ts"
   },
   "private": true
 }

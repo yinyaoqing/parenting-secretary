@@ -38,7 +38,7 @@ export default function SyncHub() {
       if (file.exists) file.delete();
       file.create();
       file.write(text);
-      // UTI 與 app.json 的 UTExportedTypeDeclarations 一致，對方 iPhone 點檔案就會直接開育兒秘書。
+      // UTI 與 app.json 的 UTExportedTypeDeclarations 一致，對方 iPhone 點檔案就會直接開育村。
       await Sharing.shareAsync(file.uri, { mimeType: 'application/octet-stream', UTI: PSYNC_UTI, dialogTitle: '分享交接檔' });
       setMsg(`已產生交接檔：${events} 筆事件${delta ? '（差量）' : '（全部）'}。對方匯入後，再按「對方已收到」。`);
     } catch (e) {

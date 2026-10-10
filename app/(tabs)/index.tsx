@@ -332,7 +332,7 @@ function Welcome() {
     >
       <Hero art="crib" height={230} radius={28} />
       <View style={{ gap: 8 }}>
-        <Text style={[styles.h1, { fontSize: 30 }]}>育兒秘書</Text>
+        <Text style={[styles.h1, { fontSize: 30 }]}>育村</Text>
         <Text style={[styles.body, { color: palette.ink2 }]}>記下孩子的吃、睡、尿布，在該提醒的時候提醒，衛教內容每一條都附政府或醫學會的原文來源。</Text>
       </View>
       <View style={{ gap: 14, marginTop: 8 }}>

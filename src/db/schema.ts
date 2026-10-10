@@ -3,7 +3,8 @@
 // v3：children 加 archived_at（封存孩子，紀錄保留不顯示）。
 // v4：children 加 daycare_from、school_from（作息範本的事件起點）；schedule_items 補時間軸欄位與墓碑。
 // v5：children 加 county（戶籍縣市，決定地方補助與縣市資源；規劃 v1.0 第 6.3 節）。
-export const SCHEMA_VERSION = 5;
+// v6：育村第一、二層（規劃 v1.0 第 4 章）：village_members（我的村，隨家庭交接同步）、village_groups 與 group_items（鄰里小組，與其他家庭以小組金鑰交換）。
+export const SCHEMA_VERSION = 6;
 
 export const SCHEMA_SQL = `
 PRAGMA journal_mode = WAL;
@@ -74,6 +75,41 @@ CREATE TABLE IF NOT EXISTS reminders (
   created_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_reminders_due ON reminders(enabled, due_at);
+
+CREATE TABLE IF NOT EXISTS village_members (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL,
+  phone TEXT,
+  note TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  deleted_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS village_groups (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  key TEXT NOT NULL,
+  my_label TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  left_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS group_items (
+  id TEXT PRIMARY KEY,
+  group_id TEXT NOT NULL,
+  date TEXT NOT NULL,
+  time TEXT,
+  title TEXT NOT NULL,
+  assignee TEXT,
+  location TEXT,
+  note TEXT,
+  created_by TEXT,
+  updated_at TEXT NOT NULL,
+  deleted_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_group_items_group ON group_items(group_id, date);
 
 CREATE TABLE IF NOT EXISTS schedule_items (
   id TEXT PRIMARY KEY,

@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { router } from 'expo-router';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { FrameCollector, parsePairing } from '../../src/sync/codec';
+import { GROUP_JOIN_PREFIX } from '../../src/village/model';
 import { adoptPairing, applyPackageText, getIdentity, type ApplyReport } from '../../src/sync/store';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, SheetHeader, Card, PrimaryButton, GhostButton, Progress } from '../../src/ui/components';
@@ -21,6 +22,12 @@ export default function Scan() {
 
   const onScanned = async ({ data }: { data: string }) => {
     if (lock.current || status !== 'scanning') return;
+    // 育村鄰里小組的加入碼：轉到加入確認頁，由使用者填稱呼後才加入。
+    if (data.startsWith(GROUP_JOIN_PREFIX)) {
+      lock.current = true;
+      router.replace({ pathname: '/village/join', params: { code: data } });
+      return;
+    }
     const pairing = parsePairing(data);
     if (pairing) {
       lock.current = true;

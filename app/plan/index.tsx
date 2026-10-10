@@ -121,7 +121,7 @@ export default function PlanList() {
             </View>
           </View>
         </Card>
-        {calNotice ? <Card warm><Text style={[styles.muted, { color: palette.ink2 }]}>手機裡的「育兒秘書」行事曆被刪掉了，所以所有行程的行事曆同步都已關閉，改回由 APP 發提前提醒。要再同步，到行程編輯頁打開。</Text></Card> : null}
+        {calNotice ? <Card warm><Text style={[styles.muted, { color: palette.ink2 }]}>手機裡的「育村」行事曆被刪掉了，所以所有行程的行事曆同步都已關閉，改回由 APP 發提前提醒。要再同步，到行程編輯頁打開。</Text></Card> : null}
         <Text style={styles.muted}>提前提醒會發通知（設定 › 提醒可關閉）。每筆行程可以在編輯頁打開「同步到手機行事曆」。行程會跟著交接傳給另一支手機，行事曆開關不會。</Text>
       </Screen>
     </View>

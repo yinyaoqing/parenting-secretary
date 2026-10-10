@@ -1,4 +1,4 @@
-# 交接文件：育兒秘書 APP（parenting-secretary）
+# 交接文件：育村 APP（parenting-secretary，原名育兒秘書）
 
 交接日期：2026-10-05
 交接人：Claude Fable 5.1（Claude Code 工作階段）
@@ -12,7 +12,7 @@
 
 ## 1. 這是什麼
 
-面向台灣 0–3 歲家庭的育兒秘書 APP，一人搭配 AI 開發。功能限於：日常紀錄、安全網提醒、衛教內容連結、公費資源與行政待辦時程、照顧者支持的資源導向。長期架構承載到 18 歲。
+面向台灣家庭的育兒 APP「育村」（2026-10-10 由「育兒秘書」改名），一人搭配 AI 開發。功能限於：日常紀錄、安全網提醒、衛教內容連結、公費資源與行政待辦時程、照顧者支持的資源導向。長期架構承載到 18 歲。
 
 **五項開發原則（不可違反）**
 
@@ -86,6 +86,9 @@ scripts/build-content.mjs --release  送審版內容包：只含 review／publis
 scripts/build-legal.mjs 隱私權政策、服務條款、支援頁轉成 docs/data/*.html（GitHub Pages）
 src/release/profile.ts  送審版型 personal／org 與功能開關 FEATURES（決策第 10 項、plan-v1.0 第 1 章）；改一行切換，資料結構不變
 src/db/reminders.ts     倒數提醒（reminders 表 kind=timer）：新增、列出未到期、刪除、清掉已到期
+src/village/            育村社群（plan-v1.0 第 4 章）：model（村民、小組、加入碼、小組檔加解密、交班卡，純函式含測試）、store（village_members 隨家庭交接同步；village_groups、group_items 用小組金鑰）
+src/notices/            村長公告：select（依日期、縣市、年齡篩選，含測試）、loader（內建加遠端覆蓋）；內容在 content/notices/notices.json
+app/(tabs)/village.tsx  育村分頁：我的村、鄰里小組、村長公告；app/village/ 村民、交班卡、建立與加入小組、小組行程
 src/home/location.ts    照顧地點六種與依年齡篩選（建檔與編輯共用）
 src/home/county.ts      22 縣市正式名稱；孩子的戶籍縣市（schema v5）決定地方補助
 src/policy/select.ts    政策依年齡與縣市篩選（純函式，含測試）

@@ -6,6 +6,7 @@ import { pbkdf2Async } from '@noble/hashes/pbkdf2.js';
 import { sha256 } from '@noble/hashes/sha2.js';
 import { bytesToBase64, base64ToBytes, type SyncCrypto } from './codec.ts';
 import type { SyncChild, SyncEvent, SyncScheduleItem } from './merge.ts';
+import type { VillageMember } from '../village/model.ts';
 
 export const BACKUP_PREFIX = 'PSB1.';
 export const BACKUP_EXTENSION = 'psbackup';
@@ -22,6 +23,7 @@ export interface BackupData {
   events: SyncEvent[];
   schedule: SyncScheduleItem[];
   styleProfiles: { childId: string; preset: string; axes: Record<string, number>; updatedAt: string }[];
+  members?: VillageMember[]; // 育村村民名冊（v6 起）；小組金鑰與小組行程不放進備份
   settings: Record<string, string>; // 目前孩子、範本設定、如廁準備度等；不含配對金鑰與裝置 id
 }
 
@@ -45,7 +47,7 @@ export async function encodeBackup(data: BackupData, password: string, salt: Uin
 
 export async function decodeBackup(text: string, password: string, makeCrypto: CryptoFactory): Promise<BackupData> {
   const t = text.trim();
-  if (!t.startsWith(BACKUP_PREFIX)) throw new Error(t.startsWith('PS1.') ? '這是交接檔，請到「同步與交接」匯入' : '不是育兒秘書的備份檔');
+  if (!t.startsWith(BACKUP_PREFIX)) throw new Error(t.startsWith('PS1.') ? '這是交接檔，請到「同步與交接」匯入' : '不是育村的備份檔');
   const bytes = base64ToBytes(t.slice(BACKUP_PREFIX.length));
   if (bytes.length < 40) throw new Error('備份檔已損壞');
   const salt = bytes.subarray(0, 16);
@@ -60,7 +62,7 @@ export async function decodeBackup(text: string, password: string, makeCrypto: C
 }
 
 // 備份要帶走的設定：只留使用偏好，不帶配對金鑰、裝置 id、已配對裝置。
-const KEEP = [/^activeChildId$/, /^templateMode:/, /^toiletReady:/, /^askDoctor:/, /^home:/, /^contentQuiet$/, /^encourage$/, /^encourage:kinds$/, /^themeMode$/, /^textScale$/, /^deviceName$/];
+const KEEP = [/^activeChildId$/, /^templateMode:/, /^toiletReady:/, /^askDoctor:/, /^handover:/, /^home:/, /^contentQuiet$/, /^encourage$/, /^encourage:kinds$/, /^themeMode$/, /^textScale$/, /^deviceName$/];
 export function pickSettings(all: Record<string, string>): Record<string, string> {
   return Object.fromEntries(Object.entries(all).filter(([k]) => KEEP.some((r) => r.test(k))));
 }

@@ -4,10 +4,11 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { File } from 'expo-file-system';
 import { applyPackageText, getIdentity, type ApplyReport } from '../../src/sync/store';
 import { looksLikePackage } from '../../src/sync/codec';
+import { applyGroupFile, looksLikeGroupFileText } from '../../src/village/store';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Card, PrimaryButton, GhostButton, Hint } from '../../src/ui/components';
 
-type State = { kind: 'loading' } | { kind: 'ready'; text: string; name: string } | { kind: 'unpaired' } | { kind: 'error'; msg: string } | { kind: 'done'; report: ApplyReport };
+type State = { kind: 'loading' } | { kind: 'ready'; text: string; name: string } | { kind: 'unpaired' } | { kind: 'error'; msg: string } | { kind: 'done'; report: ApplyReport } | { kind: 'group'; text: string } | { kind: 'groupDone'; groupId: string; name: string; from: string; updated: number };
 
 // 從 LINE、AirDrop、檔案 APP 點開 .psync 時進到這裡（app/+native-intent.tsx 轉址）。先確認再合併，不自動匯入。
 export default function ImportFile() {
@@ -20,16 +21,25 @@ export default function ImportFile() {
     (async () => {
       if (!uri) return setState({ kind: 'error', msg: '沒有收到檔案。' });
       try {
+        const text = await new File(uri).text();
+        if (looksLikeGroupFileText(text)) return setState({ kind: 'group', text });
         const me = await getIdentity();
         if (!me.key) return setState({ kind: 'unpaired' });
-        const text = await new File(uri).text();
-        if (!looksLikePackage(text)) return setState({ kind: 'error', msg: '這不是育兒秘書的交接檔。' });
+        if (!looksLikePackage(text)) return setState({ kind: 'error', msg: '這不是育村的交接檔。' });
         setState({ kind: 'ready', text, name: decodeURIComponent(uri.split('/').pop() ?? '交接檔') });
       } catch (e) {
         setState({ kind: 'error', msg: `讀不到檔案。可以改到「同步與交接」用「匯入交接檔」選檔案。${e instanceof Error ? `（${e.message}）` : ''}` });
       }
     })();
   }, [uri]);
+
+  const mergeGroup = async () => {
+    if (state.kind !== 'group') return;
+    setBusy(true);
+    try { const r = await applyGroupFile(state.text); setState({ kind: 'groupDone', groupId: r.group.id, name: r.group.name, from: r.from, updated: r.updated }); }
+    catch (e) { setState({ kind: 'error', msg: e instanceof Error ? e.message : '合併失敗' }); }
+    finally { setBusy(false); }
+  };
 
   const merge = async () => {
     if (state.kind !== 'ready') return;
@@ -59,6 +69,21 @@ export default function ImportFile() {
             <Text style={styles.muted}>合併後，對方記的紀錄會加進這支手機；同一筆不會重複，已有的紀錄不會被刪掉。</Text>
             <PrimaryButton label={busy ? '合併中⋯' : '合併紀錄'} icon="download" disabled={busy} onPress={merge} />
             <GhostButton label="不要匯入" onPress={toHome} />
+          </Card>
+        ) : null}
+        {state.kind === 'group' ? (
+          <Card style={{ gap: 10 }}>
+            <Text style={[styles.p, { fontWeight: '700' }]}>鄰里小組的行程更新</Text>
+            <Text style={styles.muted}>合併後，小組行程以最後修改的為準。小組檔只含行程，不含任何孩子的紀錄。</Text>
+            <PrimaryButton label={busy ? '合併中⋯' : '合併小組行程'} icon="download" disabled={busy} onPress={mergeGroup} />
+            <GhostButton label="不要匯入" onPress={toHome} />
+          </Card>
+        ) : null}
+        {state.kind === 'groupDone' ? (
+          <Card style={{ gap: 8 }}>
+            <Text style={[styles.p, { fontWeight: '700' }]}>已合併「{state.name}」的行程</Text>
+            <Text style={styles.muted}>來自{state.from}，更新 {state.updated} 筆。</Text>
+            <PrimaryButton label="看小組行程" onPress={() => router.replace({ pathname: '/village/group/[id]', params: { id: state.groupId } })} />
           </Card>
         ) : null}
         {state.kind === 'done' ? (

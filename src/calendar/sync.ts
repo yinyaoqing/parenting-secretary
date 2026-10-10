@@ -9,7 +9,7 @@ import { emitDataChange, onDataChange } from '../db/changes';
 import { isExpoGo } from '../util/runtime';
 import { canSync, reconcile, specHash, toEventSpec, type CalMap } from './plan';
 
-export const CAL_TITLE = '育兒秘書';
+export const CAL_TITLE = '育村';
 const CAL_COLOR = '#2F6F5E';
 
 export const calendarSupported = !isExpoGo && (Platform.OS === 'ios' || Platform.OS === 'android');
@@ -70,7 +70,7 @@ async function eventExists(eventId: string): Promise<Calendar.ExpoCalendarEvent 
 let running: Promise<void> | null = null;
 
 // 對齊行事曆與行程：新增、改了就刪掉重建、關掉或刪除的行程移除事件。
-// 使用者在行事曆刪掉的事件不重建；整個「育兒秘書」行事曆被刪掉，視為她不要同步了，全部關閉。
+// 使用者在行事曆刪掉的事件不重建；整個「育村」行事曆被刪掉，視為她不要同步了，全部關閉。
 export async function syncCalendar(now = new Date()): Promise<void> {
   if (!calendarSupported) return;
   if (running) return running;

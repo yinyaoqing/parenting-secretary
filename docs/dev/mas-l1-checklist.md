@@ -43,6 +43,7 @@
 | 只用加密連線 | ✅ | 正式版唯一的網路請求為 https://yinyaoqing.github.io（src/remote/sync.ts）；關閉 APP 內更新後不再連 Expo，也不再送出 EAS-Client-ID 安裝識別碼；Android 目標版本預設禁止明文流量；iOS ATS 預設啟用 |
 | 憑證驗證 | ✅ | 使用系統預設的 TLS 驗證，未自訂信任或關閉驗證 |
 | 遠端資料完整性 | 🔧 | manifest 指定的檔名只接受單純檔名（擋 ../ 與外部網址）；內容做結構與連結檢查後才套用（src/remote/validate.ts） |
+| 鄰里小組 | ✅ | 每個小組有獨立金鑰（expo-crypto 產生），加入碼以 QR code 當面掃描；小組檔 AES-GCM 加密，第一行只帶小組 id；沒有加入的手機無法解密（src/village/，含測試）。加入碼外流等於鑰匙外流，畫面已提醒不要截圖轉傳 |
 | 裝置配對 | ✅ | 配對 QR code 面對面掃描；拒絕自己的配對碼；交接檔以家庭金鑰解密，金鑰不符即失敗 |
 
 ## 五、行動應用程式碼安全

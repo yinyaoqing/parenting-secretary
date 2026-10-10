@@ -1,6 +1,6 @@
-# 育兒秘書（parenting-secretary）
+# 育村（parenting-secretary）
 
-面向台灣家庭的育兒秘書 APP。紀錄、衛教連結、提醒、導向政府既有服務；不診斷、不分級、不生成醫療內容。
+面向台灣家庭的育兒 APP「育村」：養一個孩子，需要一整個村子。紀錄、衛教連結、提醒、導向政府既有服務；不診斷、不分級、不生成醫療內容。
 
 - 規劃文件：`docs/plan/`，目前基準版為 v0.9（`plan-v0.9.md`）。
 - 技術：Expo（React Native、TypeScript）、本地 SQLite、無後端。

@@ -8,6 +8,7 @@ import { encodeBackup, decodeBackup, pickSettings, type BackupData, type BackupC
 import type { SyncCrypto } from './codec';
 import appConfig from '../../app.json';
 import { emitDataChange } from '../db/changes';
+import { listMembers } from '../village/store';
 
 const aesFactory: CryptoFactory = async (keyBytes) => {
   const key = await AESEncryptionKey.import(keyBytes);
@@ -33,7 +34,8 @@ export async function buildBackup(password: string): Promise<{ text: string; chi
     .map((r) => ({ childId: r.child_id, preset: r.preset, axes: JSON.parse(r.axes), updatedAt: r.updated_at }));
   const settingsRows = await db.getAllAsync<{ key: string; value: string }>('SELECT key, value FROM settings');
   const settings = pickSettings(Object.fromEntries(settingsRows.map((r) => [r.key, r.value])));
-  const data: BackupData = { v: 1, kind: 'backup', createdAt: nowIso(), appVersion: appConfig.expo.version, children, events, schedule, styleProfiles, settings };
+  const members = await listMembers(true);
+  const data: BackupData = { v: 1, kind: 'backup', createdAt: nowIso(), appVersion: appConfig.expo.version, children, events, schedule, styleProfiles, settings, members };
   const text = await encodeBackup(data, password, getRandomBytes(16), aesFactory);
   return { text, children: children.length, events: events.length };
 }
@@ -42,7 +44,7 @@ export interface RestoreReport extends ApplyReport { profiles: number; backupDat
 
 export async function restoreBackup(text: string, password: string): Promise<RestoreReport> {
   const data = await decodeBackup(text, password, aesFactory);
-  const report = await applyPackage({ v: 1, familyId: 'backup', from: 'backup', fromName: '備份檔', createdAt: data.createdAt, children: data.children, events: data.events, schedule: data.schedule }, { fromBackup: true });
+  const report = await applyPackage({ v: 1, familyId: 'backup', from: 'backup', fromName: '備份檔', createdAt: data.createdAt, children: data.children, events: data.events, schedule: data.schedule, members: data.members }, { fromBackup: true });
 
   // 風格與設定：孩子 id 可能已收斂到本機的 id（以出生日判斷同一個孩子），只補本機沒有的。
   const db = await getDb();
@@ -70,7 +72,7 @@ export async function restoreBackup(text: string, password: string): Promise<Res
 export async function deleteAllData(): Promise<void> {
   const db = await getDb();
   await db.withTransactionAsync(async () => {
-    for (const t of ['events', 'schedule_items', 'reminders', 'style_profiles', 'peers', 'content_cards', 'resource_timeline', 'children']) {
+    for (const t of ['events', 'schedule_items', 'reminders', 'style_profiles', 'peers', 'content_cards', 'resource_timeline', 'village_members', 'group_items', 'village_groups', 'children']) {
       await db.runAsync(`DELETE FROM ${t}`);
     }
     await db.runAsync("DELETE FROM settings WHERE key <> 'deviceId'");

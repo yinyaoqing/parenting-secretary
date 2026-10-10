@@ -11,5 +11,9 @@
   "alerts": {
     "version": "2026-10-08",
     "path": "alerts.json"
+  },
+  "notices": {
+    "version": "2026-10-10",
+    "path": "notices.json"
   }
 }

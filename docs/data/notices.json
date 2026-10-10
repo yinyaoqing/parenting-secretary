@@ -1,0 +1,29 @@
+{
+  "_comment": "育村第三層「村長公告」（規劃 v1.0 第 8 章）：縣市政府、親子館、學校等公部門單向發布的在地公告。只收政府網址來源；有 county 的只給戶籍在該縣市的家長；每則附原文連結。由擁有者或合作機關提供後查核再發布（npm run data:build）。",
+  "version": "2026-10-10",
+  "checkedAt": "2026-10-10",
+  "items": [
+    {
+      "id": "cdc-2026-school-flu",
+      "publisher": "衛生福利部疾病管制署",
+      "title": "學生流感疫苗校園接種，11 月 13 日前完成",
+      "body": "國小到高中職學生由學校集中接種公費流感疫苗。家長要先簽意願書（紙本或線上），接種當天請孩子帶健保卡。詳細時間依學校通知。",
+      "url": "https://www.cdc.gov.tw/Category/QAPage/lqCWXtsI9LEtKhDwC2F1Pg",
+      "startsOn": "2026-10-01",
+      "endsOn": "2026-11-13",
+      "ageMinDays": 2190,
+      "ageMaxDays": 6570
+    },
+    {
+      "id": "yilan-family-pavilion-booking",
+      "publisher": "宜蘭縣政府社會處",
+      "county": "宜蘭縣",
+      "title": "宜蘭縣親子館要先在育兒資源網加入會員才能預約",
+      "body": "宜蘭縣各鄉鎮的親子館由宜蘭縣育兒資源網預約，第一次使用要先加入會員。各館開放時間與名額以網站為準。",
+      "url": "https://parenting.e-land.gov.tw/parent-child-center/family-pavilion",
+      "startsOn": "2026-10-08",
+      "ageMinDays": 0,
+      "ageMaxDays": 2190
+    }
+  ]
+}

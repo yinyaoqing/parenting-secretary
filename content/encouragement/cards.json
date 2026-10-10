@@ -152,7 +152,7 @@
     {
       "id": "plain.night-count",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "newborn",
         "infant",
@@ -168,7 +168,7 @@
     {
       "id": "plain.first-days",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "newborn"
       ],
@@ -177,7 +177,7 @@
     {
       "id": "plain.no-need-to-record",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "newborn",
         "infant",
@@ -188,7 +188,7 @@
     {
       "id": "plain.someone-sees",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "newborn",
         "infant"
@@ -198,7 +198,7 @@
     {
       "id": "plain.slow-week",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "infant",
         "toddler"
@@ -208,7 +208,7 @@
     {
       "id": "plain.checkin",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "newborn",
         "infant",
@@ -226,7 +226,7 @@
     {
       "id": "plain.preterm",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "newborn",
         "infant"
@@ -239,7 +239,7 @@
     {
       "id": "plain.grandparent",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "infant",
         "toddler",
@@ -254,7 +254,7 @@
     {
       "id": "plain.school-age",
       "kind": "plain",
-      "voice": "育兒秘書",
+      "voice": "育村",
       "stages": [
         "school",
         "teen"

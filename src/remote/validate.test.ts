@@ -1,8 +1,26 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { isGovUrl, isSafeDataPath, policyUrlsSafe, scheduleUrlsSafe, alertUrlsSafe } from './validate.ts';
+import { isGovUrl, isSafeDataPath, policyUrlsSafe, scheduleUrlsSafe, alertUrlsSafe, noticeUrlsSafe } from './validate.ts';
 import { selectPolicy } from '../policy/select.ts';
 import { gradeFor, showEntry } from '../progress/select.ts';
+import { selectNotices } from '../notices/select.ts';
+
+test('村長公告：依日期、縣市、年齡篩選，新的在前；只接受政府網址', () => {
+  const n = (id: string, startsOn: string, extra: Record<string, unknown> = {}) => ({ id, publisher: '機關', title: id, body: '', url: 'https://x.gov.tw/', startsOn, ...extra });
+  const b = { version: 'v', checkedAt: 'c', items: [
+    n('national', '2026-10-01', { endsOn: '2026-11-13', ageMinDays: 2190 }),
+    n('yilan', '2026-10-08', { county: '宜蘭縣' }),
+    n('future', '2026-12-01'),
+    n('expired', '2026-01-01', { endsOn: '2026-02-01' }),
+  ] };
+  const ids = (o: Parameters<typeof selectNotices>[1]) => selectNotices(b, o).map((x) => x.id);
+  assert.deepEqual(ids({ today: '2026-10-10', county: '宜蘭縣', ageDays: 3000 }), ['yilan', 'national']);
+  assert.deepEqual(ids({ today: '2026-10-10', ageDays: 3000 }), ['national']);
+  assert.deepEqual(ids({ today: '2026-10-10', county: '宜蘭縣', ageDays: 100 }), ['yilan']);
+  assert.deepEqual(ids({ today: '2026-11-14', county: '宜蘭縣', ageDays: null }), ['yilan']);
+  assert.equal(noticeUrlsSafe(b), true);
+  assert.equal(noticeUrlsSafe({ items: [{ url: 'https://evil.com/', publisher: 'x', title: 'y' }] }), false);
+});
 
 test('遠端資料：只接受政府網址與單純檔名', () => {
   assert.equal(isGovUrl('https://www.hpa.gov.tw/x'), true);

@@ -9,13 +9,14 @@ import type { ScheduleItem } from '../db/types';
 import { emitDataChange } from '../db/changes';
 import { encodePackage, decodePackage, type SyncPackage } from './codec';
 import { makeCrypto, generateFamilyKey, newFamilyId } from './crypto';
+import { listMembers, mergeMembers } from '../village/store';
 
 export interface Identity { deviceId: string; deviceName: string; familyId: string | null; key: string | null }
 export interface Peer { deviceId: string; name: string; lastSentSeq: number; lastSentAt?: string; lastReceivedAt?: string }
 export interface ApplyReport {
   from: string; fromName: string;
   inserted: number; updated: number; tombstones: number; duplicates: number;
-  childrenInserted: number; childrenRemapped: number; schedule: number;
+  childrenInserted: number; childrenRemapped: number; schedule: number; members?: number;
 }
 
 // ---------- 身分與配對 ----------
@@ -89,7 +90,8 @@ export async function buildPackage(peerId?: string): Promise<{ text: string; eve
   const events: SyncEvent[] = rows.map(rowToEvent).map((e) => ({ ...e }));
   // 行程筆數少，每次全送（含墓碑），合併以 updatedAt 為準。
   const schedule: SyncScheduleItem[] = (await db.getAllAsync<ScheduleRow>('SELECT s.* FROM schedule_items s JOIN children c ON c.id = s.child_id WHERE c.archived_at IS NULL')).map(rowToScheduleItem);
-  const pkg: SyncPackage = { v: 1, familyId: me.familyId, from: me.deviceId, fromName: me.deviceName, createdAt: nowIso(), children, events, schedule };
+  const members = await listMembers(true); // 村民名冊每次全送（含墓碑），筆數很少
+  const pkg: SyncPackage = { v: 1, familyId: me.familyId, from: me.deviceId, fromName: me.deviceName, createdAt: nowIso(), children, events, schedule, members };
   const text = await encodePackage(pkg, await makeCrypto(me.key));
   return { text, events: events.length, delta: !!peer };
 }
@@ -171,7 +173,10 @@ export async function applyPackage(pkg: SyncPackage, opts: { fromBackup?: boolea
       }
     }
 
-    // 4. 記住對方。
+    // 4. 育村村民名冊：同 id 以較晚的更新為準。
+    report.members = await mergeMembers(pkg.members);
+
+    // 5. 記住對方。
     if (!opts.fromBackup) await db.runAsync(
       `INSERT INTO peers (device_id, name, last_received_at, created_at) VALUES (?, ?, ?, ?)
        ON CONFLICT(device_id) DO UPDATE SET name = excluded.name, last_received_at = excluded.last_received_at`,
