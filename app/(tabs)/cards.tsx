@@ -1,9 +1,12 @@
 import { useCallback, useState } from 'react';
-import { View, Text, Switch } from 'react-native';
+import { View, Text, Switch, Pressable, Linking } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 import { useChildren } from '../../src/ui/ChildContext';
 import { ChildTitle } from '../../src/ui/ChildTitle';
 import { cardsForAge, safetyCards, GROUP_LABEL } from '../../src/content/loader';
+import { searchHint, splitSafety } from '../../src/content/stage';
+import { weeklyActivity } from '../../src/activities/loader';
+import { SETTING_LABEL, COST_LABEL, ACTIVITY_MIN_AGE_DAYS } from '../../src/activities/select';
 import type { ContentCard, TopicGroup } from '../../src/content/types';
 import { ageLabel, daysSince, correctedDays } from '../../src/util/age';
 import { getSetting, setSetting } from '../../src/db/repo';
@@ -40,7 +43,9 @@ export default function Cards() {
   const age = active ? (correctedD ?? actualDays) : null;
   const forAge = age === null ? [] : cardsForAge(age).filter((c) => c.topicGroup !== 'safety' && !SEARCH_ONLY.has(c.id));
   const featured = forAge.find((c) => c.topicGroup === 'milestones');
-  const safety = safetyCards();
+  const { current: safetyNow, past: safetyPast } = splitSafety(safetyCards(), age);
+  const safety = [...safetyNow, ...safetyPast];
+  const activity = active && age !== null && age >= ACTIVITY_MIN_AGE_DAYS ? weeklyActivity(active.id, age) : null;
   const subtitle = age === null ? '先建立孩子的檔案' : correctedD !== null ? `矯正 ${ageLabel(age)} · 實際 ${ageLabel(actualDays ?? 0)}` : `實際 ${ageLabel(age)}`;
 
   const toggleQuiet = async (v: boolean) => { setQuiet(v); await setSetting('contentQuiet', v ? '1' : '0'); };
@@ -49,7 +54,7 @@ export default function Cards() {
     <View style={styles.page}>
       <TopBar title={active ? <ChildTitle subtitle={subtitle} /> : '內容'} subtitle={active ? undefined : subtitle} />
       <Screen>
-        <PickRow icon="search" placeholder="問問看：吐奶、睡過夜、補助…" onPress={() => router.push('/search')} accessibilityLabel="問問看，搜尋官方內容" />
+        <PickRow icon="search" placeholder={`問問看：${searchHint(age).replace('例如：', '')}…`} onPress={() => router.push('/search')} accessibilityLabel="問問看，搜尋官方內容" />
 
         <Card style={quiet ? { borderColor: palette.warm, backgroundColor: palette.warmSoft } : undefined}>
           <View style={styles.row}>
@@ -71,10 +76,21 @@ export default function Cards() {
           </Card>
         ) : null}
 
+        {!quiet && activity ? (
+          <Card accent style={{ gap: 6 }}>
+            <Badge label="本週活動" />
+            <Text style={[styles.h2, { fontSize: 19, lineHeight: 25, marginTop: 0 }]}>{activity.title}</Text>
+            <Text style={styles.muted}>{activity.body}</Text>
+            <Text style={styles.muted}>{[SETTING_LABEL[activity.setting], COST_LABEL[activity.cost], activity.durationMinutes ? `約 ${activity.durationMinutes} 分鐘` : ''].filter(Boolean).join(' · ')}{activity.tips ? `。${activity.tips}` : ''}</Text>
+            <Pressable onPress={() => Linking.openURL(activity.source.url)} accessibilityRole="link" style={[styles.row, { gap: 4 }]}><Text style={styles.link}>{activity.source.name}</Text><Icon name="external-link" size={14} color={palette.accent} /></Pressable>
+            <Text style={styles.muted}>每週換一個，依孩子年齡與月份挑；只列政府機關的資訊，不是廣告。</Text>
+          </Card>
+        ) : null}
+
         <Section icon="shield" title="安全內容 · 永遠顯示" action={allSafety ? undefined : `全部 ${safety.length} 條`} onAction={() => setAllSafety(true)} />
         <ListCard>
           {(allSafety ? safety : safety.slice(0, 4)).map((c, i) => (
-            <ListRow key={c.id} first={i === 0} main={c.title} sub={sourceShort(c)} chevron onPress={() => router.push({ pathname: '/cards/[id]', params: { id: c.id } })} />
+            <ListRow key={c.id} first={i === 0} main={c.title} sub={safetyPast.includes(c) ? `較小的孩子 · ${sourceShort(c)}` : sourceShort(c)} chevron onPress={() => router.push({ pathname: '/cards/[id]', params: { id: c.id } })} />
           ))}
         </ListCard>
 

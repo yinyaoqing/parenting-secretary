@@ -1,0 +1,50 @@
+{
+  "id": "caregiver.t-parent-self-care",
+  "topicGroup": "caregiver",
+  "title": "帶青少年很耗電：照顧自己也是在示範",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國 CDC 的「Essentials for Parenting Teens」直接說：帶青少年通常要花很多精力和耐心。孩子可能情緒強烈、心情說變就變、對自己要什麼也不確定。CDC 的看法是，有照顧好自己身體、情緒和社交需求的家長，比較有餘裕面對這些；而且你怎麼照顧自己，孩子看在眼裡，這本身就是示範。\n\nCDC 也提醒，很多家長在孩子想要更多空間時會有失落感，這在青春期是正常的，親子關係並沒有因此變得不重要。\n\n另一頁談「稱讚」的內容說，帶青少年常被講得很糟，但青少年其實會做很多了不起的事。留意孩子日常生活裡發生的事，看到正面的行為時具體說出你喜歡哪裡；鼓勵的話能讓孩子知道自己被愛、被欣賞、被尊重。\n\n如果你自己的情緒已經撐很久，台灣的 1925 安心專線和 15 到 45 歲免費心理諮商方案（見「孩子心情不好很久：台灣可以找誰」）家長也能用。",
+  "readMore": [
+    {
+      "label": "CDC：Tips for Understanding and Adapting to the Teen Years 原文",
+      "url": "https://www.cdc.gov/parenting-teens/tips-understanding-and-adapting/index.html",
+      "note": "翻譯自 CDC 公眾領域網頁，台灣官方若有不同說法以台灣為準。"
+    },
+    {
+      "label": "CDC：Tips for Praising Your Teen 原文",
+      "url": "https://www.cdc.gov/parenting-teens/tips-praising-teens/index.html",
+      "note": "翻譯自 CDC 公眾領域網頁。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC Essentials for Parenting Teens：Tips for Understanding and Adapting to the Teen Years（2024-04-24；公眾領域）",
+      "url": "https://www.cdc.gov/parenting-teens/tips-understanding-and-adapting/index.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Parenting teens often involves lots of energy and patience. Parenting also shifts as children become teens. Teens experience many changes as they prepare to become adults.",
+      "checkedAt": "2026-10-11"
+    },
+    {
+      "name": "CDC Essentials for Parenting Teens：Tips for Praising Your Teen（2024-04-24；公眾領域）",
+      "url": "https://www.cdc.gov/parenting-teens/tips-praising-teens/index.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Parenting teens often gets a bad reputation. Teens do some amazing things! Be aware of what's happening in your teen's day-to-day life. When you see your teen doing something positive, tell them what you like. Words of encouragement go a long way in letting your teen know that they're loved, appreciated, and respected.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

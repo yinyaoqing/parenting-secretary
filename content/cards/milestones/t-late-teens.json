@@ -1,0 +1,36 @@
+{
+  "id": "milestones.t-late-teens",
+  "topicGroup": "milestones",
+  "title": "15 到 18 歲：社交圈變大，角色變多",
+  "ageMinDays": 5475,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國衛生及公共服務部人口事務辦公室（OPA）的「Adolescent Development Explained」描述青少年的社會發展，是從童年有限的角色，走向成人更寬的角色。\n\n社交圈在擴大：小時候主要和家人相處，到了青少年，網絡會延伸到球隊、社團、打工等場域。和家人相處的時間變少、更關注同儕，也更能和家庭以外的大人建立像導師那樣的關係。\n\n社會角色也在擴大：大腦、情緒和身體的變化，讓他們準備好承擔更複雜的角色，像是在學校或球隊擔任幹部、成為朋友的傾聽者、或是有了交往對象。OPA 說，在家庭以外建立新的連結和身分，是健康發展的正常一部分，但孩子在嘗試新角色時仍需要支持。\n\n同理心在這個階段增加，但因為前額葉皮質要到成年初期才成熟，他們解讀表情和肢體語言有時還會卡住。這些是整體趨勢，每個孩子的環境和步調都不同。",
+  "readMore": [
+    {
+      "label": "HHS OPA：Social Development 原文",
+      "url": "https://opa.hhs.gov/adolescent-health/adolescent-development-explained/social-development",
+      "note": "翻譯自美國聯邦政府公眾領域網頁，台灣官方若有不同說法以台灣為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "美國 HHS 人口事務辦公室（OPA）：Adolescent Development Explained：Social Development（美國聯邦政府著作，公眾領域）",
+      "url": "https://opa.hhs.gov/adolescent-health/adolescent-development-explained/social-development",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "The process of social development moves adolescents from the limited roles of childhood to the broader roles of adulthood. By the time they reach adolescence, their networks also can include people from team sports, student organizations, jobs, and other activities. As their social circles expand, adolescents spend less time with their families and may focus more on their peers. Building new connections and establishing identities outside of the context of the family is a normal part of healthy development.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

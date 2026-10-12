@@ -1,0 +1,36 @@
+{
+  "id": "caregiver.t-communication",
+  "topicGroup": "caregiver",
+  "title": "孩子情緒上來時：先停 10 秒再回應",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國 CDC 的「Essentials for Parenting Teens」把幫孩子辨認和管理情緒稱為親子關係的重要部分，整理成幾個步驟。\n\n先觀察：從表情、聲音和肢體語言看出孩子正在經歷什麼情緒，和孩子一起累積描述情緒的字彙。\n\n先停再回應：CDC 說家長被孩子的話或行為惹惱、反射性地負面回應是很常見的。停 10 到 30 秒，或走開一下，深呼吸、走幾步、喝杯水。不是緊急狀況的話，等一下再回來談也沒關係。\n\n冷靜時再引導：不要把孩子的情緒爆發當成針對你。開口前先確認自己是否安全、冷靜、有時間和力氣；若沒有，告訴孩子你晚點再找他。\n\n連結：用開放式問題幫孩子察覺自己的感受，仔細聽，承認那些感受是真的，不評價。先問孩子要不要建議再給建議，CDC 說這樣比較不會讓孩子關上門。",
+  "readMore": [
+    {
+      "label": "CDC：Tips for Coaching Teens to Recognize and Manage Emotions 原文",
+      "url": "https://www.cdc.gov/parenting-teens/tips-coaching-emotions/index.html",
+      "note": "翻譯自 CDC 公眾領域網頁，台灣官方若有不同說法以台灣為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC Essentials for Parenting Teens：Tips for Coaching Teens to Recognize and Manage Emotions（2024-04-18；公眾領域）",
+      "url": "https://www.cdc.gov/parenting-teens/tips-coaching-emotions/index.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "An important part of your relationship with your teen is helping them notice and manage their emotions. Use your observation skills to become aware that your teen is experiencing emotions. It's common for parents to find themselves getting upset and reacting negatively to something their teen says or does. When you are calm, you can better help your teen with their emotions. Helping your teen with their emotions is a wonderful opportunity to connect.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

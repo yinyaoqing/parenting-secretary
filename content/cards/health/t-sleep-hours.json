@@ -1,0 +1,36 @@
+{
+  "id": "health.t-sleep-hours",
+  "topicGroup": "health",
+  "title": "13 到 17 歲每天 8 到 10 小時：CDC 的建議睡眠時數",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國 CDC 的「About Sleep」頁面說，需要的睡眠時數隨年齡改變，並列出各年齡的建議：\n\n6 到 12 歲：9 到 12 小時。\n13 到 17 歲：8 到 10 小時。\n18 到 60 歲：7 小時以上。\n\nCDC 的要點只有幾句：好的睡眠對健康和情緒幸福感是必要的；睡得夠和睡得好都重要；如果有睡眠問題，和醫療人員談。\n\n實際算一下：如果早上 6 點半要起床，8 小時的下限表示最晚 10 點半要睡著。國中、高中的作息常常達不到這個數字，這不是誰的錯，只是知道這個區間在哪裡，有助於和孩子一起看怎麼調整。\n\n關於為什麼青少年會自然想晚睡，見「晚睡不全是不聽話，生理時鐘真的往後移了」那張卡。",
+  "readMore": [
+    {
+      "label": "CDC：About Sleep 原文（建議時數表）",
+      "url": "https://www.cdc.gov/sleep/about/index.html",
+      "note": "翻譯自 CDC 公眾領域網頁，台灣官方若有不同說法以台灣為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC：About Sleep（2024-05-15；各年齡建議睡眠時數表；公眾領域）",
+      "url": "https://www.cdc.gov/sleep/about/index.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "The daily recommended hours of sleep you need changes as you age. School age: 6–12 years: 9–12 hours. Teen: 13–17 years: 8–10 hours. Adult: 18–60 years: 7 or more hours. Good sleep is essential for our health and emotional well-being. Getting enough sleep and good sleep quality are essential for healthy sleep. Talk to your healthcare provider if you have problems sleeping.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

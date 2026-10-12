@@ -1,0 +1,50 @@
+{
+  "id": "milestones.t-identity",
+  "topicGroup": "milestones",
+  "title": "12 到 18 歲：「我是誰」是這個階段的主題",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國 HHS 人口事務辦公室把「自我認同的形成」列為青少年情緒發展的核心之一。它包含變得獨立、感覺自己有能力等任務。青少年會質疑自己的熱情和價值、重新檢視和家人朋友的關係、思考自己的天分和「成功」的定義。\n\nOPA 說，認同形成是反覆嘗試的過程：孩子會一次又一次試不同的想法、朋友和活動。這種實驗是正常的，能讓他們更了解自己和別人，只是不一定每次都伴隨周全的思考或衡量後果的能力。這條路對有些家庭不好走，但也會推動孩子認識自己、對自己獨特的身分更有信心。\n\n發展心理學家 Erikson 把青少年期的課題稱為「自我認同 vs. 認同混淆」：青少年整合過去經驗、社會期待和自己的志向，建立價值觀；形成穩定而正向的自我感的年輕人，通常有較好的身心狀態。OPA 給大人的一句話是：即使你不認同孩子的感受或經驗，理解和尊重仍然很有幫助。",
+  "readMore": [
+    {
+      "label": "HHS OPA：Emotional Development 原文",
+      "url": "https://opa.hhs.gov/adolescent-health/adolescent-development-explained/emotional-development",
+      "note": "翻譯自美國聯邦政府公眾領域網頁，台灣官方若有不同說法以台灣為準。"
+    },
+    {
+      "label": "StatPearls（NCBI Bookshelf）：Erikson's Stages of Psychosocial Development",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK556096/",
+      "note": "Erikson 階段說明的出處。教科書條目，本卡只重述事實，未抄其表達。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "美國 HHS 人口事務辦公室（OPA）：Adolescent Development Explained：Emotional Development（美國聯邦政府著作，公眾領域）",
+      "url": "https://opa.hhs.gov/adolescent-health/adolescent-development-explained/emotional-development",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Identity formation. There are many facets to identity formation, which includes developmental tasks such as becoming independent and achieving a sense of competence. Adolescents may question their passions and values, examine their relationships with family and peers, and think about their talents and definitions of success. Identity formation is an iterative process during which adolescents repeatedly experiment with different ideas, friends, and activities.",
+      "checkedAt": "2026-10-11"
+    },
+    {
+      "name": "StatPearls（NCBI Bookshelf，NIH 代管）：Erikson's Stages of Psychosocial Development（2026-02-26 更新；CC BY-NC-ND 4.0，教科書，B 級重述）",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK556096/",
+      "lang": "en",
+      "trust": "T2",
+      "license": "B",
+      "excerpt": "Erikson positioned identity development as the central task of adolescence ... weighs their previous experiences, societal expectations, and aspirations to establish values ... Youth who establish a stable and positive sense of self tend to experience greater well-being",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "milestones.t-emotions",
+  "topicGroup": "milestones",
+  "title": "12 到 18 歲：情緒為什麼忽上忽下",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國 HHS 人口事務辦公室整理了青少年情緒發展的幾個背景。\n\n荷爾蒙：帶來身體變化的這些化學物質，也會影響心情、放大情緒反應，所以青少年比較容易被情緒牽著走。壓力反應在青少年身上啟動得比成人快，因為成人的大腦已經發展完成，能緩和壓力反應。不過不是所有壓力都是壞的，像第一份打工、考到駕照這類好事，也會啟動壓力反應，讓人更專注。\n\n自我管理：要管理情緒，得先能辨認、描述複雜的情緒。年紀小的時候會說「生氣」「開心」，到青少年才真正理解情緒是什麼、有什麼影響。但負責推理、計畫和問題解決的額葉要到 25 歲左右才發展完成，所以青少年常覺得很難管住情緒、想清楚後果。\n\nOPA 的結論是：隨著時間，加上父母和其他大人的支持，青少年會發展出退一步檢視情緒、先想後果再行動的能力。",
+  "readMore": [
+    {
+      "label": "HHS OPA：Emotional Development 原文",
+      "url": "https://opa.hhs.gov/adolescent-health/adolescent-development-explained/emotional-development",
+      "note": "翻譯自美國聯邦政府公眾領域網頁，台灣官方若有不同說法以台灣為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "美國 HHS 人口事務辦公室（OPA）：Adolescent Development Explained：Emotional Development（美國聯邦政府著作，公眾領域）",
+      "url": "https://opa.hhs.gov/adolescent-health/adolescent-development-explained/emotional-development",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Hormones. These critical chemicals in the brain that bring about physical changes also affect adolescents' moods and heighten their emotional responses. The stress response kicks in more quickly for adolescents than it does for adults whose brains are fully developed and can moderate a stress response. However, because the brain's frontal lobe—which is responsible for reasoning, planning, and problem-solving as well as emotions—does not fully develop until the mid-twenties, adolescents may find it difficult to manage their emotions and think through the consequences of their actions.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

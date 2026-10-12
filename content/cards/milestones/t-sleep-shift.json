@@ -1,0 +1,50 @@
+{
+  "id": "milestones.t-sleep-shift",
+  "topicGroup": "milestones",
+  "title": "12 到 18 歲：晚睡不全是不聽話，生理時鐘真的往後移了",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國國家心理衛生研究院（NIMH）說，研究顯示睡眠荷爾蒙褪黑激素在青少年身上的運作方式和兒童、成人不同：青春期的褪黑激素濃度在夜裡維持高點的時間比較晚，早上降下來的時間也比較晚。這可能是青少年晚上睡不著、早上爬不起來的原因之一。\n\nNIMH 也提到，很多青少年睡眠不足，這會讓專注、控制衝動和學校表現都變難；睡好有助於心理健康。\n\n美國 CDC 的建議睡眠時數表寫的是：13 到 17 歲每天 8 到 10 小時。\n\n所以孩子說「我真的睡不著」有時是生理上的。這張卡只說明官方描述的現象；若睡眠問題持續影響白天生活，國外來源和台灣的做法都是找醫師談。",
+  "readMore": [
+    {
+      "label": "NIMH：The Teen Brain: 7 Things to Know 原文（第 5 點）",
+      "url": "https://www.nimh.nih.gov/health/publications/the-teen-brain-7-things-to-know",
+      "note": "翻譯自 NIMH 公眾領域出版品，台灣官方若有不同說法以台灣為準。"
+    },
+    {
+      "label": "CDC：About Sleep 原文（建議時數表）",
+      "url": "https://www.cdc.gov/sleep/about/index.html",
+      "note": "翻譯自 CDC 公眾領域網頁。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "NIMH（美國國家心理衛生研究院）：The Teen Brain: 7 Things to Know（NIH Publication No. 23-MH-8078，2023 修訂；公眾領域，可重製）",
+      "url": "https://www.nimh.nih.gov/health/publications/the-teen-brain-7-things-to-know",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Research shows that the sleep hormone melatonin works differently in teens than in children and adults. In adolescence, melatonin levels stay high later at night and drop later in the morning, which may explain why teens may stay up late and struggle with waking up early. Many teens do not get enough sleep, making it harder to pay attention, control impulses, and do well at school.",
+      "checkedAt": "2026-10-11"
+    },
+    {
+      "name": "CDC：About Sleep（2024-05-15；各年齡建議睡眠時數表；公眾領域）",
+      "url": "https://www.cdc.gov/sleep/about/index.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "The daily recommended hours of sleep you need changes as you age. Teen: 13–17 years: 8–10 hours. Good sleep is essential for our health and emotional well-being.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

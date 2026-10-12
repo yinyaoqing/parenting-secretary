@@ -1,0 +1,57 @@
+{
+  "id": "health.s-screen-and-internet",
+  "topicGroup": "health",
+  "title": "網路與 3C：iWIN 申訴管道與家長防護工具",
+  "ageMinDays": 2190,
+  "ageMaxDays": 4380,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署「85210」裡的 2，是每日 3C 螢幕使用少於 2 小時；護眼口訣 3010120 則是用眼 30 分鐘休息 10 分鐘。這是國健署給國小家庭的參考數字。\n\n網路內容的部分，政府設有「iWIN 網路內容防護機構」（https://i.win.org.tw），受理對網路不當內容的申訴；諮詢專線 02-2577-5118，週一到週五 9:00 到 12:00、13:00 到 18:00。\n\n宣導專區有網路霸凌、私密照外流、網路素養、網路詐騙等主題。「防護專區」整理約 40 項家長可用的過濾與監護工具，含手機內建的螢幕使用時間、Google Family Link、電信業者過濾服務等。iWIN 提醒：多數工具無法完整監護所有裝置；位置、攝影機等功能涉及隱私，使用前宜告知孩子；過濾也可能被 VPN 繞過。\n\n孩子在網路上遇到不舒服的事，iWIN 的申訴管道和學校輔導室都是可以找的地方。",
+  "readMore": [
+    {
+      "label": "iWIN 網路內容防護機構",
+      "url": "https://i.win.org.tw/",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，完整內容見原文。"
+    },
+    {
+      "label": "iWIN 防護專區：過濾軟體與家長監護工具",
+      "url": "https://i.win.org.tw/protection.php?Type=1"
+    }
+  ],
+  "sources": [
+    {
+      "name": "iWIN 網路內容防護機構 首頁（依兒童及少年福利與權益保障法第 46 條設立；政府網站資料開放宣告）",
+      "url": "https://i.win.org.tw/",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "〔頁面要點〕我要申訴：申訴注意事項、申訴流程、申訴類型說明、常見問答。諮詢專線 02-2577-5118，服務時間週一至週五 9:00-12:00、13:00-18:00（國定假日及例假日除外）。宣導專區：網路霸凌、私密照外流、網路素養、網路詐騙。防護專區：過濾軟體、常用平台防護教學、兒少友善設備。成癮量表線上測試。",
+      "checkedAt": "2026-10-11"
+    },
+    {
+      "name": "iWIN 網路內容防護機構：防護專區 過濾軟體",
+      "url": "https://i.win.org.tw/protection.php?Type=1",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "僅登入孩子的 Google帳戶並不代表整部裝置都會受到限制。〔頁面要點〕約 40 項過濾與監護工具，可依家用電腦（PC）、行動裝置（Mobile）及付費／免費篩選，每項標註支援的作業系統與限制；多數工具無法完整監護 iPhone、iPad、Mac 或 Chromebook；位置、攝影機或環境聲音等功能涉及隱私，使用前應告知孩子；網路過濾可能被 VPN 或更換 DNS 繞過。",
+      "checkedAt": "2026-10-11"
+    },
+    {
+      "name": "衛生福利部新聞（資料來源國民健康署，115-09-03）：「孩」要更健康！國健署「健康護盤」行動 翻轉兒童肥胖",
+      "url": "https://www.mohw.gov.tw/cp-16-87759-1.html",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "85210健康密碼：8：每天睡滿8小時。5：天天吃足5蔬果。2：每日3C螢幕使用少於2小時。1：運動每天1小時。0：多喝開水0糖飲。",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

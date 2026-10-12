@@ -16,11 +16,11 @@ export function defaultHome(feeding: string, ageDays: number, location?: string)
     breast: (feeding === 'breast' || feeding === 'mixed') && ageDays < 730,
     bottle: feeding !== 'breast' && ageDays < 1095,
     pump: breastfed && ageDays < 730,
-    solid: ageDays >= 120 && ageDays < 1095,
-    diaper: ageDays < 1095,
+    solid: ageDays >= 120, // 滿 4 個月起；滿 1 歲後標籤改「吃飯」，學齡也保留
+    diaper: ageDays < 1460, // 尿布到 4 歲：如廁訓練在 1 歲半到 6 歲之間進行，3 歲就收掉會和任務矛盾
     tummy: ageDays < 365,
     outdoor: ageDays >= 730, // 國健署近視防治從 2 歲起建議每天戶外活動；只記時間
-    screen: ageDays >= 730, // 3C 時間：只記分鐘數，不設上限、不評分
+    screen: ageDays >= 730 && ageDays < 4380, // 3C 時間：只記分鐘數；12 歲起預設關（由家長記青少年的螢幕時間帶監控意味，要用自己開）
     learning: location === 'coop' && ageDays >= 2190,
     temp: FEATURES.healthRecords,
     med: FEATURES.medicationLog,
@@ -29,7 +29,19 @@ export function defaultHome(feeding: string, ageDays: number, location?: string)
 }
 
 export function defaultHint(key: HomeKey): string {
-  return ({ breast: '親餵或混合餵養、2 歲前', bottle: '瓶餵或配方、3 歲前', pump: '有餵母乳、2 歲前', solid: '滿 4 個月到 3 歲', diaper: '3 歲前', tummy: '1 歲前', outdoor: '滿 2 歲起', screen: '滿 2 歲起', learning: '共學團或自學、滿 6 歲', temp: '一直顯示', med: '一直顯示', timer: '一直顯示' } as Record<HomeKey, string>)[key];
+  return ({ breast: '親餵或混合餵養、2 歲前', bottle: '瓶餵或配方、3 歲前', pump: '有餵母乳、2 歲前', solid: '滿 4 個月起', diaper: '4 歲前', tummy: '1 歲前', outdoor: '滿 2 歲起', screen: '滿 2 歲到 12 歲', learning: '共學團或自學、滿 6 歲', temp: '一直顯示', med: '一直顯示', timer: '一直顯示' } as Record<HomeKey, string>)[key];
+}
+
+// 標籤依年齡：副食品滿 1 歲後叫「吃飯」。
+export function homeLabel(key: HomeKey, ageDays: number): string {
+  if (key === 'solid' && ageDays >= 365) return '吃飯';
+  return HOME_LABEL[key];
+}
+
+// 設定頁只列這個年齡用得到的按鈕（已自訂開啟的照列）。
+const KEY_AGE: Partial<Record<HomeKey, [number, number]>> = { breast: [0, 1095], bottle: [0, 1460], pump: [0, 1095], solid: [120, 99999], diaper: [0, 2190], tummy: [0, 548], outdoor: [730, 99999], screen: [730, 99999], learning: [2190, 99999] };
+export function relevantHomeKeys(ageDays: number, overrides: Partial<Record<HomeKey, string | null>> = {}): HomeKey[] {
+  return HOME_KEYS.filter((k) => { const r = KEY_AGE[k]; return !r || (ageDays >= r[0] && ageDays <= r[1]) || overrides[k] === '1'; });
 }
 
 // overrides 來自設定 home:<key>，'1' 顯示、'0' 隱藏、沒有就用預設。版型關閉的鍵不受覆蓋影響，永遠隱藏。

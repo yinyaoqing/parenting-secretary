@@ -6,13 +6,15 @@ import { BUNDLED_POLICY, setPolicyOverride, type PolicyBundle } from '../policy/
 import { BUNDLED_SCHEDULE, setScheduleOverride, type ScheduleBundle } from '../schedule/loader';
 import { BUNDLED_ALERTS, setAlertsOverride, type AlertBundle } from '../alerts/loader';
 import { BUNDLED_NOTICES, setNoticesOverride, type NoticeBundle } from '../notices/loader';
-import { alertUrlsSafe, isSafeDataPath, noticeUrlsSafe, policyUrlsSafe, scheduleUrlsSafe } from './validate'; // 遠端資料只接受政府網址與單純檔名
+import { BUNDLED_ACTIVITIES, setActivitiesOverride, type ActivityBundle } from '../activities/loader';
+import { activityUrlsSafe, alertUrlsSafe, isSafeDataPath, noticeUrlsSafe, policyUrlsSafe, scheduleUrlsSafe } from './validate'; // 遠端資料只接受政府網址與單純檔名
 
 export const DATA_BASE = 'https://yinyaoqing.github.io/parenting-secretary/';
 const CHECK_EVERY_MS = 12 * 3600000;
 const TIMEOUT_MS = 8000;
 
-interface Manifest { v: number; policy: { version: string; path: string }; schedule: { version: string; path: string }; alerts?: { version: string; path: string }; notices?: { version: string; path: string } }
+interface Manifest { v: number; policy: { version: string; path: string }; schedule: { version: string; path: string }; alerts?: { version: string; path: string }; notices?: { version: string; path: string }; activities?: { version: string; path: string } }
+const validActivities = (x: unknown): x is ActivityBundle => !!x && typeof (x as ActivityBundle).version === 'string' && Array.isArray((x as ActivityBundle).items) && activityUrlsSafe(x as ActivityBundle);
 const validNotices = (x: unknown): x is NoticeBundle => !!x && typeof (x as NoticeBundle).version === 'string' && Array.isArray((x as NoticeBundle).items) && noticeUrlsSafe(x as NoticeBundle);
 const validAlerts = (x: unknown): x is AlertBundle => !!x && typeof (x as AlertBundle).version === 'string' && Array.isArray((x as AlertBundle).items) && alertUrlsSafe(x as AlertBundle);
 
@@ -43,6 +45,9 @@ export async function loadStoredRemote(): Promise<void> {
     const n = await getSetting('remote:notices');
     const nj = n ? JSON.parse(n) : null;
     if (validNotices(nj)) setNoticesOverride(nj);
+    const ac = await getSetting('remote:activities');
+    const acj = ac ? JSON.parse(ac) : null;
+    if (validActivities(acj)) setActivitiesOverride(acj);
   } catch { /* 壞資料就用內建 */ }
 }
 
@@ -86,6 +91,14 @@ export async function syncRemote(force = false): Promise<RemoteStatus> {
       if (isSafeDataPath(m.notices.path) && m.notices.version > curNv && m.notices.version > BUNDLED_NOTICES.version) {
         const nj = await getJson(DATA_BASE + m.notices.path);
         if (validNotices(nj)) { await setSetting('remote:notices', JSON.stringify(nj)); setNoticesOverride(nj); changed = true; }
+      }
+    }
+    if (m.activities) {
+      const curAc = await getSetting('remote:activities');
+      const curAcv = curAc ? (JSON.parse(curAc) as ActivityBundle).version : BUNDLED_ACTIVITIES.version;
+      if (isSafeDataPath(m.activities.path) && m.activities.version > curAcv && m.activities.version > BUNDLED_ACTIVITIES.version) {
+        const acj = await getJson(DATA_BASE + m.activities.path);
+        if (validActivities(acj)) { await setSetting('remote:activities', JSON.stringify(acj)); setActivitiesOverride(acj); changed = true; }
       }
     }
     await setSetting('remote:lastCheck', new Date().toISOString());

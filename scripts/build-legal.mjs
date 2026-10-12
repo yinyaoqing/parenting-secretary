@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // 把 docs/legal 的隱私權政策與服務條款轉成網頁，放到 docs/data/（GitHub Pages 網站根目錄），並產生支援頁。
-// 商店要求的三個網址：
+// 商店要求的三個網址，加上給家長的使用手冊 manual.html：
 //   隱私權政策  https://yinyaoqing.github.io/parenting-secretary/privacy.html
 //   服務條款    https://yinyaoqing.github.io/parenting-secretary/terms.html
 //   支援        https://yinyaoqing.github.io/parenting-secretary/support.html
@@ -55,14 +55,14 @@ th,td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:to
 blockquote{margin:0;padding:8px 16px;border-left:4px solid var(--line);color:var(--muted)}
 nav{font-size:14px;color:var(--muted)}
 </style></head><body><main>
-<nav><a href="privacy.html">隱私權政策</a> · <a href="terms.html">服務條款</a> · <a href="support.html">支援</a></nav>
+<nav><a href="manual.html">使用手冊</a> · <a href="privacy.html">隱私權政策</a> · <a href="terms.html">服務條款</a> · <a href="support.html">支援</a></nav>
 ${body}
 </main></body></html>
 `;
 
 mkdirSync(OUT, { recursive: true });
-for (const [src, dst, title] of [['privacy-policy.md', 'privacy.html', '隱私權政策'], ['terms.md', 'terms.html', '服務條款']]) {
-  writeFileSync(join(OUT, dst), page(title, mdToHtml(readFileSync(join(ROOT, 'docs', 'legal', src), 'utf8'))));
+for (const [src, dst, title] of [['legal/privacy-policy.md', 'privacy.html', '隱私權政策'], ['legal/terms.md', 'terms.html', '服務條款'], ['manual/parent-guide.md', 'manual.html', '使用說明與測試手冊']]) {
+  writeFileSync(join(OUT, dst), page(title, mdToHtml(readFileSync(join(ROOT, 'docs', src), 'utf8'))));
   console.log(`docs/data/${dst}`);
 }
 const contact = (readFileSync(join(ROOT, 'docs', 'legal', 'privacy-policy.md'), 'utf8').match(/聯絡方式：([^\s。]+)/) ?? [])[1] ?? '[聯絡信箱]';

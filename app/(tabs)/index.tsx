@@ -8,7 +8,8 @@ import { getCheckIns, isPaused, markInvitation, seenInvitation } from '../../src
 import { invitationKey, wantsSupport } from '../../src/caregiver/resources';
 import { getSetting, setSetting } from '../../src/db/repo';
 import { todayCard, dismissToday } from '../../src/encouragement/today';
-import { resolveHome, HOME_KEYS, type HomeKey } from '../../src/home/buttons';
+import { resolveHome, homeLabel, HOME_KEYS, type HomeKey } from '../../src/home/buttons';
+import { splitSafety, safetySummary } from '../../src/content/stage';
 import { FEATURES } from '../../src/release/profile';
 import { TodayCard } from '../../src/encouragement/TodayCard';
 import type { EncourageCard } from '../../src/encouragement/pick';
@@ -106,8 +107,7 @@ export default function Home() {
 
   const d = daysSince(child.birthDate);
   const cd = correctedDays(child.birthDate, child.dueDate);
-  // 3 歲以上：第一階段只做 0 到 3 歲，首頁精簡成睡眠、體溫、用藥（擁有者決定）。
-  const older = d >= 3 * 365;
+  // 狀態格與按鈕依年齡由 src/home/buttons.ts 決定，不再用 3 歲一刀切。
   const name = child.nickname;
   const by = async () => deviceId();
   const quick = async (fn: () => Promise<Event | null | undefined>, text: string, undoable = true) => {
@@ -136,6 +136,7 @@ export default function Home() {
 
   // 如廁訓練：滿 1 歲半到 6 歲顯示；夜間模式不顯示（擁有者決定，夜間首頁只留吃、睡、尿布）。
   const show = resolveHome(child.feedingMethod, d, homeOv, child.location);
+  const safetySplit = splitSafety(safetyCards(), d);
   const showToilet = !paused && !night && d >= TOILET_MIN_DAYS && d < TOILET_MAX_DAYS && toilet.state !== 'done';
   const logPotty = async (o: Outcome, label: string) => {
     setPotty(false);
@@ -166,8 +167,8 @@ export default function Home() {
           </Card>
         ) : (
         <View style={styles.tiles}>
-          {older ? null : <Tile k="餵奶" icon="droplet" v={lastFeed ? sinceShort(lastFeed.startAt) : '尚無紀錄'} s={lastFeed ? `${hhmm(lastFeed.startAt)} ${typeLabel(lastFeed.type)} ${eventSummary(lastFeed.type, lastFeed.payload, lastFeed.startAt)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />}
-          {older ? null : <Tile k="尿布" icon="layers" v={lastDiaper ? sinceShort(lastDiaper.startAt) : '尚無紀錄'} s={lastDiaper ? `${hhmm(lastDiaper.startAt)} ${typeLabel(lastDiaper.type)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />}
+          {!(show.breast || show.bottle) ? null : <Tile k="餵奶" icon="droplet" v={lastFeed ? sinceShort(lastFeed.startAt) : '尚無紀錄'} s={lastFeed ? `${hhmm(lastFeed.startAt)} ${typeLabel(lastFeed.type)} ${eventSummary(lastFeed.type, lastFeed.payload, lastFeed.startAt)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />}
+          {!show.diaper ? null : <Tile k="尿布" icon="layers" v={lastDiaper ? sinceShort(lastDiaper.startAt) : '尚無紀錄'} s={lastDiaper ? `${hhmm(lastDiaper.startAt)} ${typeLabel(lastDiaper.type)}` : undefined} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />}
           {sleeping ? (
             <Tile k="睡眠中" icon="moon" on v={durationLabel(sleeping.startAt)} s={`${hhmm(sleeping.startAt)} 睡著`} onPress={() => router.push({ pathname: '/record/timeline', params: { childId: child.id } })} />
           ) : (
@@ -225,17 +226,17 @@ export default function Home() {
           </Card>
         ) : null}
 
-        <SafetyBox title={`安全內容 ${safetyCards().length} 條`} sub="安全睡眠、發燒、噎食⋯ 離線可讀，無法關閉" onPress={() => router.push('/cards')} />
+        <SafetyBox title={`安全內容 ${safetySplit.current.length || safetyCards().length} 條`} sub={safetySummary(safetySplit.current)} onPress={() => router.push('/cards')} />
 
         {show.breast || show.bottle || show.pump || show.solid ? (
           <>
-            <Text style={styles.h2}>餵食</Text>
+            <Text style={styles.h2}>{d >= 365 && !show.breast && !show.bottle ? '吃飯' : '餵食'}</Text>
             <View style={styles.grid}>
               {show.breast ? <Big label="親餵 左" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'L', undefined, 'cue', b)), `已記錄 ${name} 親餵 左`)} /> : null}
               {show.breast ? <Big label="親餵 右" sub="一鍵記錄" icon="droplet" onPress={() => quick(() => by().then((b) => logBreastFeed(child.id, 'R', undefined, 'cue', b)), `已記錄 ${name} 親餵 右`)} /> : null}
               {show.bottle ? <Big label="瓶餵" sub="輸入 ml" icon="coffee" onPress={() => router.push({ pathname: '/record/bottle', params: { childId: child.id } })} /> : null}
               {show.pump ? <Big label="擠奶" sub="量與庫存" icon="archive" onPress={() => router.push({ pathname: '/record/pump', params: { childId: child.id } })} /> : null}
-              {show.solid ? <Big label="副食品" sub="吃了什麼" icon="pie-chart" onPress={() => router.push({ pathname: '/record/solid', params: { childId: child.id } })} /> : null}
+              {show.solid ? <Big label={homeLabel('solid', d)} sub="吃了什麼" icon="pie-chart" onPress={() => router.push({ pathname: '/record/solid', params: { childId: child.id } })} /> : null}
             </View>
           </>
         ) : null}

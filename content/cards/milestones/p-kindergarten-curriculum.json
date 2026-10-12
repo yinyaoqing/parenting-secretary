@@ -1,0 +1,49 @@
+{
+  "id": "milestones.p-kindergarten-curriculum",
+  "topicGroup": "milestones",
+  "title": "幼兒園在教什麼：統整課程、玩中學，不做讀寫算的精熟教學",
+  "ageMinDays": 730,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "很多家長擔心孩子在幼兒園「有沒有學到東西」。教育部的規定剛好相反：幼兒園課程以統整方式實施，不能分科，也不得進行以精熟為目的的讀、寫、算教學。\n\n法規要幼兒園做的事：從孩子的生活經驗和在地環境選材；讓孩子透過遊戲主動探索、操作與學習；兼顧動態、靜態、室內、室外；也兼顧團體、小組和個別活動。外語只能部分時間融入，不能全天用外語上課。\n\n幼兒教育及照顧法列出的能力面向有六個：身體動作、語文、認知、美感、情緒發展與人際互動，加上基本生活能力、良好生活習慣和積極學習態度。孩子回家說「今天都在玩」，多半就是在這六個面向裡動。\n\n幼兒園也要落實健康教育、生命教育、安全教育、品德教育與性別平等教育，每學期至少開一次全園課程發展會議。\n\n如果看到幼兒園每天寫注音、算術練習簿，或者全天外語教學，這些都不符合準則；可以向縣市教育局處反映，或改用全國教保資訊網查評鑑與裁罰紀錄。",
+  "readMore": [
+    {
+      "label": "幼兒教保及照顧服務實施準則 全文",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070047",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    },
+    {
+      "label": "幼兒教育及照顧法 全文",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070031",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "教育部：幼兒教保及照顧服務實施準則第 13、14 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070047",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "九、不得進行以精熟為目的之讀、寫、算教學。",
+      "checkedAt": "2026-10-12"
+    },
+    {
+      "name": "教育部：幼兒教育及照顧法第 12 條教保服務內容（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070031",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "四、提供增進身體動作、語文、認知、美感、情緒發展與人際互動等發展能力與培養基本生活能力、良好生活習慣及積極學習態度之學習活動。",
+      "checkedAt": "2026-10-12"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-12",
+  "status": "draft"
+}

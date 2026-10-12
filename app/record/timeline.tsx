@@ -194,7 +194,7 @@ export default function Timeline() {
                 </View>
               ))}
             </Card>
-            <DayView date={selectedDate} events={events} plan={occ} now={now} older={older} onPressEvent={openEdit} onPressPlan={openPlan} />
+            <DayView date={selectedDate} events={events} plan={occ} now={now} older={d >= 2190} onPressEvent={openEdit} onPressPlan={openPlan} />
             <Legend items={school
               ? [{ label: '課表', color: palette.accentSoft }, { label: '補習才藝', color: '#B79AD6' }, { label: '服藥', color: palette.danger, dot: true }, { label: '睡眠', color: palette.warm }, { label: '範本', dashed: true }]
               : [{ label: '睡眠', color: palette.warm }, { label: '餵食', color: palette.accent, dot: true }, { label: '尿布', color: palette.ink3, dot: true }, { label: '我的範本', dashed: true }]} />

@@ -1,0 +1,35 @@
+{
+  "id": "home_safety.p-never-alone",
+  "topicGroup": "home_safety",
+  "title": "6 歲以下不能單獨留在家裡或車上：兒少法第 51 條",
+  "ageMinDays": 365,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "「只是下樓拿個東西」「孩子在車上睡著了不想叫醒」，這些情境法律有明文規定。兒童及少年福利與權益保障法第 51 條：父母、監護人或實際照顧者，不得讓 6 歲以下兒童獨處，或由不適當的人代為照顧。需要特別看護的孩子不分年齡也一樣。\n\n「獨處」包含獨自留在家裡、車上、店門口。違反的話，社會局處可以依法處罰並要求接受親職教育；更重要的是這個年齡的孩子遇到火、水、窗台、陌生人，幾乎沒有自救能力。\n\n常見的解法：買東西帶著走；需要短暫離開時交給可靠的大人；車上絕對不留孩子，台灣夏天車內溫度幾分鐘內就會升到危險程度。\n\n幼兒園放學後的空檔，可以用延長照顧、課後班、家人輪替或鄰里小組互相支援。育村的鄰里小組功能可以安排共同接送與臨時照顧，見「育村」分頁。",
+  "readMore": [
+    {
+      "label": "兒童及少年福利與權益保障法第 51 條",
+      "url": "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=D0050001&flno=51",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "衛生福利部：兒童及少年福利與權益保障法第 51 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=D0050001&flno=51",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "父母、監護人或其他實際照顧兒童及少年之人，不得使六歲以下兒童或需要特別看護之兒童及少年獨處或由不適當之人代為照顧。",
+      "checkedAt": "2026-10-12"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-12",
+  "status": "draft"
+}

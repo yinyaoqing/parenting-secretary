@@ -1,7 +1,7 @@
 {
   "_comment": "公費健檢、發展篩檢、疫苗、塗氟的時間窗。只放時程，不放金額；政策金額另走遠端 JSON（紅線 R11）。年齡以實際月齡的天數計（1 個月 = 30.4375 天）。每一項都附來源與查核日期。",
-  "version": "2026-10-08",
-  "checkedAt": "2026-10-08",
+  "version": "2026-10-12",
+  "checkedAt": "2026-10-12",
   "sources": {
     "hpa-7plus2": {
       "name": "國民健康署新聞稿：兒童預防保健增至 9 次 7 月 1 日正式上路（2026-04-01）",
@@ -41,6 +41,36 @@
     "cdc-flu-student": {
       "name": "疾病管制署：公費流感疫苗接種計畫學生篇",
       "url": "https://www.cdc.gov.tw/Category/QAPage/lqCWXtsI9LEtKhDwC2F1Pg",
+      "license": "A1"
+    },
+    "cap-116-schedule": {
+      "name": "國中教育會考全國試務會：116 學年度國中教育會考及全國高級中等學校與專科學校五年制適性入學重要日程表（教育部 115-09-11 函）",
+      "url": "https://cap.rcpet.edu.tw/documents/116%E5%AD%B8%E5%B9%B4%E5%BA%A6%E5%9C%8B%E4%B8%AD%E6%95%99%E8%82%B2%E6%9C%83%E8%80%83%E5%8F%8A%E5%85%A8%E5%9C%8B%E9%AB%98%E7%B4%9A%E4%B8%AD%E7%AD%89%E5%AD%B8%E6%A0%A1%E8%88%87%E5%B0%88%E7%A7%91%E5%AD%B8%E6%A0%A1%E4%BA%94%E5%B9%B4%E5%88%B6%E9%81%A9%E6%80%A7%E5%85%A5%E5%AD%B8%E9%87%8D%E8%A6%81%E6%97%A5%E7%A8%8B%E8%A1%A8.pdf",
+      "license": "A1"
+    },
+    "entry-edu": {
+      "name": "教育部：十二年國民基本教育 高級中等學校免試入學作業要點 / 入學資訊網",
+      "url": "https://www.entry.edu.tw/",
+      "license": "A1"
+    },
+    "tp-12basic-faq": {
+      "name": "臺北市十二年國教資訊網：特色招生常見問答",
+      "url": "https://12basic.tp.edu.tw/category/faq/faq_03/",
+      "license": "A1"
+    },
+    "jctv-u5": {
+      "name": "技專校院招生委員會聯合會：五專入學資訊",
+      "url": "https://www.jctv.ntut.edu.tw/u5/",
+      "license": "A1"
+    },
+    "ceec-116-dates": {
+      "name": "大學入學考試中心：116 學年度各項考試暫定報名與考試日期",
+      "url": "https://www.ceec.edu.tw/files/file_pool/1/0q134628314034791096/116%E5%AD%B8%E5%B9%B4%E5%BA%A6%E5%90%84%E9%A0%85%E8%80%83%E8%A9%A6%E6%9A%AB%E5%AE%9A%E5%A0%B1%E5%90%8D%E8%88%87%E8%80%83%E8%A9%A6%E6%97%A5%E6%9C%9F.pdf",
+      "license": "A1"
+    },
+    "cac-115-schedule": {
+      "name": "大學甄選入學委員會：115 學年度申請入學重要日程",
+      "url": "https://www.cac.edu.tw/apply115/schedule.php",
       "license": "A1"
     }
   },
@@ -453,6 +483,76 @@
       "window": "國小到高中，每年 10 到 11 月在學校接種",
       "note": "家長要先簽意願書（紙本或線上），接種當天帶健保卡；自學生也是公費對象。",
       "source": "cdc-flu-student"
+    },
+    {
+      "id": "cap-exam",
+      "category": "school",
+      "title": "國中教育會考",
+      "ageMinDays": 5110,
+      "ageMaxDays": 5475,
+      "window": "國三每年 5 月中旬週末（116 學年度：116 年 5 月 15、16 日）",
+      "note": "116 學年度：3 月 4 至 6 日報名，6 月 4 日寄發成績單並開放網路查詢。五科分精熟、基礎、待加強三等級，是免試入學比序項目之一。以當年度簡章為準。",
+      "source": "cap-116-schedule"
+    },
+    {
+      "id": "free-admission",
+      "category": "school",
+      "title": "高中職免試入學報名與分發",
+      "ageMinDays": 5110,
+      "ageMaxDays": 5475,
+      "window": "國三每年 6 月中旬選填志願，7 月上旬放榜",
+      "note": "116 學年度：6 月 18 日開放個人序位查詢與志願選填、6 月 24 日選填截止、6 月 29 日報名截止、7 月 6 日放榜、7 月 8 日報到。各就學區比序與名額以當年度簡章為準。",
+      "source": "entry-edu"
+    },
+    {
+      "id": "special-admission-exam",
+      "category": "school",
+      "title": "高中特色招生考試分發入學",
+      "ageMinDays": 5110,
+      "ageMaxDays": 5475,
+      "window": "國三每年 6 月中下旬",
+      "note": "116 學年度：6 月 16 至 18 日學科測驗報名、6 月 20 日學科測驗，與免試入學同日放榜（7 月 6 日）。可跨區報考，名額占各就學區 0 到 15%。以當年度簡章為準。",
+      "source": "tp-12basic-faq"
+    },
+    {
+      "id": "5y-priority-free",
+      "category": "school",
+      "title": "五專優先免試入學",
+      "ageMinDays": 5110,
+      "ageMaxDays": 5475,
+      "window": "國三每年 5 月中旬報名，6 月中旬放榜",
+      "note": "116 學年度：5 月 17 至 21 日報名、6 月 11 日放榜、6 月 15 日報到截止。五專就學區為全國一區；另有五專聯合免試（116：6 月 18 至 24 日報名）。以當年度簡章為準。",
+      "source": "jctv-u5"
+    },
+    {
+      "id": "gsat",
+      "category": "school",
+      "title": "大學學科能力測驗（學測）",
+      "ageMinDays": 6205,
+      "ageMaxDays": 6570,
+      "window": "高三每年 1 月下旬",
+      "note": "116 學年度暫定：115 年 10 月 27 日至 11 月 10 日報名，116 年 1 月 22 至 24 日考試。大考中心說明實際日期以考試簡章為準。",
+      "source": "ceec-116-dates"
+    },
+    {
+      "id": "ast",
+      "category": "school",
+      "title": "大學分科測驗",
+      "ageMinDays": 6205,
+      "ageMaxDays": 6570,
+      "window": "高三畢業當年 7 月上旬",
+      "note": "116 學年度暫定：6 月 3 至 15 日報名，7 月 10 至 11 日考試；之後走考試分發入學。以考試簡章為準。",
+      "source": "ceec-116-dates"
+    },
+    {
+      "id": "university-apply",
+      "category": "school",
+      "title": "大學申請入學",
+      "ageMinDays": 6205,
+      "ageMaxDays": 6570,
+      "window": "高三每年 3 月下旬報名，5 月第二階段甄試，6 月中旬統一分發",
+      "note": "115 學年度：3 月 24 至 25 日報名、3 月 31 日公告第一階段篩選、審查資料上傳與各校甄試 4 月 30 日至 5 月 31 日（大學自訂）、6 月 4 至 5 日登記就讀志願序、6 月 11 日公告統一分發。116 學年度以甄選會公告簡章為準。",
+      "source": "cac-115-schedule"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "_comment": "「今天一句」鼓勵小卡。三類：official 逐字引用國健署原文（A1）；plain 產品自寫的描述句，不評價表現；thought 思想模擬，依某位思想家或學派的觀點改寫，標示為模擬，quote 只放原典查得到的句子並附出處。全部固定寫在這裡，不即時生成。不依孩子性別挑選；依年齡階段（stage）與照顧者處境（contexts）挑選。一天最多一張，夜間不出現，可關閉。 文學角色（genre=literary）只用作者逝世超過 50 年、在台灣已屬公共領域的作品；內容是依角色性格改寫的模擬，不翻譯原文句子。",
-  "version": "2026-10-08",
+  "version": "2026-10-12",
   "stages": {
     "newborn": [
       0,
@@ -966,6 +966,197 @@
       "body": "他八十四天沒釣到魚，第八十五天還是出海。他不會跟你談運氣，他會說：今天也出海了，這件事本身就算數。",
       "source": {
         "name": "Hemingway, E. (1952). The Old Man and the Sea. 作者 1961 年逝世，在台灣屬公共領域；此為依角色改寫",
+        "license": "C"
+      }
+    },
+    {
+      "id": "plain.teen-closed-door",
+      "kind": "plain",
+      "voice": "育村",
+      "stages": [
+        "teen"
+      ],
+      "body": "他把房門關上了，你在門外。這是現在的距離，不是以後的距離。"
+    },
+    {
+      "id": "plain.teen-one-word-answers",
+      "kind": "plain",
+      "voice": "育村",
+      "stages": [
+        "school",
+        "teen"
+      ],
+      "body": "今天得到的回答可能只有「還好」「沒有」「嗯」。你問了，他聽到了，這件事本身就算數。"
+    },
+    {
+      "id": "plain.teen-you-were-15",
+      "kind": "plain",
+      "voice": "育村",
+      "stages": [
+        "teen"
+      ],
+      "body": "想一下你十五歲時最不想讓爸媽知道的事。他現在也有一件。你不需要知道那是什麼，才能繼續當他的家。"
+    },
+    {
+      "id": "plain.teen-exam-season",
+      "kind": "plain",
+      "voice": "育村",
+      "stages": [
+        "teen"
+      ],
+      "body": "升學季的日曆上寫的是他的日期，但緊張的是全家。你今天可以只負責把飯煮好。"
+    },
+    {
+      "id": "plain.teen-late-night",
+      "kind": "plain",
+      "voice": "育村",
+      "stages": [
+        "teen"
+      ],
+      "contexts": [
+        "night"
+      ],
+      "body": "這麼晚他的燈還亮著，你的也還亮著。兩個人都醒著的夜裡，不說話也是一種陪。"
+    },
+    {
+      "id": "plain.teen-friends-first",
+      "kind": "plain",
+      "voice": "育村",
+      "stages": [
+        "teen"
+      ],
+      "body": "朋友的一句話，現在比你的十句還重。這不是你被取代，是他在練習以後怎麼活在你以外的世界裡。"
+    },
+    {
+      "id": "plain.teen-fight-and-after",
+      "kind": "plain",
+      "voice": "育村",
+      "stages": [
+        "school",
+        "teen"
+      ],
+      "body": "今天吵了一架。吵架之後還願意同桌吃飯，那頓飯比吵架更能說明你們是什麼關係。"
+    },
+    {
+      "id": "plain.teen-parent-own-time",
+      "kind": "plain",
+      "voice": "育村",
+      "stages": [
+        "teen"
+      ],
+      "body": "他需要你的時間變少了，多出來的那段是你的。拿回來用在自己身上，不算偷。"
+    },
+    {
+      "id": "thought.erikson.identity-trying-on",
+      "kind": "thought",
+      "school": "心理社會發展（Erikson）",
+      "voice": "如果是 Erikson",
+      "stages": [
+        "teen"
+      ],
+      "body": "他會說，青少年的工作是弄清楚自己是誰，而這件事只能靠反覆試穿不同的樣子來完成。孩子今天換了風格、明天換了志向，不是不穩定，是在工作。",
+      "source": {
+        "name": "Erikson, E. H. (1968). Identity: Youth and Crisis. W. W. Norton.「identity vs. role confusion」階段",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.winnicott.doldrums",
+      "kind": "thought",
+      "school": "客體關係（Winnicott）",
+      "voice": "如果是 Winnicott",
+      "stages": [
+        "teen"
+      ],
+      "body": "他把青春期形容成一段只能等、不能治的停滯期，大人唯一能做的是撐住、不退場、也不急著幫他長大。你覺得什麼都做不了的那種無力，正是他說的那份工作。",
+      "source": {
+        "name": "Winnicott, D. W. (1965). The Family and Individual Development. Tavistock.〈Adolescence: Struggling through the Doldrums〉（原演講 1961）",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.rogers.regard-teen",
+      "kind": "thought",
+      "school": "人本心理學（Rogers）",
+      "voice": "如果是 Rogers",
+      "stages": [
+        "school",
+        "teen"
+      ],
+      "body": "他主張人在被無條件接納時才長得最好：接納這個人，不等於同意他每個決定。你可以不喜歡他今天的選擇，同時讓他知道他這個人沒有被打折。",
+      "source": {
+        "name": "Rogers, C. R. (1961). On Becoming a Person. Houghton Mifflin.「unconditional positive regard」概念",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.adler.encourage-teen",
+      "kind": "thought",
+      "school": "阿德勒學派",
+      "voice": "如果是阿德勒",
+      "stages": [
+        "teen"
+      ],
+      "body": "他認為青少年叛逆常是為了證明自己有份量；與其壓下去，不如給他真正有份量的事做。家裡有一件非他不可的事，比十句勸都有用。",
+      "source": {
+        "name": "Adler, A. (1930). The Education of Children. Allen & Unwin.「adolescence」章與「striving for significance」概念",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.vygotsky.scaffold-teen",
+      "kind": "thought",
+      "school": "社會文化理論（Vygotsky）",
+      "voice": "如果是 Vygotsky",
+      "stages": [
+        "school",
+        "teen"
+      ],
+      "body": "他說學習發生在「自己做不到、有人幫就做得到」的那條帶子裡，而幫手要隨著能力慢慢抽掉。青少年推開你的手，有時是在告訴你：這一格，我可以了。",
+      "source": {
+        "name": "Vygotsky, L. S. (1978). Mind in Society. Harvard University Press.「zone of proximal development」概念",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.bowlby.secure-base-teen",
+      "kind": "thought",
+      "school": "依附理論（Bowlby）",
+      "voice": "如果是 Bowlby",
+      "stages": [
+        "teen"
+      ],
+      "body": "他把父母比喻成基地：孩子出去探險，是因為知道基地會在。青少年跑得愈遠，愈需要回頭時那盞燈還在同一個位置。你什麼都沒做的日子，也是在守燈。",
+      "source": {
+        "name": "Bowlby, J. (1988). A Secure Base: Parent-Child Attachment and Healthy Human Development. Basic Books.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.ginott.feelings-first",
+      "kind": "thought",
+      "school": "親子溝通（Ginott）",
+      "voice": "如果是 Ginott",
+      "stages": [
+        "teen"
+      ],
+      "body": "他會提醒你：青少年抱怨時要的是被聽懂，不是被修好。先說「聽起來你很氣」，再決定要不要給建議。多數時候，第二步可以省下來。",
+      "source": {
+        "name": "Ginott, H. G. (1969). Between Parent and Teenager. Macmillan.",
+        "license": "C"
+      }
+    },
+    {
+      "id": "thought.montessori.erdkinder",
+      "kind": "thought",
+      "school": "蒙特梭利",
+      "voice": "如果是 Montessori",
+      "stages": [
+        "teen"
+      ],
+      "body": "她認為青少年像剛出生的新生命，脆弱、敏感、需要被重新溫柔對待，同時又該被交付真實的工作。對待他的方式，可以同時像對嬰兒和對大人。",
+      "source": {
+        "name": "Montessori, M. (1948). From Childhood to Adolescence. 「Erdkinder」構想",
         "license": "C"
       }
     }

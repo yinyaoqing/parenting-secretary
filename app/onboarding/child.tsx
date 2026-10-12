@@ -22,7 +22,7 @@ const FEEDING: { key: FeedingMethod; label: string }[] = [
 ];
 
 
-// 特殊情境：措辭為「你想多看哪些資源」，可不選（v0.8 D6-7）。上架 7 種；soon 的三種先不顯示（商店不接受「即將推出」佔位）。
+// 特殊情境：措辭為「你想多看哪些資源」，可不選（v0.8 D6-7）。上架 7 種；soon 的三種先不顯示（商店不接受尚未上線的佔位項目）。
 const CONTEXTS: { key: string; label: string; soon?: boolean }[] = [
   { key: 'preterm', label: '早產兒' },
   { key: 'multiple', label: '多胞胎' },
@@ -115,7 +115,7 @@ export default function ChildForm() {
             <DatePick value={birthDate} onChange={setBirthDate} mode="date" label="出生日" maximumDate={today} />
           </Field>
           <Card>
-            <SwitchRow title="早產兒" sub="會同時顯示實際月齡與矯正月齡" value={isPreterm} onChange={(v) => { setIsPreterm(v); if (v && !contexts.includes('preterm')) setContexts((c) => [...c, 'preterm']); }} />
+            {birthDate && daysSince(toIsoDate(birthDate)) >= 730 ? null : <SwitchRow title="早產兒" sub="會同時顯示實際月齡與矯正月齡（2 歲前）" value={isPreterm} onChange={(v) => { setIsPreterm(v); if (v && !contexts.includes('preterm')) setContexts((c) => [...c, 'preterm']); }} />}
             {isPreterm ? (
               <View style={{ marginTop: 10, gap: 6 }}>
                 <Field label="預產期">
@@ -133,11 +133,11 @@ export default function ChildForm() {
         <Screen footer={<PrimaryButton label="下一步" onPress={() => setStep(3)} />}>
           <Progress pct={66} />
           <View style={[styles.row, { gap: 14 }]}><Text style={[styles.h1, styles.sp]}>餵養與地點</Text><Thumb art="bowl" size={88} radius={20} /></View>
-          <Field label="目前餵養方式">
+          {birthDate && daysSince(toIsoDate(birthDate)) >= 1095 ? null : <Field label="目前餵養方式">
             <View style={styles.chips}>
               {FEEDING.map((f) => <Chip key={f.key} label={f.label} on={feeding === f.key} onPress={() => setFeeding(f.key)} />)}
             </View>
-          </Field>
+          </Field>}
           <Field label="孩子現在主要在哪裡">
             <View style={{ gap: 8 }}>
               {locationsForAge(birthDate ? daysSince(toIsoDate(birthDate)) : null, location).map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}

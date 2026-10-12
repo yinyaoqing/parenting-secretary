@@ -16,6 +16,11 @@ export function alertUrlsSafe(b: { items: WithSource[] }): boolean {
   return b.items.every((x) => isCdcUrl(x.source?.url));
 }
 
+// 本週活動：每則都要政府網址與標題。
+export function activityUrlsSafe(b: { items: { source?: { url?: unknown }; title?: unknown }[] }): boolean {
+  return b.items.every((a) => isGovUrl(a.source?.url) && typeof a.title === 'string' && !!a.title);
+}
+
 // 村長公告：每則都要政府網址，且有發布機關與標題。
 export function noticeUrlsSafe(b: { items: { url?: unknown; publisher?: unknown; title?: unknown }[] }): boolean {
   return b.items.every((n) => isGovUrl(n.url) && typeof n.publisher === 'string' && !!n.publisher && typeof n.title === 'string' && !!n.title);

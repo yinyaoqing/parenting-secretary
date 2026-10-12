@@ -19,6 +19,7 @@ const policy = read('content/policy/policy.json');
 const schedule = read('content/schedule/timeline.json');
 const alerts = read('content/alerts/alerts.json');
 const notices = read('content/notices/notices.json');
+const activities = read('content/activities/activities.json');
 
 const ageDays = (iso) => Math.floor((today.getTime() - new Date(iso).getTime()) / 86400000);
 const COUNTIES = ['臺北市', '新北市', '桃園市', '臺中市', '臺南市', '高雄市', '基隆市', '新竹市', '嘉義市', '新竹縣', '苗栗縣', '彰化縣', '南投縣', '雲林縣', '嘉義縣', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'];
@@ -54,6 +55,21 @@ for (const n of notices.items ?? []) {
   for (const k of ['startsOn', 'endsOn']) if (n[k] && !/^\d{4}-\d{2}-\d{2}$/.test(n[k])) fails.push(`${tag} ${k} 須為 YYYY-MM-DD`);
   if (n.endsOn && n.startsOn && n.endsOn < n.startsOn) fails.push(`${tag} endsOn 早於 startsOn`);
 }
+// 本週活動（規劃 v1.0 第 5 章）：政府網址、欄位值域、年齡與月份。
+if (!/^\d{4}-\d{2}-\d{2}/.test(activities.version ?? '') || !Array.isArray(activities.items)) fails.push('activities 格式錯誤');
+{
+  const ids = new Set();
+  for (const a of activities.items ?? []) {
+    const tag = `activity ${a.id ?? '(無 id)'}`;
+    for (const k of ['id', 'title', 'body', 'ageMinDays', 'ageMaxDays', 'setting', 'cost', 'source', 'checkedAt']) if (a[k] === undefined || a[k] === '') fails.push(`${tag} 缺少 ${k}`);
+    if (ids.has(a.id)) fails.push(`${tag} id 重複`); ids.add(a.id);
+    if (a.source && !isGov(a.source.url)) fails.push(`${tag} 來源不是政府網站：${a.source.url}`);
+    if (!['outdoor', 'indoor', 'either'].includes(a.setting)) fails.push(`${tag} setting 不合法`);
+    if (!['free', 'low', 'ticket'].includes(a.cost)) fails.push(`${tag} cost 不合法`);
+    if (a.months !== null && a.months !== undefined && (!Array.isArray(a.months) || a.months.some((m) => !Number.isInteger(m) || m < 1 || m > 12))) fails.push(`${tag} months 須為 1 到 12 的整數陣列或 null`);
+    if (a.ageMinDays >= a.ageMaxDays) fails.push(`${tag} 年齡範圍錯誤`);
+  }
+}
 if (alerts.checkedAt && ageDays(alerts.checkedAt) > ALERT_MAX_AGE_DAYS) console.warn(`WARN 疫情提醒上次查核 ${alerts.checkedAt}，已超過 ${ALERT_MAX_AGE_DAYS} 天，請查疾管署新聞稿後更新 content/alerts/alerts.json`);
 
 if (fails.length) {
@@ -61,7 +77,7 @@ if (fails.length) {
   console.error(`\n${fails.length} 項未通過`);
   process.exit(1);
 }
-console.log(`policy ${policy.version}：${policy.items.length} 項、行政待辦 ${policy.todos.length} 項；schedule ${schedule.version}：${schedule.items.length} 項；alerts ${alerts.version}：${alerts.items.length} 則；notices ${notices.version}：${notices.items.length} 則，全部通過`);
+console.log(`policy ${policy.version}：${policy.items.length} 項、行政待辦 ${policy.todos.length} 項；schedule ${schedule.version}：${schedule.items.length} 項；alerts ${alerts.version}：${alerts.items.length} 則；notices ${notices.version}：${notices.items.length} 則；activities ${activities.version}：${activities.items.length} 個，全部通過`);
 if (CHECK_ONLY) process.exit(0);
 
 const OUT = join(ROOT, 'docs', 'data');
@@ -71,12 +87,14 @@ writeFileSync(join(OUT, 'policy.json'), dump(policy));
 writeFileSync(join(OUT, 'schedule.json'), dump(schedule));
 writeFileSync(join(OUT, 'alerts.json'), dump(alerts));
 writeFileSync(join(OUT, 'notices.json'), dump(notices));
+writeFileSync(join(OUT, 'activities.json'), dump(activities));
 writeFileSync(join(OUT, 'manifest.json'), dump({
   v: 1,
   policy: { version: policy.version, path: 'policy.json' },
   schedule: { version: schedule.version, path: 'schedule.json' },
   alerts: { version: alerts.version, path: 'alerts.json' },
   notices: { version: notices.version, path: 'notices.json' },
+  activities: { version: activities.version, path: 'activities.json' },
 }));
 writeFileSync(join(OUT, 'index.html'), '<!doctype html><meta charset="utf-8"><title>育村資料</title><p>育村 APP 的公開資料（政策、公費時程、官方疫情提醒），來源見各檔案。</p>\n');
 console.log('wrote docs/data/{manifest,policy,schedule,alerts}.json');

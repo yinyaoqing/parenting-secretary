@@ -1,0 +1,49 @@
+{
+  "id": "milestones.p-choosing-preschool",
+  "topicGroup": "milestones",
+  "title": "選幼兒園：公立、非營利、準公共、私立怎麼分，立案與裁罰去哪查",
+  "ageMinDays": 730,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "幼兒園名稱前面常見「公立」「非營利」「準公共」，差別主要在設立者與收費方式。\n\n公立：由縣市、鄉鎮市、公立學校設立或附設。非營利：政府委託或補助非營利法人辦理，收費有上限。準公共：私立幼兒園與政府簽約、接受收費上限與品質條件的，政府再補助家長差額。私立：其餘都是私立，收費由園方訂定。公立與非營利幼兒園依法要優先招收「需要協助幼兒」（經濟、身心、文化、族群等）。\n\n法律規定：幼兒園必須經縣市主管機關許可設立，取得設立許可後才能招收幼兒。公司、醫院附設的幼兒園以員工子女為主，有餘額且經核准才收其他孩子。\n\n查詢：教育部「全國教保資訊網」可以查每一家幼兒園的基本資料（立案、核定人數、班別）、地圖、基礎評鑑結果、裁罰紀錄，還有未立案機構的裁罰。沒出現在基本資料查詢裡的，就不是立案幼兒園。\n\n實際參觀時，可對照「幼兒園的一天」那張卡，問作息、活動與餐點。",
+  "readMore": [
+    {
+      "label": "全國教保資訊網：幼兒園查詢",
+      "url": "https://www.ece.moe.edu.tw/ch/query-preschool/",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    },
+    {
+      "label": "全國教保資訊網：關於公共化教保服務",
+      "url": "https://www.ece.moe.edu.tw/ch/ggh/public/about-ggh/",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "教育部：幼兒教育及照顧法第 7、8 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070031",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "幼兒園應經直轄市、縣（市）主管機關許可設立，並於取得設立許可後，始得招收幼兒進行教保服務。",
+      "checkedAt": "2026-10-12"
+    },
+    {
+      "name": "教育部全國教保資訊網：幼兒園查詢（基本資料、地圖、評鑑結果、裁罰紀錄、未立案裁罰）",
+      "url": "https://www.ece.moe.edu.tw/ch/query-preschool/",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "幼兒園查詢 基本資料查詢 地圖查詢 評鑑結果查詢 裁罰紀錄查詢 未立案裁罰查詢",
+      "checkedAt": "2026-10-12"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-12",
+  "status": "draft"
+}

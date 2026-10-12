@@ -55,7 +55,7 @@ export default function Schedule() {
 
   return (
     <View style={styles.page}>
-      <TopBar title={child ? <ChildTitle subtitle={d !== null ? `第 ${d + 1} 天 · 實際 ${ageLabel(d)}` : undefined} /> : '時程'} />
+      <TopBar title={child ? <ChildTitle subtitle={d !== null ? (d < 365 ? `第 ${d + 1} 天 · 實際 ${ageLabel(d)}` : `實際 ${ageLabel(d)}`) : undefined} /> : '時程'} />
       <Screen>
         <View style={[styles.row, { backgroundColor: palette.accentSoft, borderRadius: 20, overflow: 'hidden', gap: 14, paddingRight: 16 }]}>
           <Thumb art="bag" size={120} radius={0} style={{ borderWidth: 0 }} />
@@ -188,7 +188,7 @@ ${t.detail}`} right={<Icon name="external-link" size={14} color={palette.accent}
         <ListCard>
           <ListRow first icon="home" main="親子館與托育資源中心" sub="社家署名冊，依縣市鄉鎮篩選" chevron onPress={() => router.push('/resources/centers')} />
           {d !== null && d >= 730 && d <= 2557 ? <ListRow icon="flag" main="找幼兒園" sub="教育部立案名錄，不排序、不推薦" chevron onPress={() => router.push('/resources/kindergartens')} /> : null}
-          <ListRow icon="map-pin" main="找哺集乳室" sub="國健署名單，依縣市鄉鎮篩選，用手機地圖導航" chevron onPress={() => router.push('/resources/nursing')} />
+          {d === null || d <= 1095 ? <ListRow icon="map-pin" main="找哺集乳室" sub="國健署名單，依縣市鄉鎮篩選，用手機地圖導航" chevron onPress={() => router.push('/resources/nursing')} /> : null}
         </ListCard>
 
         <Section title="資料來源" />

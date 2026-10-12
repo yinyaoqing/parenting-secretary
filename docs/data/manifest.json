@@ -1,11 +1,11 @@
 {
   "v": 1,
   "policy": {
-    "version": "2026-10-08b",
+    "version": "2026-10-11",
     "path": "policy.json"
   },
   "schedule": {
-    "version": "2026-10-08",
+    "version": "2026-10-12",
     "path": "schedule.json"
   },
   "alerts": {
@@ -15,5 +15,9 @@
   "notices": {
     "version": "2026-10-10",
     "path": "notices.json"
+  },
+  "activities": {
+    "version": "2026-10-11",
+    "path": "activities.json"
   }
 }

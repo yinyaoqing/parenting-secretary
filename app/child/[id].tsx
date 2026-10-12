@@ -95,12 +95,12 @@ export default function EditChild() {
         <Field label="暱稱"><Input value={nickname} onChangeText={setNickname} accessibilityLabel="暱稱" /></Field>
         <Field label="出生日"><DatePick value={birth} onChange={setBirth} mode="date" label="出生日" maximumDate={new Date()} /></Field>
         <Card>
-          <SwitchRow title="早產兒" sub="會同時顯示實際月齡與矯正月齡（2 歲前）" value={preterm} onChange={setPreterm} />
+          {birth && daysSince(toIsoDate(birth)) >= 730 ? null : <SwitchRow title="早產兒" sub="會同時顯示實際月齡與矯正月齡（2 歲前）" value={preterm} onChange={setPreterm} />}
           {preterm ? <View style={{ marginTop: 10 }}><Field label="預產期"><DatePick value={due} onChange={setDue} mode="date" label="預產期" /></Field></View> : null}
         </Card>
-        <Field label="目前餵養方式">
+        {birth && daysSince(toIsoDate(birth)) >= 1095 ? null : <Field label="目前餵養方式">
           <View style={styles.chips}>{FEEDING.map((f) => <Chip key={f.key} label={f.label} on={feeding === f.key} onPress={() => setFeeding(f.key)} />)}</View>
-        </Field>
+        </Field>}
         <Field label="孩子現在主要在哪裡">
           <View style={{ gap: 8 }}>{locationsForAge(birth ? daysSince(toIsoDate(birth)) : null, location).map((l) => <Opt key={l.key} label={l.label} on={location === l.key} onPress={() => setLocation(l.key)} />)}</View>
         </Field>

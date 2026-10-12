@@ -1,0 +1,50 @@
+{
+  "id": "milestones.t-peers-autonomy",
+  "topicGroup": "milestones",
+  "title": "12 到 18 歲：朋友變得比什麼都重要",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國國家心理衛生研究院（NIMH）說，青少年大腦中負責社交處理的區域正在改變，這會讓他們把注意力放在同儕關係和社交經驗上。\n\n美國 HHS 人口事務辦公室進一步描述：被同儕團體接納對青少年非常重要，尤其是年紀較小的青少年。為了歸屬感，他們可能改變想法、說話方式、穿著和行為。年紀小一點的青少年傾向和「跟自己很像」的人在一起，年紀大一點的則會往外拓展。\n\n同儕的影響不只一面：OPA 說，和同儕或成人導師一起角色扮演、預演因應策略，有助於練習合作、溝通、解決問題和拒絕同儕壓力。NIMH 也提到，青少年的冒險可以是正向的，像是認識新同學或加入社團。\n\n這些是國外機構描述的普遍現象，每個孩子的交友方式不同。",
+  "readMore": [
+    {
+      "label": "NIMH：The Teen Brain: 7 Things to Know 原文（第 2 點）",
+      "url": "https://www.nimh.nih.gov/health/publications/the-teen-brain-7-things-to-know",
+      "note": "翻譯自 NIMH 公眾領域出版品，台灣官方若有不同說法以台灣為準。"
+    },
+    {
+      "label": "HHS OPA：Social Development 原文",
+      "url": "https://opa.hhs.gov/adolescent-health/adolescent-development-explained/social-development",
+      "note": "翻譯自美國聯邦政府公眾領域網頁。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "NIMH（美國國家心理衛生研究院）：The Teen Brain: 7 Things to Know（NIH Publication No. 23-MH-8078，2023 修訂；公眾領域，可重製）",
+      "url": "https://www.nimh.nih.gov/health/publications/the-teen-brain-7-things-to-know",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Changes to the areas of the brain responsible for social processes can lead teens to focus more on peer relationships and social experiences. The emphasis on peer relationships, along with ongoing prefrontal cortex development, might lead teens to take more risks because the social benefits outweigh the possible consequences of a decision.",
+      "checkedAt": "2026-10-11"
+    },
+    {
+      "name": "美國 HHS 人口事務辦公室（OPA）：Adolescent Development Explained：Social Development（美國聯邦政府著作，公眾領域）",
+      "url": "https://opa.hhs.gov/adolescent-health/adolescent-development-explained/social-development",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Evolving groups of friends. Acceptance by a peer group is crucial to adolescents, especially those who are younger. Seeking acceptance might spur them to change the way they think, speak, dress, and behave to make them feel they belong to the group. As a result, younger adolescents tend to hang out with peers who are like them (e.g., same race, ethnicity, family income, religion, or class schedule). Older adolescents may branch out to other groups.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

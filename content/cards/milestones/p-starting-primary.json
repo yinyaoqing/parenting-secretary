@@ -1,0 +1,49 @@
+{
+  "id": "milestones.p-starting-primary",
+  "topicGroup": "milestones",
+  "title": "快上小學了：6 歲入學、學區分發、通知什麼時候來",
+  "ageMinDays": 1825,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "孩子滿 6 歲那年的 9 月入小學，這是國民教育的起點。流程大多是政府自動跑的，家長要做的其實不多。\n\n時程（強迫入學條例）：戶政機關每年五月底前把 6 歲應入學的孩子造冊，教育局處六月十五日前依學區分發，鄉鎮市區公所七月十五日前按學區通知入學。所以大班下學期會收到入學通知單，依通知到學校報到即可。\n\n學區：公立國小由縣市依學齡人口、交通、社區等劃分學區，以孩子的戶籍地為準。想讀別的學區或私立小學，各縣市另有規定，要早一點查。\n\n義務：父母或監護人有督促孩子入學的義務。沒入學的，學校會通報、家訪勸告；因家庭清寒或變故不能入學的，有協助機制。想走非學校型態實驗教育（在家自學、團體、機構），另有申請程序，見「體制外選項」那張卡。\n\n入學前能做的：確認戶籍地址是你想要的學區；5 到 7 歲的兒童預防保健趁這段時間做完；幼兒園大班通常會有「幼小銜接」活動，可以問老師內容。",
+  "readMore": [
+    {
+      "label": "強迫入學條例 全文",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070002",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    },
+    {
+      "label": "國民教育法 全文",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070001",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "教育部：強迫入學條例第 6、7、9 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070002",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "六歲應入國民小學之國民，由當地戶政機關於每年五月底前調查造冊，送經主管教育行政機關於六月十五日前依學區分發，並由鄉（鎮、市、區）公所於七月十五日前按學區通知入學。",
+      "checkedAt": "2026-10-12"
+    },
+    {
+      "name": "教育部：國民教育法第 2、7、22 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070001",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "六歲之學齡兒童，由戶政機關調查造冊，送經直轄市、縣（市）主管機關按學區分發，並由鄉（鎮、市、區）公所通知其入公立國民小學。",
+      "checkedAt": "2026-10-12"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": true,
+  "updatedAt": "2026-10-12",
+  "status": "draft"
+}

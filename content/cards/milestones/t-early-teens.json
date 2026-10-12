@@ -1,0 +1,36 @@
+{
+  "id": "milestones.t-early-teens",
+  "topicGroup": "milestones",
+  "title": "12 到 14 歲：身體、情緒、交友全都在變",
+  "ageMinDays": 4380,
+  "ageMaxDays": 5475,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國 CDC 的「Essentials for Parenting Teens」把 11 到 17 歲形容成一段身體和大腦同時大幅改變的時期。\n\n這個階段的孩子可能對自己的外表變得敏感，情緒也會混在一起：前一刻興奮，下一刻挫折或難過。他們在家的時間變少、和朋友的時間變多，有的開始約會，或接下開車、打工這類新責任。\n\nCDC 也說，親子關係本身會跟著變。小時候父母主導孩子生活的大部分，到了青少年，重點轉成鼓勵他獨立思考、做出好決定，多用提問和建議，少直接給答案。很多家長在孩子想要更多空間時會有失落感；CDC 的說法是，尋求獨立是長大的正常一部分，而親子關係在這個階段仍然重要。\n\n這張卡講的是國外整理的一般趨勢，不是每個孩子的進度表。",
+  "readMore": [
+    {
+      "label": "CDC：Tips for Understanding and Adapting to the Teen Years 原文",
+      "url": "https://www.cdc.gov/parenting-teens/tips-understanding-and-adapting/index.html",
+      "note": "翻譯自 CDC 公眾領域網頁，台灣官方若有不同說法以台灣為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC Essentials for Parenting Teens：Tips for Understanding and Adapting to the Teen Years（2024-04-24；公眾領域）",
+      "url": "https://www.cdc.gov/parenting-teens/tips-understanding-and-adapting/index.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Teens experience many changes as they prepare to become adults. Between the ages of 11 and 17, your teen's body and brain are growing and changing in many ways. Parenting also shifts as children become teens. Parenting teens often involves lots of energy and patience.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

@@ -1,0 +1,49 @@
+{
+  "id": "milestones.p-early-intervention",
+  "topicGroup": "milestones",
+  "title": "發展有疑慮：6 歲以下的發展評估與早期療育怎麼走",
+  "ageMinDays": 730,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "孩子說話比較慢、動作比較不穩，家長常在「等等看」和「去檢查」之間猶豫。法律的設計是：6 歲以下是早期療育的黃金期，政府要建立發展評估機制，發展遲緩的孩子依需要給予早期療育、醫療、就學與家庭支持。\n\n幾個入口：兒童預防保健的發展評估（由醫師做）；幼兒園依法要定期對全園幼兒做發展篩檢，未達發展目標或疑似遲緩的，依特殊教育法與兒少法處理；各縣市也有兒童發展聯合評估中心與通報轉介中心。幼兒園老師如果提到孩子某個面向要注意，通常就是篩檢結果，可以請老師說明是哪個面向。\n\n流程通常是：篩檢有疑慮，轉介到聯合評估中心做完整評估，之後依評估結果安排療育課程、特教資源或追蹤。法律也規定家長要配合政府提供的特殊照顧。\n\nAPP 不做任何判斷，也不評分。想記錄孩子的表現，可以用「更多紀錄」裡的日記，之後拿給醫師或老師看；兒童健康手冊裡的發展檢核表也是對話的起點。",
+  "readMore": [
+    {
+      "label": "兒童及少年福利與權益保障法第 31 條",
+      "url": "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=D0050001&flno=31",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    },
+    {
+      "label": "衛福部社家署：發展遲緩兒童通報暨個案管理服務",
+      "url": "https://www.sfaa.gov.tw/SFAA/Pages/List.aspx?nodeid=148",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "衛生福利部：兒童及少年福利與權益保障法第 31 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=D0050001&flno=31",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "政府應建立六歲以下兒童發展之評估機制，對發展遲緩兒童，應按其需要，給予早期療育、醫療、就學及家庭支持方面之特殊照顧。",
+      "checkedAt": "2026-10-12"
+    },
+    {
+      "name": "教育部：幼兒教保及照顧服務實施準則第 9 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070047",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "幼兒園應定期對全園幼兒實施發展篩檢，對於未達發展目標、疑似身心障礙或發展遲緩之幼兒，應依特殊教育法及兒童及少年福利與權益保障法之相關規定辦理。",
+      "checkedAt": "2026-10-12"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-12",
+  "status": "draft"
+}

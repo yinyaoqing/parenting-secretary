@@ -7,6 +7,9 @@ import { useTheme } from '../../src/ui/useTheme';
 import { Screen, SheetHeader, Field, Chip, Seg, Input, Card, SwitchRow, PrimaryButton } from '../../src/ui/components';
 import { TimeRow } from '../../src/ui/TimeRow';
 import { Thumb } from '../../src/ui/art';
+import { useChildren } from '../../src/ui/ChildContext';
+import { daysSince } from '../../src/util/age';
+import { homeLabel } from '../../src/home/buttons';
 
 // 常見食材快選只是輸入便利，不是建議清單。順序與內容不代表引入時機。
 const COMMON = ['米糊', '十倍粥', '地瓜', '南瓜', '胡蘿蔔', '蘋果', '香蕉', '蛋黃', '全蛋', '豆腐', '雞肉', '魚', '花椰菜', '菠菜', '優格', '麵'];
@@ -15,6 +18,8 @@ const ACCEPT: { key: Accept; label: string }[] = [{ key: 'ate', label: '有吃' 
 
 export default function Solid() {
   const { childId } = useLocalSearchParams<{ childId: string }>();
+  const { children } = useChildren();
+  const ageDays = (() => { const c = children.find((x) => x.id === childId); return c ? daysSince(c.birthDate) : 0; })();
   const { styles } = useTheme();
   const [at, setAt] = useState(new Date());
   const [foods, setFoods] = useState<string[]>([]);
@@ -34,7 +39,7 @@ export default function Solid() {
 
   return (
     <View style={styles.page}>
-      <SheetHeader title="副食品" art={<Thumb art="bowl" size={44} radius={12} />} />
+      <SheetHeader title={homeLabel('solid', ageDays)} art={<Thumb art="bowl" size={44} radius={12} />} />
       <Screen footer={<PrimaryButton label="儲存" onPress={save} />}>
         <TimeRow value={at} onChange={setAt} />
         <Field label="吃了什麼" hint="快選只是輸入方便，順序不代表引入時機。">

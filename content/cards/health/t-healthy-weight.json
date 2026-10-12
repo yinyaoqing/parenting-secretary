@@ -1,0 +1,34 @@
+{
+  "id": "health.t-healthy-weight",
+  "topicGroup": "health",
+  "title": "青少年的體位：看的是同年齡的 BMI 百分位，不是成人標準",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "國健署說明，兒童和青少年還在生長發育，身高在長、體重也會變動，所以判斷體位不能直接套成人的 BMI 18.5 到 24，而是參考衛福部公布的「兒童及青少年生長身體質量指數（BMI）建議值」。\n\n這份表以同年齡層 BMI 的百分位當切點：超過該年齡層的第 85 百分位是過重，超過第 95 百分位是肥胖。對照孩子的年齡和性別、算出 BMI，就能在表上看到落點。\n\n這張卡只說明官方的判定方式。學校健檢會量身高體重並通知結果；單一次的數字落在哪裡，和孩子的發育時程有關，要不要處理、怎麼處理，國健署的做法都是請和醫師討論，而不是自己訂目標或和別的孩子比。青春期的孩子對身材很敏感，國外機構也提醒身體意象的話題是示範自我照顧、而非評價的機會。",
+  "readMore": [
+    {
+      "label": "國健署：兒童與青少年生長身體質量指數(BMI)建議值 原文與對照表 PDF",
+      "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=542&pid=9547"
+    }
+  ],
+  "sources": [
+    {
+      "name": "國民健康署：兒童與青少年生長身體質量指數(BMI)建議值（2018-09-17 發布、2021-06-21 更新；政府網站資料開放宣告）",
+      "url": "https://www.hpa.gov.tw/Pages/Detail.aspx?nodeid=542&pid=9547",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "一般以身體質量指數(Body Mass Index,BMI)作為兒童及青少年過重及肥胖的檢定方法。因為兒童及青少年還在生長發育，身高增長，體重也會變動，所以需要參考衛福部公布之「兒童及青少年生長身體質量指數(BMI)建議值」，該體位標準是以該年齡層身體質量指數的百分位作為過重或肥胖的切點。當身體質量指數超過該年齡層的85百分位時為過重，超過95百分位時為肥胖。",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

@@ -1,7 +1,7 @@
 {
-  "version": "2026-10-08b",
+  "version": "2026-10-11",
   "year": 2026,
-  "checkedAt": "2026-10-08",
+  "checkedAt": "2026-10-11",
   "note": "金額、天數與資格每年可能變動，以各機關公告為準。本檔由遠端（GitHub Pages）更新；APP 內建一份作為離線預設。",
   "items": [
     {
@@ -210,7 +210,7 @@
       "id": "preschool-tax-deduction",
       "category": "tax",
       "title": "幼兒學前特別扣除額（綜合所得稅）",
-      "who": "申報戶扶養 6 歲以下子女",
+      "who": "申報戶扶養 6 歲以下的子女（以出生年計：申報年度減 6 以後出生者都算，例如 115 年申報 114 年度所得，108 年以後出生的子女適用）",
       "amounts": [
         {
           "label": "第 1 名子女",
@@ -222,17 +222,18 @@
         }
       ],
       "notes": [
-        "113 年度起適用，取消排富。",
+        "113 年 1 月 1 日起適用（所得稅法第 17 條），沒有排富條款。",
+        "年齡以出生年認定，不是日曆年齡，所以孩子滿 6 歲那一年申報時仍可扣除。",
         "每年 5 月申報前一年度綜合所得稅時填寫。"
       ],
       "apply": "申報綜合所得稅時列報。",
       "ageMinDays": 0,
       "ageMaxDays": 2556,
       "source": {
-        "name": "財政部臺北國稅局：113 年度幼兒學前特別扣除額加碼扣更多",
-        "url": "https://www.ntbt.gov.tw/singlehtml/41ae3594197f4f69b47753ce08188516?cntId=eb5911d38f684c0f92c141f38a5a93c0"
+        "name": "全國法規資料庫：所得稅法第 17 條（幼兒學前特別扣除）",
+        "url": "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=G0340003&flno=17"
       },
-      "checkedAt": "2026-10-07"
+      "checkedAt": "2026-10-11"
     },
     {
       "id": "preschool-fees-2plus",
@@ -990,6 +991,63 @@
         "url": "https://sntroot.e-land.gov.tw/News_Content.aspx?n=10117&s=134974"
       },
       "checkedAt": "2026-10-08"
+    },
+    {
+      "id": "after-school-care",
+      "category": "service",
+      "title": "國小課後照顧班",
+      "who": "國小階段的兒童，由家長決定是否參加，學校不得強迫",
+      "amounts": [
+        {
+          "label": "低收入戶、身心障礙、原住民兒童（公立班）",
+          "value": "免費，並優先招收"
+        },
+        {
+          "label": "情況特殊兒童",
+          "value": "經學校評估、縣市核准後減免"
+        },
+        {
+          "label": "一般兒童",
+          "value": "依各校公告收費，分上班時間、下班時間與寒暑假"
+        }
+      ],
+      "notes": [
+        "提供生活照顧與學校作業輔導為主的服務，有平日、寒暑假與臨時三種。",
+        "中央辦法沒有「中低收入戶」減免，部分縣市自行加碼，以各縣市與學校簡章為準。"
+      ],
+      "apply": "各國小開學前後公告簡章，向學校報名。",
+      "ageMinDays": 2190,
+      "ageMaxDays": 4380,
+      "source": {
+        "name": "全國法規資料庫：兒童課後照顧服務班與中心設立及管理辦法（第 3、5、7、18-1 條）",
+        "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070041"
+      },
+      "checkedAt": "2026-10-11"
+    },
+    {
+      "id": "learning-support",
+      "category": "service",
+      "title": "學習扶助（國小、國中）",
+      "who": "公立國小、國中的學生，國語文、數學或英語文篩選測驗未通過者，依科目參加",
+      "amounts": [
+        {
+          "label": "費用",
+          "value": "免費，由學校開班"
+        }
+      ],
+      "notes": [
+        "學校用篩選測驗找出需要的學生，依結果設計課程，再用成長測驗追蹤。",
+        "家長不需自行申請；想了解孩子有沒有被篩選到，直接問導師或教務處。",
+        "搭配教育部因材網可在家練習（見內容卡「因材網」）。"
+      ],
+      "apply": "由學校的學習輔導小組規劃與通知，家長不需申請。",
+      "ageMinDays": 2190,
+      "ageMaxDays": 5475,
+      "source": {
+        "name": "教育部國教署學習扶助資源平臺：注意事項與目標",
+        "url": "https://priori.moe.gov.tw/about/precautions/"
+      },
+      "checkedAt": "2026-10-11"
     }
   ],
   "todos": [

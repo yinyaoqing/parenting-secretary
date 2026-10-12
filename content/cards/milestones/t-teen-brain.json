@@ -1,0 +1,36 @@
+{
+  "id": "milestones.t-teen-brain",
+  "topicGroup": "milestones",
+  "title": "12 到 18 歲：青少年的大腦還在裝修",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國國家心理衛生研究院（NIMH）整理了七件關於青少年大腦的事。\n\n大腦的體積在青春期初期就不再長大，但接下來這幾年是在「微調運作方式」，一直到 25 歲左右才算完成。額頭後方的前額葉皮質，負責計畫、排優先順序、做決定，是最晚成熟的區域之一。\n\n負責社交處理的腦區正在改變，所以孩子會把同儕關係看得很重；再加上前額葉還在發展，有時會覺得社交上的好處大於後果，於是做出冒險的決定。這些冒險可以是負面的，也可以是正面的，像是主動跟新同學講話、加入新社團。\n\n青少年大腦很能適應新經驗：有挑戰的課程、運動、藝術或音樂等創作活動，都能強化腦內迴路。壓力反應也和成人不同，所以辨認壓力來源、練習因應方法對這個年紀特別有用。NIMH 最後提醒：大部分青少年都會長成健康的大人，這段時期有些大腦變化反而是在為長期的韌性打底。",
+  "readMore": [
+    {
+      "label": "NIMH：The Teen Brain: 7 Things to Know 原文",
+      "url": "https://www.nimh.nih.gov/health/publications/the-teen-brain-7-things-to-know",
+      "note": "翻譯自 NIMH 公眾領域出版品，台灣官方若有不同說法以台灣為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "NIMH（美國國家心理衛生研究院）：The Teen Brain: 7 Things to Know（NIH Publication No. 23-MH-8078，2023 修訂；公眾領域，可重製）",
+      "url": "https://www.nimh.nih.gov/health/publications/the-teen-brain-7-things-to-know",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Although the brain stops growing in size by early adolescence, the teen years are all about fine-tuning how the brain works. The brain finishes developing and maturing in the mid-to-late 20s. The part of the brain behind the forehead, called the prefrontal cortex, is one of the last parts to mature. This area is responsible for skills like planning, prioritizing, and making good decisions. Changes to the areas of the brain responsible for social processes can lead teens to focus more on peer relationships and social experiences.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

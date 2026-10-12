@@ -7,6 +7,7 @@ import { useChildren } from '../../src/ui/ChildContext';
 import { daysSince, correctedDays } from '../../src/util/age';
 import { useTheme } from '../../src/ui/useTheme';
 import { Screen, TopBar, Card, ListCard, ListRow, Badge, Chip, Icon } from '../../src/ui/components';
+import { searchHint } from '../../src/content/stage';
 
 const EXAMPLES = ['吐奶', '拉肚子', '睡過夜', '副食品什麼時候', '長牙', '紅屁股', '戒尿布', '打疫苗前', '補助', '很累'];
 
@@ -30,7 +31,7 @@ export default function Search() {
           <TextInput
             value={q}
             onChangeText={setQ}
-            placeholder="例如：吐奶、睡過夜、補助"
+            placeholder={searchHint(active ? daysSince(active.birthDate) : null)}
             placeholderTextColor={palette.ink3}
             style={[styles.pickText, { paddingVertical: 10 }]}
             autoFocus={!initial}

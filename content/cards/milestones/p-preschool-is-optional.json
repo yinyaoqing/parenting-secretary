@@ -1,0 +1,49 @@
+{
+  "id": "milestones.p-preschool-is-optional",
+  "topicGroup": "milestones",
+  "title": "幼兒園不是義務教育：在家帶、共學、半天班都是法律承認的選項",
+  "ageMinDays": 730,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "台灣的國民教育從 6 歲開始；入國小以前，幼兒園不是必須。幼兒教育及照顧法把「幼兒」定義為 2 歲以上到入國民小學前，而「幼兒教育及照顧」的方式包含居家式托育、幼兒園，以及社區互助式。\n\n所以 3 到 6 歲的孩子有幾種合法安排：家長或家人自己帶；送居家式托育（保母）；進幼兒園；或參加社區互助式教保服務（部落、社區由家長共同組成的互助教保）。家長自組的共學團，法律上不是教保服務機構，性質是家長自行照顧加上一起活動。\n\n進幼兒園也不必全天：法律規定家長可以依孩子需求選擇全日、上午時段或下午時段。幼兒園在課程以外的日期時間可以提供延長照顧，經縣市核准還可以提供臨時照顧。\n\n要注意的是補助制度：5 歲就學補助、育兒津貼、幼兒園繳費上限等，各有不同條件，有些只給就讀平價教保機構的孩子。相關數字見「時程」分頁的補助項目。\n\n孩子沒有進幼兒園，發展篩檢與兒童預防保健還是照常用健保卡在院所做（見 3 到 7 歲兒童預防保健卡）。",
+  "readMore": [
+    {
+      "label": "幼兒教育及照顧法 全文",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070031",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    },
+    {
+      "label": "全國教保資訊網：就學補助與育兒津貼",
+      "url": "https://www.ece.moe.edu.tw/ch/subsidy/",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "教育部：幼兒教育及照顧法第 3、12 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070031",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "一、幼兒：指二歲以上至入國民小學前之人。二、幼兒教育及照顧：指以下列方式對幼兒提供之服務：（一）居家式托育。（二）幼兒園。（三）社區互助式。",
+      "checkedAt": "2026-10-12"
+    },
+    {
+      "name": "教育部：國民教育法第 2 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070001",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "六歲至十五歲之國民，應受國民教育；其強迫入學，另以法律定之。",
+      "checkedAt": "2026-10-12"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-12",
+  "status": "draft"
+}

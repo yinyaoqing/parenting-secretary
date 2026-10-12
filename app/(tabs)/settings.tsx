@@ -13,7 +13,7 @@ import { SpotMoonCloud, Thumb } from '../../src/ui/art';
 import appConfig from '../../app.json';
 import { permissionStatus, requestPermission } from '../../src/notify/scheduler';
 import { syncRemote, DATA_BASE, type RemoteStatus } from '../../src/remote/sync';
-import { resolveHome, defaultHint, HOME_KEYS, HOME_LABEL, type HomeKey } from '../../src/home/buttons';
+import { resolveHome, defaultHint, relevantHomeKeys, homeLabel, HOME_KEYS, type HomeKey } from '../../src/home/buttons';
 import { FEATURES } from '../../src/release/profile';
 
 const ENC_KINDS: { key: string; label: string }[] = [{ key: 'official', label: '國健署原文' }, { key: 'plain', label: '陪伴句' }, { key: 'thought', label: '諮商學派與哲學家' }, { key: 'literary', label: '文學角色' }];
@@ -126,9 +126,9 @@ export default function Settings() {
             <>
               <Label t={`首頁要顯示哪些（${active.nickname}）`} />
               <ListCard>
-                {HOME_KEYS.map((k, i) => (
-                  <ListRow key={k} first={i === 0} main={HOME_LABEL[k]} sub={`預設：${defaultHint(k)}${homeOv[k] === '1' || homeOv[k] === '0' ? '（已自訂）' : ''}`}
-                    right={<Switch value={shown[k]} onValueChange={async (v) => { setHomeOv((o) => ({ ...o, [k]: v ? '1' : '0' })); await setSetting(`home:${k}`, v ? '1' : '0'); }} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel={`首頁顯示${HOME_LABEL[k]}`} />} />
+                {relevantHomeKeys(daysSince(active.birthDate), homeOv).map((k, i) => (
+                  <ListRow key={k} first={i === 0} main={homeLabel(k, daysSince(active.birthDate))} sub={`預設：${defaultHint(k)}${homeOv[k] === '1' || homeOv[k] === '0' ? '（已自訂）' : ''}`}
+                    right={<Switch value={shown[k]} onValueChange={async (v) => { setHomeOv((o) => ({ ...o, [k]: v ? '1' : '0' })); await setSetting(`home:${k}`, v ? '1' : '0'); }} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel={`首頁顯示${homeLabel(k, daysSince(active.birthDate))}`} />} />
                 ))}
                 <ListRow main="恢復預設" mainColor={palette.accent} onPress={async () => { for (const k of HOME_KEYS) await setSetting(`home:${k}`, ''); setHomeOv({}); }} />
               </ListCard>
@@ -150,7 +150,7 @@ export default function Settings() {
 
         <Label t="提醒" />
         <ListCard>
-          <ListRow first main="餵奶安全網" sub="1 歲前，距上次餵奶比平常久時提醒一次" right={<Switch value={notify.safetyNet} onValueChange={(v) => toggleNotify('safetyNet', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="餵奶安全網提醒" />} />
+          {active && daysSince(active.birthDate) >= 365 ? null : <ListRow first main="餵奶安全網" sub="1 歲前，距上次餵奶比平常久時提醒一次" right={<Switch value={notify.safetyNet} onValueChange={(v) => toggleNotify('safetyNet', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="餵奶安全網提醒" />} />}
           {FEATURES.medicationLog ? <ListRow main="用藥間隔" sub="只倒數你輸入的間隔，不建議劑量" right={<Switch value={notify.medication} onValueChange={(v) => toggleNotify('medication', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="用藥間隔提醒" />} /> : null}
           <ListRow main="倒數提醒" sub="你自己寫標題與時間，到了發一則通知；響過就刪，不留紀錄" right={<Switch value={notify.timer} onValueChange={(v) => toggleNotify('timer', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="倒數提醒" />} />
           <ListRow main="行程提前提醒" sub="依每筆行程設定的提前時間" right={<Switch value={notify.schedule} onValueChange={(v) => toggleNotify('schedule', v)} trackColor={{ true: palette.accent, false: palette.line }} thumbColor="#fff" accessibilityLabel="行程提前提醒" />} />

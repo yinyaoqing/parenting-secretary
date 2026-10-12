@@ -1,0 +1,36 @@
+{
+  "id": "caregiver.t-boundaries",
+  "topicGroup": "caregiver",
+  "title": "界線怎麼設：說清楚、保持一致、一起訂",
+  "ageMinDays": 4380,
+  "ageMaxDays": 6570,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "美國 CDC 的「Essentials for Parenting Teens」談到怎麼在孩子越來越獨立時支持他。\n\n鼓勵校外的興趣和活動：家以外的嗜好和活動能讓孩子保持活動、累積技能、也有樂趣。CDC 的說法是，帶出健康獨立的青少年，意思是鼓勵他探索興趣。\n\n一起吃飯、一起做事：孩子在學校、打工、和朋友相處的時間變多，固定的共處時間是了解近況、同理傾聽的機會，也是給引導的空間。CDC 提到，讓孩子參與訂規則，他會更願意遵守。\n\n期待說清楚、保持一致：青少年喜歡知道別人對他的期待和界線在哪裡，像是互相尊重、幾點回家、上網安全。請孩子回想自己的決定，有助於他看見選擇和後果的關係。隨著孩子累積經驗，期待也要跟著更新。\n\nCDC 也坦白說，孩子花更多時間在自己的世界，家長會有點失落，這是青春期的正常現象。",
+  "readMore": [
+    {
+      "label": "CDC：Tips for Encouraging Independence 原文",
+      "url": "https://www.cdc.gov/parenting-teens/tips-encouraging-independence/index.html",
+      "note": "翻譯自 CDC 公眾領域網頁，台灣官方若有不同說法以台灣為準。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "CDC Essentials for Parenting Teens：Tips for Encouraging Independence（2024-04-18；公眾領域）",
+      "url": "https://www.cdc.gov/parenting-teens/tips-encouraging-independence/index.html",
+      "lang": "en",
+      "trust": "T1",
+      "license": "A2",
+      "excerpt": "Watching your child grow up and become their own person is amazing! Raising healthy and independent teens means encouraging them to explore interests. While your teen may be spending more time at school, at work, or hanging out with friends, Teens like to know what is expected of them and what the limits are.",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "translated": true,
+  "translationReviewed": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-11",
+  "status": "draft"
+}

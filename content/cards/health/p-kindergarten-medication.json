@@ -1,0 +1,35 @@
+{
+  "id": "health.p-kindergarten-medication",
+  "topicGroup": "health",
+  "title": "孩子生病要帶藥去幼兒園：託藥只能是醫療機構開的藥",
+  "ageMinDays": 730,
+  "ageMaxDays": 2190,
+  "styleTags": [
+    "all"
+  ],
+  "evidence": "official",
+  "body": "孩子感冒還在吃藥、白天卻要上幼兒園，怎麼辦？教保服務實施準則第 11 條有明確做法。\n\n幼兒園要訂「託藥措施」並告知家長，通常是一張託藥單，寫藥名、劑量、時間，由家長簽名。老師協助用藥時要核對藥品與藥袋記載，依藥袋寫的方式給。\n\n限制：老師只能協助使用醫療機構開立的藥品，不能是家長自己買的成藥、保健品或他人的藥；用藥途徑不得以侵入方式進行（例如注射）。所以藥袋要一起帶去，藥袋上有孩子的名字、藥名與用法。\n\n幼兒園也要準備充足且在安全效期內的醫療急救用品。\n\n實際流程：早上交藥時直接說明「幾點、吃多少、藥袋在這裡」，和老師確認怎麼回報；藥品的使用方法以醫師與藥袋為準，APP 不提供任何劑量資訊。",
+  "readMore": [
+    {
+      "label": "幼兒教保及照顧服務實施準則 全文",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070047",
+      "note": "本卡依政府網站資料開放宣告改寫自此頁，略去需由學校或醫師判斷的內容，完整內容見原文。"
+    }
+  ],
+  "sources": [
+    {
+      "name": "教育部：幼兒教保及照顧服務實施準則第 11 條（全國法規資料庫）",
+      "url": "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070047",
+      "lang": "zh-TW",
+      "trust": "T1",
+      "license": "A1",
+      "excerpt": "教保服務人員受幼兒之父母、監護人或實際照顧幼兒之人委託協助幼兒用藥，應以醫療機構所開立之藥品為限，其用藥途徑不得以侵入方式為之。",
+      "checkedAt": "2026-10-12"
+    }
+  ],
+  "translated": false,
+  "foreignOnly": false,
+  "policyNumbers": false,
+  "updatedAt": "2026-10-12",
+  "status": "draft"
+}
