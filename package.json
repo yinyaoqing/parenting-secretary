@@ -66,7 +66,8 @@
     "b2g:tenders": "node scripts/b2g-tenders.mjs",
     "test:village": "node --experimental-strip-types --no-warnings src/village/village.test.ts",
     "test:stage": "node --experimental-strip-types --no-warnings src/content/stage.test.ts",
-    "verify": "node scripts/verify.mjs"
+    "verify": "node scripts/verify.mjs",
+    "content:review": "node scripts/review-content.mjs"
   },
   "private": true
 }

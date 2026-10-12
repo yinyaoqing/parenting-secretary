@@ -126,6 +126,7 @@ scripts/
   check-content.mjs     產線十項檢查（必跑）
   build-content.mjs     打包內容卡到 src/content（prestart 自動跑）
   export-bilingual.mjs  對照稿輸出給譯者
+  review-content.mjs    內容卡人工複核：--list、--show、--sheet 輸出審核表、--apply 匯回結果改 status（規格 §22.4）
   import-translation.mjs 譯審匯回：讀 CSV「修訂譯文」欄寫回卡片並設 translationReviewed=true（支援 --dry-run）
   publish-preview.mjs   一鍵 EAS Update 到 preview 頻道並產 QR code 到 docs/dev/release/
 docs/plan/              規劃文件 v0.3–v0.9

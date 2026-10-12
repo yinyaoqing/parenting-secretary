@@ -522,6 +522,7 @@ content/notices/notices.json：publisher（機關）、title、body、url（政�
 | `npm test` | sync（merge、codec、backup）、timeline、search、calendar、data（validate）、village、stage |
 | `npm run content:check [:net]` | §11.4 |
 | `npm run data:check` | §12.4 |
+| `npm run content:review` | 內容卡人工複核：列清單、並列檢視、輸出審核表 CSV、匯回結果改狀態（§22.4） |
 | `npm run verify [-- --quick]` | 17 項：上述全部加 release 試算與還原、舊名稱稽核、佔位文字稽核、法務與手冊網頁無方括號或草稿、卡片 id 與檔名、年齡段卡數、活動數、鼓勵卡數、手冊畫面字眼存在於程式、expo-doctor、expo export |
 | 真機 | docs/dev/device-test.md A 到 T 節；P 節為正式安裝版專屬 |
 | 紅線 | docs/dev/redlines-checklist.md 每次發布前更新 |
@@ -554,11 +555,87 @@ content/notices/notices.json：publisher（機關）、title、body、url（政�
 6. **待查核的內容前提**：全國教保資訊網開放資料授權、學習扶助基本學習內容授權等級（進度對照表內容仍空白）、非營利幼兒園第 2 胎繳費上限。
 7. **兩個被擋的舊連結**：safety/choking 與 safety/no-honey-juice-water 的 AAP C 級連結（自動抓取 403，瀏覽器可開）。
 
+### 22.1 0 到 18 歲覆蓋評估（2026-10-12）
+
+結論：任何年齡建檔後首頁、內容、時程、育村都不是空的，也沒有佔位字樣，所以 0 到 18 歲都已進入開發範圍；但深度不均，0 到 3 歲是完整產品，3 到 18 歲是骨架加一批內容。
+
+| 年齡段 | 當天可看的卡 | 時程 | 政策 / 行政待辦 | 本週活動 | 鼓勵卡 | 評估 |
+|---|---|---|---|---|---|---|
+| 0 到 1 歲 | 48 到 64 | 17 | 28 / 5 | 不適用 | 54 | 完整 |
+| 1 到 3 歲 | 約 47 | 16 | 8 / 4 | 不適用 | 38 | 完整 |
+| 3 到 6 歲 | 17 到 21 | 10 | 3 / 5 | 30 | 32 | 骨架加內容，可用 |
+| 6 到 12 歲 | 16 到 18 | 8 | 4 / 3 | 40 | 32 | 偏薄 |
+| 12 到 15 歲 | 約 21 | 7 | 1 / 1 | 36 | 30 | 集中在心理與升學 |
+| 15 到 18 歲 | 約 22 | 4 | 0 / 1 | 38 | 30 | 最薄 |
+
+### 22.2 結構性缺口（需要你決策，依建議順序）
+
+| 編號 | 缺口 | 現況 | 建議方向 | 狀態 |
+|---|---|---|---|---|
+| G1 | 6 到 18 歲沒有自己的安全層 | 14 張安全卡年齡上限最高 5 歲；6 歲以上的「安全內容 永遠顯示」只剩「較小的孩子」。R13 要求安全層完整，但目前的安全層只定義到嬰幼兒 | 決定是否定義第二組安全層（學齡：交通與行人、溺水、網路與個資、燒燙傷與用火；青少年：心理危機求助電話、網路性剝削與 iWIN、交通與機車、菸酒檳榔）。來源限台灣官方（交通部 168、衛福部、教育部、iWIN）。build-content --release 的安全層完整性檢查要一併改成「依年齡分組檢查」 | ⬜ 待決定 |
+| G2 | 睡眠、飲食、居家安全三個主題群 6 歲後幾近空白 | 睡眠 1 張、飲食 2 張、居家安全 0 張 | 各補 5 到 8 張：睡眠（學齡與青少年時數、3C 與睡眠、週末補眠）、飲食（國健署學童與青少年每日飲食指南、含糖飲料、早餐、外食）、居家安全改名或擴充為「安全與防護」（燒燙傷、電器、刀具、獨處） | ⬜ |
+| G3 | 15 到 18 歲沒有任何政策項目 | policy 0 項，行政待辦只有自學申請 | 補高中免學費、弱勢助學金、就學貸款、青年教育帳戶、原住民與低收學雜費減免；行政待辦補學測與分科報名、申請入學上傳、獎助學金申請期 | ⬜ |
+| G4 | 6 歲後紀錄種類不足，一般學校家庭首頁幾乎只剩計時器與戶外 | 學習紀錄只在照顧地點為共學團或自學時出現；沒有出缺席、才藝與費用、睡眠時數等學齡紀錄 | 決定學齡紀錄種類與一般學校家庭的首頁預設（候選：請假與出缺席、才藝與補習、睡眠時數、零用金或費用）；學習紀錄是否對所有學齡開放 | ⬜ 待決定 |
+| G5 | 體制內進度對照表是空的 | content/progress/checklist.json 零項目，等教育部學習扶助基本學習內容的授權查核 | 完成授權查核後填入國語、數學、英語分年級項目；自學服務才算上線 | ⬜ 需擁有者查核 |
+| G6 | 12 歲以上沒有處理「孩子自己用」的情境 | 全部功能為家長視角；青少年 3C 時間已預設關閉但沒有替代設計 | 決定是否在 12 歲以上提供孩子視角（自己的行程、升學時程、心理資源、不含家長紀錄），或維持純家長工具 | ⬜ 待決定 |
+
+### 22.3 內容面較小的缺口
+
+- 3 到 6 歲：幼兒身體活動指引、青春期前身體變化（國健署 health99 維護中，恢復後補）。
+- 12 到 18 歲：青春期身體變化、性教育、菸酒檳榔（目前只有電子煙）、交通與機車年齡。
+- 升學時程與 8 張升學卡綁定 115、116 學年度，每年 9 月人工更新。
+- 234 張卡為 draft，正式版目前只帶 6 張；「進入開發範圍」與「可以送審」是兩回事，見第 22 章第 1 點。
+
+### 22.4 需要審核的項目怎麼做
+
+| 編號 | 項目 | 數量 | 誰做 | 工具 | 頻率 |
+|---|---|---|---|---|---|
+| A | 內容卡人工複核（R9） | 234 張 draft | 擁有者；安全層建議兩人 | `npm run content:review` | 送審前一次，之後每批新卡 |
+| B | 翻譯卡譯審（R17） | 26 張 A2 | 擁有者或一位能讀英文衛教原文的人 | `npm run content:bilingual`、`npm run content:import` | 同上 |
+| C | 政策與時程數字（R11） | 32 項政策、49 項時程 | 擁有者 | `npm run data:check`、`data:build` | 每 90 天；升學每年 9 月；疫情每週 |
+| D | 來源網址存活 | 240 張卡 | 自動 | `npm run content:check:net` | 每月 |
+| E | 紅線自檢 | R1 到 R20 | 擁有者 | docs/dev/redlines-checklist.md | 每次發布前 |
+| F | 法務與商店申報 | 隱私權政策、條款、App Privacy、資料安全表、加密申報 | 擁有者、律師 | docs/legal、docs/dev/release-checklist.md | 送審前 |
+| G | 真機與家長測試 | device-test A 到 T 節 | 擁有者與測試家長 | manual.html、Expo Go preview | 每次預覽發布後 |
+
+**A. 內容卡複核的步驟**
+
+1. 分批順序：安全層 14 張（其中 8 張 draft，正式建置的必要條件）→ 0 到 1 歲 → 1 到 3 歲 → 3 到 6 歲 → 6 到 12 歲 → 12 到 18 歲。每批 30 張左右，每張約 2 到 4 分鐘，全部約 8 到 15 小時。
+2. 輸出審核表：`npm run content:review -- --sheet docs/review/2026-10-13-safety.csv --group safety --status draft`（也可用 `--band 3-6`）。用 Excel 或 Google 試算表打開，每列有主文、原文摘錄、來源網址並排。
+3. 逐張四個核對欄填 Y 或 N：核對一 主文每句都能在原文找到依據；核對二 沒有原文沒有的建議或數字；核對三 沒有診斷、劑量、評分、趴睡字樣；核對四 來源網址在瀏覽器打得開。四個都 Y 才填結果。
+4. 結果欄填 `review`（可上線）、`published`（已再讀一次並確認用詞合商店規則）或 `退回`（備註寫要改什麼）。1.0 用 review 就夠，release 打包會帶 review 與 published。
+5. 匯回：先 `npm run content:review -- --apply docs/review/2026-10-13-safety.csv --dry-run` 看清單，再去掉 `--dry-run`。接著 `npm run content:check`、`npm run content:build`、`npm run verify -- --quick`。
+6. 退回的卡由工程端依備註改寫，狀態保持 draft，進下一批。審核表 CSV 存進 docs/review/ 一起 commit，作為 R9 的人工複核證據。
+7. 只想看一張：`npm run content:review -- --show health.p-vision-3-to-6`；臨時改幾張：`npm run content:review -- --set review --ids a,b`。
+
+**B. 翻譯卡譯審的步驟**
+
+1. `npm run content:bilingual` 輸出對照稿到 docs/translation/（Markdown 與 CSV，含英文原文、譯文、來源）。
+2. 審稿人在 CSV「修訂譯文」欄填寫；只確認無誤就留空，腳本會只標記已譯審。標準是 R17：譯文不得新增原文沒有的建議；台灣官方有不同說法以台灣為準（readMore 的 note 已寫）。
+3. `npm run content:import -- docs/translation/<檔名>.csv --dry-run`，再實際匯入；腳本把 translationReviewed 設 true。
+4. 之後這些卡再走 A 流程改 review。沒譯審的翻譯卡即使填 published 也會被腳本退為 review。
+
+**C. 政策與時程數字的步驟**
+
+1. 打開 content/policy/policy.json 與 content/schedule/timeline.json，逐項點 source 網址對照金額、條件、日期。
+2. 數字沒變只更新 `checkedAt`；有變就改內容並把檔案 `version` 設為當天。升學 7 項與 8 張「學校與升學」卡在每年 9 月新簡章公告後更新學年度與日期。
+3. `npm run data:check` → `npm run data:build` → commit、push。APP 在 12 小時內自動取得。
+4. 疫情提醒 content/alerts/alerts.json 每週看疾管署新聞稿；沒有警示就只更新查核日。
+
+**D 到 G**
+
+- D：`npm run content:check:net` 列出無法存取的網址；403 的用瀏覽器確認，仍可開就保留並在 §22 記一行，打不開就換來源或移除該來源。
+- E：發布前把 redlines-checklist.md 每條狀態改成當下的證據；R9 的證據就是 docs/review/ 的審核表。
+- F：依 docs/dev/release-checklist.md 逐項勾；法務文件填入負責人資料後重跑 `npm run legal:build` 並 push。
+- G：每次 `npm run publish:preview` 後把 QR 與 manual.html 給測試家長，請他們照手冊第 14 節回報；回報整理進 device-test.md 的對應節。
+
 ### 修改紀錄
 
 | 日期 | 變更 |
 |---|---|
 | 2026-10-12 | 首版整合（依 plan-v0.3 到 v1.0、決策 1 到 18、程式現況） |
+| 2026-10-12 | 加 §22.4 審核作法與 scripts/review-content.mjs |
+| 2026-10-12 | 加 §22.1 到 22.3：0 到 18 歲覆蓋評估、結構性缺口 G1 到 G6、內容面缺口 |
 
 ---
 
